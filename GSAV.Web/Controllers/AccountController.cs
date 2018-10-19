@@ -47,11 +47,11 @@ namespace GSAV.Web.Controllers
             {
                 ViewBag.ReturnUrl = returnUrl;
                 // Verification.
-                if (this.Request.IsAuthenticated)
-                {
-                    // Info.
-                    return this.RedirectToLocal(returnUrl);
-                }
+                //if (this.Request.IsAuthenticated)
+                //{
+                //    // Info.
+                //    return this.RedirectToLocal(returnUrl);
+                //}
             }
             catch (Exception ex)
             {
@@ -94,7 +94,10 @@ namespace GSAV.Web.Controllers
                         var logindetails = loginInfo.OneResult;
 
                         // Login In.
-                        this.SignInUser(logindetails.Alumno.Nombre, false);
+                        this.SignInUser(logindetails.NombreUsuario, false);
+
+                        Session["Login-Info"] = loginInfo;
+                        Session["User-NombreApellidoPat"] = logindetails.Persona.NombreApellidoPat;
 
                         // Info.
                         if (string.IsNullOrEmpty(returnUrl))
@@ -136,6 +139,9 @@ namespace GSAV.Web.Controllers
             try
             {
                 // Setting.
+                Session["Login-Info"] = null;
+                Session["User-NombreApellidoPat"] = null;
+
                 var ctx = Request.GetOwinContext();
                 var authenticationManager = ctx.Authentication;
 

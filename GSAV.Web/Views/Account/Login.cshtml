@@ -2,7 +2,7 @@
 
 @{
     Layout = null;
-    ViewBag.Title = "LogIn";
+    ViewBag.Title = "Blackboard Learn";
 }
 
 <!DOCTYPE HTML>
@@ -138,7 +138,11 @@
                                         @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
                                     </li>
                                     <li class="clearfix">
-                                        <input id="entry-login" type="submit" value="Iniciar sesión" name="login" class="button expand" />
+                                        <input id="entry-login" type="submit"
+                                               value="Iniciar sesión"
+                                               name="login"
+                                               class="button expand"
+                                               style="height: 40px;" />
                                     </li>
                                 </ul>
                             </div>
@@ -147,6 +151,60 @@
                             <input type="hidden" name="new_loc" value="" />
                         }
                     </div>
+                    <div>
+                        <br />
+                        <br />
+                        <span class="custom_forgot">
+
+                            <a href="https://intranet.upc.edu.pe/LoginIntranet/ResetPassword.aspx" alt="" title="">
+                                ¿Olvidaste tu contraseña para alumnos de Pregrado y Epe?
+                            </a>
+                            <br>
+                            <br>
+
+                            <a href="https://intranet-epg.upc.edu.pe/LoginIntranet/ResetPassword.aspx" alt="" title="">
+                                ¿Olvidaste tu contraseña para alumnos de Postgrado?
+                            </a>
+
+                            <br>
+                            <br>
+                            <img src="https://aulavirtual.upc.edu.pe/branding/themes/NUEVOUPC/images/banner-aula-virtual.jpg" alt="" class="productLogo">
+                        </span>
+                    </div>
+
+                    <div id="copyright" class="clearfix">
+                        <script type="text/javascript">
+                            function showCopyrightDetail() {
+                                if (document.getElementById('copyrightDetail').style.display == "none" || document.getElementById('copyrightDetail').style.display == "") { document.getElementById('copyrightDetail').style.display = "block"; }
+                                else { document.getElementById('copyrightDetail').style.display = "none"; }
+                            }
+                        </script>
+                        <div class="newCopyright">
+                            <div class="logo">
+                                <img src="https://aulavirtual.upc.edu.pe/images/ci/logos/bb_signature/Bb_Signature_StdMed.png" alt="Blackboard Learn">
+                            </div>
+                            <div class="legal">
+                                © 1997-2018 Blackboard Inc. Todos los derechos reservados. Número de patente 7.493.396 y 7.558.853 de Estados Unidos. Resto de patentes en trámite.
+                            </div>
+                            <div class="additionalInfo">
+                                <p><a href="http://access.blackboard.com" id="accessibilityLink">Información sobre accesibilidad</a></p>
+                                <p><a href="Javascript:showCopyrightDetail()">Detalles de instalación</a></p>
+                            </div>
+                        </div>
+
+                        <div class="copyrightDetailContents clearfix" id="copyrightDetail">
+                            <a class="closeCopyright" href="#" onclick="showCopyrightDetail()"></a>
+                            <img src="https://aulavirtual.upc.edu.pe/images/ci/logos/bb_signature/Bb_Signature_StdMed.png" class="productImg" alt="Blackboard Learn">
+                            <ul>
+                                <li><i>Blackboard Learn ™</i> </li>
+                                <li>Course Delivery (3200.0.5-rel.6+3dd6b56)</li>
+                                <li> Community Engagement (3200.0.5-rel.6+3dd6b56)</li>
+                                <li> Content Management (3200.0.5-rel.6+3dd6b56)</li>
+                                <li><span>Tema: UPC2018</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

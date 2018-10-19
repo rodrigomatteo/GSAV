@@ -11,7 +11,20 @@ namespace GSAV.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View(TempData["id"]);
+            if (Session["Login-Info"] == null)
+            {
+                return this.RedirectToAction("Login", "Account");
+            }
+
+            if (this.Request.IsAuthenticated)
+            {
+                return View(TempData["id"]);
+            }
+            else
+            {
+                return this.RedirectToAction("Login", "Account");
+            }
+                
         }
 
     }

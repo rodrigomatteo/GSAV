@@ -14,6 +14,7 @@ namespace GSAV.BLDependencyResolver
         public static void RegisterTypes(IUnityContainer oIUnityContainer)
         {
             oIUnityContainer.RegisterType<IBLUsuario, BLUsuario>();
+            oIUnityContainer.RegisterType<IBLSolicitud, BLSolicitud>();
         }
     }
 }

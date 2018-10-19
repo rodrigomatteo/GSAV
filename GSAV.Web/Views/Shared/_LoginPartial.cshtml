@@ -5,7 +5,11 @@
     <div class="global-nav-bar logout">
         <a id="topframe.logout.label" href="javascript:document.getElementById('logoutForm').submit()" target=_top class="nav-link logout-link" title="Logout">Logout</a>
     </div>
+
+
     <div id=global-nav class=global-nav-bar role=navigation data-preview=false>
+
+        <div id="hotSpots" class="hotItems hotSpots u_floatThis-left"><span class="funZone"><table style="width:100%;height:100%" border="0"><tbody><tr><td align="center"><a href="https://intranet.upc.edu.pe/LoginIntranet/LoginUPC.aspx" target="_blank" style="color:white; font-size:12px"><b>Intranet</b></a></td><td align="center"><a href="http://www3.upc.edu.pe/apps/autenticacion-correo/" target="_blank" style="color:white; font-size:12px"><b>Correo</b></a></td></tr></tbody></table></span></div>
 
         <div class=hideoff>Global Menu</div>
         <a id=global-nav-link class="nav-link u_floatThis-right" href="#global-nav-flyout" aria-haspopup=true tabindex="1" accesskey=m role=navigation title="Open&#x20;Global&#x20;Navigation&#x20;Menu">
@@ -13,7 +17,7 @@
             @*@using Microsoft.AspNet.Identity*@
             @if (Request.IsAuthenticated)
             {
-                @User.Identity.GetUserName()
+                @User.Identity.GetUserName() <label>-</label> @Session["User-NombreApellidoPat"];
             }
             <img src="~/Content/upc/branding/themes/UPC2018/images/ci/mybb/arrowDown-topnav.png" alt="Expand Global Nav" id="global-toggle-img class=global-toggle" />
         </a>

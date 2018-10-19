@@ -42,6 +42,11 @@
   <ItemGroup>
     <Compile Include="Common\BaseEntity.cs" />
     <Compile Include="Objects\Alumno.cs" />
+    <Compile Include="Objects\ChartCustom.cs" />
+    <Compile Include="Objects\Empleado.cs" />
+    <Compile Include="Objects\Estado.cs" />
+    <Compile Include="Objects\Persona.cs" />
+    <Compile Include="Objects\Solicitud.cs" />
     <Compile Include="Objects\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ReturnObject.cs" />

@@ -1,52 +1,279 @@
 ﻿@using Microsoft.AspNet.Identity
+@using GSAV.Entity.Objects
+@using GSAV.Entity.Util
 @{
+    /**/
+
     ViewBag.Title = "Home";
 }
 
-<div class="row">
-    <div class="col-md-12">
-        <input style="min-width:50px; min-height:25px;" value="Consultar Upecito" type="button" id="btnUpecito" onclick="ShowChat(); ExecuteChat();" />
-        <label class="LabelCSSTop"></label>
-        <div id="BotChatGoesHere" style="display: none"/>
+<div class="contentPaneWide clearfix tabbedPane portal">
+
+    <div class="paneTabs clearfix">
+        <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
+        <ul id="paneTabs" class="clearfix nav">
+            <li class="active ">
+                <a href="@Url.Content("/Home/Index")">Mi institución<span class="hideoff"> (ficha activa)</span></a>
+            </li>
+            <li class=" ">
+                <a href="@Url.Content("/Home/Index")">Panel de notificaciones</a>
+            </li>
+
+            <li class="" style="display:none;"></li>
+            <li id="overflowLiId" class="sub" style="display: none;">
+                <a href="#" id="overflowIconId" class="hiddenTabsLink"></a>
+                <ul class="more" id="overflowULId"></ul>
+            </li>
+        </ul>
     </div>
 
-    <script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
-    <script>
-        function ExecuteChat() {
-            var params = BotChat.queryParams(location.search);
-            var user = {
-                id: "@TempData["id"]", //"1",  //params['userid'] || 'userid',
-                name: ' @User.Identity.GetUserName() ' //'Rodrigo Matteo' //params['username'] || 'username'
-            };
-            var bot = {
-                id: params['botid'] || 'botid',
-                name: params['botname'] || 'botname'
-            };
-            window['botchatDebug'] = params['debug'] && params['debug'] === 'true';
+    <div id="content" class="contentBox clearfix">
+        <div class="container clearfix">
 
-            BotChat.App({
-                bot: bot,
-                resize: 'detect',
-                sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
-                user: user,
-                locale: 'es-es', // override locale to Spanish
-                directLine: {
-                    secret: "mOeE5Yxu2vU.cwA.x7w.CdcXM3Su8-8mPFPrFlhbtdg9uyFrlhsrLYN_btw10tM", //params['s'],
-                    webSocket: false
-                }
-            }, document.getElementById('BotChatGoesHere'));
-        }
+            <div class="row">
+                <div class="col-md-12">
 
-        function ShowChat() {
-            var x = document.getElementById("BotChatGoesHere");
-            var y = document.getElementById("btnUpecito");
 
-            if (x.style.display === "none") {
-                x.style.display = "block";
-                y.style.display = "none";
-            } else {
-                x.style.display = "none";
-            }
-    }    </script>
 
+                    <div class="contentBox contentBox-edit clearfix">
+
+                        <div class="containerPortal clearfix">
+
+                            <div id="column0" class="column-3 clearfix" style="width: 20%;">
+
+                                <div class="portlet clearfix  " id="module:_48_1">
+                                    <!-- extid:portal/tools/my_institution: -->
+                                    <div class="edit_controls">
+                                    </div>
+
+
+                                    <h2 class="  clearfix" id="anonymous_element_4">
+                                        <span class="moduleTitle">Herramientas</span>
+                                    </h2>
+
+
+                                    <div class="collapsible" style="overflow: auto;">
+
+                                        <ul class="portletList">
+                                            <li>
+                                                <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
+                                            </li>
+
+
+                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
+                                            {
+                                                <li>
+                                                    <a href="@Url.Content("/Consulta/Index")" _self">Bandeja de Consultas</a>
+                                                </li>
+
+                                            }
+
+                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR")
+                                            {
+                                                <li>
+                                                    <a href="@Url.Content("/Dashboard/Index")" _self">Dashboard de Consultas</a>
+                                                </li>
+                                            }
+
+
+
+
+                                        </ul>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="portlet clearfix  " id="module:_522_1">
+                                    <!-- extid:522: -->
+                                    <div class="edit_controls">
+                                    </div>
+
+
+                                    <h2 class="  clearfix" id="anonymous_element_5">
+                                        <span class="moduleTitle">Videotutoriales y manuales de Aprendizaje Digital</span>
+                                    </h2>
+
+
+                                    <div class="collapsible" style="overflow: auto;">
+
+                                        <div class="vtbegenerated"><p style="text-align: center;"><a href="https://www.youtube.com/playlist?list=PLontYaReEU1seUE3ACG3sEc3zR7Br7URU" target="_blank"><img src="~/Content/images/BMANUALES1.jpg" width="100%" height="100%" alt="videotutoriales" title="videotutoriales"></a></p></div>
+
+                                    </div>
+                                </div>
+
+                                <div class="portlet clearfix  " id="module:_528_1">
+                                    <!-- extid:528: -->
+                                    <div class="edit_controls">
+                                    </div>
+
+
+                                    <h2 class="  clearfix" id="anonymous_element_7">
+                                        <span class="moduleTitle">Reglamentos y Políticas de UPC</span>
+                                    </h2>
+
+
+                                    <div class="collapsible" style="overflow: auto;">
+
+                                        <div class="vtbegenerated">
+                                            <div class="w3-content w3-section" style="max-width: 100%;">
+                                                <a href="http://sica.upc.edu.pe/publico/reglamentos-upc" target="_blank="><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_reg.png" style="width: 100%; display: block;"></a>
+                                                <a href="http://sica.upc.edu.pe/publico/politicas-upc" target="_blank"><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_pol.png" style="width: 100%; display: none;"></a>
+                                            </div>
+                                            <script type="text/javascript">
+                                                /*<![CDATA[*/
+                                                var myIndex1 = 0;
+                                                carousel1();
+
+                                                function carousel1() {
+                                                    var i;
+                                                    var x = document.getElementsByClassName("mySlides1");
+                                                    for (i = 0; i < x.length; i++) {
+                                                        x[i].style.display = "none";
+                                                    }
+                                                    myIndex1++;
+                                                    if (myIndex1 > x.length) { myIndex1 = 1 }
+                                                    x[myIndex1 - 1].style.display = "block";
+                                                    setTimeout(carousel1, 3000); // Change image every 2 seconds
+                                                }
+                                                /*]]>*/</script>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="column1" class="column-3 clearfix" style="width: 45%;">
+                                <div class="portlet clearfix  " id="module:_527_1">
+                                    <!-- extid:527: -->
+                                    <div class="edit_controls">
+                                    </div>
+
+
+                                    <h2 class="  clearfix" id="anonymous_element_9">
+                                        <span class="moduleTitle">Aprendizaje Digital: Recomendaciones y tips</span>
+                                    </h2>
+
+
+                                    <div class="collapsible" style="overflow: auto;">
+
+                                        <div class="vtbegenerated">
+                                            <div class="w3-content w3-section" style="max-width: 100%;" align="center">
+                                                <a href="https://upc.facebook.com/groups/OneCampus.2017.2/permalink/2108476952803781/" target=" _blank">
+                                                    <img alt="" class="mySlides"
+                                                         src="http://beta.upc.edu.pe/tice/Modulo_BB/slides/img-a/b_onecamp_01.png"
+                                                         style="width: 100%; display: block;">
+                                                </a>
+                                            </div>
+                                            <script type="text/javascript">
+                                                /*<![CDATA[*/
+                                                var myIndex = 0;
+                                                carousel();
+
+                                                function carousel() {
+                                                    var i;
+                                                    var x = document.getElementsByClassName("mySlides");
+                                                    for (i = 0; i < x.length; i++) {
+                                                        x[i].style.display = "none";
+                                                    }
+                                                    myIndex++;
+                                                    if (myIndex > x.length) { myIndex = 1 }
+                                                    x[myIndex - 1].style.display = "block";
+                                                    setTimeout(carousel, 3500); // Change image every 2 seconds
+                                                }
+                                                /*]]>*/</script>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="column2" class="column-3 clearfix" style="width: 35%;">
+
+                                <div class="portlet clearfix  " id="module:_48_1">
+                                    <!-- extid:portal/tools/my_institution: -->
+                                    <div class="edit_controls">
+                                    </div>
+
+
+                                    <h2 class="  clearfix" id="anonymous_element_4">
+                                        <span class="moduleTitle">Chat Upecito</span>
+                                    </h2>
+
+
+                                    <div class="collapsible" style="overflow: auto;">
+
+
+                                        <input style="min-width:50px; min-height:25px;"
+                                               value="Consultar Upecito"
+                                               type="button"
+                                               id="btnUpecito"
+                                               onclick="ShowChat(); ExecuteChat();" />
+                                        <label class="LabelCSSTop"></label>
+                                        <div id="BotChatGoesHere" style="display: none;width:100%;height:435px" />
+
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
+                <script>
+                    function ExecuteChat() {
+
+
+
+                        var params = BotChat.queryParams(location.search);
+                        var user = {
+                            id: "@TempData["id"]", //"1",  //params['userid'] || 'userid',
+                            name: ' @User.Identity.GetUserName() ' //'Rodrigo Matteo' //params['username'] || 'username'
+                        };
+                        var bot = {
+                            id: params['botid'] || 'botid',
+                            name: params['botname'] || 'botname'
+                        };
+                        window['botchatDebug'] = params['debug'] && params['debug'] === 'true';
+
+                        BotChat.App({
+                            bot: bot,
+                            resize: 'detect',
+                            sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
+                            user: user,
+                            locale: 'es-es', // override locale to Spanish
+                            directLine: {
+                                secret: "mOeE5Yxu2vU.cwA.x7w.CdcXM3Su8-8mPFPrFlhbtdg9uyFrlhsrLYN_btw10tM", //params['s'],
+                                webSocket: false
+                            }
+                        }, document.getElementById('BotChatGoesHere'));
+                    }
+
+                    function ShowChat() {
+                        var x = document.getElementById("BotChatGoesHere");
+                        var y = document.getElementById("btnUpecito");
+
+                        if (x.style.display === "none") {
+                            x.style.display = "block";
+                            y.style.display = "none";
+                        } else {
+                            x.style.display = "none";
+                        }
+                    }
+                </script>
+
+            </div>
+        </div>
+    </div>
 </div>
+

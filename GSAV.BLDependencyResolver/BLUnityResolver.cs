@@ -9,9 +9,9 @@ namespace GSAV.BLDependencyResolver
 {
     public class BLUnityResolver
     {
-        public static void RegisterTypes(IUnityContainer oIUnityContainer)
+        public static void RegisterTypes(IUnityContainer oIUnityContainer,string database)
         {
-            DADependencyRegister.RegisterTypes(oIUnityContainer);
+            DADependencyRegister.RegisterTypes(oIUnityContainer,database);
             BLDependencyRegister.RegisterTypes(oIUnityContainer);
         }
     }

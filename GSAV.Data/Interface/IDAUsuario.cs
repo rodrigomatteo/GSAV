@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GSAV.Data.Oracle.Interface
+namespace GSAV.Data.Interface
 {
     public interface IDAUsuario
     {

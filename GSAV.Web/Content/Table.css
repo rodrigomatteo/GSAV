@@ -1,0 +1,77 @@
+﻿.table-fill {
+    background: white;
+    border-radius: 3px;
+    border-collapse: collapse;
+    margin: auto;
+    padding: 5px;
+    width: 100%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: float 5s infinite;
+}
+
+.table-fill thead {
+    display: table-header-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.table-fill tr:last-child {
+    border-bottom: none;
+}
+
+.table-fill tr:first-child {
+    border-top: none;
+}
+
+.table-fill tr {
+    color: #666B85;
+    font-weight: normal;
+    
+}
+
+.table-fill tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+.table-fill th.text-left {
+    text-align: left;
+}
+
+.table-fill th {
+    color: #D5DDE5;
+    background: #1b1e24;
+    border-bottom: 4px solid #9ea7af;
+    border-right: 1px solid #343a45;
+    font-weight: bold;
+    padding: 6px;
+    text-align: left;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+
+.table-fill th {
+    text-align: center;
+}
+
+.table-fill td {
+    display: table-cell;
+    vertical-align: inherit;
+    padding: 5px;
+    border: 1px solid #C1C3D1;
+}
+
+.table-fill tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+.table-fill tr:nth-child(odd) td {
+    background: #EBEBEB;
+}
+
+.table-fill tr:nth-child(odd) td {
+    background: #EBEBEB;
+}

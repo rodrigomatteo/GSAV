@@ -1,5 +1,4 @@
-﻿using GSAV.Data.Oracle.Implementation;
-using GSAV.Data.Oracle.Interface;
+﻿using GSAV.Data.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +10,19 @@ namespace GSAV.BLDependencyResolver
 {
     public class DADependencyRegister
     {
-        public static void RegisterTypes(IUnityContainer oIUnityContainer)
+        public static void RegisterTypes(IUnityContainer oIUnityContainer,string database)
         {
-            oIUnityContainer.RegisterType<IDAUsuario, DAUsuario>();
+            if(database.Equals("ORACLE"))
+            {
+                oIUnityContainer.RegisterType<IDAUsuario, GSAV.Data.Oracle.Implementation.DAUsuario>();
+                oIUnityContainer.RegisterType<IDASolicitud, GSAV.Data.Oracle.Implementation.DASolicitud>();
+            }
+
+            if (database.Equals("MSSQLSERVER"))
+            {
+                oIUnityContainer.RegisterType<IDAUsuario, GSAV.Data.MSSQLSERVER.Implementation.DAUsuario>();
+                oIUnityContainer.RegisterType<IDASolicitud, GSAV.Data.MSSQLSERVER.Implementation.DASolicitud>();
+            }
         }
     }
 }

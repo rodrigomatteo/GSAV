@@ -1,5 +1,5 @@
 ﻿using GSAV.Data.Common;
-using GSAV.Data.Oracle.Interface;
+using GSAV.Data.Interface;
 using GSAV.Entity.Objects;
 using GSAV.Entity.Util;
 using Oracle.ManagedDataAccess.Client;
@@ -21,6 +21,7 @@ namespace GSAV.Data.Oracle.Implementation
 
             try
             {
+                var user = new Usuario();
                 using (var oCnn = Cn.OracleCn())
                 {
                     OracleCommand oCmd = null;
@@ -35,16 +36,34 @@ namespace GSAV.Data.Oracle.Implementation
                     {
                         if (rd.Read())
                         {
-                            obj.OneResult = new Usuario()
+                            user = new Usuario();
+                            user.Id = rd.GetInt32(rd.GetOrdinal("IDUSUARIO"));
+                            user.NombreUsuario = rd.GetString(rd.GetOrdinal("NOMBREUSUARIO"));
+                            user.Rol = rd.GetString(rd.GetOrdinal("ROL"));
+
+                            if (rd.GetValue(rd.GetOrdinal("IDALUMNO")) != DBNull.Value)
                             {
-                                Id = rd.GetInt32(rd.GetOrdinal("IDUSUARIO")),
-                                NombreUsuario = rd.GetString(rd.GetOrdinal("NOMBREUSUARIO")),
-                                Alumno = new Alumno()
-                                {
-                                    Nombre = rd.GetString(rd.GetOrdinal("NOMBRE")),
-                                    Unidad = rd.GetString(rd.GetOrdinal("UNIDAD"))
-                                },
-                            };
+                                var alumno = new Alumno();
+                                alumno.Id = rd.GetInt32(rd.GetOrdinal("IDALUMNO"));
+                                alumno.Nombre = rd.GetValue(rd.GetOrdinal("NOMBRE_ALUMNO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE_ALUMNO"));
+                                alumno.Unidad = rd.GetValue(rd.GetOrdinal("UNIDAD")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("UNIDAD"));
+                                user.Alumno = alumno;
+                            }
+
+                            if (rd.GetValue(rd.GetOrdinal("IDEMPLEADO")) != DBNull.Value)
+                            {
+                                var empleado = new Empleado();
+                                empleado.IdEmpleado = rd.GetInt32(rd.GetOrdinal("IDEMPLEADO"));                               
+                                user.Empleado = empleado;
+                            }
+
+                            var persona = new Persona();
+                            persona.IdPersona = rd.GetValue(rd.GetOrdinal("IDPERSONA")) == DBNull.Value ? 0 : rd.GetInt32(rd.GetOrdinal("IDPERSONA"));
+                            persona.Nombre = rd.GetValue(rd.GetOrdinal("NOMBRE_PERSONA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE_PERSONA"));
+                            persona.ApellidoPat = rd.GetValue(rd.GetOrdinal("APELLIDOPAT_PERSONA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APELLIDOPAT_PERSONA"));
+                            user.Persona = persona;
+
+                            obj.OneResult = user;
                             obj.Success = true;
                         }
                     }

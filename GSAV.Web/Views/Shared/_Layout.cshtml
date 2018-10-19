@@ -17,8 +17,31 @@
     <link rel="stylesheet" type="text/css" href="~/Content/upc/branding/themes/UPC2018/theme.css?v=3200.0.5-rel.6+3dd6b56" id="css_1">
     <link rel="stylesheet" type="text/css" href="~/Content/upc/branding/themes/UPC2018/app_nav.css?v=3200.0.5-rel.6+3dd6b57" id="css_2">
     <link rel="stylesheet" type="text/css" href="~/Content/upc/branding/_1_1/brand.css?ts=1514300964000&v=3200.0.5-rel.6+3dd6b56" id="css_3">
+    <link rel="stylesheet" href="https://cdn.botframework.com/botframework-webchat/latest/botchat.css" />
 
-    <link rel="stylesheet" href="https://cdn.botframework.com/botframework-webchat/latest/botchat.css"/>
+    <link href="~/Content/custom/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+
+
+    <link href="~/Content/jquery-ui-timepicker-addon.css" rel="stylesheet">
+    <link href="~/Content/ui.jqgrid.css" rel="stylesheet">
+    <link href="~/Content/site.css" rel="stylesheet">
+    <link href="~/Content/jquery-confirm.css" rel="stylesheet">
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+    <script src="~/Scripts/jquery-ui-1.9.2.custom.js"></script>
+
+    <script src="~/Scripts/jquery-ui-timepicker-addon.js"></script>
+    <script src="~/Scripts/jquery-ui-timepicker-addon-i18n.min.js"></script>
+    <script src="~/Scripts/jqgrid/jquery.layout.js"></script>
+    <script src="~/Scripts/jqgrid/grid.locale-es.js"></script>
+    <script src="~/Scripts/jqgrid/jquery.jqGrid.js"></script>
+    <script src="~/Scripts/jquery-ui-sliderAccess.js"></script>
+    <script src="~/Scripts/date.js"></script>
+    <script src="~/Scripts/jquery-confirm.js"></script>
 
     <style type="text/css">
         .topGlobalLinks a.home {
@@ -63,6 +86,17 @@
             float: right;
             position: relative;
         }
+
+        input[type="button"], input[type="submit"], button {
+            height: 22px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e3000f;
+            color: #ffffff;
+            border: 1px solid;
+            border-color: #e3000f;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -92,20 +126,20 @@
                             <table class="appTabs transparent" id="appTabList" summary="Tab List table" role="presentation">
                                 <tr>
                                     <td id="MyInstitution.label" class="active">
-                                        <a href="#" TARGET="_top">
-                                            <span>My Institution</span>
+                                        <a href="@Url.Content("~/Home/Index")" TARGET="_top">
+                                            <span>Mi institución</span>
                                             <span class="hideoff"> Tab 1 of 4&nbsp;(active tab)</span>
                                         </a>
                                     </td>
                                     <td id="Courses.label">
                                         <a href="#" TARGET="_top">
-                                            <span>Courses</span>
+                                            <span>Cursos</span>
                                             <span class="hideoff"> Tab 2 of 4</span>
                                         </a>
                                     </td>
                                     <td id="Community.label">
                                         <a href="#" TARGET="_top">
-                                            <span>Community</span>
+                                            <span>Comunidad</span>
                                             <span class="hideoff"> Tab 3 of 4</span>
                                         </a>
                                     </td>
@@ -127,31 +161,14 @@
 
     <div id="globalNavPageContentArea">
         <div class="locationPane">
-            <div class="contentPaneWide clearfix tabbedPane portal">
-                <div id="content" class="contentBox clearfix">
-                    <div class="container clearfix">
-                        @RenderBody()
-                        @*<div class="contentBox contentBox-edit">
-                <div class="content clearfix">
-                    <h1 class="hideoff" tabindex="-1">Welcome, Lisseth Elvira</h1>
 
-                    <div class="containerPortal clearfix">
+            @RenderBody()
 
-
-                    </div>
-                </div>
-            </div>*@
-
-                    </div>
-                    @*<div id="BotChatGoesHere" />*@
-                </div>
-            </div>
+            
         </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+   
 
 </body>
 </html>

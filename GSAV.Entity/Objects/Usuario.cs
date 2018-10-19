@@ -12,5 +12,8 @@ namespace GSAV.Entity.Objects
         public string NombreUsuario { get; set; }
         public string Clave { get; set; }
         public Alumno Alumno { get; set; }
+        public Persona Persona { get; set; }
+        public Empleado Empleado { get; set; }
+        public string Rol { set; get; }
     }
 }

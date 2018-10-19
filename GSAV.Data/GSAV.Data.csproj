@@ -45,9 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Cn.cs" />
+    <Compile Include="Common\MSSQLSERVERCnx.cs" />
     <Compile Include="Common\SP.cs" />
+    <Compile Include="MSSQLSERVER\Implementation\DASolicitud.cs" />
+    <Compile Include="MSSQLSERVER\Implementation\DAUsuario.cs" />
+    <Compile Include="Oracle\Implementation\DASolicitud.cs" />
     <Compile Include="Oracle\Implementation\DAUsuario.cs" />
-    <Compile Include="Oracle\Interface\IDAUsuario.cs" />
+    <Compile Include="Interface\IDASolicitud.cs" />
+    <Compile Include="Interface\IDAUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,5 +65,6 @@
       <Name>GSAV.Entity</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

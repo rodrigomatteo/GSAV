@@ -30,8 +30,8 @@ body,
 #contentArea,
 #schemePreviewBody,
 .container {        
-    background-color:#FFFFFF;
-    color:#111111;
+    /*background-color:#FFFFFF;
+    color:#111111;*/
 }
 
 /*Data Collection Primary button background / text color*/
@@ -212,3 +212,4 @@ div.topTabs-compact table.appTabs tr td.active a:focus {
     background-color:#EFEDE3;
     color:#444444;    
 }
+

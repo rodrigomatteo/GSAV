@@ -1,4 +1,4 @@
-﻿using GSAV.Data.Oracle.Interface;
+﻿using GSAV.Data.Interface;
 using GSAV.Entity.Objects;
 using GSAV.Entity.Util;
 using GSAV.ServiceContracts.Interface;

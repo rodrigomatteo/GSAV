@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\BLSolicitud.cs" />
     <Compile Include="Implementation\BLUsuario.cs" />
     <Compile Include="Interface\Common\IBase.cs" />
+    <Compile Include="Interface\IBLSolicitud.cs" />
     <Compile Include="Interface\IBLUsuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

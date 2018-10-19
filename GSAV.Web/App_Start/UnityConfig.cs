@@ -1,6 +1,6 @@
 using GSAV.BLDependencyResolver;
 using System;
-
+using System.Configuration;
 using Unity;
 
 namespace GSAV.Web
@@ -43,7 +43,10 @@ namespace GSAV.Web
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            BLUnityResolver.RegisterTypes(container);
+
+            //REGISTRAR INTERFACE DE BASE DE DATOS
+            var database = ConfigurationManager.AppSettings["DATABASE_ACTIVE"].ToString();
+            BLUnityResolver.RegisterTypes(container,database);
         }
     }
 }

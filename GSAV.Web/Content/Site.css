@@ -1,24 +1,103 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    /*padding-top: 50px;
+    padding-bottom: 20px;*/
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    /*padding-left: 15px;
+    padding-right: 15px;*/
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
-    white-space: normal;
+    /*white-space: normal;*/
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+    /*max-width: 280px;*/
+}
+
+.TDTexto {
+    FONT-SIZE: 11px;
+    COLOR: navy;
+    FONT-FAMILY: Arial;
+    TEXT-DECORATION: none;
+    FONT-WEIGHT: bold;
+}
+
+.hasDatepicker {
+    font-size: 100% !important;
+}
+
+.divSla {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.labelTextLsa {
+    font-size: 11px;
+}
+
+.labelLsa {
+    font-size: 27px;
+}
+
+.labelTextIndicador {
+    font-size: 11.5px;    
+}
+
+.labelIndicador {
+    font-size: 27px;
+}
+
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.collapsible table {
+    border-spacing: 0px 0px !important; 
+    border-collapse: separate;
+    font-size: 100% !important;
+    color: #333;
+    font-family: Helvetica,Arial,sans-serif;
+}
+
+.divTitleChart {
+    background: #FFF;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 15px;
+}
+.divChartArea {
+    background: #FFF;  
+}
+
+.fieldset {
+    border: 1px solid #CCC !important;
+    padding: 10px !important;
+}
+
+.buttonTable{
+    margin: 2px 2px 2px 2px !important;
+}
+
+
+.textAreaCustom {
+    font-family: Helvetica,Arial,sans-serif !important;
+    width: 100%;
+    height: 80px;
+    font-size: 12px !important;
+}
+.text-box-read-only {
+    background: #e6e0e0;
+    border: 1px solid #ccc;
+    color: #807878;
+    font-size: 12px !important;
 }

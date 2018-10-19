@@ -1,0 +1,471 @@
+﻿@using Microsoft.AspNet.Identity
+@using GSAV.Entity.Objects
+@using GSAV.Entity.Util
+@{
+    /**/
+
+    ViewBag.Title = "Bandeja de Consultas";
+}
+
+<div class="contentPaneWide clearfix tabbedPane portal">
+
+    <div class="paneTabs clearfix">
+        <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
+        <ul id="paneTabs" class="clearfix nav">
+            <li class="active ">
+                <a href="@Url.Content("/Consulta/Index")">Bandeja de Consultas<span class="hideoff"> (ficha activa)</span></a>
+            </li>
+
+            <li class="" style="display:none;"></li>
+            <li id="overflowLiId" class="sub" style="display: none;">
+                <a href="#" id="overflowIconId" class="hiddenTabsLink"></a>
+                <ul class="more" id="overflowULId"></ul>
+            </li>
+        </ul>
+    </div>
+
+    <div id="content" class="contentBox clearfix">
+        <div class="container clearfix">
+
+            <div class="row">
+                <div class="col-md-12">
+
+
+
+                    <div class="contentBox contentBox-edit clearfix">
+
+                        <div class="containerPortal clearfix">
+
+                            <div id="column0" class="column-2 clearfix" style="width: 20%;">
+
+                                <div class="portlet clearfix  " id="module:_48_1">
+                                    <!-- extid:portal/tools/my_institution: -->
+                                    <div class="edit_controls">
+                                    </div>
+
+
+                                    <h2 class="  clearfix" id="anonymous_element_4">
+                                        <span class="moduleTitle">Herramientas</span>
+                                    </h2>
+
+
+                                    <div class="collapsible" style="overflow: auto;">
+
+                                        <ul class="portletList">
+                                            <li>
+                                                <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
+                                            </li>
+
+                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
+                                            {
+                                                <li>
+                                                    <a href="@Url.Content("/Consulta/Index")" _self">Bandeja de Consultas</a>
+                                                </li>
+
+                                            }
+
+                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR")
+                                            {
+                                                <li>
+                                                    <a href="@Url.Content("/Dashboard/Index")" _self">Dashboard de Consultas</a>
+                                                </li>
+                                            }
+
+
+
+                                        </ul>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="portlet clearfix  " id="module:_522_1">
+                                    <!-- extid:522: -->
+                                    <div class="edit_controls">
+                                    </div>
+
+
+                                    <h2 class="  clearfix" id="anonymous_element_5">
+                                        <span class="moduleTitle">Videotutoriales y manuales de Aprendizaje Digital</span>
+                                    </h2>
+
+
+                                    <div class="collapsible" style="overflow: auto;">
+
+                                        <div class="vtbegenerated"><p style="text-align: center;"><a href="https://www.youtube.com/playlist?list=PLontYaReEU1seUE3ACG3sEc3zR7Br7URU" target="_blank"><img src="~/Content/images/BMANUALES1.jpg" width="100%" height="100%" alt="videotutoriales" title="videotutoriales"></a></p></div>
+
+                                    </div>
+                                </div>
+
+                                <div class="portlet clearfix  " id="module:_528_1">
+                                    <!-- extid:528: -->
+                                    <div class="edit_controls">
+                                    </div>
+
+
+                                    <h2 class="  clearfix" id="anonymous_element_7">
+                                        <span class="moduleTitle">Reglamentos y Políticas de UPC</span>
+                                    </h2>
+
+
+                                    <div class="collapsible" style="overflow: auto;">
+
+                                        <div class="vtbegenerated">
+                                            <div class="w3-content w3-section" style="max-width: 100%;">
+                                                <a href="http://sica.upc.edu.pe/publico/reglamentos-upc" target="_blank="><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_reg.png" style="width: 100%; display: block;"></a>
+                                                <a href="http://sica.upc.edu.pe/publico/politicas-upc" target="_blank"><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_pol.png" style="width: 100%; display: none;"></a>
+                                            </div>
+                                            <script type="text/javascript">
+                                                /*<![CDATA[*/
+                                                var myIndex1 = 0;
+                                                carousel1();
+
+                                                function carousel1() {
+                                                    var i;
+                                                    var x = document.getElementsByClassName("mySlides1");
+                                                    for (i = 0; i < x.length; i++) {
+                                                        x[i].style.display = "none";
+                                                    }
+                                                    myIndex1++;
+                                                    if (myIndex1 > x.length) { myIndex1 = 1 }
+                                                    x[myIndex1 - 1].style.display = "block";
+                                                    setTimeout(carousel1, 3000); // Change image every 2 seconds
+                                                }
+                                                /*]]>*/</script>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="column1" class="column-2 clearfix" style="width: 80%;">
+                                <div class="portlet clearfix  " id="module:_527_1">
+                                    <!-- extid:527: -->
+                                    <div class="edit_controls">
+                                    </div>
+
+
+                                    <h2 class="  clearfix" id="anonymous_element_9">
+                                        <span class="moduleTitle">Bandeja de Consultas</span>
+                                    </h2>
+
+
+                                    <div class="collapsible" style="overflow: auto;">
+
+                                        @if (@Session["Login-Info"] != null)
+                                        {
+                                            if (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
+                                            {
+                                                <input style="min-width:50px; min-height:25px;"
+                                                       value="Crear Consulta Frecuente"
+                                                       type="button"
+                                                       id="btnCrearConsultaFrecuente"
+                                                       onclick="javascript: CrearConsultaFrecuente();" />
+                                            }
+                                        }
+                                        
+
+                                        <table width="100%">
+                                            <tr>
+                                                <td style="height:15px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 100%">
+
+                                                    <fieldset class="fieldset">
+                                                        <legend>Criterios de búsqueda</legend>
+
+                                                        <table width="100%" cellpadding="2">
+                                                            <colgroup>
+                                                                <col width="15%" />
+                                                                <col width="35%" />
+                                                                <col width="15%" />
+                                                                <col width="35%" />
+                                                            </colgroup>
+                                                            <tr>
+                                                                <td align="left" class="Texto" style="">
+                                                                    Número Solicitud:
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <input type="text" id="txtNumeroSolicitud" style="width:80%" maxlength="10" />
+                                                                </td>
+                                                                <td align="left" class="Texto" style="">
+                                                                    Estado:
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <select id="cbEstado" style="width: 81%"></select>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="left" class="Texto" style="">
+                                                                    Codigo Alumno:
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <input type="text" id="txtCodigoAlumno" style="width:80%" maxlength="15"/>
+                                                                </td>
+                                                                <td align="left" class="Texto" style="">
+                                                                    Nombre Alumno:
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <input type="text" id="txtNombreAlumno" style="width:80%" maxlength="100"/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Fecha Inicial:
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="txtFechaInicio_Buscar" style="width: 100px;" />
+                                                                </td>
+                                                                <td>
+                                                                    Fecha Final:
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="txtFechaFin_Buscar" style="width: 100px;" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </fieldset>
+
+                                                    <fieldset class="fieldset" style="margin-top: 5px!important;">
+                                                        <table>
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    <input id="btnBuscar" type="button" value="Buscar" onclick="javascript: Buscar();" />
+
+                                                                    <input type="button" value="Limpiar" onclick="javascript: Limpiar();" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </fieldset>
+
+                                                    <fieldset class="fieldset" style="margin-top: 5px!important;">
+                                                        <legend>Listado de Consultas</legend>
+                                                        <table width="100%">
+                                                            <tr>
+                                                                <td id="tdjQueryTable">
+                                                                    <div id="divContenedor" style="width:100%">
+                                                                        <table id="jqGrid"></table>
+                                                                        <div id="jqGridPager"></div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </fieldset>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <script type="text/javascript">
+
+                                            $(document).ready(function () {
+
+                                                var valwidth = $('#tdjQueryTable').width();
+
+
+                                                jQuery("#jqGrid").jqGrid({
+                                                    datatype: "local",
+                                                    width: valwidth,
+                                                    colNames: ['IdSolicitud', 'Opción', 'N° Solicitud', 'Fecha Solicitud', 'Intención', 'Código Alumno', 'Nombre Alumno', 'Estado'],
+                                                    colModel: [
+                                                        { name: 'IdSolicitud', index: 'IdSolicitud', width: 8, sortable: false, hidden: true },
+                                                        {
+                                                            name: 'IdSolicitud', index: 'IdSolicitud', align: "center", width: 8, sortable: false, jsonmap: "IdSolicitud",
+                                                            formatter: function (cellvalue, options, rowObject) {
+
+                                                                var _id = rowObject.IdSolicitud;
+                                                                return '<input class="buttonTable" type="button" value="Visualizar" onclick="javascript:Visualizar(' + _id + ')"\>';
+                                                            }
+                                                        },
+                                                        { name: 'NumSolicitud', index: 'NumSolicitud', align: "center", width: 7, sortable: false },
+                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', align: "center", width: 7, sortable: false },
+                                                        { name: 'Intencion', index: 'Intencion', width: 10, align: "left",sortable: false },
+                                                        { name: 'CodigoAlumno', index: 'CodigoAlumno', width: 8, align: "center",sortable: false },
+                                                        { name: 'NombreApePaterno', index: 'NombreApePaterno', width: 13, align: "left", sortable: false },
+                                                        {
+                                                            name: 'EstadoDesc', index: 'EstadoDesc', align: "center", width: 8, sortable: false, jsonmap: "EstadoDesc",
+                                                            formatter: function (cellvalue, options, rowObject) {
+
+                                                                var _estado = rowObject.EstadoDesc;
+                                                               
+                                                                if (rowObject.Estado === 'D') _estado = 'Pendiente';
+                                                                if (rowObject.Estado === 'R') _estado = 'Atendido';
+
+                                                                return '<label>' + _estado + '</label>';
+                                                            }
+                                                        }
+                                                    ],
+                                                    height: 270,
+                                                    rowNum: 10,
+                                                    sortname: 'id',
+                                                    hidegrid: false,
+                                                    pager: "#jqGridPager",
+                                                    rownumbers: true,
+                                                    viewrecords: true,
+                                                    toolbar: [false, "top"],
+                                                    sortorder: "asc",
+                                                    loadtext: 'Cargando datos...',
+                                                    recordtext: "{0} - {1} de {2} Elementos",
+                                                    emptyrecords: 'No hay resultados',
+                                                    pgtext: 'Página: {0} de {1}'
+
+                                                });
+
+                                                $.datepicker.regional['es'] = {
+                                                    closeText: 'Cerrar',
+                                                    prevText: '<Ant',
+                                                    nextText: 'Sig>',
+                                                    currentText: 'Hoy',
+                                                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                                                    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                                                    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                                                    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                                                    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                                                    weekHeader: 'Sm',
+                                                    dateFormat: 'dd/mm/yy',
+                                                    firstDay: 1,
+                                                    isRTL: false,
+                                                    showMonthAfterYear: false,
+                                                    yearSuffix: ''
+                                                };
+
+                                                $.datepicker.setDefaults($.datepicker.regional['es']);
+
+                                                $('#txtFechaInicio_Buscar').datepicker();
+                                                $('#txtFechaFin_Buscar').datepicker();
+
+                                                var now = new Date();
+                                                var day = ("0" + now.getDate()).slice(-2);
+                                                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                                                var lastDate = new Date().add(-1).month();
+                                                var lastDay = ("0" + lastDate.getDate()).slice(-2);
+                                                var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
+
+                                                var fchStart = (lastDay) + "/" + (lastMonth) + "/" + lastDate.getFullYear();
+                                                var fchEnd = (day) + "/" + (month) + "/" + now.getFullYear();
+
+                                                $('#txtFechaInicio_Buscar').val(fchStart);
+                                                $('#txtFechaFin_Buscar').val(fchEnd);
+
+                                                CargarEstados();
+
+                                               
+
+                                            });
+
+                                            function CargarEstados() {
+
+                                                $("#cbEstado").get(0).options.length = 0;
+                                                $("#cbEstado").get(0).options[0] = new Option("Seleccione", "0");
+
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: '/Consulta/ListarEstados',
+                                                    contentType: "application/json; charset=utf-8",
+                                                    dataType: "json",
+                                                    success: function (data) {
+
+                                                        var _estados = JSON.parse(JSON.stringify(data));
+
+                                                        for (var x in _estados) {
+                                                            var _id = _estados[x].IdEstado;
+                                                            var _descripcion = _estados[x].Descripcion;
+                                                            var selected = false;
+                                                            //if (_id === 'D') selected = true;
+                                                            _updateSelect($("#cbEstado"), _id, _descripcion, selected);
+                                                        }
+
+                                                        $("#btnBuscar").click();
+
+                                                    },
+                                                    error: function (error) {
+                                                        console.log("Fallo carga de estados " + error);
+                                                    }
+                                                });
+                                            }
+
+                                            function _updateSelect($select, value, text, selected) {
+                                                var opt_ = document.createElement("option");
+                                                opt_.value = value;
+                                                opt_.text = text;
+                                                opt_.selected = selected;
+                                                $select[0].add(opt_, $select[0].options[1]);
+                                            }
+
+                                            function Buscar() {
+                                                ConsultarSolicitudes();
+                                            }
+
+                                            function Limpiar() {
+                                                $('#txtNumeroSolicitud').val('');
+                                                $('#cbEstado').val($(this).find('option:first').val());
+                                                $('#txtCodigoAlumno').val('');
+                                                $('#txtNombreAlumno').val('');
+                                                $('#txtFechaInicio_Buscar').val('');
+                                                $('#txtFechaFin_Buscar').val('');
+                                            }
+
+                                            function CrearConsultaFrecuente() {
+                                                window.open('@Url.Action("Crear", "Consulta")', '_self');
+                                            }
+
+                                            function Visualizar(id) {
+
+                                                 var url = '@Url.Action("Detalle", "Consulta", new { id = "__id__"  })';
+                                                 url = url.replace('__id__', id);
+                                                 window.location.href = url;
+                                            }
+
+                                            function ConsultarSolicitudes() {
+
+                                                var parametros = {
+                                                    numSolicitud: $('#txtNumeroSolicitud').val(),
+                                                    estado: $("#cbEstado").find("option:selected").val(),
+                                                    codigoAlumno: $('#txtCodigoAlumno').val(),
+                                                    nombreAlumno: $('#txtNombreAlumno').val(),
+                                                    fechaInicio: $('#txtFechaInicio_Buscar').val(),
+                                                    fechaFin: $('#txtFechaFin_Buscar').val()
+                                                };
+
+                                                $("#jqGrid").clearGridData();
+
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: '/Consulta/ConsultarSolicitudes',
+                                                    data: parametros,
+                                                    dataType: 'json',
+                                                    success: function (rpta) {
+
+                                                        var parsed = JSON.parse(JSON.stringify(rpta));
+                                                        var array_ = [];
+                                                        for (var x in parsed) {
+                                                            array_.push(parsed[x]);
+                                                        }
+
+                                                        $("#jqGrid").jqGrid('setGridParam', { data: array_ });
+                                                        $("#jqGrid").trigger('reloadGrid');
+
+                                                    },
+                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                    }
+                                                });
+
+                                            }
+
+                                        </script>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
