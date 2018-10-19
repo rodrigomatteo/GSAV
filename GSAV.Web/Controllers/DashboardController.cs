@@ -78,7 +78,7 @@ namespace GSAV.Web.Controllers
                 solicitud.FechaFin = ConvertidorUtil.FormatearFechaEsp(dtFchFin);
             }
 
-            var objResult = oIBLSolicitud.ConsultarSolicitudes(solicitud);
+            var objResult = oIBLSolicitud.ConsultarSolicitudesDashboard(solicitud);
             lista = objResult.OneResult;
             return lista;
 

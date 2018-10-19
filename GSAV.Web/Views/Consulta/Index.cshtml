@@ -64,6 +64,16 @@
 
                                             }
 
+                                            @if ( @Session["Login-Info"] != null && 
+                                                (  ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE" || 
+                                                   ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR" ) )
+                                            {
+                                                <li>
+                                                    <a href="@Url.Content("/Consulta/Index")" _self">Base de Conocimiento Académico</a>
+                                                </li>
+
+                                            }
+
                                             @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR")
                                             {
                                                 <li>
@@ -152,20 +162,7 @@
 
 
                                     <div class="collapsible" style="overflow: auto;">
-
-                                        @if (@Session["Login-Info"] != null)
-                                        {
-                                            if (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
-                                            {
-                                                <input style="min-width:50px; min-height:25px;"
-                                                       value="Crear Consulta Frecuente"
-                                                       type="button"
-                                                       id="btnCrearConsultaFrecuente"
-                                                       onclick="javascript: CrearConsultaFrecuente();" />
-                                            }
-                                        }
                                         
-
                                         <table width="100%">
                                             <tr>
                                                 <td style="height:15px"></td>
@@ -431,6 +428,8 @@
 
                                                 $("#jqGrid").clearGridData();
 
+                                                $("#jqGrid").closest(".ui-jqgrid").find('.loading').show();
+
                                                 $.ajax({
                                                     type: 'POST',
                                                     url: '/Consulta/ConsultarSolicitudes',
@@ -444,6 +443,7 @@
                                                             array_.push(parsed[x]);
                                                         }
 
+                                                        $("#jqGrid").closest(".ui-jqgrid").find('.loading').hide();
                                                         $("#jqGrid").jqGrid('setGridParam', { data: array_ });
                                                         $("#jqGrid").trigger('reloadGrid');
 

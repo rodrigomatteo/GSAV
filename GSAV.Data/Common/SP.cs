@@ -12,5 +12,8 @@ namespace GSAV.Data.Common
         public static string SP_VALIDARACCESO = "SP_VALIDARACCESO";
         public static string GSAV_SP_VALIDARACCESO = "GSAV.SP_VALIDARACCESO";
         public static string GSAV_SP_CONSULTAR_SOLICITUDES = "GSAV.SP_CONSULTAR_SOLICITUDES";
+        public static string GSAV_SP_OBTENER_SOLICITUD = "GSAV.GSAV.SP_OBTENER_SOLICITUD";
+        public static string GSAV_SP_UPD_SOLUCION_CONSULTA = "GSAV.SP_UPD_SOLUCION_CONSULTA";
+        public static string GSAV_SP_CONSULTAR_SOLICITUDES_DSH = "GSAV.SP_CONSULTAR_SOLICITUDES_DSH";
     }
 }

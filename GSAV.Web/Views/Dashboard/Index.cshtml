@@ -63,6 +63,16 @@
 
                                             }
 
+                                            @if (@Session["Login-Info"] != null &&
+                                                (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE" ||
+                                                   ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR"))
+                                            {
+                                                <li>
+                                                    <a href="@Url.Content("/Consulta/Index")" _self">Base de Conocimiento Académico</a>
+                                                </li>
+
+                                            }
+
                                             @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR")
                                             {
                                                 <li>
@@ -179,7 +189,7 @@
                                                         <input type="text" id="txtFechaFin_Buscar" style="width: 100px;" />
                                                     </td>
                                                     <td>
-                                                        <input type="button" value="Filtrar" onclick="javascript:FiltrarDashboard()" />
+                                                        <input id="btnFiltrar" type="button" value="Filtrar" onclick="javascript:FiltrarDashboard()" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -515,8 +525,7 @@
                                                 $('#txtFechaInicio_Buscar').val(fchStart);
                                                 $('#txtFechaFin_Buscar').val(fchEnd);
 
-                                                ListarSolicitudesAtencion();
-                                                CargarIndicadores();
+                                                $("#btnFiltrar").click();
 
                                             });
 
@@ -535,6 +544,7 @@
                                                 };
 
                                                 $("#jqGrid").clearGridData();
+                                                $("#jqGrid").closest(".ui-jqgrid").find('.loading').show();
 
                                                 $.ajax({
                                                     type: 'POST',
@@ -548,7 +558,7 @@
                                                         for (var x in parsed) {
                                                             array_.push(parsed[x]);
                                                         }
-
+                                                        $("#jqGrid").closest(".ui-jqgrid").find('.loading').hide();
                                                         $("#jqGrid").jqGrid('setGridParam', { data: array_ });
                                                         $("#jqGrid").trigger('reloadGrid');
 

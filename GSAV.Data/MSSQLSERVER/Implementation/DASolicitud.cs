@@ -94,43 +94,45 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             try
             {
-                //using (var oCnn = Cn.OracleCn())
-                //{
-                //    OracleCommand oCmd = null;
-                //    oCnn.Open();
-                //    oCmd = new OracleCommand("SP_OBTENER_SOLICITUD", oCnn);
-                //    oCmd.CommandType = CommandType.StoredProcedure;
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
 
-                //    oCmd.Parameters.Add(new OracleParameter("P_IDSOLICITUD", OracleDbType.Int64)).Value = solicitud.IdSolicitud;                  
-                //    oCmd.Parameters.Add(new OracleParameter("P_RC", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    cmd = new SqlCommand(SP.GSAV_SP_OBTENER_SOLICITUD, cnn);
 
-                //    OracleDataReader rd = oCmd.ExecuteReader();
-                //    var first = 0;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@P_IDSOLICITUD", solicitud.IdSolicitud);
 
-                //    if (rd.HasRows)
-                //    {
-                //        while (rd.Read())
-                //        {
-                //            first++;
-                //            if (first.Equals(1))
-                //            {
-                //                var solicitud_ = new Solicitud();
-                //                solicitud_.IdSolicitud = rd.GetInt32(rd.GetOrdinal("IDSOLICITUD"));
-                //                solicitud_.FechaRegistro = rd.GetDateTime(rd.GetOrdinal("FECHAREGISTRO"));
-                //                solicitud_.Canal = rd.GetString(rd.GetOrdinal("CANAL"));
-                //                solicitud_.CodigoAlumno = rd.GetString(rd.GetOrdinal("CODIGOALUMNO"));
-                //                solicitud_.Nombre = rd.GetString(rd.GetOrdinal("NOMBRE"));
-                //                solicitud_.ApellidoPat = rd.GetString(rd.GetOrdinal("APELLIDOPAT"));
-                //                solicitud_.ApellidoMat = rd.GetString(rd.GetOrdinal("APELLIDOMAT"));
-                //                solicitud_.Estado = rd.GetString(rd.GetOrdinal("ESTADO"));
-                //                solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
-                //                solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
-                //                obj.OneResult = solicitud_;
-                //            }                            
-                //        }
-                //    }
-                //    obj.Success = true;
-                //}
+                    SqlDataReader rd = cmd.ExecuteReader();
+
+                    var first = 0;
+
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            first++;
+                            if (first.Equals(1))
+                            {
+                                var solicitud_ = new Solicitud();
+                                solicitud_.IdSolicitud = rd.GetInt32(rd.GetOrdinal("IDSOLICITUD"));
+                                solicitud_.FechaRegistro = rd.GetDateTime(rd.GetOrdinal("FECHAREGISTRO"));
+                                solicitud_.Canal = rd.GetValue(rd.GetOrdinal("CANAL")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CANAL"));
+                                solicitud_.Intencion = rd.GetValue(rd.GetOrdinal("INTENCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("INTENCION"));
+                                solicitud_.CodigoAlumno = rd.GetValue(rd.GetOrdinal("CODIGOALUMNO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CODIGOALUMNO"));
+                                solicitud_.Nombre = rd.GetValue(rd.GetOrdinal("NOMBRE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE"));
+                                solicitud_.ApellidoPat = rd.GetValue(rd.GetOrdinal("APELLIDOPAT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APELLIDOPAT"));
+                                solicitud_.ApellidoMat = rd.GetValue(rd.GetOrdinal("APELLIDOMAT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APELLIDOMAT"));
+                                solicitud_.Estado = rd.GetValue(rd.GetOrdinal("ESTADO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("ESTADO"));
+                                solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
+                                solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
+                                obj.OneResult = solicitud_;
+                            }
+                        }
+                    }
+                    obj.Success = true;
+                }
             }
             catch (Exception ex)
             {
@@ -153,21 +155,22 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             try
             {
-                //using (var oCnn = Cn.OracleCn())
-                //{
-                //    OracleCommand oCmd = null;
-                //    oCnn.Open();
-                //    oCmd = new OracleCommand("SP_UPD_SOLUCION_CONSULTA", oCnn);
-                //    oCmd.CommandType = CommandType.StoredProcedure;
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
 
-                //    oCmd.Parameters.Add(new OracleParameter("P_IDSOLICITUD", OracleDbType.Int64)).Value = solicitud.IdSolicitud;
-                //    oCmd.Parameters.Add(new OracleParameter("P_SOLUCION", OracleDbType.Varchar2)).Value = solicitud.Solucion;
-                    
-                //    oCmd.ExecuteNonQuery();
-                   
-                //    obj.Success = true;
-                //    obj.OneResult = true;
-                //}
+                    cmd = new SqlCommand(SP.GSAV_SP_UPD_SOLUCION_CONSULTA, cnn);
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@P_IDSOLICITUD", solicitud.IdSolicitud);
+                    cmd.Parameters.AddWithValue("@P_SOLUCION", solicitud.Solucion);
+
+                    cmd.ExecuteNonQuery();
+
+                    obj.Success = true;
+                    obj.OneResult = true;
+                }
             }
             catch (Exception ex)
             {
@@ -191,40 +194,41 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             try
             {
-                //using (var oCnn = Cn.OracleCn())
-                //{
-                //    OracleCommand oCmd = null;
-                //    oCnn.Open();
-                //    oCmd = new OracleCommand("SP_CONSULTAR_SOLICITUDES_DSH", oCnn);
-                //    oCmd.CommandType = CommandType.StoredProcedure;
-                                     
-                //    oCmd.Parameters.Add(new OracleParameter("P_FECHA_INICIO", OracleDbType.Varchar2)).Value = solicitud.FechaInicio;
-                //    oCmd.Parameters.Add(new OracleParameter("P_FECHA_FIN", OracleDbType.Varchar2)).Value = solicitud.FechaFin;
-                //    oCmd.Parameters.Add(new OracleParameter("P_RC", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
 
-                //    OracleDataReader rd = oCmd.ExecuteReader();
-                //    if (rd.HasRows)
-                //    {
-                //        while (rd.Read())
-                //        {
-                //            var solicitud_ = new Solicitud();
-                //            solicitud_.IdSolicitud = rd.GetInt32(rd.GetOrdinal("IDSOLICITUD"));
-                //            solicitud_.FechaRegistro = rd.GetDateTime(rd.GetOrdinal("FECHAREGISTRO"));
-                //            solicitud_.Canal = rd.GetString(rd.GetOrdinal("CANAL"));
-                //            solicitud_.CodigoAlumno = rd.GetString(rd.GetOrdinal("CODIGOALUMNO"));
-                //            solicitud_.Nombre = rd.GetString(rd.GetOrdinal("NOMBRE"));
-                //            solicitud_.ApellidoPat = rd.GetString(rd.GetOrdinal("APELLIDOPAT"));
-                //            solicitud_.ApellidoMat = rd.GetString(rd.GetOrdinal("APELLIDOMAT"));
-                //            solicitud_.Estado = rd.GetString(rd.GetOrdinal("ESTADO"));
-                //            solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
-                //            solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
-                //            obj.OneResult.Add(solicitud_);
-                //        }
-                //    }
+                    cmd = new SqlCommand(SP.GSAV_SP_CONSULTAR_SOLICITUDES_DSH, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                //    obj.Success = true;
+                    cmd.Parameters.AddWithValue("@P_FECHA_INICIO", solicitud.FechaInicio);
+                    cmd.Parameters.AddWithValue("@P_FECHA_FIN", solicitud.FechaFin);
 
-                //}
+                    SqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            var solicitud_ = new Solicitud();
+                            solicitud_.IdSolicitud = rd.GetInt32(rd.GetOrdinal("IDSOLICITUD"));
+                            solicitud_.FechaRegistro = rd.GetDateTime(rd.GetOrdinal("FECHAREGISTRO"));
+                            solicitud_.Canal = rd.GetValue(rd.GetOrdinal("CANAL")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CANAL"));
+                            solicitud_.Intencion = rd.GetValue(rd.GetOrdinal("INTENCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("INTENCION"));
+                            solicitud_.CodigoAlumno = rd.GetValue(rd.GetOrdinal("CODIGOALUMNO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CODIGOALUMNO"));
+                            solicitud_.Nombre = rd.GetValue(rd.GetOrdinal("NOMBRE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE"));
+                            solicitud_.ApellidoPat = rd.GetValue(rd.GetOrdinal("APELLIDOPAT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APELLIDOPAT"));
+                            solicitud_.ApellidoMat = rd.GetValue(rd.GetOrdinal("APELLIDOMAT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APELLIDOMAT"));
+                            solicitud_.Estado = rd.GetValue(rd.GetOrdinal("ESTADO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("ESTADO"));
+                            solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
+                            solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
+                            obj.OneResult.Add(solicitud_);
+                        }
+                    }
+
+                    obj.Success = true;
+
+                }
             }
             catch (Exception ex)
             {
