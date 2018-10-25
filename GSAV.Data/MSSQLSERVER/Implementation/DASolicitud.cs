@@ -304,7 +304,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     SqlCommand cmd = null;
                     cnn.Open();
 
-                    cmd = new SqlCommand(SP.GSAV_SP_CONSULTAR_DEMANDA_TIPO, cnn);
+                    cmd = new SqlCommand(SP.GSAV_SP_CONSULTAR_DEMANDA_INTENCION, cnn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@P_FECHA_INICIO", chart.FechaInicio);

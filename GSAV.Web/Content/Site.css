@@ -101,3 +101,17 @@ textarea {
     color: #807878;
     font-size: 12px !important;
 }
+
+.centrado-porcentual {
+    position: relative;
+    left: 48%;
+    top: 45%;
+}
+
+.div-loading-data {
+    position: absolute;
+    z-index: 9999;
+    text-align: center;
+    width: 800px;
+    height: 250px;
+}

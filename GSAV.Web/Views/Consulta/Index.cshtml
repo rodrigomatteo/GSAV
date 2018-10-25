@@ -276,7 +276,7 @@
                                                             }
                                                         },
                                                         { name: 'NumSolicitud', index: 'NumSolicitud', align: "center", width: 7, sortable: false },
-                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', align: "center", width: 7, sortable: false },
+                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', align: "center", width: 10, sortable: false },
                                                         { name: 'Intencion', index: 'Intencion', width: 10, align: "left",sortable: false },
                                                         { name: 'CodigoAlumno', index: 'CodigoAlumno', width: 8, align: "center",sortable: false },
                                                         { name: 'NombreApePaterno', index: 'NombreApePaterno', width: 13, align: "left", sortable: false },
@@ -336,7 +336,7 @@
                                                 var day = ("0" + now.getDate()).slice(-2);
                                                 var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-                                                var lastDate = new Date().add(-1).month();
+                                                var lastDate = new Date().add(-6).month();
                                                 var lastDay = ("0" + lastDate.getDate()).slice(-2);
                                                 var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
 

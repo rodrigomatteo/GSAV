@@ -236,8 +236,9 @@
     <Content Include="Content\custom\jquery-ui.css" />
     <Content Include="Content\custom\jquery-ui.structure.css" />
     <Content Include="Content\custom\jquery-ui.theme.css" />
+    <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\BMANUALES1.jpg" />
-    <Content Include="Content\images\color_label_circle_green.png" />
+    <Content Include="Content\images\color_label_circle_green_T.png" />
     <Content Include="Content\images\color_label_circle_orange_T.png" />
     <Content Include="Content\images\color_label_circle_red_T.png" />
     <Content Include="Content\images\color_label_circle_yellow_T.png" />

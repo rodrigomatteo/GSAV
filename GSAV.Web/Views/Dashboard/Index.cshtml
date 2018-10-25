@@ -198,14 +198,18 @@
 
 
                                     <div class="collapsible" style="overflow: auto;">
-
-                                        <table>
+                                        <table>                                           
                                             <tr>
-                                                <td style="border:1px solid #ccc">
+                                                <td style="border:1px solid #ccc;width:120px">
                                                     <table style="padding-left: 4px;padding-right: 4px;width: 100%;">
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:60px;">
+                                                                <div class="divSla" id="divTotal_loading" style="width:100%;height:60px;">
+                                                                    <div class="centrado-porcentual">
+                                                                        <img src="~/Content/images/ajax-loader.gif" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="divSla" id="divTotal" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -223,7 +227,12 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:60px;">
+                                                                <div class="divSla" id="divResueltos_loading" style="width:100%;height:60px;">
+                                                                    <div class="centrado-porcentual">
+                                                                        <img src="~/Content/images/ajax-loader.gif" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="divSla" id="divResueltos" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -241,7 +250,12 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:60px;">
+                                                                <div class="divSla" id="divDerivados_loading" style="width:100%;height:60px;">
+                                                                    <div class="centrado-porcentual">
+                                                                        <img src="~/Content/images/ajax-loader.gif" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="divSla" id="divDerivados" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -259,7 +273,12 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:60px;">
+                                                                <div class="divSla" id="divPendientes_loading" style="width:100%;height:60px;">
+                                                                    <div class="centrado-porcentual">
+                                                                        <img src="~/Content/images/ajax-loader.gif" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="divSla" id="divPendientes" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -277,7 +296,12 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:60px;">
+                                                                <div class="divSla" id="divNoResueltos_loading" style="width:100%;height:60px;">
+                                                                    <div class="centrado-porcentual">
+                                                                        <img src="~/Content/images/ajax-loader.gif" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="divSla" id="divNoResueltos" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -295,7 +319,12 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:60px;">
+                                                                <div class="divSla" id="divCancelados_loading" style="width:100%;height:60px;">
+                                                                    <div class="centrado-porcentual">
+                                                                        <img src="~/Content/images/ajax-loader.gif" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="divSla" id="divCancelados" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -319,13 +348,23 @@
                                                             Demanda por Unidad de Negocio
                                                         </label>
                                                     </div>
+                                                    <div class="divChartArea" id="piechart_3d_loading" style="width: 400px; height: 300px;">
+                                                        <div class="centrado-porcentual">
+                                                            <img src="~/Content/images/ajax-loader.gif" />
+                                                        </div>                                                        
+                                                    </div>
                                                     <div class="divChartArea" id="piechart_3d" style="width: 400px; height: 300px;"></div>
                                                 </td>
                                                 <td style="border:1px solid #ccc">
                                                     <div class="divTitleChart">
                                                         <label>
-                                                            Demanda por Tipo de Consulta
+                                                            Demanda por Intención de Consulta
                                                         </label>
+                                                    </div>
+                                                    <div class="divChartArea" id="barchart_values_loading" style="width: 400px; height: 300px;">
+                                                        <div class="centrado-porcentual">
+                                                            <img src="~/Content/images/ajax-loader.gif" />
+                                                        </div>
                                                     </div>
                                                     <div class="divChartArea" id="barchart_values" style="width: 400px; height: 300px;"></div>
                                                 </td>
@@ -335,8 +374,13 @@
                                                     <div>
                                                         <table>
                                                             <tr>
-                                                                <td>
-                                                                    <div class="divSla">
+                                                                <td style="width:120px">
+                                                                    <div class="divSla" id="divCumpleSla_loading" style="width:100%;height:90px;">
+                                                                        <div class="centrado-porcentual">
+                                                                            <img src="~/Content/images/ajax-loader.gif" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="divSla" id="divCumpleSla" style="width:100%;height:90px;">
                                                                         <table>
                                                                             <tr>
                                                                                 <td colspan="2" style="text-align:center;padding-top: 5px;">
@@ -345,7 +389,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>
-                                                                                    <img src="~/Content/images/like.png" style="width: 80%;" />
+                                                                                    <img src="~/Content/images/like.png" style="width: 70px;height:70px;" />
                                                                                 </td>
                                                                                 <td>
                                                                                     <label id="lblCumpleSla" class="labelLsa"></label>
@@ -357,7 +401,12 @@
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    <div class="divSla">
+                                                                    <div class="divSla" id="divNoCumpleSla_loading" style="width:100%;height:90px;">
+                                                                        <div class="centrado-porcentual">
+                                                                            <img src="~/Content/images/ajax-loader.gif" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="divSla" id="divNoCumpleSla" style="width:100%;height:90px;">
                                                                         <table>
                                                                             <tr>
                                                                                 <td colspan="2" style="text-align:center;padding-top: 5px;">
@@ -366,7 +415,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>
-                                                                                    <img src="~/Content/images/unlike.png" style="width: 80%;" />
+                                                                                    <img src="~/Content/images/unlike.png" style="width: 70px;height:70px;" />
                                                                                 </td>
                                                                                 <td>
                                                                                     <label id="lblNoCumpleSla" class="labelLsa"></label>
@@ -390,6 +439,11 @@
                                                             </tr>
                                                             <tr>
                                                                 <td id="tdjQueryTable">
+                                                                    <div id="div_data_loading" class="div-loading-data">
+                                                                        <div style="position:relative;top:45%;">
+                                                                            <img src="/Content/images/ajax-loader.gif">
+                                                                        </div>                                                                        
+                                                                    </div>
                                                                     <div id="divContenedor" style="width:100%">
                                                                         <table id="jqGrid"></table>
                                                                         <div id="jqGridPager"></div>
@@ -400,11 +454,8 @@
                                                     </div>
                                                 </td>
                                             </tr>
-
-
                                         </table>
-
-
+                                        
                                         <script type="text/javascript" src="~/Scripts/loader.js"></script>
                                         <script type="text/javascript">
 
@@ -423,7 +474,10 @@
                                                     url: '/Dashboard/CargarChartDemandaUnidNegocio',
                                                     data: parametros,
                                                     dataType: 'json',
-                                                    success: function (rpta) {
+                                                    success: function (rpta) {                                                        
+                                                        $("#piechart_3d").css("display", "block");
+                                                        $("#piechart_3d_loading").css("display", "none");
+                                                        
                                                         drawChartPie(rpta);
                                                     },
                                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -447,6 +501,8 @@
                                                     data: parametros,
                                                     dataType: 'json',
                                                     success: function (rpta) {
+                                                        $("#barchart_values").css("display", "block");
+                                                        $("#barchart_values_loading").css("display", "none");
                                                         drawBarChart(rpta);
                                                     },
                                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -454,9 +510,10 @@
                                                     }
                                                 });
                                             }
-
-
+                                            
                                             $(document).ready(function () {
+
+                                                DisplayLoading();
 
                                                 $("#dialogConsulta").dialog({
                                                     autoOpen: false,
@@ -471,7 +528,7 @@
                                                 jQuery("#jqGrid").jqGrid({
                                                     datatype: "local",
                                                     width: 800,
-                                                    colNames: ['IdSolicitud', 'Estatus', 'Código', 'Alumno', 'Tipo Consulta', 'Fecha Atención', 'Derivado A', 'Consulta'],
+                                                    colNames: ['IdSolicitud', 'Estatus', 'Código', 'Alumno', 'Tipo Consulta', 'Fecha Registro', 'Derivado A', 'Consulta'],
                                                     colModel: [
                                                         { name: 'IdSolicitud', index: 'IdSolicitud', width: 10, sortable: false, hidden: true },
                                                         {
@@ -484,7 +541,7 @@
                                                                 var img_ = "<label>" + _estatus + "</label>";
 
                                                                 if (_indicador === 'VERDE') {
-                                                                    img_ = '<img src="../Content/images/color_label_circle_green.png" width="16px" height="16px"/>';
+                                                                    img_ = '<img src="../Content/images/color_label_circle_green_T.png" width="16px" height="16px"/>';
                                                                 }
                                                                 if (_indicador === 'AMARILLO') {
                                                                     img_ = '<img src="../Content/images/color_label_circle_yellow_T.png" width="16px" height="16px"/>';
@@ -552,7 +609,7 @@
                                                 var day = ("0" + now.getDate()).slice(-2);
                                                 var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-                                                var lastDate = new Date().add(-1).month();
+                                                var lastDate = new Date().add(-6).month();
                                                 var lastDay = ("0" + lastDate.getDate()).slice(-2);
                                                 var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
 
@@ -567,6 +624,8 @@
                                             });
 
                                             function FiltrarDashboard() {
+
+                                                DisplayLoading();
                                                 ListarSolicitudesAtencion();
                                                 CargarIndicadores();
                                                 CargarChartUnidadNegocio();
@@ -581,7 +640,7 @@
                                                 };
 
                                                 $("#jqGrid").clearGridData();
-                                                $("#jqGrid").closest(".ui-jqgrid").find('.loading').show();
+                                                //$("#jqGrid").closest(".ui-jqgrid").find('.loading').show();
 
                                                 $.ajax({
                                                     type: 'POST',
@@ -595,7 +654,9 @@
                                                         for (var x in parsed) {
                                                             array_.push(parsed[x]);
                                                         }
-                                                        $("#jqGrid").closest(".ui-jqgrid").find('.loading').hide();
+                                                        //$("#jqGrid").closest(".ui-jqgrid").find('.loading').hide();
+
+                                                        $("#div_data_loading").css("display", "none");
                                                         $("#jqGrid").jqGrid('setGridParam', { data: array_ });
                                                         $("#jqGrid").trigger('reloadGrid');
 
@@ -621,6 +682,30 @@
                                                     data: parametros,
                                                     dataType: 'json',
                                                     success: function (rpta) {
+
+                                                        $("#divTotal").css("display", "block");
+                                                        $("#divTotal_loading").css("display", "none");
+
+                                                        $("#divResueltos").css("display", "block");
+                                                        $("#divResueltos_loading").css("display", "none");
+
+                                                        $("#divDerivados").css("display", "block");
+                                                        $("#divDerivados_loading").css("display", "none");
+
+                                                        $("#divPendientes").css("display", "block");
+                                                        $("#divPendientes_loading").css("display", "none");
+
+                                                        $("#divNoResueltos").css("display", "block");
+                                                        $("#divNoResueltos_loading").css("display", "none");
+
+                                                        $("#divCancelados").css("display", "block");
+                                                        $("#divCancelados_loading").css("display", "none");
+
+                                                        $("#divCumpleSla").css("display", "block");
+                                                        $("#divCumpleSla_loading").css("display", "none");
+
+                                                        $("#divNoCumpleSla").css("display", "block");
+                                                        $("#divNoCumpleSla_loading").css("display", "none");
 
                                                         var parsed = JSON.parse(JSON.stringify(rpta));
 
@@ -746,6 +831,42 @@
                                             function Cerrar() {
                                                 $('#dialogConsulta').dialog('close');
                                             }
+
+                                            function DisplayLoading() {
+
+                                                $("#piechart_3d").css("display", "none");
+                                                $("#piechart_3d_loading").css("display", "block");
+
+                                                $("#barchart_values").css("display", "none");
+                                                $("#barchart_values_loading").css("display", "block");
+
+                                                $("#jqGrid").clearGridData();
+                                                $("#div_data_loading").css("display", "block");
+
+                                                $("#divTotal").css("display", "none");
+                                                $("#divTotal_loading").css("display", "block");
+
+                                                $("#divResueltos").css("display", "none");
+                                                $("#divResueltos_loading").css("display", "block");
+
+                                                $("#divDerivados").css("display", "none");
+                                                $("#divDerivados_loading").css("display", "block");
+
+                                                $("#divPendientes").css("display", "none");
+                                                $("#divPendientes_loading").css("display", "block");
+
+                                                $("#divNoResueltos").css("display", "none");
+                                                $("#divNoResueltos_loading").css("display", "block");
+
+                                                $("#divCancelados").css("display", "none");
+                                                $("#divCancelados_loading").css("display", "block");
+
+                                                $("#divCumpleSla").css("display", "none");
+                                                $("#divCumpleSla_loading").css("display", "block");
+
+                                                $("#divNoCumpleSla").css("display", "none");
+                                                $("#divNoCumpleSla_loading").css("display", "block");
+                                            }
                                         </script>
                                     </div>
                                 </div>
@@ -804,7 +925,7 @@
                         <input type="text" id="txtTipoConsulta" style="width:100%" class="text-box-read-only" />
                     </td>
                     <td>
-                        <label class="labelTextIndicador" style="padding-left:10px">Fecha Atención:</label>
+                        <label class="labelTextIndicador" style="padding-left:10px">Fecha Registro:</label>
                     </td>
                     <td>
                         <input type="text" id="txtFechaAtencion" style="width:100%" class="text-box-read-only" />
