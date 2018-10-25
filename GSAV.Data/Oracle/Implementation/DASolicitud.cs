@@ -261,7 +261,7 @@ namespace GSAV.Data.Oracle.Implementation
                         {
                             var chart_ = new ChartCustom();
                             chart_.Descripcion = rd.GetString(rd.GetOrdinal("UNIDAD"));
-                            chart_.Cantidad = rd.GetDecimal(rd.GetOrdinal("CANTIDAD"));                           
+                            chart_.Cantidad = rd.GetInt32(rd.GetOrdinal("CANTIDAD"));                           
                             obj.OneResult.Add(chart_);
                         }
                     }
@@ -309,7 +309,7 @@ namespace GSAV.Data.Oracle.Implementation
                         {
                             var chart_ = new ChartCustom();
                             chart_.Descripcion = rd.GetString(rd.GetOrdinal("DESCRIPCION"));
-                            chart_.Cantidad = rd.GetDecimal(rd.GetOrdinal("CANTIDAD"));
+                            chart_.Cantidad = rd.GetInt32(rd.GetOrdinal("CANTIDAD"));
                             obj.OneResult.Add(chart_);
                         }
                     }

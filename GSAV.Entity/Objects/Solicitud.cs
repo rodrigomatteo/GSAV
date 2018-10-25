@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace GSAV.Entity.Objects
 {
     public class Solicitud
-    {
+    {        
         public int IdSolicitud { get; set; }
         public DateTime FechaRegistro { get; set; }
         public string Canal { get; set; }
@@ -20,6 +20,7 @@ namespace GSAV.Entity.Objects
         public string Consulta { get; set; }
         public string Solucion { get; set; }
         public string PalabraClave { get; set; }
+        public string CumpleSla { get; set; }
         public string FechaInicio { get; set; }
         public string FechaFin { get; set; }
         public string NombreApePaterno
@@ -74,7 +75,7 @@ namespace GSAV.Entity.Objects
                 try
                 {
                     if (resultado != null)
-                        resultado = string.Format("{0:dd/MM/yyyy}", FechaRegistro);
+                        resultado = string.Format("{0:dd/MM/yyyy HH:mm:ss}", FechaRegistro);
                     if (FechaRegistro == DateTime.MinValue)
                         resultado = string.Empty;
                 }
@@ -102,5 +103,6 @@ namespace GSAV.Entity.Objects
         public string DerivadoA { get; set; }
         public int IdEmpleado { get; set; }
         public int IdAlumno { get; set; }
+        public string IndicadorStatus { get; set; }
     }
 }

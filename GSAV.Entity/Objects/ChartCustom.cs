@@ -9,8 +9,8 @@ namespace GSAV.Entity.Objects
     public class ChartCustom
     {
         public string Descripcion { get; set; }
-        public decimal Cantidad { get; set; }
+        public int Cantidad { get; set; }
         public string FechaInicio { get; set; }
-        public string FechaFin { get; set; }
+        public string FechaFin { get; set; }        
     }
 }

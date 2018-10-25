@@ -205,7 +205,7 @@
                                                     <table style="padding-left: 4px;padding-right: 4px;width: 100%;">
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:65px;">
+                                                                <div class="divSla" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -223,7 +223,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:65px;">
+                                                                <div class="divSla" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -241,7 +241,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:65px;">
+                                                                <div class="divSla" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -259,7 +259,25 @@
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                <div class="divSla" style="width:100%;height:65px;">
+                                                                <div class="divSla" style="width:100%;height:60px;">
+                                                                    <table style="width:100%">
+                                                                        <tr>
+                                                                            <td style="padding: 5px 5px 5px 5px;">
+                                                                                <label id="lblTextPendientes" class="labelTextIndicador">Pendientes</label>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="text-align:right">
+                                                                                <label id="lblPendientes" class="labelIndicador"></label>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="divSla" style="width:100%;height:60px;">
                                                                     <table style="width:100%">
                                                                         <tr>
                                                                             <td style="padding: 5px 5px 5px 5px;">
@@ -269,6 +287,24 @@
                                                                         <tr>
                                                                             <td style="text-align:right">
                                                                                 <label id="lblNoResueltos" class="labelIndicador"></label>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="divSla" style="width:100%;height:60px;">
+                                                                    <table style="width:100%">
+                                                                        <tr>
+                                                                            <td style="padding: 5px 5px 5px 5px;">
+                                                                                <label id="lblTextCancelados" class="labelTextIndicador">Cancelados</label>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="text-align:right">
+                                                                                <label id="lblCancelados" class="labelIndicador"></label>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -424,7 +460,7 @@
 
                                                 $("#dialogConsulta").dialog({
                                                     autoOpen: false,
-                                                    height: 350,
+                                                    height: 380,
                                                     width: 600,
                                                     resizable: false,
                                                     modal: true,
@@ -441,18 +477,19 @@
                                                         {
                                                             name: 'EstadoDesc', index: 'EstadoDesc', align: "center", width: 5, sortable: false, jsonmap: "EstadoDesc",
                                                             formatter: function (cellvalue, options, rowObject) {
-                                                                var _estatus = rowObject.Estado;
 
+                                                                var _estatus = rowObject.Estado;
+                                                                var _indicador = rowObject.IndicadorStatus;
 
                                                                 var img_ = "<label>" + _estatus + "</label>";
 
-                                                                if (_estatus === 'A') {
+                                                                if (_indicador === 'VERDE') {
+                                                                    img_ = '<img src="../Content/images/color_label_circle_green.png" width="16px" height="16px"/>';
+                                                                }
+                                                                if (_indicador === 'AMARILLO') {
                                                                     img_ = '<img src="../Content/images/color_label_circle_yellow_T.png" width="16px" height="16px"/>';
                                                                 }
-                                                                if (_estatus === 'N') {
-                                                                    img_ = '<img src="../Content/images/color_label_circle_orange_T.png" width="16px" height="16px"/>';
-                                                                }
-                                                                if (_estatus === 'R') {
+                                                                if (_indicador === 'ROJO') {
                                                                     img_ = '<img src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px"/>';
                                                                 }
                                                                 return img_;
@@ -461,7 +498,7 @@
                                                         { name: 'CodigoAlumno', index: 'CodigoAlumno', width: 7, sortable: false },
                                                         { name: 'NombreApePaterno', index: 'NombreApePaterno', width: 13, sortable: false },
                                                         { name: 'Canal', index: 'Canal', width: 10, sortable: false },
-                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', width: 7, align: "center", sortable: false },
+                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', width: 10, align: "center", sortable: false },
                                                         { name: 'DerivadoA', index: 'DerivadoA', width: 10, align: "center", sortable: false },
                                                         {
                                                             name: 'IdSolicitud', index: 'IdSolicitud', align: "center", width: 5, sortable: false, jsonmap: "IdSolicitud",
@@ -591,7 +628,10 @@
                                                             $("#lblTotal").text(parsed[x].Total);
                                                             $("#lblResueltos").text(parsed[x].Resueltos);
                                                             $("#lblDerivados").text(parsed[x].Derivados);
+                                                            $("#lblPendientes").text(parsed[x].Pendientes);
                                                             $("#lblNoResueltos").text(parsed[x].NoResueltos);
+                                                            $("#lblCancelados").text(parsed[x].Cancelados);
+
                                                             $("#lblCumpleSla").text(parsed[x].CumplioSla);
                                                             $("#lblNoCumpleSla").text(parsed[x].NoCumplioSla);
                                                         }
@@ -682,6 +722,7 @@
                                                         var parsed = JSON.parse(JSON.stringify(rpta));
                                                         var array_ = [];
                                                         for (var x in parsed) {
+                                                            $('#txtNumeroSolicitud').val(parsed[x].NumSolicitud);
                                                             $('#txtNombreApellidos').val(parsed[x].NombreApePaterno);
                                                             $('#txtCodigoAlumno').val(parsed[x].CodigoAlumno);
                                                             $('#txtEstado').val(parsed[x].EstadoDesc);
@@ -727,10 +768,18 @@
                 </colgroup>
                 <tr>
                     <td>
+                        <label class="labelTextIndicador">N° Solicitud:</label>
+                    </td>
+                    <td colspan="3">
+                        <input type="text" id="txtNumeroSolicitud" style="width:100%" class="text-box-read-only" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <label class="labelTextIndicador">Nombre y Apellidos:</label>
                     </td>
                     <td colspan="3">
-                        <input type="text" id="txtNombreApellidos" style="width:100%" class="text-box-read-only"/>
+                        <input type="text" id="txtNombreApellidos" style="width:100%" class="text-box-read-only" />
                     </td>
                 </tr>
                 <tr>
@@ -738,13 +787,13 @@
                         <label class="labelTextIndicador">Código Alumno:</label>
                     </td>
                     <td>
-                        <input type="text" id="txtCodigoAlumno" style="width:100%" class="text-box-read-only"/>
+                        <input type="text" id="txtCodigoAlumno" style="width:100%" class="text-box-read-only" />
                     </td>
                     <td>
                         <label class="labelTextIndicador" style="padding-left:10px">Estado:</label>
                     </td>
                     <td>
-                        <input type="text" id="txtEstado" style="width:100%" class="text-box-read-only"/>
+                        <input type="text" id="txtEstado" style="width:100%" class="text-box-read-only" />
                     </td>
                 </tr>
                 <tr>
@@ -752,13 +801,13 @@
                         <label class="labelTextIndicador">Tipo Consulta:</label>
                     </td>
                     <td>
-                        <input type="text" id="txtTipoConsulta" style="width:100%" class="text-box-read-only"/>
+                        <input type="text" id="txtTipoConsulta" style="width:100%" class="text-box-read-only" />
                     </td>
                     <td>
                         <label class="labelTextIndicador" style="padding-left:10px">Fecha Atención:</label>
                     </td>
                     <td>
-                        <input type="text" id="txtFechaAtencion" style="width:100%" class="text-box-read-only"/>
+                        <input type="text" id="txtFechaAtencion" style="width:100%" class="text-box-read-only" />
                     </td>
                 </tr>
                 <tr>

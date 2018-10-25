@@ -36,14 +36,14 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     cmd = new SqlCommand(SP.GSAV_SP_CONSULTAR_SOLICITUDES, cnn);
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@P_IDSOLICITUD", solicitud.IdSolicitud);
-                    cmd.Parameters.AddWithValue("@P_ESTADO", solicitud.Estado);
-                    cmd.Parameters.AddWithValue("@P_CODIGOALUMNO", solicitud.CodigoAlumno);
-                    cmd.Parameters.AddWithValue("@P_NOMBREALUMNO", solicitud.Nombre);
-                    cmd.Parameters.AddWithValue("@P_FECHA_INICIO", solicitud.FechaInicio);
-                    cmd.Parameters.AddWithValue("@P_FECHA_FIN", solicitud.FechaFin);
-                    cmd.Parameters.AddWithValue("@P_IDEMPLEADO", solicitud.IdEmpleado);
-                    cmd.Parameters.AddWithValue("@P_IDALUMNO", solicitud.IdAlumno);
+                    cmd.Parameters.AddWithValue("@P_IDSOLICITUD", solicitud.IdSolicitud == 0 ? 0 : solicitud.IdSolicitud);
+                    cmd.Parameters.AddWithValue("@P_ESTADO", solicitud.Estado == null ? "0" : solicitud.Estado);
+                    cmd.Parameters.AddWithValue("@P_CODIGOALUMNO", solicitud.CodigoAlumno == null ? "NULL" : solicitud.CodigoAlumno);
+                    cmd.Parameters.AddWithValue("@P_NOMBREALUMNO", solicitud.Nombre == null ? "NULL" : solicitud.Nombre);
+                    cmd.Parameters.AddWithValue("@P_FECHA_INICIO", solicitud.FechaInicio == null ? "NULL" : solicitud.FechaInicio);
+                    cmd.Parameters.AddWithValue("@P_FECHA_FIN", solicitud.FechaFin == null ? "NULL" : solicitud.FechaFin);
+                    cmd.Parameters.AddWithValue("@P_IDEMPLEADO", solicitud.IdEmpleado == 0 ? 0 : solicitud.IdEmpleado);
+                    cmd.Parameters.AddWithValue("@P_IDALUMNO", solicitud.IdAlumno == 0 ? 0 : solicitud.IdAlumno);
 
 
 
@@ -221,7 +221,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                             solicitud_.ApellidoMat = rd.GetValue(rd.GetOrdinal("APELLIDOMAT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APELLIDOMAT"));
                             solicitud_.Estado = rd.GetValue(rd.GetOrdinal("ESTADO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("ESTADO"));
                             solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
-                            solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
+                            solicitud_.CumpleSla = rd.GetValue(rd.GetOrdinal("CUMPLESLA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CUMPLESLA"));
                             obj.OneResult.Add(solicitud_);
                         }
                     }
@@ -251,32 +251,32 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             try
             {
-                //using (var oCnn = Cn.OracleCn())
-                //{
-                //    OracleCommand oCmd = null;
-                //    oCnn.Open();
-                //    oCmd = new OracleCommand("SP_CONSULTAR_DEMANDA_UNID_NEG", oCnn);
-                //    oCmd.CommandType = CommandType.StoredProcedure;
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
 
-                //    oCmd.Parameters.Add(new OracleParameter("P_FECHA_INICIO", OracleDbType.Varchar2)).Value = chart.FechaInicio;
-                //    oCmd.Parameters.Add(new OracleParameter("P_FECHA_FIN", OracleDbType.Varchar2)).Value = chart.FechaFin;
-                //    oCmd.Parameters.Add(new OracleParameter("P_RC", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    cmd = new SqlCommand(SP.GSAV_SP_CONSULTAR_DEMANDA_UNID_NEG, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                //    OracleDataReader rd = oCmd.ExecuteReader();
-                //    if (rd.HasRows)
-                //    {
-                //        while (rd.Read())
-                //        {
-                //            var chart_ = new ChartCustom();
-                //            chart_.Descripcion = rd.GetString(rd.GetOrdinal("UNIDAD"));
-                //            chart_.Cantidad = rd.GetDecimal(rd.GetOrdinal("CANTIDAD"));                           
-                //            obj.OneResult.Add(chart_);
-                //        }
-                //    }
+                    cmd.Parameters.AddWithValue("@P_FECHA_INICIO", chart.FechaInicio);
+                    cmd.Parameters.AddWithValue("@P_FECHA_FIN", chart.FechaFin);
 
-                //    obj.Success = true;
+                    SqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            var chart_ = new ChartCustom();
+                            chart_.Descripcion = rd.GetString(rd.GetOrdinal("UNIDAD"));
+                            chart_.Cantidad = rd.GetInt32(rd.GetOrdinal("CANTIDAD"));
+                            obj.OneResult.Add(chart_);
+                        }
+                    }
 
-                //}
+                    obj.Success = true;
+
+                }
             }
             catch (Exception ex)
             {
@@ -299,32 +299,32 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             try
             {
-                //using (var oCnn = Cn.OracleCn())
-                //{
-                //    OracleCommand oCmd = null;
-                //    oCnn.Open();
-                //    oCmd = new OracleCommand("SP_CONSULTAR_DEMANDA_TIPO", oCnn);
-                //    oCmd.CommandType = CommandType.StoredProcedure;
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
 
-                //    oCmd.Parameters.Add(new OracleParameter("P_FECHA_INICIO", OracleDbType.Varchar2)).Value = chart.FechaInicio;
-                //    oCmd.Parameters.Add(new OracleParameter("P_FECHA_FIN", OracleDbType.Varchar2)).Value = chart.FechaFin;
-                //    oCmd.Parameters.Add(new OracleParameter("P_RC", OracleDbType.RefCursor)).Direction = ParameterDirection.Output;
+                    cmd = new SqlCommand(SP.GSAV_SP_CONSULTAR_DEMANDA_TIPO, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                //    OracleDataReader rd = oCmd.ExecuteReader();
-                //    if (rd.HasRows)
-                //    {
-                //        while (rd.Read())
-                //        {
-                //            var chart_ = new ChartCustom();
-                //            chart_.Descripcion = rd.GetString(rd.GetOrdinal("DESCRIPCION"));
-                //            chart_.Cantidad = rd.GetDecimal(rd.GetOrdinal("CANTIDAD"));
-                //            obj.OneResult.Add(chart_);
-                //        }
-                //    }
+                    cmd.Parameters.AddWithValue("@P_FECHA_INICIO", chart.FechaInicio);
+                    cmd.Parameters.AddWithValue("@P_FECHA_FIN", chart.FechaFin);
 
-                //    obj.Success = true;
+                    SqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            var chart_ = new ChartCustom();
+                            chart_.Descripcion = rd.GetString(rd.GetOrdinal("DESCRIPCION"));
+                            chart_.Cantidad = rd.GetInt32(rd.GetOrdinal("CANTIDAD"));
+                            obj.OneResult.Add(chart_);
+                        }
+                    }
 
-                //}
+                    obj.Success = true;
+
+                }
             }
             catch (Exception ex)
             {

@@ -12,7 +12,9 @@ namespace GSAV.Web.Models
             Total = "0";
             Resueltos = "0";
             Derivados = "0";
+            Pendientes = "0";
             NoResueltos = "0";
+            Cancelados = "0";
             CumplioSla = "0";
             NoCumplioSla = "0";
         }
@@ -20,8 +22,9 @@ namespace GSAV.Web.Models
         public string Total { get; set; }
         public string Resueltos { get; set; }
         public string Derivados { get; set; }
+        public string Pendientes { get; set; }
         public string NoResueltos { get; set; }
-        public string Cancelado { get; set; }
+        public string Cancelados { get; set; }
         public string CumplioSla { get; set; }
         public string NoCumplioSla { get; set; }
     }

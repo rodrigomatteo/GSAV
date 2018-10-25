@@ -114,10 +114,10 @@ namespace GSAV.Web.Controllers
                 if(dtFechaInicio != null && dtFechaFin != null)
                 {
                     dtFchFin = dtFechaFin.GetValueOrDefault();
-                    dtFchFin.AddDays(1);
+                    var nuevaFchFin = dtFchFin.AddDays(1);
 
                     solicitud.FechaInicio = fechaInicio;
-                    solicitud.FechaFin = ConvertidorUtil.FormatearFechaEsp(dtFchFin);
+                    solicitud.FechaFin = ConvertidorUtil.FormatearFechaEsp(nuevaFchFin);
                 }
 
                 var objResult = oIBLSolicitud.ConsultarSolicitudes(solicitud);

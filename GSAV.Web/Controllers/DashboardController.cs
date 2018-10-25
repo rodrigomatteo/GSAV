@@ -72,10 +72,10 @@ namespace GSAV.Web.Controllers
             if (dtFechaInicio != null && dtFechaFin != null)
             {
                 dtFchFin = dtFechaFin.GetValueOrDefault();
-                dtFchFin.AddDays(1);
+                var nuevaFchFin = dtFchFin.AddDays(1);
 
                 solicitud.FechaInicio = fechaInicio;
-                solicitud.FechaFin = ConvertidorUtil.FormatearFechaEsp(dtFchFin);
+                solicitud.FechaFin = ConvertidorUtil.FormatearFechaEsp(nuevaFchFin);
             }
 
             var objResult = oIBLSolicitud.ConsultarSolicitudesDashboard(solicitud);
@@ -90,7 +90,37 @@ namespace GSAV.Web.Controllers
 
             try
             {
-                lista = plistarSolicitudesAtencion(fechaInicio, fechaFin);
+                var plista = plistarSolicitudesAtencion(fechaInicio, fechaFin);
+
+                lista = plista.Where(q => q.Estado.Equals("P") || q.Estado.Equals("D") || q.Estado.Equals("R")).ToList();
+
+                foreach (var solicitud in lista)
+                {
+                    var dateNow = DateTime.Now;
+                    var dateSpan = dateNow - solicitud.FechaRegistro;
+                    
+                    if (dateSpan.Days > 0)
+                    {
+                        solicitud.IndicadorStatus = "ROJO";
+                    }
+                    else
+                    {
+                        if (dateSpan.Hours <= 6)
+                        {
+                            solicitud.IndicadorStatus = "VERDE";
+                        }
+
+                        if (dateSpan.Hours > 6 && dateSpan.Hours <= 12)
+                        {
+                            solicitud.IndicadorStatus = "AMARILLO";
+                        }
+
+                        if (dateSpan.Hours > 12)
+                        {
+                            solicitud.IndicadorStatus = "ROJO";
+                        }
+                    }                    
+                }
             }
             catch (Exception ex)
             {
@@ -117,10 +147,12 @@ namespace GSAV.Web.Controllers
                     indicadoresDashboard.Total = lista.Count() + "";
                     indicadoresDashboard.Resueltos = lista.FindAll(q=> q.Estado.Equals("A")).Count() + "";
                     indicadoresDashboard.Derivados = lista.FindAll(q => q.Estado.Equals("D") || q.Estado.Equals("R")).Count() + "";
-                    indicadoresDashboard.NoResueltos = lista.FindAll(q => q.Estado.Equals("I") || q.Estado.Equals("F") || q.Estado.Equals("C") || q.Estado.Equals("P")).Count() + "";
-                    
-                    indicadoresDashboard.CumplioSla = "90";
-                    indicadoresDashboard.NoCumplioSla = "30";
+                    indicadoresDashboard.Pendientes = lista.FindAll(q => q.Estado.Equals("P")).Count() + "";
+                    indicadoresDashboard.NoResueltos = lista.FindAll(q => q.Estado.Equals("I") || q.Estado.Equals("F")).Count() + "";
+                    indicadoresDashboard.Cancelados = lista.FindAll(q => q.Estado.Equals("C")).Count() + "";
+
+                    indicadoresDashboard.CumplioSla = lista.FindAll(q => q.CumpleSla.Equals("1")).Count() + "";
+                    indicadoresDashboard.NoCumplioSla = lista.FindAll(q => q.CumpleSla.Equals("0")).Count() + "";
                 }
                 
                 lst.Add(indicadoresDashboard);
@@ -149,10 +181,10 @@ namespace GSAV.Web.Controllers
                 if (dtFechaInicio != null && dtFechaFin != null)
                 {
                     dtFchFin = dtFechaFin.GetValueOrDefault();
-                    dtFchFin.AddDays(1);
+                    var nuevaFchFin = dtFchFin.AddDays(1);
 
                     chart.FechaInicio = fechaInicio;
-                    chart.FechaFin = ConvertidorUtil.FormatearFechaEsp(dtFchFin);
+                    chart.FechaFin = ConvertidorUtil.FormatearFechaEsp(nuevaFchFin);
                 }
 
                 var objResult = oIBLSolicitud.ConsultarDemandaUnidadNegocio(chart);
@@ -183,10 +215,10 @@ namespace GSAV.Web.Controllers
                 if (dtFechaInicio != null && dtFechaFin != null)
                 {
                     dtFchFin = dtFechaFin.GetValueOrDefault();
-                    dtFchFin.AddDays(1);
+                    var nuevaFchFin =  dtFchFin.AddDays(1);
 
                     chart.FechaInicio = fechaInicio;
-                    chart.FechaFin = ConvertidorUtil.FormatearFechaEsp(dtFchFin);
+                    chart.FechaFin = ConvertidorUtil.FormatearFechaEsp(nuevaFchFin);
                 }
 
                 var objResult = oIBLSolicitud.ConsultarDemandaTipoConsulta(chart);
