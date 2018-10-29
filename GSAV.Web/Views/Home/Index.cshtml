@@ -243,13 +243,15 @@
                 <script>
                     function ExecuteChat() {
 
-
-
                         var params = BotChat.queryParams(location.search);
+                        
                         var user = {
-                            id: "@TempData["id"]", //"1",  //params['userid'] || 'userid',
-                            name: ' @User.Identity.GetUserName() ' //'Rodrigo Matteo' //params['username'] || 'username'
+                            id: "@Session["User-Id"]", //"1",  //params['userid'] || 'userid',
+                            name: '@User.Identity.GetUserName()' //'Rodrigo Matteo' //params['username'] || 'username'
                         };
+
+                        console.log(user);
+
                         var bot = {
                             id: params['botid'] || 'botid',
                             name: params['botname'] || 'botname'
@@ -263,7 +265,8 @@
                             user: user,
                             locale: 'es-es', // override locale to Spanish
                             directLine: {
-                                secret: "mOeE5Yxu2vU.cwA.x7w.CdcXM3Su8-8mPFPrFlhbtdg9uyFrlhsrLYN_btw10tM", //params['s'],
+                                //secret: "mOeE5Yxu2vU.cwA.x7w.CdcXM3Su8-8mPFPrFlhbtdg9uyFrlhsrLYN_btw10tM", //params['s'],
+                                secret: "wGbQ7RU5d4w.cwA.c3w.SN_0834Z7KNhgIO3Sp8V6p5bqQs7NrGkicKDjJt2wSk",
                                 webSocket: false
                             }
                         }, document.getElementById('BotChatGoesHere'));

@@ -93,9 +93,10 @@ namespace GSAV.Web.Controllers
                         // Initialization.
                         var logindetails = loginInfo.OneResult;
 
-                        // Login In.
+                        // Login In.                        
                         this.SignInUser(logindetails.NombreUsuario, false);
 
+                        Session["User-Id"] = loginInfo.OneResult.Id;
                         Session["Login-Info"] = loginInfo;
                         Session["User-NombreApellidoPat"] = logindetails.Persona.NombreApellidoPat;
 
@@ -176,9 +177,11 @@ namespace GSAV.Web.Controllers
 
             try
             {
-                // Setting
+                // Setting                
                 claims.Add(new Claim(ClaimTypes.Name, username));
+
                 var claimIdenties = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+
                 var ctx = Request.GetOwinContext();
                 var authenticationManager = ctx.Authentication;
 
