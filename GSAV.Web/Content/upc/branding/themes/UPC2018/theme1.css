@@ -364,11 +364,11 @@ table.bouncer {
     min-width: auto;
     display: block;
     zoom: 1;
-    min-height: 400px
+    min-height: 200px;
 }
 
 .popup .container {
-    min-height: 400px
+    min-height: 200px;
 }
 
 .container, .containerOptions {
@@ -378,7 +378,7 @@ table.bouncer {
 .column-1, .column-2, .column-3, .column-4, column-5 {
     float: left;
     margin: 6px 0 0 0;
-    min-height: 400px;
+    min-height: 200px;
     height: auto
 }
 
@@ -1782,7 +1782,7 @@ div.landingListWrapper {
         }
 
 .containerLanding, div.landing div.container, body.landingBody div.container {
-    min-height: 400px;
+    min-height: 200px;
     padding: 10px 0 12px 0;
     margin: 0
 }

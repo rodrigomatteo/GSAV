@@ -26,6 +26,8 @@
     <link href="~/Content/ui.jqgrid.css" rel="stylesheet">
     <link href="~/Content/site.css" rel="stylesheet">
     <link href="~/Content/jquery-confirm.css" rel="stylesheet">
+    <link href="~/Content/webchat-stable/botchat.css" rel="stylesheet">
+    <link href="~/Content/webchat-stable/botchat-fullwindow.css" rel="stylesheet">
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -160,7 +162,7 @@
     </div>
 
     <div id="globalNavPageContentArea">
-        <div class="locationPane">
+        <div class="locationPane" id="divCointainerRenderBody">
 
             @RenderBody()
 

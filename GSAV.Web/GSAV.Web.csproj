@@ -237,11 +237,14 @@
     <Content Include="Content\custom\jquery-ui.structure.css" />
     <Content Include="Content\custom\jquery-ui.theme.css" />
     <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\angle_down.png" />
+    <Content Include="Content\images\angle_up-16.png" />
     <Content Include="Content\images\BMANUALES1.jpg" />
     <Content Include="Content\images\color_label_circle_green_T.png" />
     <Content Include="Content\images\color_label_circle_orange_T.png" />
     <Content Include="Content\images\color_label_circle_red_T.png" />
     <Content Include="Content\images\color_label_circle_yellow_T.png" />
+    <Content Include="Content\images\if_internet-group-chat_118807.png" />
     <Content Include="Content\images\like.png" />
     <Content Include="Content\images\unlike.png" />
     <Content Include="Content\jquery-confirm.css" />
@@ -266,6 +269,8 @@
     <Content Include="Content\upc\fonts\icon-listing.css" />
     <Content Include="Content\upc\groupjs\EAB0C82B128EE3ABB7F3ADB960052484.js" />
     <Content Include="Content\upc\ui\bb-icon2.ico" />
+    <Content Include="Content\webchat-stable\botchat-fullwindow.css" />
+    <Content Include="Content\webchat-stable\botchat.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

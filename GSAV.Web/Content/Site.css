@@ -49,7 +49,7 @@ textarea {
 }
 
 .labelTextIndicador {
-    font-size: 11.5px;    
+    font-size: 11.5px;
 }
 
 .labelIndicador {
@@ -62,7 +62,7 @@ textarea {
 }
 
 .collapsible table {
-    border-spacing: 0px 0px !important; 
+    border-spacing: 0px 0px !important;
     border-collapse: separate;
     font-size: 100% !important;
     color: #333;
@@ -75,8 +75,9 @@ textarea {
     font-weight: bold;
     padding-top: 15px;
 }
+
 .divChartArea {
-    background: #FFF;  
+    background: #FFF;
 }
 
 .fieldset {
@@ -84,7 +85,7 @@ textarea {
     padding: 10px !important;
 }
 
-.buttonTable{
+.buttonTable {
     margin: 2px 2px 2px 2px !important;
 }
 
@@ -95,6 +96,7 @@ textarea {
     height: 80px;
     font-size: 12px !important;
 }
+
 .text-box-read-only {
     background: #e6e0e0;
     border: 1px solid #ccc;
@@ -114,4 +116,115 @@ textarea {
     text-align: center;
     width: 800px;
     height: 250px;
+}
+
+/*++++++ CHAT BOT CSS +++++++++++*/
+
+.chat-box {
+    position: absolute;
+    right: 20px;
+    bottom: 0px;
+    background: white;
+    width: 350px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.chat-head {
+    width: inherit;
+    height: 45px;
+    background: #E3000F;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.chat-head label {
+    color: white;
+    padding: 15px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.chat-head-img-chat {
+    cursor: auto;
+    float: left;
+    width: 25px;
+    margin: 10px;
+}
+
+.chat-head-img-angle {
+    cursor: pointer;
+    float: right;
+    width: 20px;
+    margin: 10px;
+}
+
+.chat-body {
+    height: 400px;    
+    overflow: hidden;
+    margin-bottom: 0px;
+    border: 1px solid #E3000F;
+}
+
+.chat-text {
+    position: fixed;
+    bottom: 0px;
+    height: 45px;
+    width: inherit;
+}
+
+.chat-text textarea {
+    width: inherit;
+    height: inherit;
+    box-sizing: border-box;
+    border: 1px solid #bdc3c7;
+    padding: 10px;
+    resize: none;
+}
+
+.chat-text textarea:active, .chat-text textarea:focus, .chat-text textarea:hover {
+    border-color: royalblue;
+}
+
+.msg-send {
+    background: #2ecc71;
+}
+
+.msg-receive {
+    background: #3498db;
+}
+
+.msg-send, .msg-receive {
+    width: 200px;
+    height: 0px;
+    padding: 5px 5px 5px 10px;
+    margin: 10px auto;
+    border-radius: 3px;
+    line-height: 30px;
+    position: relative;
+    color: white;
+}
+
+.msg-receive:before {
+    content: '';
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border: 15px solid;
+    border-color: transparent #3498db transparent transparent;
+    left: -29px;
+    top: 7px;
+}
+
+.msg-send:after {
+    content: '';
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border: 15px solid;
+    border-color: transparent transparent transparent #2ecc71;
+    right: -29px;
+    top: 7px;
+}
+
+.msg-receive:hover, .msg-send:hover {
+    opacity: .9;
 }

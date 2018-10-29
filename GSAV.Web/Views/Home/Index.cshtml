@@ -33,8 +33,6 @@
             <div class="row">
                 <div class="col-md-12">
 
-
-
                     <div class="contentBox contentBox-edit clearfix">
 
                         <div class="containerPortal clearfix">
@@ -86,8 +84,6 @@
                                             }
 
 
-
-
                                         </ul>
 
 
@@ -95,7 +91,7 @@
                                 </div>
 
                                 <div class="portlet clearfix  " id="module:_522_1">
-                                    <!-- extid:522: -->
+
                                     <div class="edit_controls">
                                     </div>
 
@@ -111,52 +107,11 @@
 
                                     </div>
                                 </div>
-
-                                <div class="portlet clearfix  " id="module:_528_1">
-                                    <!-- extid:528: -->
-                                    <div class="edit_controls">
-                                    </div>
-
-
-                                    <h2 class="  clearfix" id="anonymous_element_7">
-                                        <span class="moduleTitle">Reglamentos y Políticas de UPC</span>
-                                    </h2>
-
-
-                                    <div class="collapsible" style="overflow: auto;">
-
-                                        <div class="vtbegenerated">
-                                            <div class="w3-content w3-section" style="max-width: 100%;">
-                                                <a href="http://sica.upc.edu.pe/publico/reglamentos-upc" target="_blank="><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_reg.png" style="width: 100%; display: block;"></a>
-                                                <a href="http://sica.upc.edu.pe/publico/politicas-upc" target="_blank"><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_pol.png" style="width: 100%; display: none;"></a>
-                                            </div>
-                                            <script type="text/javascript">
-                                                /*<![CDATA[*/
-                                                var myIndex1 = 0;
-                                                carousel1();
-
-                                                function carousel1() {
-                                                    var i;
-                                                    var x = document.getElementsByClassName("mySlides1");
-                                                    for (i = 0; i < x.length; i++) {
-                                                        x[i].style.display = "none";
-                                                    }
-                                                    myIndex1++;
-                                                    if (myIndex1 > x.length) { myIndex1 = 1 }
-                                                    x[myIndex1 - 1].style.display = "block";
-                                                    setTimeout(carousel1, 3000); // Change image every 2 seconds
-                                                }
-                                                /*]]>*/</script>
-                                        </div>
-
-                                    </div>
-                                </div>
-
                             </div>
 
                             <div id="column1" class="column-3 clearfix" style="width: 45%;">
                                 <div class="portlet clearfix  " id="module:_527_1">
-                                    <!-- extid:527: -->
+
                                     <div class="edit_controls">
                                     </div>
 
@@ -164,8 +119,6 @@
                                     <h2 class="  clearfix" id="anonymous_element_9">
                                         <span class="moduleTitle">Aprendizaje Digital: Recomendaciones y tips</span>
                                     </h2>
-
-
                                     <div class="collapsible" style="overflow: auto;">
 
                                         <div class="vtbegenerated">
@@ -176,117 +129,135 @@
                                                          style="width: 100%; display: block;">
                                                 </a>
                                             </div>
-                                            <script type="text/javascript">
-                                                /*<![CDATA[*/
-                                                var myIndex = 0;
-                                                carousel();
-
-                                                function carousel() {
-                                                    var i;
-                                                    var x = document.getElementsByClassName("mySlides");
-                                                    for (i = 0; i < x.length; i++) {
-                                                        x[i].style.display = "none";
-                                                    }
-                                                    myIndex++;
-                                                    if (myIndex > x.length) { myIndex = 1 }
-                                                    x[myIndex - 1].style.display = "block";
-                                                    setTimeout(carousel, 3500); // Change image every 2 seconds
-                                                }
-                                                /*]]>*/</script>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-
-                            <div id="column2" class="column-3 clearfix" style="width: 35%;">
-
-                                <div class="portlet clearfix  " id="module:_48_1">
-                                    <!-- extid:portal/tools/my_institution: -->
-                                    <div class="edit_controls">
-                                    </div>
-
-
-                                    <h2 class="  clearfix" id="anonymous_element_4">
-                                        <span class="moduleTitle">Chat Upecito</span>
-                                    </h2>
-
-
-                                    <div class="collapsible" style="overflow: auto;">
-
-
-                                        <input style="min-width:50px; min-height:25px;"
-                                               value="Consultar Upecito"
-                                               type="button"
-                                               id="btnUpecito"
-                                               onclick="ShowChat(); ExecuteChat();" />
-                                        <label class="LabelCSSTop"></label>
-                                        <div id="BotChatGoesHere" style="display: none;width:100%;height:435px" />
-
-
-
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-
-
                         </div>
-
                     </div>
-
                 </div>
-
-                <script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
-                <script>
-                    function ExecuteChat() {
-
-                        var params = BotChat.queryParams(location.search);
-                        
-                        var user = {
-                            id: "@Session["User-Id"]", //"1",  //params['userid'] || 'userid',
-                            name: '@User.Identity.GetUserName()' //'Rodrigo Matteo' //params['username'] || 'username'
-                        };
-
-                        console.log(user);
-
-                        var bot = {
-                            id: params['botid'] || 'botid',
-                            name: params['botname'] || 'botname'
-                        };
-                        window['botchatDebug'] = params['debug'] && params['debug'] === 'true';
-
-                        BotChat.App({
-                            bot: bot,
-                            resize: 'detect',
-                            sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
-                            user: user,
-                            locale: 'es-es', // override locale to Spanish
-                            directLine: {
-                                //secret: "mOeE5Yxu2vU.cwA.x7w.CdcXM3Su8-8mPFPrFlhbtdg9uyFrlhsrLYN_btw10tM", //params['s'],
-                                secret: "wGbQ7RU5d4w.cwA.c3w.SN_0834Z7KNhgIO3Sp8V6p5bqQs7NrGkicKDjJt2wSk",
-                                webSocket: false
-                            }
-                        }, document.getElementById('BotChatGoesHere'));
-                    }
-
-                    function ShowChat() {
-                        var x = document.getElementById("BotChatGoesHere");
-                        var y = document.getElementById("btnUpecito");
-
-                        if (x.style.display === "none") {
-                            x.style.display = "block";
-                            y.style.display = "none";
-                        } else {
-                            x.style.display = "none";
-                        }
-                    }
-                </script>
-
             </div>
         </div>
     </div>
 </div>
 
+<div class="wrapper">
+    <div class="chat-box">
+        <div class="chat-head">
+            <img src="~/Content/images/if_internet-group-chat_118807.png" class="chat-head-img-chat"/>
+            <label>UPECITO- CHATBOT</label>
+            <img src="https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png" title="Expand Arrow" width="14" class="chat-head-img-angle">
+        </div>
+        <div class="chat-body">
+            <label class="LabelCSSTop"></label>
+            <div id="BotChatGoesHere" style="width:100%;height:400px;" />
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function () {
+        var arrow = $('.chat-head-img-angle');
+        var textarea = $('.chat-text textarea');
+
+        arrow.on('click', function () {
+            var src = arrow.attr('src');
+
+            $('.chat-body').slideToggle('fast');
+            if (src == 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png') {
+                arrow.attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_up-16.png');
+            }
+            else {
+                arrow.attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png');
+            }
+        });
+
+        textarea.keypress(function (event) {
+            var $this = $(this);
+
+            if (event.keyCode == 13) {
+                var msg = $this.val();
+                $this.val('');
+                $('.msg-insert').prepend("<div class='msg-send'>" + msg + "</div>");
+            }
+        });
+
+    });
+</script>
+
+<script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
+
+<script type="text/javascript">
+
+function ExecuteChat() {
+
+    var params = BotChat.queryParams(location.search);
+
+    var user = {
+        id: "@Session["User-Id"]", //"1",  //params['userid'] || 'userid',
+        name: '@User.Identity.GetUserName()' //'Rodrigo Matteo' //params['username'] || 'username'
+    };
+
+    console.log(user);
+
+    var bot = {
+        id: params['botid'] || 'botid',
+        name: params['botname'] || 'botname'
+    };
+    window['botchatDebug'] = params['debug'] && params['debug'] === 'true';
+
+    BotChat.App({
+        bot: bot,
+        resize: 'detect',
+        sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
+        user: user,
+        locale: 'es-es', // override locale to Spanish
+        directLine: {
+            //secret: "mOeE5Yxu2vU.cwA.x7w.CdcXM3Su8-8mPFPrFlhbtdg9uyFrlhsrLYN_btw10tM", //params['s'],
+            secret: "wGbQ7RU5d4w.cwA.c3w.SN_0834Z7KNhgIO3Sp8V6p5bqQs7NrGkicKDjJt2wSk",
+            webSocket: false
+        }
+    }, document.getElementById('BotChatGoesHere'));
+
+    $('.wc-header').css('display', 'none');
+}
+
+                   
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+                
+        var windowHeight = $(window).height();
+        var valheight = $('#globalNavPageNavArea').height();
+
+        $('#globalNavPageContentArea').height(windowHeight - valheight - 50);
+        $('#divCointainerRenderBody').height(windowHeight - valheight - 40);
+        ExecuteChat();       
+
+    });
+
+</script>
+
+
+<script type="text/javascript">
+
+    var myIndex = 0;
+    carousel();
+
+    function carousel() {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        myIndex++;
+        if (myIndex > x.length) { myIndex = 1 }
+        x[myIndex - 1].style.display = "block";
+        setTimeout(carousel, 3500);
+    }
+
+</script>
