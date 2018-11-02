@@ -13,5 +13,11 @@ namespace GSAV.Web.Util
             public const string Coordinador = "COORDINADOR";
             public const string Alumno = "ALUMNO";
         }
+
+        public static class DialogFlow
+        {
+            public const string FilePrivateKeyIdJson = "upc-chatbot-2b629c2109dc.json";
+            public const string ProjectId = "upc-chatbot";
+        }
     }
 }

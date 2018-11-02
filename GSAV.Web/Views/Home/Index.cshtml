@@ -71,7 +71,7 @@
                                                    ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR"))
                                             {
                                                 <li>
-                                                    <a href="@Url.Content("/Consulta/Index")" _self">Base de Conocimiento Académico</a>
+                                                    <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>
                                                 </li>
 
                                             }
@@ -141,109 +141,132 @@
     </div>
 </div>
 
-<div class="wrapper">
-    <div class="chat-box">
-        <div class="chat-head">
-            <img src="~/Content/images/if_internet-group-chat_118807.png" class="chat-head-img-chat"/>
-            <label>UPECITO- CHATBOT</label>
-            <img src="https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png" title="Expand Arrow" width="14" class="chat-head-img-angle">
-        </div>
-        <div class="chat-body">
-            <label class="LabelCSSTop"></label>
-            <div id="BotChatGoesHere" style="width:100%;height:400px;" />
+@if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "ALUMNO")
+{
+    <div class="wrapper" id="divChatBotContainer">
+        <div class="chat-box">
+            <div class="chat-head" style="cursor:pointer !important">
+                <img src="/Content/images/chat5.png" class="chat-head-img-chat" style="cursor:pointer !important;margin: 5px 5px 5px 5px;width: 44px;float: none;">
+                <label style="cursor:pointer !important">Consultar a UPECITO!</label>
+                <img src="https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_up-16.png" title="Expand Arrow" width="14" class="chat-head-img-angle" id="img-head-chat">
+            </div>
+            <div class="chat-body" style="display:none">
+                <label class="LabelCSSTop"></label>
+                <div id="divIniciarChatBot">
+                    <div class="" style="height: 400px;overflow: hidden;margin-bottom: 0px;border: 1px solid #E3000F;padding-top: 50px;padding-left: 10px;">
+                        <img src="/Content/images/if_88_171447.png" class="" style="">
+                        <label>Asesor de Aula Virtual</label>
+                        <br />
+                        <label style="padding-left: 50px;">Información...</label>
+                    </div>
+                    <div class="chat-text" style="text-align: center; padding-top: 25px; border-bottom-color: Navy; border-width: 5px;width:350px">
+                        <button id="btnUpecito" onclick="ShowChat();ExecuteChat();">
+                           Iniciar                            
+                        </button>
+                    </div>
+                </div>
+                <div id="BotChatGoesHere" style="width:100%;height:400px;display:none" />
+            </div>
         </div>
     </div>
-</div>
-
-
-
-<script>
-    $(function () {
-        var arrow = $('.chat-head-img-angle');
-        var textarea = $('.chat-text textarea');
-
-        arrow.on('click', function () {
-            var src = arrow.attr('src');
-
-            $('.chat-body').slideToggle('fast');
-            if (src == 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png') {
-                arrow.attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_up-16.png');
-            }
-            else {
-                arrow.attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png');
-            }
-        });
-
-        textarea.keypress(function (event) {
-            var $this = $(this);
-
-            if (event.keyCode == 13) {
-                var msg = $this.val();
-                $this.val('');
-                $('.msg-insert').prepend("<div class='msg-send'>" + msg + "</div>");
-            }
-        });
-
-    });
-</script>
-
-<script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
-
-<script type="text/javascript">
-
-function ExecuteChat() {
-
-    var params = BotChat.queryParams(location.search);
-
-    var user = {
-        id: "@Session["User-Id"]", //"1",  //params['userid'] || 'userid',
-        name: '@User.Identity.GetUserName()' //'Rodrigo Matteo' //params['username'] || 'username'
-    };
-
-    console.log(user);
-
-    var bot = {
-        id: params['botid'] || 'botid',
-        name: params['botname'] || 'botname'
-    };
-    window['botchatDebug'] = params['debug'] && params['debug'] === 'true';
-
-    BotChat.App({
-        bot: bot,
-        resize: 'detect',
-        sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
-        user: user,
-        locale: 'es-es', // override locale to Spanish
-        directLine: {
-            //secret: "mOeE5Yxu2vU.cwA.x7w.CdcXM3Su8-8mPFPrFlhbtdg9uyFrlhsrLYN_btw10tM", //params['s'],
-            secret: "wGbQ7RU5d4w.cwA.c3w.SN_0834Z7KNhgIO3Sp8V6p5bqQs7NrGkicKDjJt2wSk",
-            webSocket: false
-        }
-    }, document.getElementById('BotChatGoesHere'));
-
-    $('.wc-header').css('display', 'none');
 }
 
-                   
-</script>
 
-<script type="text/javascript">
+
+
+    <script>
+        $(function () {
+            var arrow = $('.chat-head');
+           
+            arrow.on('click', function () {
+                var src = $('#img-head-chat').attr('src');
+
+                $('.chat-body').slideToggle('fast');
+                if (src == 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png') {
+                    $('#img-head-chat').attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_up-16.png'); 
+                }
+                else {
+                    $('#img-head-chat').attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png');                                       
+                }
+            });            
+
+        });
+    </script>
+
+    <script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
+
+    <script type="text/javascript">
+
+
+    function ShowChat() {
+        var divBotChatGoesHere = document.getElementById("BotChatGoesHere");
+        var divIniciarChatBot = document.getElementById("divIniciarChatBot");
+
+        if (divBotChatGoesHere.style.display === "none") {
+            divBotChatGoesHere.style.display = "block";
+            divIniciarChatBot.style.display = "none";
+        } else {
+            divBotChatGoesHere.style.display = "none";
+        }
+    }   
+
+    function ExecuteChat() {
+
+        var params = BotChat.queryParams(location.search);
+
+        var user = {
+            id: "@Session["User-Id"]", //"1",  //params['userid'] || 'userid',
+            name: '@User.Identity.GetUserName()' //'Rodrigo Matteo' //params['username'] || 'username'
+        };
+
+        console.log(user);
+
+        var bot = {
+            id: params['botid'] || 'botid',
+            name: params['botname'] || 'botname'
+        };
+        window['botchatDebug'] = params['debug'] && params['debug'] === 'true';
+
+        BotChat.App({
+            bot: bot,
+            resize: 'detect',
+            sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
+            user: user,
+            locale: 'es-es', // override locale to Spanish
+            directLine: {
+                //secret: "mOeE5Yxu2vU.cwA.x7w.CdcXM3Su8-8mPFPrFlhbtdg9uyFrlhsrLYN_btw10tM", //params['s'],
+                secret: "wGbQ7RU5d4w.cwA.c3w.SN_0834Z7KNhgIO3Sp8V6p5bqQs7NrGkicKDjJt2wSk",
+                webSocket: false
+            }
+        }, document.getElementById('BotChatGoesHere'));
+
+        $('.wc-header').css('display', 'none');
+    }
+
+
+    </script>
+
+    <script type="text/javascript">
 
     $(document).ready(function () {
-                
+
         var windowHeight = $(window).height();
         var valheight = $('#globalNavPageNavArea').height();
 
         $('#globalNavPageContentArea').height(windowHeight - valheight - 50);
         $('#divCointainerRenderBody').height(windowHeight - valheight - 15);
-        ExecuteChat();       
+
+        var divChatBotContainer = document.getElementById('divChatBotContainer');            
+        if (divChatBotContainer != null) {
+            ExecuteChat();
+        }
 
     });
 
-</script>
+    </script>
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
     var myIndex = 0;
     carousel();
@@ -260,4 +283,4 @@ function ExecuteChat() {
         setTimeout(carousel, 3500);
     }
 
-</script>
+    </script>

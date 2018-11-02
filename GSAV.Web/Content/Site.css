@@ -134,6 +134,7 @@ textarea {
     height: 45px;
     background: #E3000F;
     border-radius: 5px 5px 0px 0px;
+    cursor: pointer;
 }
 
 .chat-head label {
@@ -144,10 +145,10 @@ textarea {
 }
 
 .chat-head-img-chat {
-    cursor: auto;
+    /*cursor: pointer;
     float: left;
     width: 25px;
-    margin: 10px;
+    margin: 10px;*/
 }
 
 .chat-head-img-angle {
@@ -167,7 +168,7 @@ textarea {
 .chat-text {
     position: fixed;
     bottom: 0px;
-    height: 45px;
+    height: 100px;
     width: inherit;
 }
 

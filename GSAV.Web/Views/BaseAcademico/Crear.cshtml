@@ -1,10 +1,11 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@model GSAV.Web.Models.IntentoModel
+@using Microsoft.AspNet.Identity
 @using GSAV.Entity.Objects
 @using GSAV.Entity.Util
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Crear Consulta Frecuente";
+    ViewBag.Title = "Crear Entrada Base de Conocimiento";
 }
 
 <div class="contentPaneWide clearfix tabbedPane portal">
@@ -13,7 +14,7 @@
         <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
         <ul id="paneTabs" class="clearfix nav">
             <li class="active ">
-                <a href="#">Crear Consulta Frecuente<span class="hideoff"> (ficha activa)</span></a>
+                <a href="#">Crear Entrada Base de Conocimiento<span class="hideoff"> (ficha activa)</span></a>
             </li>
 
             <li class="" style="display:none;"></li>
@@ -29,9 +30,7 @@
 
             <div class="row">
                 <div class="col-md-12">
-
-
-
+                                       
                     <div class="contentBox contentBox-edit clearfix">
 
                         <div class="containerPortal clearfix">
@@ -155,7 +154,7 @@
 
 
                                     <h2 class="  clearfix" id="anonymous_element_9">
-                                        <span class="moduleTitle">Crear Consulta Frecuente</span>
+                                        <span class="moduleTitle">Crear Entrada Base de Conocimiento</span>
                                     </h2>
 
 
@@ -172,50 +171,49 @@
                                                     <fieldset class="fieldset">
                                                         <legend>Datos</legend>
 
-                                                        <table width="100%" cellpadding="2" style="padding-right:10px">
+                                                        <table width="100%" cellpadding="2">
                                                             <colgroup>
-                                                                <col width="12%" />
-                                                                <col width="38%" />
+                                                                <col width="15%" />
+                                                                <col width="35%" />
                                                                 <col width="12%" />
                                                                 <col width="38%" />
                                                             </colgroup>
                                                             <tr>
                                                                 <td align="left" class="Texto">
-                                                                    Tipo:
+                                                                    Código de Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <input type="text" id="txtTipo" style="width:100%" />
+                                                                    @Html.HiddenFor(model => model.Id)
+                                                                    @Html.TextBoxFor(model => model.Id, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
                                                                 </td>
-                                                                <td align="left" class="Texto" style="padding-left:10px;">
-                                                                    Palabra Clave:
-                                                                </td>
-                                                                <td style="text-align: left">
-                                                                    <input type="text" id="txtPalabraClave" style="width:100%" />
-                                                                </td>
+                                                                <td align="left" class="Texto" style="padding-left:10px;"></td>
+                                                                <td style="text-align: left"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td align="left" class="Texto">
-                                                                    Fecha:
+                                                                    Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <input type="text" id="txtFecha" style="width:40%" />
+                                                                    @Html.TextBoxFor(model => model.Nombre, new { @style = "width:100%", @readonly = true, @class = "" })
                                                                 </td>
+                                                                <td align="left" class="Texto" style="padding-left:10px;"></td>
+                                                                <td style="text-align: left"></td>
                                                             </tr>
                                                             <tr>
-                                                                <td align="left" class="Texto">
-                                                                    Consulta:
+                                                                <td>
+                                                                    Frases Entrenamiento:
                                                                 </td>
-                                                                <td style="text-align: left" colspan="3">
-                                                                    <textarea id="txtConsulta" style="width:100%;height:50px"></textarea>
-                                                                </td>
+                                                                <td></td>
                                                             </tr>
                                                             <tr>
-                                                                <td align="left" class="Texto">
-                                                                    Solución:
+                                                                <td valign="top">
+                                                                    Respuesta:
                                                                 </td>
-                                                                <td style="text-align: left" colspan="3">
-                                                                    <textarea id="txtSolucion" style="width:100%;height:50px"></textarea>
+                                                                <td colspan="3">
+                                                                    @Html.TextArea("Respuesta", new { @style = "", @readonly = true, @class = "textAreaCustom" })
                                                                 </td>
+                                                                <td></td>
+                                                                <td></td>
                                                             </tr>
                                                         </table>
                                                     </fieldset>
@@ -224,15 +222,13 @@
                                                         <table>
                                                             <tr>
                                                                 <td colspan="4">
-                                                                    <input type="button" value="Grabar" />
+                                                                    <input type="button" value="Grabar" onclick="javascript: Grabar();" />
 
-                                                                    <input type="button" value="Cancelar" onclick="javascript: Cancelar();" />
+                                                                    <input type="button" value="Regresar" onclick="javascript: Cancelar();" />
                                                                 </td>
                                                             </tr>
                                                         </table>
                                                     </fieldset>
-
-
                                                 </td>
                                             </tr>
                                         </table>
@@ -241,38 +237,44 @@
 
                                             $(document).ready(function () {
 
-
-                                                $.datepicker.regional['es'] = {
-                                                    closeText: 'Cerrar',
-                                                    prevText: '<Ant',
-                                                    nextText: 'Sig>',
-                                                    currentText: 'Hoy',
-                                                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                                                    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                                                    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-                                                    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-                                                    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-                                                    weekHeader: 'Sm',
-                                                    dateFormat: 'dd/mm/yy',
-                                                    firstDay: 1,
-                                                    isRTL: false,
-                                                    showMonthAfterYear: false,
-                                                    yearSuffix: ''
-                                                };
-
-                                                $.datepicker.setDefaults($.datepicker.regional['es']);
-
-                                                $('#txtFecha').datepicker();
-
-
                                             });
 
+                                            function Enviar() {
+
+                                                var parametros = {
+                                                    idSolicitud: $('#IdSolicitud').val(),
+                                                    solucion: $('#Respuesta').val()
+                                                };
+
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: '/Consulta/EnviarSolucionSolicitud',
+                                                    data: parametros,
+                                                    dataType: 'json',
+                                                    success: function (rpta) {
+                                                        if (rpta) {
+                                                            $.alert({
+                                                                closeIcon: true,
+                                                                title: 'Detalle Consulta',
+                                                                content: 'La respuesta se ha registrado correctamente',
+                                                                type: 'red',
+                                                                typeAnimated: true,
+                                                            });
+                                                        }
+                                                    },
+                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                    }
+                                                });
+
+                                            }
+
                                             function Cancelar() {
-                                                window.open('@Url.Action("Index", "Consulta")', '_self');
+                                                window.open('@Url.Action("Index", "BaseAcademico")', '_self');
                                             }
 
                                         </script>
-
                                     </div>
                                 </div>
                             </div>
