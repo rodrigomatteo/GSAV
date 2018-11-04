@@ -228,7 +228,7 @@
 
         window['botchatDebug'] = params['debug'] && params['debug'] === 'true';
 
-       
+              
 
         BotChat.App({
             bot: bot,
@@ -239,23 +239,11 @@
             directLine: {                
                 secret: "aNm6Ihl-Feg.cwA.UiU.yJCPLacQKOpFVzxZjbEJRZV9cdA6dVZHkUDkVw1LM0g",
                 webSocket: false
-            }
+            }        
         }, document.getElementById('BotChatGoesHere'));
-              
-        BotChat.on('conversationUpdate', function (activity) {
-            if (activity.membersAdded) {
-                activity.membersAdded.forEach((identity) => {
-                    if (identity.id === activity.address.bot.id) {
-                        var reply = new builder.activity()
-                            .address(activity.address)
-                            .text('Hi there!');
-                        bot.send(reply);
-                    }
-                });
-            }
-        });
 
         $('.wc-header').css('display', 'none');
+        
     }
 
 
