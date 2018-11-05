@@ -165,7 +165,7 @@
                         </button>
                     </div>
                 </div>*@
-                <div id="BotChatGoesHere" style="width:100%;height:400px;display:none" />
+                <div id="BotChatGoesHere" style="width:100%;height:400px;" />
             </div>
         </div>
     </div>
@@ -228,8 +228,6 @@
 
         window['botchatDebug'] = params['debug'] && params['debug'] === 'true';
 
-              
-
         BotChat.App({
             bot: bot,
             resize: 'detect',
@@ -261,7 +259,7 @@
 
         var divChatBotContainer = document.getElementById('divChatBotContainer');            
         if (divChatBotContainer != null) {
-            //ExecuteChat();
+            ExecuteChat();
         }
 
     });
