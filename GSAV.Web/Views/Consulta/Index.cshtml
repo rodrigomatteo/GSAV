@@ -64,9 +64,8 @@
 
                                             }
 
-                                            @if ( @Session["Login-Info"] != null && 
-                                                (  ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE" || 
-                                                   ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR" ) )
+                                            @if (@Session["Login-Info"] != null &&
+                                                ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
                                             {
                                                 <li>
                                                     <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>

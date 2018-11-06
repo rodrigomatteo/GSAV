@@ -45,6 +45,7 @@
     <Compile Include="Objects\ChartCustom.cs" />
     <Compile Include="Objects\Empleado.cs" />
     <Compile Include="Objects\Estado.cs" />
+    <Compile Include="Objects\Intencion.cs" />
     <Compile Include="Objects\Persona.cs" />
     <Compile Include="Objects\Solicitud.cs" />
     <Compile Include="Objects\Usuario.cs" />

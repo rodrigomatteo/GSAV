@@ -29,6 +29,16 @@ namespace GSAV.Web.Controllers
 
             if (this.Request.IsAuthenticated)
             {
+                if (Session["Login-Info"] != null)
+                {
+                    var user = ((Entity.Util.ReturnObject<Usuario>)Session["Login-Info"]).OneResult;
+
+                    if (!ConstantesWeb.Rol.Coordinador.Equals(user.Rol))
+                    {
+                        return this.RedirectToAction("Index", "Home");
+                    }
+                }
+
                 return View(TempData["id"]);
             }
             else

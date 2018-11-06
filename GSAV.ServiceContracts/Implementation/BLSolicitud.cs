@@ -120,5 +120,29 @@ namespace GSAV.ServiceContracts.Implementation
                 throw;
             }
         }
+
+        public ReturnObject<string> ObtenerFechaIntencion(string idDialogFlow)
+        {
+            try
+            {
+                return oIDASolicitud.ObtenerFechaIntencion(idDialogFlow);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ReturnObject<List<Intencion>> ObtenerIntenciones()
+        {
+            try
+            {
+                return oIDASolicitud.ObtenerIntenciones();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

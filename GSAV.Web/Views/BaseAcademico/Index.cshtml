@@ -64,9 +64,8 @@
 
                                             }
 
-                                            @if ( @Session["Login-Info"] != null && 
-                                                (  ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE" || 
-                                                   ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR" ) )
+                                            @if (@Session["Login-Info"] != null &&
+                                                ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
                                             {
                                                 <li>
                                                     <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>
@@ -187,7 +186,7 @@
                                                                     Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <select id="cbIntencion" style="width: 81%"></select>                                                                    
+                                                                    <input type="text" id="txtIntencion" style="width:80%" maxlength="10" />                                                            
                                                                 </td>
                                                                 <td align="left" class="Texto" style="">
                                                                     Palabra Clave:
@@ -237,13 +236,23 @@
                                                 jQuery("#jqGrid").jqGrid({
                                                     datatype: "local",
                                                     width: valwidth,
-                                                    colNames: ['Id','Código', 'Nombre', 'Training phrases', 'Respuesta', 'Editar', 'Eliminar'],
+                                                    colNames: ['Id', 'Código', 'Nombre', 'FechaCreacion', 'Respuesta', 'Training' , 'Editar', 'Anular'],
                                                     colModel: [
                                                         { name: 'Id', index: 'Id', width: 5, sortable: false, hidden: true },                                                       
-                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 5, sortable: false, hidden: false },
-                                                        { name: 'Nombre', index: 'Nombre', align: "center", width: 10, sortable: false },
-                                                        { name: 'CantidadFrases', index: 'CantidadFrases', align: "center", width: 6, sortable: false },
-                                                        { name: 'Respuesta', index: 'Respuesta', width: 20, align: "left",sortable: false },
+                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: false },
+                                                        { name: 'Nombre', index: 'Nombre', align: "center", width: 15, sortable: false },      
+                                                        { name: 'FechaCreacion', index: 'FechaCreacion', align: "center", width: 8, sortable: false },  
+                                                        { name: 'Respuesta', index: 'Respuesta', width: 20, align: "left", sortable: false },                                                       
+                                                        {
+                                                            name: 'Id', index: 'Id', align: "center", width: 5, sortable: false, jsonmap: "Id",
+                                                            formatter: function (cellvalue, options, rowObject) {
+
+                                                                var _id = "'" + rowObject.Id + "'";
+                                                                var nroFrases = rowObject.CantidadFrases;
+
+                                                                return '<input class="buttonTable" type="button" value="Ver (' + nroFrases + ')" onclick="javascript:VerFrases(' + _id + ')"\>';
+                                                            }
+                                                        },
                                                         {
                                                             name: 'Id', index: 'Id', align: "center", width: 5, sortable: false, jsonmap: "Id",
                                                             formatter: function (cellvalue, options, rowObject) {
@@ -258,7 +267,7 @@
                                                             formatter: function (cellvalue, options, rowObject) {
 
                                                                 var _id = rowObject.Id;
-                                                                return '<input class="buttonTable" type="button" value="Eliminar" onclick="javascript:Eliminar(' + _id + ')"\>';
+                                                                return '<input class="buttonTable" type="button" value="Anular" onclick="javascript:Eliminar(' + _id + ')"\>';
                                                             }
                                                         }
                                                     ],

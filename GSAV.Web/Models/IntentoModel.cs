@@ -9,10 +9,11 @@ namespace GSAV.Web.Models
     {
         public IntentoModel()
         {
-            this.Id = string.Empty;            
+            this.Id = string.Empty;
             this.Nombre = string.Empty;
             this.FrasesEntrenamiento = new List<FraseEntrenamientoModel>();
             this.Respuestas = new List<RespuestaIntentoModel>();
+            this.FechaCreacion = string.Empty;
         }
 
         public string IdShort {
@@ -54,6 +55,7 @@ namespace GSAV.Web.Models
                 return respuesta;
             }
         }
+        public string FechaCreacion { get; set; }
 
     }
 }

@@ -9,17 +9,36 @@ using Grpc.Core;
 using GSAV.Web.Models;
 using GSAV.Web.Util;
 using System.IO;
+using GSAV.ServiceContracts.Interface;
 
 namespace GSAV.Web.Dialogflow
 {
-    public static class DialogFlow
+    public class DialogFlow
     {
-        public static List<IntentoModel> ObtenerIntentos()
+        private readonly IBLSolicitud oIBLSolicitud;
+
+        public DialogFlow()
+        {
+            
+        }
+
+        public DialogFlow(IBLSolicitud bLSolicitud)
+        {
+            oIBLSolicitud = bLSolicitud;
+        }
+
+       
+
+        public List<IntentoModel> ObtenerIntentos()
         {
             var intentos = new List<IntentoModel>();
 
             try
             {
+
+                List<GSAV.Entity.Objects.Intencion> intenciones = oIBLSolicitud.ObtenerIntenciones().OneResult;
+
+
                 var fileSavePath = System.Web.HttpContext.Current.Server.MapPath("~/Dialogflow.json/") + ConstantesWeb.DialogFlow.FilePrivateKeyIdJson;
 
                 if ((System.IO.File.Exists(fileSavePath)))
@@ -44,6 +63,12 @@ namespace GSAV.Web.Dialogflow
                         intento.Id = intent.IntentName.IntentId;
                         intento.Nombre = intent.DisplayName;
 
+                        var row = intenciones.AsEnumerable().Where(q => q.IdDialogFlow.Equals(intento.Id)).FirstOrDefault();
+                        if (row != null)
+                        {
+                            intento.FechaCreacion = row.StrFechaCreacion;
+                        }
+                        
                         //Frases de Entrenamiento
                         foreach (var trainingPhrase in intent.TrainingPhrases)
                         {

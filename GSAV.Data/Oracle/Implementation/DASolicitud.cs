@@ -326,5 +326,15 @@ namespace GSAV.Data.Oracle.Implementation
 
             return obj;
         }
+
+        public ReturnObject<string> ObtenerFechaIntencion(string idDialogFlow)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ReturnObject<List<Intencion>> ObtenerIntenciones()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

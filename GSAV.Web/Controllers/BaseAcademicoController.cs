@@ -13,6 +13,14 @@ namespace GSAV.Web.Controllers
     [Authorize]
     public class BaseAcademicoController : Controller
     {
+
+        private readonly IBLSolicitud oIBLSolicitud;
+
+        public BaseAcademicoController(IBLSolicitud bLSolicitud)
+        {
+            oIBLSolicitud = bLSolicitud;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -52,7 +60,7 @@ namespace GSAV.Web.Controllers
         {
             var lista = new List<IntentoModel>();
 
-            lista = Dialogflow.DialogFlow.ObtenerIntentos();            
+            lista =  new Dialogflow.DialogFlow(oIBLSolicitud).ObtenerIntentos();            
 
             return new JsonResult { Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }

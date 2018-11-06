@@ -334,5 +334,117 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             return obj;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idDialogFlow"></param>
+        /// <returns></returns>
+        public ReturnObject<string> ObtenerFechaIntencion(string idDialogFlow)
+        {
+            ReturnObject<string> obj = new ReturnObject<string>();
+            obj.OneResult = string.Empty;
+
+            try
+            {
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    cmd = new SqlCommand(SP.GSAV_SP_BUSCAR_FECHA_CREA_INTENCION, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", idDialogFlow);
+                    
+
+                    SqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            var fechaCreacion_ = rd.GetDateTime(rd.GetOrdinal("FECHACREACION"));
+                            obj.OneResult = FormatearFechaEsp(fechaCreacion_);
+                        }
+                    }
+
+                    obj.Success = true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Success = false;
+                obj.ErrorMessage = ex.Message;
+            }
+
+            return obj;
+        }
+
+        public ReturnObject<List<Intencion>> ObtenerIntenciones()
+        {
+            ReturnObject<List<Intencion>> obj = new ReturnObject<List<Intencion>>();
+            obj.OneResult = new List<Intencion>();
+
+            try
+            {
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    cmd = new SqlCommand(SP.GSAV_SP_BUSCAR_INTENCIONES, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    SqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            var intencion = new Intencion();
+                            intencion.IdIntencionConsulta = rd.GetInt32(rd.GetOrdinal("IdIntencionConsulta"));
+                            intencion.Nombre = rd.GetString(rd.GetOrdinal("Nombre"));
+                            intencion.IdPadreIntencion = (rd.GetValue(rd.GetOrdinal("IdPadreIntencion")) == DBNull.Value) ? 0 : rd.GetInt32(rd.GetOrdinal("IdPadreIntencion"));
+                            intencion.IdDialogFlow = rd.GetString(rd.GetOrdinal("IdDialogFlow"));
+                            intencion.FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FechaCreacion"));
+                            intencion.StrFechaCreacion = FormatearFechaEsp(intencion.FechaCreacion);
+                            obj.OneResult.Add(intencion);
+                        }
+                    }
+
+                    obj.Success = true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Success = false;
+                obj.ErrorMessage = ex.Message;
+            }
+
+            return obj;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static string FormatearFechaEsp(DateTime date)
+        {
+            var resultado = string.Empty;
+            try
+            {
+                if (resultado != null)
+                    resultado = string.Format("{0:dd/MM/yyyy}", date);
+                if (date == DateTime.MinValue)
+                    resultado = string.Empty;
+            }
+            catch (Exception)
+            {
+
+            }
+            return resultado;
+        }
     }
 }

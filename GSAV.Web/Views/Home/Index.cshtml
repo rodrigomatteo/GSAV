@@ -66,9 +66,8 @@
 
                                             }
 
-                                            @if (@Session["Login-Info"] != null &&
-                                                (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE" ||
-                                                   ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR"))
+                                            @if ( @Session["Login-Info"] != null &&
+                                                ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE" )
                                             {
                                                 <li>
                                                     <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>
@@ -76,7 +75,7 @@
 
                                             }
 
-                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR")
+                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR" )
                                             {
                                                 <li>
                                                     <a href="@Url.Content("/Dashboard/Index")" _self">Dashboard de Consultas</a>
@@ -199,12 +198,10 @@
 
 
     function ShowChat() {
-        var divBotChatGoesHere = document.getElementById("BotChatGoesHere");
-        //var divIniciarChatBot = document.getElementById("divIniciarChatBot");
+        var divBotChatGoesHere = document.getElementById("BotChatGoesHere");        
 
         if (divBotChatGoesHere.style.display === "none") {
-            divBotChatGoesHere.style.display = "block";
-            //divIniciarChatBot.style.display = "none";
+            divBotChatGoesHere.style.display = "block";            
         } else {
             divBotChatGoesHere.style.display = "none";
         }

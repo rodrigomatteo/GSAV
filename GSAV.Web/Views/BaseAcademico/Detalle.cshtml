@@ -57,7 +57,8 @@
                                                 <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
                                             </li>
 
-                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
+                                            @if (@Session["Login-Info"] != null && 
+                                                ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
                                             {
                                                 <li>
                                                     <a href="@Url.Content("/Consulta/Index")" _self">Bandeja de Consultas</a>
@@ -66,8 +67,7 @@
                                             }
 
                                             @if (@Session["Login-Info"] != null &&
-                                                (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE" ||
-                                                   ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR"))
+                                                 ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
                                             {
                                                 <li>
                                                     <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>
