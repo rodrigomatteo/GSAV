@@ -404,9 +404,9 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                         {
                             var intencion = new Intencion();
                             intencion.IdIntencionConsulta = rd.GetInt32(rd.GetOrdinal("IdIntencionConsulta"));
-                            intencion.Nombre = rd.GetString(rd.GetOrdinal("Nombre"));
+                            intencion.Nombre = (rd.GetValue(rd.GetOrdinal("Nombre")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("Nombre"));
                             intencion.IdPadreIntencion = (rd.GetValue(rd.GetOrdinal("IdPadreIntencion")) == DBNull.Value) ? 0 : rd.GetInt32(rd.GetOrdinal("IdPadreIntencion"));
-                            intencion.IdDialogFlow = rd.GetString(rd.GetOrdinal("IdDialogFlow"));
+                            intencion.IdDialogFlow = (rd.GetValue(rd.GetOrdinal("IdDialogFlow")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("IdDialogFlow"));
                             intencion.FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FechaCreacion"));
                             intencion.StrFechaCreacion = FormatearFechaEsp(intencion.FechaCreacion);
                             obj.OneResult.Add(intencion);

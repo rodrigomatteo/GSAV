@@ -176,5 +176,51 @@ namespace GSAV.Web.Dialogflow
             return intento;
         }
 
+        public static List<FraseEntrenamientoModel> ObtenerFrasesEntrenamiento(string intentId)
+        {
+            var lista = new List<FraseEntrenamientoModel>();
+
+            try
+            {
+                var fileSavePath = System.Web.HttpContext.Current.Server.MapPath("~/Dialogflow.json/") + ConstantesWeb.DialogFlow.FilePrivateKeyIdJson;
+
+                if ((System.IO.File.Exists(fileSavePath)))
+                {
+                    var cred = GoogleCredential.FromFile(fileSavePath);
+
+                    var channel = new Channel(SessionsClient.DefaultEndpoint.Host, SessionsClient.DefaultEndpoint.Port, cred.ToChannelCredentials());
+
+                    var client = IntentsClient.Create(channel);
+
+                    GetIntentRequest request = new GetIntentRequest
+                    {
+                        IntentName = new IntentName(ConstantesWeb.DialogFlow.ProjectId, intentId),
+                    };
+
+
+                    var intent = client.GetIntent(request);
+
+                   
+                    //Frases de Entrenamiento
+                    foreach (var trainingPhrase in intent.TrainingPhrases)
+                    {
+                        var fraseEntrenamiento = new FraseEntrenamientoModel();
+                        fraseEntrenamiento.Id = trainingPhrase.Name;
+                        foreach (var phrasePart in trainingPhrase.Parts)
+                        {
+                            fraseEntrenamiento.Descripcion = phrasePart.Text;
+                        }
+                        lista.Add(fraseEntrenamiento);
+                    }
+
+                   
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lista;
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace GSAV.Web.Models
             this.Descripcion = string.Empty;
         }
         public string Id { get; set; }
+        public string IdShort { get; set; }
+        public string Tipo { get; set; }
         public string Descripcion { set; get; }
     }
 }

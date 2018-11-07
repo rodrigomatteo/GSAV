@@ -161,7 +161,7 @@
 
 
                                     <div class="collapsible" style="overflow: auto;">
-                                        
+
                                         <table width="100%">
                                             <tr>
                                                 <td style="height:40px">
@@ -186,7 +186,7 @@
                                                                     Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <input type="text" id="txtIntencion" style="width:80%" maxlength="10" />                                                            
+                                                                    <input type="text" id="txtIntencion" style="width:80%" maxlength="10" />
                                                                 </td>
                                                                 <td align="left" class="Texto" style="">
                                                                     Palabra Clave:
@@ -231,34 +231,47 @@
 
                                             $(document).ready(function () {
 
+
+                                                $("#dialogConsulta").dialog({
+                                                    autoOpen: false,
+                                                    height: 430,
+                                                    width: 650,
+                                                    resizable: false,
+                                                    modal: true,
+                                                    close: function () {
+                                                    }
+                                                });
+
+
                                                 var valwidth = $('#tdjQueryTable').width();
-                                                
+
                                                 jQuery("#jqGrid").jqGrid({
                                                     datatype: "local",
                                                     width: valwidth,
                                                     colNames: ['Id', 'Código', 'Nombre', 'FechaCreacion', 'Respuesta', 'Training' , 'Editar', 'Anular'],
                                                     colModel: [
-                                                        { name: 'Id', index: 'Id', width: 5, sortable: false, hidden: true },                                                       
+                                                        { name: 'Id', index: 'Id', width: 15, sortable: false, hidden: true },
                                                         { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: false },
-                                                        { name: 'Nombre', index: 'Nombre', align: "center", width: 15, sortable: false },      
-                                                        { name: 'FechaCreacion', index: 'FechaCreacion', align: "center", width: 8, sortable: false },  
-                                                        { name: 'Respuesta', index: 'Respuesta', width: 20, align: "left", sortable: false },                                                       
+                                                        { name: 'Nombre', index: 'Nombre', align: "center", width: 15, sortable: false },
+                                                        { name: 'FechaCreacion', index: 'FechaCreacion', align: "center", width: 8, sortable: false },
+                                                        { name: 'Respuesta', index: 'Respuesta', width: 20, align: "left", sortable: false },
                                                         {
                                                             name: 'Id', index: 'Id', align: "center", width: 5, sortable: false, jsonmap: "Id",
                                                             formatter: function (cellvalue, options, rowObject) {
 
                                                                 var _id = "'" + rowObject.Id + "'";
                                                                 var nroFrases = rowObject.CantidadFrases;
+                                                                var nombre_ = "'" + rowObject.Nombre + "'";
 
-                                                                return '<input class="buttonTable" type="button" value="Ver (' + nroFrases + ')" onclick="javascript:VerFrases(' + _id + ')"\>';
+                                                                return '<input class="buttonTable" type="button" value="Ver (' + nroFrases + ')" onclick="javascript:VerFrases(' + _id + ',' + nombre_ + ')"\>';
                                                             }
                                                         },
                                                         {
                                                             name: 'Id', index: 'Id', align: "center", width: 5, sortable: false, jsonmap: "Id",
                                                             formatter: function (cellvalue, options, rowObject) {
 
-                                                                var _id = "'" + rowObject.Id + "'"; 
-                                                                
+                                                                var _id = "'" + rowObject.Id + "'";
+
                                                                 return '<input class="buttonTable" type="button" value="Editar" onclick="javascript:Editar(' + _id + ')"\>';
                                                             }
                                                         },
@@ -287,14 +300,45 @@
 
                                                 });
 
-                                               
 
-                                                //CargarEstados();
+                                                jQuery("#jqGridPF").jqGrid({
+                                                    datatype: "local",
+                                                    width: 600,
+                                                    colNames: ['Id', 'IdShort', 'Tipo', 'Descripcion'],
+                                                    colModel: [
+                                                        { name: 'Id', index: 'Id', width: 15, sortable: false, hidden: true },
+                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: false },
+                                                        { name: 'Tipo', index: 'Tipo', align: "center", width: 15, sortable: false },
+                                                        { name: 'Descripcion', index: 'Descripcion', align: "center", width: 8, sortable: false }
+                                                    ],
+                                                    height: 250,
+                                                    rowNum: 10,
+                                                    sortname: 'id',
+                                                    hidegrid: false,
+                                                    pager: "#jqGridPagerPF",
+                                                    rownumbers: true,
+                                                    viewrecords: true,
+                                                    toolbar: [false, "top"],
+                                                    sortorder: "asc",
+                                                    loadtext: 'Cargando datos...',
+                                                    recordtext: "{0} - {1} de {2} Elementos",
+                                                    emptyrecords: 'No hay resultados',
+                                                    pgtext: 'Página: {0} de {1}'
 
+                                                });
+                                                
                                                 $("#btnBuscar").click();
-                                               
+
 
                                             });
+
+                                            function VerFrases(idDialogFlow, nombre_) {
+
+                                                console.log(nombre_);
+
+                                                $('#txtNombreIntencion').val(nombre_);
+                                                $('#dialogConsulta').dialog('open');
+                                            }
 
                                             function CrearEntrada() {
                                                 window.open('@Url.Action("Crear", "BaseAcademico")', '_self');
@@ -343,6 +387,10 @@
                                                 ConsultarIntenciones();
                                             }
 
+                                            function Cerrar() {
+                                                $('#dialogConsulta').dialog('close');
+                                            }
+
                                             function Limpiar() {
                                                 $('#cbIntencion').val($(this).find('option:first').val());
                                                 $('#txtPalabraClave').val('');
@@ -358,7 +406,7 @@
 
                                             function ConsultarIntenciones() {
 
-                                                var parametros = {                                                    
+                                                var parametros = {
                                                     idIntencion: $("#cbIntencion").find("option:selected").val(),
                                                     palabraClave: $('#txtPalabraClave').val()
                                                 };
@@ -406,3 +454,45 @@
     </div>
 </div>
 
+<div id="dialogConsulta" title="Detalle Frases de Entrenamiento" style="display: none;background:#EFEDE3">
+    <div>
+        <table style="width: 100%; text-align: left;border-collapse: separate;" class="tablePopup">
+            <colgroup>
+                <col width="21%" />
+                <col width="29%" />
+                <col width="20%" />
+                <col width="30%" />
+            </colgroup>
+            <tr>
+                <td>
+                    <label class="labelTextIndicador">Nombre Intención:</label>
+                </td>
+                <td colspan="3">
+                    <input type="text" id="txtNombreIntencion" style="width:100%" class="text-box-read-only" />
+                </td>
+            </tr>
+
+            <tr>
+                <td valign="top" colspan="4">
+
+                   
+                        <table width="100%">
+                            <tr>
+                                <td id="tdjQueryTablePF">
+                                    <div id="divContenedorPF" style="width:100%">
+                                        <table id="jqGridPF"></table>
+                                        <div id="jqGridPagerPF"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                 
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="divBotones" style="text-align: center; padding-top: 5px; border-bottom-color: Navy; border-width: 5px;">
+        <input id="btnCerrar" type="button" value="Cerrar" onclick="javascript:Cerrar(); return false;" />
+    </div>
+</div>
