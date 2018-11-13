@@ -308,6 +308,13 @@
 
                                                 });
 
+                                                CargarFechas();
+
+                                                CargarEstados();
+
+                                            });
+
+                                            function CargarFechas() {
                                                 $.datepicker.regional['es'] = {
                                                     closeText: 'Cerrar',
                                                     prevText: '<Ant',
@@ -344,12 +351,7 @@
 
                                                 $('#txtFechaInicio_Buscar').val(fchStart);
                                                 $('#txtFechaFin_Buscar').val(fchEnd);
-
-                                                CargarEstados();
-
-
-
-                                            });
+                                            }
 
                                             function CargarEstados() {
 

@@ -279,6 +279,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AlertModel.cs" />
     <Compile Include="Models\FraseEntrenamientoModel.cs" />
     <Compile Include="Models\IndicadoresDashboard.cs" />
     <Compile Include="Models\IntentoModel.cs" />
@@ -358,7 +359,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\BaseAcademico\Crear.cshtml" />
     <Content Include="Views\BaseAcademico\Detalle.cshtml" />
     <Content Include="Views\BaseAcademico\Index.cshtml" />
     <Content Include="Dialogflow.json\upc-chatbot-2b629c2109dc.json">

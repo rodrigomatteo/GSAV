@@ -57,7 +57,7 @@
                                                 <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
                                             </li>
 
-                                            @if (@Session["Login-Info"] != null && 
+                                            @if (@Session["Login-Info"] != null &&
                                                 ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
                                             {
                                                 <li>
@@ -185,55 +185,77 @@
                                                                     Código de Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    @Html.HiddenFor(model => model.Id)
                                                                     @Html.TextBoxFor(model => model.Id, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
                                                                 </td>
-                                                                <td align="left" class="Texto" style="padding-left:10px;">
-                                                                   
-                                                                </td>
-                                                                <td style="text-align: left">
-                                                                    
-                                                                </td>
+                                                                <td align="left" class="Texto" style="padding-left:10px;"></td>
+                                                                <td style="text-align: left"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td align="left" class="Texto">
                                                                     Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    @Html.TextBoxFor(model => model.Nombre, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+
+                                                                    @if (Model.Id.Equals("NEW"))
+                                                                    {
+                                                                        @Html.TextBoxFor(model => model.Nombre, new { @style = "width:100%" })
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @Html.TextBoxFor(model => model.Nombre, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+                                                                    }
+
                                                                 </td>
                                                                 <td align="left" class="Texto" style="padding-left:10px;">
-                                                                    
+                                                                    Fecha Creación:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    
+                                                                    @Html.TextBoxFor(model => model.FechaCreacion, new { @style = "width:120px", @readonly = true, @class = "text-box-read-only" })
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
                                                                     Frases Entrenamiento:
                                                                 </td>
-                                                                <td>
-                                                                    
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    <table width="100%">
+                                                                        <tr>
+                                                                            <td id="tdjQueryTablePF">
+                                                                                <div id="divContenedorPF" style="width:100%">
+                                                                                    <table id="jqGridPF"></table>
+                                                                                    <div id="jqGridPagerPF"></div>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td valign="top">
                                                                     Respuesta:
                                                                 </td>
-                                                                <td colspan="3">
-                                                                    @Html.TextArea("Respuesta", new { @style = "", @readonly = true, @class = "textAreaCustom" })
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    @Html.TextArea("Respuesta", new { @style = "", @class = "textAreaCustom" })
                                                                 </td>
                                                                 <td></td>
                                                                 <td></td>
-                                                            </tr>                                                           
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="hidden" id="jsonFrases" />
+                                                                </td>
+                                                            </tr>
                                                         </table>
                                                     </fieldset>
 
                                                     <fieldset class="fieldset" style="margin-top: 5px!important;">
                                                         <table>
                                                             <tr>
-                                                                <td colspan="4">                                                                    
+                                                                <td colspan="4">
                                                                     <input type="button" value="Grabar" onclick="javascript: Grabar();" />
 
                                                                     <input type="button" value="Regresar" onclick="javascript: Cancelar();" />
@@ -249,30 +271,230 @@
 
                                             $(document).ready(function () {
 
+                                                $("#diagFraseEntrena").dialog({
+                                                    autoOpen: false,
+                                                    height: 200,
+                                                    width: 500,
+                                                    resizable: false,
+                                                    modal: true,
+                                                    close: function () {
+                                                    }
+                                                });
+
+                                                var valwidth = $('#divContenedorPF').width();
+
+                                                jQuery("#jqGridPF").jqGrid({
+                                                    datatype: "local",
+                                                    width: valwidth,
+                                                    colNames: ['Id', 'Id', 'Descripcion'],
+                                                    colModel: [
+                                                        { name: 'Id', index: 'Id', width: 5, sortable: false, hidden: true },
+                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: false },                                                        
+                                                        { name: 'Descripcion', index: 'Descripcion', align: "left", width: 20, sortable: false }
+                                                    ],
+                                                    height: 250,
+                                                    rowNum: 10,
+                                                    sortname: 'id',
+                                                    hidegrid: false,
+                                                    pager: "#jqGridPagerPF",
+                                                    rownumbers: true,
+                                                    viewrecords: true,
+                                                    toolbar: [true, "top"],
+                                                    sortorder: "asc",
+                                                    loadtext: 'Cargando datos...',
+                                                    recordtext: "{0} - {1} de {2} Elementos",
+                                                    emptyrecords: 'No hay resultados',
+                                                    pgtext: 'Página: {0} de {1}'
+
+                                                });
+
+                                                $('#t_jqGridPF').append("<table style='margin-left: 12px;'><tr><td style='font-size: 12px;height:22px;'> <a id='lblNuevo'>Nuevo</a> | <a id='lblEditar'>Editar</a> | <a id='lblELiminar'>Eliminar</a>  </td></tr></table>");
+
+                                                CargarFrases();
+
+                                                $('a', '#t_jqGridPF').click(function (event) {
+                                                    var control = event.target.id;
+                                                    switch (control) {
+                                                        case 'lblNuevo':                                                            
+                                                            CrearNuevaFrase();
+                                                            break;
+                                                        case 'lblEditar':
+                                                            console.log('lblEditar');
+                                                            EditarFrase();
+                                                            break;
+                                                        case 'lblELiminar':
+                                                            var id = $("#jqGridPF").jqGrid('getGridParam', 'selrow');
+                                                            if (!id) {
+                                                                alert("Por favor seleccione un registro de la tabla.");
+                                                                return;
+                                                            }
+                                                            var fila = $('#jqGridPF').jqGrid('getRowData', id);
+                                                            if (confirm('Ha seleccionado el siguente registro: ' + fila.Descripcion + ' ¿Esta seguro que desea eliminar este registro?')) {
+                                                                EliminarFraseGridView(fila.Id);
+                                                            }
+                                                            break;
+                                                    }
+                                                });
+
                                             });
 
-                                            function Enviar() {
+                                            function AceptarFrase() {
+                                                var frase = $("#txtFrase").val();
+                                                var idFrase = $("#hdnIdFrase").val();
+
+                                                if (frase === '') {
+                                                    alert("Por favor, ingrese una frase de entrenamiento");
+                                                    $("#txtFrase").focus();
+                                                    return;
+                                                }
+
+                                                if (idFrase === '0') {
+                                                    NuevaFraseGridView(frase);
+                                                } else {
+                                                    EditarFraseGridView(idFrase, frase)
+                                                }
+                                                $('#diagFraseEntrena').dialog('close');
+                                            }
+
+                                            function NuevaFraseGridView(frase) {
+                                                var list = jQuery("#jqGridPF").jqGrid('getRowData');
+
+                                                var idNew = -1;
+                                                var minValue = 0;
+                                                if (list.length > 0) {
+                                                    for (m = 0; m < list.length; m++) {
+                                                        var _obj = new Object();
+                                                        _obj.Id = list[m]["Id"];
+                                                        if (parseInt(_obj.Id) < parseInt(minValue)) {
+                                                            minValue = _obj.Id;
+                                                        }
+                                                    }
+                                                    if (minValue === 0) idNew = -1;
+                                                    if (minValue < 0) idNew = minValue - 1;
+                                                }
+
+                                                var array = [];
+                                                var obj_ = new Object();
+                                                obj_.Id = idNew;
+                                                obj_.IdShort = 'New';                                              
+                                                obj_.Descripcion = frase;
+                                                array.push(obj_);
+
+                                                if (list.length > 0) {
+                                                    for (n = 0; n < list.length; n++) {
+                                                        var obj = new Object();
+                                                        obj.Id = list[n]["Id"];
+                                                        obj.IdShort = list[n]["IdShort"];                                                      
+                                                        obj.Descripcion = list[n]["Descripcion"];
+                                                        array.push(obj);
+                                                    }
+                                                }
+                                                $("#jqGridPF").clearGridData();
+                                                $("#jqGridPF").jqGrid('setGridParam', { data: array });
+                                                $("#jqGridPF").trigger('reloadGrid');
+                                            }
+
+                                            function EditarFraseGridView(id, frase) {
+                                                console.log('EditarFraseGridView');
+                                                var list = jQuery("#jqGridPF").jqGrid('getRowData');
+                                                var array = [];
+
+                                                if (list.length > 0) {
+                                                    for (m = 0; m < list.length; m++) {
+
+                                                        if (parseInt(list[m]["Id"]) === parseInt(id)) {
+                                                            var obj_ = new Object();
+                                                            obj_.Id = list[m]["Id"];
+                                                            obj_.IdShort = list[m]["IdShort"];
+                                                            obj_.Descripcion = frase;                                                           
+                                                            array.push(obj_);
+                                                        } else {
+                                                            var obj = new Object();
+                                                            obj.Id = list[m]["Id"];
+                                                            obj.IdShort = list[m]["IdShort"];
+                                                            obj.Descripcion = list[m]["Descripcion"];                                                           
+                                                            array.push(obj);
+                                                        }
+                                                    }
+                                                }
+                                                $("#jqGridPF").clearGridData();
+                                                $("#jqGridPF").jqGrid('setGridParam', { data: array });
+                                                $("#jqGridPF").trigger('reloadGrid');
+                                            }
+
+                                            function EliminarFraseGridView(id) {
+                                                var list = jQuery("#jqGridPF").jqGrid('getRowData');
+                                                var array = [];
+
+                                                if (list.length > 0) {
+                                                    for (m = 0; m < list.length; m++) {
+
+                                                        if (parseInt(list[m]["Id"]) === parseInt(id)) {
+                                                            
+                                                        } else {
+                                                            var obj = new Object();
+                                                            obj.Id = list[m]["Id"];
+                                                            obj.IdShort = list[m]["IdShort"];
+                                                            obj.Descripcion = list[m]["Descripcion"];
+                                                            array.push(obj);
+                                                        }
+                                                    }
+                                                }
+                                                $("#jqGridPF").clearGridData();
+                                                $("#jqGridPF").jqGrid('setGridParam', { data: array });
+                                                $("#jqGridPF").trigger('reloadGrid');
+                                            }
+                                            
+                                            function CancelarFrase() {
+                                                $('#diagFraseEntrena').dialog('close');
+                                            }
+
+                                            function CrearNuevaFrase() {
+                                                $('#txtFrase').val('');
+                                                $('#hdnIdFrase').val('0');
+                                                $('#diagFraseEntrena').dialog('open');
+                                            }
+
+                                            function EditarFrase() {
+                                                var id = $("#jqGridPF").jqGrid('getGridParam', 'selrow');
+                                                if (!id) {
+                                                    alert("Por favor seleccione un registro de la tabla.");
+                                                    return;
+                                                }
+
+                                                var fila = $('#jqGridPF').jqGrid('getRowData', id);                                                
+                                                $('#hdnIdFrase').val(fila.Id);
+                                                $("#txtFrase").val(fila.Descripcion);
+                                                $('#diagFraseEntrena').dialog('open');
+                                            }
+
+                                            function CargarFrases() {
 
                                                 var parametros = {
-                                                    idSolicitud: $('#IdSolicitud').val(),
-                                                    solucion: $('#Respuesta').val()
+                                                    idIntencion: $('#Id').val()
                                                 };
+
+                                                $("#jqGridPF").clearGridData();
+
+                                                $("#jqGridPF").closest(".ui-jqgrid").find('.loading').show();
 
                                                 $.ajax({
                                                     type: 'POST',
-                                                    url: '/Consulta/EnviarSolucionSolicitud',
+                                                    url: '/BaseAcademico/ConsultarFrasesEntrenamiento',
                                                     data: parametros,
                                                     dataType: 'json',
                                                     success: function (rpta) {
-                                                        if (rpta) {
-                                                            $.alert({
-                                                                closeIcon: true,
-                                                                title: 'Detalle Consulta',
-                                                                content: 'La respuesta se ha registrado correctamente',
-                                                                type: 'red',
-                                                                typeAnimated: true,
-                                                            });
+
+                                                        var parsed = JSON.parse(JSON.stringify(rpta));
+                                                        var array_ = [];
+                                                        for (var x in parsed) {
+                                                            array_.push(parsed[x]);
                                                         }
+
+                                                        $("#jqGridPF").closest(".ui-jqgrid").find('.loading').hide();
+                                                        $("#jqGridPF").jqGrid('setGridParam', { data: array_ });
+                                                        $("#jqGridPF").trigger('reloadGrid');
+
                                                     },
                                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
 
@@ -280,6 +502,82 @@
                                                     }
                                                 });
 
+                                            }
+
+                                            function Grabar() {
+
+                                                var frases_ = jQuery("#jqGridPF").jqGrid('getRowData');
+                                                var strFrases = JSON.stringify(frases_);
+
+                                                var parametros = {
+                                                    id: $('#Id').val(),
+                                                    nombreIntencion: $('#Nombre').val(),
+                                                    frases: strFrases,
+                                                    respuesta: $('#Respuesta').val()
+                                                };
+
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: '/BaseAcademico/ActualizarIntencion',
+                                                    data: parametros,
+                                                    dataType: 'json',
+                                                    success: function (rpta) {
+
+                                                        console.log(rpta);
+                                                        var message_ = '';
+
+                                                        if (rpta.Mensaje === 'INSERT-OK') {
+                                                            message_ = 'Los datos han sido registrados correctamente.';
+                                                            $('#Id').val(rpta.Id);
+                                                            MostrarAlertRedirect(message_);
+                                                            setTimeout(function () { Cancelar(); }, 3000);
+                                                        }
+
+                                                        if (rpta.Mensaje === 'INSERT-ERROR') {
+                                                            message_ = 'Ha ocurrido un error no se pudo registrar la información. ' + rpta.MessageError;
+                                                            MostrarAlert(message_);
+                                                        }
+
+                                                        if (rpta.Mensaje === 'UPDATE-OK') {
+                                                            message_ = 'Los datos han sido actualizados correctamente.';
+                                                            MostrarAlertRedirect(message_);                                                            
+                                                            setTimeout(function () { Cancelar(); }, 3000);
+                                                        }
+
+                                                        if (rpta.Mensaje === 'UPDATE-ERROR') {
+                                                            message_ = 'Ha ocurrido un error no se pudo actualizar la información. ' + + rpta.MessageError;
+                                                            MostrarAlert(message_);
+                                                        }                                                        
+
+                                                        CargarFrases();
+
+                                                    },
+                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                    }
+                                                });
+
+                                            }
+
+                                            function MostrarAlertRedirect(message_) {
+                                                $.alert({
+                                                    closeIcon: false,
+                                                    title: 'Base Conocimiento Académico',
+                                                    content: message_,
+                                                    type: 'red',
+                                                    typeAnimated: true
+                                                });
+                                            }
+
+                                            function MostrarAlert(message_) {
+                                                $.alert({
+                                                    closeIcon: false,
+                                                    title: 'Base Conocimiento Académico',
+                                                    content: message_,
+                                                    type: 'red',
+                                                    typeAnimated: true
+                                                });
                                             }
 
                                             function Cancelar() {
@@ -298,3 +596,23 @@
     </div>
 </div>
 
+<div id="diagFraseEntrena" title="Frase Entrenamiento" style="display: none">
+    <div>
+        <table style="width: 100%; text-align: left" class="tablePopup">
+            <tr>
+                <td valign="top">
+                    Frase:
+                </td>
+                <td>                    
+                    <textarea id="txtFrase" name="txtFrase" style="height:100px;width:400px" class="textAreaCustom"></textarea>
+                    <input type="hidden" id="hdnIdFrase" />
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="divBotonesPopupFrases" style="text-align: center; padding-top: 5px; border-bottom-color: Navy; border-width: 5px;">
+        <input id="btnAceptarFrase" type="button" value="Guardar" onclick="AceptarFrase(); return false;" />
+        <input id="btnCancelarFrase" type="button" value="Cancelar" onclick="CancelarFrase(); return false;" />
+    </div>
+</div>

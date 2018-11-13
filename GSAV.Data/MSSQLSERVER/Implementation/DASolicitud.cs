@@ -340,7 +340,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
         /// </summary>
         /// <param name="idDialogFlow"></param>
         /// <returns></returns>
-        public ReturnObject<string> ObtenerFechaIntencion(string idDialogFlow)
+        public ReturnObject<string> ObtenerFechaIntencion(string intencionNombre)
         {
             ReturnObject<string> obj = new ReturnObject<string>();
             obj.OneResult = string.Empty;
@@ -355,8 +355,8 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     cmd = new SqlCommand(SP.GSAV_SP_BUSCAR_FECHA_CREA_INTENCION, cnn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", idDialogFlow);
-                    
+                    cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", intencionNombre);
+
 
                     SqlDataReader rd = cmd.ExecuteReader();
                     if (rd.HasRows)
@@ -425,6 +425,41 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             return obj;
         }
+
+        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow,DateTime fechaCreacion)
+        {
+            ReturnObject<string> obj = new ReturnObject<string>();
+            obj.OneResult = string.Empty;
+
+            try
+            {
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    cmd = new SqlCommand(SP.GSAV_SP_INSERTAR_INTENCION_CONSULTA, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", nombreIntencion);
+                    cmd.Parameters.AddWithValue("@P_ID_DIALOG_FLOW", idDialogFlow);
+                    cmd.Parameters.AddWithValue("@P_FECHA_CREACION", fechaCreacion);
+
+                    cmd.ExecuteNonQuery();
+                  
+                    obj.Success = true;
+                    obj.OneResult = "INSERT OK";
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Success = false;
+                obj.ErrorMessage = ex.Message;
+            }
+
+            return obj;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -436,7 +471,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
             try
             {
                 if (resultado != null)
-                    resultado = string.Format("{0:dd/MM/yyyy}", date);
+                    resultado = string.Format("{0:dd/MM/yyyy HH:mm}", date);
                 if (date == DateTime.MinValue)
                     resultado = string.Empty;
             }

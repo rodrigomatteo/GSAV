@@ -189,10 +189,38 @@
                                                                     <input type="text" id="txtIntencion" style="width:80%" maxlength="10" />
                                                                 </td>
                                                                 <td align="left" class="Texto" style="">
-                                                                    Palabra Clave:
+                                                                    Frase Entrenamiento:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <input type="text" id="txtPalabraClave" style="width:80%" maxlength="10" />
+                                                                    <input type="text" id="txtFraseEntrena" style="width:80%" maxlength="10" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="left" class="Texto" style="">
+                                                                    Respuesta:
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <input type="text" id="txtRespuesta" style="width:80%" maxlength="10" />
+                                                                </td>
+                                                                <td align="left" class="Texto" style="">
+                                                                   
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Fecha Inicial:
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="txtFechaInicio_Buscar" style="width: 100px;" />
+                                                                </td>
+                                                                <td>
+                                                                    Fecha Final:
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="txtFechaFin_Buscar" style="width: 100px;" />
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -279,8 +307,9 @@
                                                             name: 'Id', index: 'Id', align: "center", width: 5, sortable: false, jsonmap: "Id",
                                                             formatter: function (cellvalue, options, rowObject) {
 
-                                                                var _id = rowObject.Id;
-                                                                return '<input class="buttonTable" type="button" value="Anular" onclick="javascript:Eliminar(' + _id + ')"\>';
+                                                                var _id = "'" + rowObject.Id + "'";
+                                                                var displayName = "'" + rowObject.Nombre + "'";
+                                                                return '<input class="buttonTable" type="button" value="Anular" onclick="javascript:Eliminar(' + _id + ',' + displayName +')"\>';
                                                             }
                                                         }
                                                     ],
@@ -304,12 +333,12 @@
                                                 jQuery("#jqGridPF").jqGrid({
                                                     datatype: "local",
                                                     width: 600,
-                                                    colNames: ['Id', 'IdShort', 'Tipo', 'Descripcion'],
+                                                    colNames: ['Id', 'Id', 'Tipo', 'Descripcion'],
                                                     colModel: [
-                                                        { name: 'Id', index: 'Id', width: 15, sortable: false, hidden: true },
+                                                        { name: 'Id', index: 'Id', width: 5, sortable: false, hidden: true },
                                                         { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: false },
-                                                        { name: 'Tipo', index: 'Tipo', align: "center", width: 15, sortable: false },
-                                                        { name: 'Descripcion', index: 'Descripcion', align: "center", width: 8, sortable: false }
+                                                        { name: 'Tipo', index: 'Tipo', align: "center", width: 4, sortable: false },
+                                                        { name: 'Descripcion', index: 'Descripcion', align: "left", width: 20, sortable: false }
                                                     ],
                                                     height: 250,
                                                     rowNum: 10,
@@ -326,22 +355,97 @@
                                                     pgtext: 'Página: {0} de {1}'
 
                                                 });
-                                                
+
+                                                CargarFechas();
+
                                                 $("#btnBuscar").click();
 
 
                                             });
 
-                                            function VerFrases(idDialogFlow, nombre_) {
+                                            function CargarFechas() {
+                                                $.datepicker.regional['es'] = {
+                                                    closeText: 'Cerrar',
+                                                    prevText: '<Ant',
+                                                    nextText: 'Sig>',
+                                                    currentText: 'Hoy',
+                                                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                                                    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                                                    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                                                    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                                                    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                                                    weekHeader: 'Sm',
+                                                    dateFormat: 'dd/mm/yy',
+                                                    firstDay: 1,
+                                                    isRTL: false,
+                                                    showMonthAfterYear: false,
+                                                    yearSuffix: ''
+                                                };
 
-                                                console.log(nombre_);
+                                                $.datepicker.setDefaults($.datepicker.regional['es']);
+
+                                                $('#txtFechaInicio_Buscar').datepicker();
+                                                $('#txtFechaFin_Buscar').datepicker();
+
+                                                var now = new Date();
+                                                var day = ("0" + now.getDate()).slice(-2);
+                                                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                                                var lastDate = new Date().add(-6).month();
+                                                var lastDay = ("0" + lastDate.getDate()).slice(-2);
+                                                var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
+
+                                                var fchStart = (lastDay) + "/" + (lastMonth) + "/" + lastDate.getFullYear();
+                                                var fchEnd = (day) + "/" + (month) + "/" + now.getFullYear();
+
+                                                $('#txtFechaInicio_Buscar').val(fchStart);
+                                                $('#txtFechaFin_Buscar').val(fchEnd);
+                                            }
+
+                                            function VerFrases(idIntencion, nombre_) {
 
                                                 $('#txtNombreIntencion').val(nombre_);
                                                 $('#dialogConsulta').dialog('open');
+
+                                                var parametros = {
+                                                    idIntencion: idIntencion
+                                                };
+
+                                                $("#jqGridPF").clearGridData();
+
+                                                $("#jqGridPF").closest(".ui-jqgrid").find('.loading').show();
+
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: '/BaseAcademico/ConsultarFrasesEntrenamiento',
+                                                    data: parametros,
+                                                    dataType: 'json',
+                                                    success: function (rpta) {
+
+                                                        var parsed = JSON.parse(JSON.stringify(rpta));
+                                                        var array_ = [];
+                                                        for (var x in parsed) {
+                                                            array_.push(parsed[x]);
+                                                        }
+
+                                                        $("#jqGridPF").closest(".ui-jqgrid").find('.loading').hide();
+                                                        $("#jqGridPF").jqGrid('setGridParam', { data: array_ });
+                                                        $("#jqGridPF").trigger('reloadGrid');
+
+                                                    },
+                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                    }
+                                                });
+
                                             }
 
                                             function CrearEntrada() {
-                                                window.open('@Url.Action("Crear", "BaseAcademico")', '_self');
+                                                var id = 'NEW';
+                                                var url = '@Url.Action("Detalle", "BaseAcademico", new { id = "__id__"  })';
+                                                url = url.replace('__id__', id);
+                                                window.location.href = url;
                                             }
 
                                             function CargarEstados() {
@@ -392,23 +496,76 @@
                                             }
 
                                             function Limpiar() {
-                                                $('#cbIntencion').val($(this).find('option:first').val());
-                                                $('#txtPalabraClave').val('');
+                                                $('#txtIntencion').val('');
+                                                $('#txtFraseEntrena').val('');
+                                                $('#txtRespuesta').val('');
+                                                $('#txtFechaInicio_Buscar').val('');
+                                                $('#txtFechaFin_Buscar').val('');
                                             }
 
-                                            function Editar(id) {
-
-                                                console.log(id);
+                                            function Editar(id) {                                                
                                                  var url = '@Url.Action("Detalle", "BaseAcademico", new { id = "__id__"  })';
                                                  url = url.replace('__id__', id);
                                                  window.location.href = url;
                                             }
 
+                                            function Eliminar(id,displayName) {
+                                                if (confirm('Ha seleccionado el siguente registro: ' + displayName + ' ¿Esta seguro que desea eliminar este registro?')) {
+                                                   
+                                                    var parametros = {
+                                                        id: id
+                                                    };
+
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '/BaseAcademico/EliminarIntencion',
+                                                        data: parametros,
+                                                        dataType: 'json',
+                                                        success: function (rpta) {
+
+                                                            console.log(rpta);
+                                                            var message_ = '';
+
+                                                            if (rpta.Mensaje === 'DELETE-OK') {
+                                                                message_ = 'El registro ha sido eliminado correctamente.';                                                              
+                                                                MostrarAlert(message_);
+                                                               
+                                                            }
+
+                                                            if (rpta.Mensaje === 'DELETE-ERROR') {
+                                                                message_ = 'Ha ocurrido un error no se pudo eliminar el registro ' + rpta.MessageError;
+                                                                MostrarAlert(message_);
+                                                            }
+                                                                                                                      
+                                                            ConsultarIntenciones();
+
+                                                        },
+                                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                            function MostrarAlert(message_) {
+                                                $.alert({
+                                                    closeIcon: false,
+                                                    title: 'Base Conocimiento Académico',
+                                                    content: message_,
+                                                    type: 'red',
+                                                    typeAnimated: true
+                                                });
+                                            }
+
                                             function ConsultarIntenciones() {
 
                                                 var parametros = {
-                                                    idIntencion: $("#cbIntencion").find("option:selected").val(),
-                                                    palabraClave: $('#txtPalabraClave').val()
+                                                    intencion: $('#txtIntencion').val(),
+                                                    fraseEntrena: $('#txtFraseEntrena').val(),
+                                                    respuesta: $('#txtRespuesta').val(),
+                                                    fechaInicio: $('#txtFechaInicio_Buscar').val(),
+                                                    fechaFin: $('#txtFechaFin_Buscar').val()
                                                 };
 
                                                 $("#jqGrid").clearGridData();

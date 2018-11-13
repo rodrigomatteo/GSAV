@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GSAV.Web.Util;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -56,6 +57,11 @@ namespace GSAV.Web.Models
             }
         }
         public string FechaCreacion { get; set; }
+        public DateTime? DtFechaCreacion {
+            get{
+                return ConvertidorUtil.ConvertirDateTimeLarge(this.FechaCreacion);
+            }
+        }
 
     }
 }

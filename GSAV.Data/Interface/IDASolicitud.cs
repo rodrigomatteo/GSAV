@@ -16,8 +16,9 @@ namespace GSAV.Data.Interface
         ReturnObject<List<Solicitud>> ConsultarSolicitudesDashboard(Solicitud solicitud);
         ReturnObject<List<ChartCustom>> ConsultarDemandaUnidadNegocio(ChartCustom chart);
         ReturnObject<List<ChartCustom>> ConsultarDemandaTipoConsulta(ChartCustom chart);
-        ReturnObject<string> ObtenerFechaIntencion(string idDialogFlow);
+        ReturnObject<string> ObtenerFechaIntencion(string intencionNombre);
         ReturnObject<List<Intencion>> ObtenerIntenciones();
+        ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow, DateTime fechaCreacion);
 
     }
 }
