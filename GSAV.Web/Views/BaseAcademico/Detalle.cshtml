@@ -529,8 +529,9 @@
                                                         if (rpta.Mensaje === 'INSERT-OK') {
                                                             message_ = 'Los datos han sido registrados correctamente.';
                                                             $('#Id').val(rpta.Id);
+                                                            console.log(rpta.Id);
                                                             MostrarAlertRedirect(message_);
-                                                            setTimeout(function () { Cancelar(); }, 3000);
+                                                            setTimeout(function () { Editar(rpta.Id); }, 3000);
                                                         }
 
                                                         if (rpta.Mensaje === 'INSERT-ERROR') {
@@ -540,8 +541,7 @@
 
                                                         if (rpta.Mensaje === 'UPDATE-OK') {
                                                             message_ = 'Los datos han sido actualizados correctamente.';
-                                                            MostrarAlertRedirect(message_);                                                            
-                                                            setTimeout(function () { Cancelar(); }, 3000);
+                                                            MostrarAlertRedirect(message_);
                                                         }
 
                                                         if (rpta.Mensaje === 'UPDATE-ERROR') {
@@ -558,6 +558,12 @@
                                                     }
                                                 });
 
+                                            }
+
+                                             function Editar(id) {                                                
+                                                 var url = '@Url.Action("Detalle", "BaseAcademico", new { id = "__id__"  })';
+                                                 url = url.replace('__id__', id);
+                                                 window.location.href = url;
                                             }
 
                                             function MostrarAlertRedirect(message_) {
