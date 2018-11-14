@@ -167,6 +167,11 @@ namespace GSAV.Web.Controllers
                             var idIntencion = id + string.Empty;
                             intencionModel = new Dialogflow.DialogFlow(oIBLSolicitud).ObtenerIntento(idIntencion);
                         }
+
+                        if (string.IsNullOrEmpty(intencionModel.Id))                            
+                        {
+                            return this.RedirectToAction("Index", "BaseAcademico");
+                        }
                     }
 
                     return View("Detalle", intencionModel);
