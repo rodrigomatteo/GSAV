@@ -283,6 +283,12 @@
 
                                             function Enviar() {
 
+                                                if ($('#Respuesta').val() === '') {
+                                                    alert("Por favor, ingrese una respuesta a la solicitud");
+                                                    $("#Respuesta").focus();
+                                                    return;
+                                                }
+
                                                 if (confirm('¿Desea enviar la respuesta a la Consulta?')) {
 
                                                     $.blockUI();
