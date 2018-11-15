@@ -41,7 +41,7 @@ namespace GSAV.ServiceContracts.Implementation
         /// </summary>
         /// <param name="solicitud"></param>
         /// <returns></returns>
-        public ReturnObject<bool> EnviarSolucionSolicitud(Solicitud solicitud)
+        public ReturnObject<Notificacion> EnviarSolucionSolicitud(Solicitud solicitud)
         {
             try
             {

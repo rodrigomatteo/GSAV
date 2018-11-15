@@ -137,43 +137,7 @@ namespace GSAV.Data.Oracle.Implementation
             return obj;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="solicitud"></param>
-        /// <returns></returns>
-        public ReturnObject<bool> EnviarSolucionSolicitud(Solicitud solicitud)
-        {
-            ReturnObject<bool> obj = new ReturnObject<bool>();
-            obj.OneResult = false;
-
-            try
-            {
-                using (var oCnn = Cn.OracleCn())
-                {
-                    OracleCommand oCmd = null;
-                    oCnn.Open();
-                    oCmd = new OracleCommand("SP_UPD_SOLUCION_CONSULTA", oCnn);
-                    oCmd.CommandType = CommandType.StoredProcedure;
-
-                    oCmd.Parameters.Add(new OracleParameter("P_IDSOLICITUD", OracleDbType.Int64)).Value = solicitud.IdSolicitud;
-                    oCmd.Parameters.Add(new OracleParameter("P_SOLUCION", OracleDbType.Varchar2)).Value = solicitud.Solucion;
-                    
-                    oCmd.ExecuteNonQuery();
-                   
-                    obj.Success = true;
-                    obj.OneResult = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                obj.OneResult = false;
-                obj.Success = false;
-                obj.ErrorMessage = ex.Message;
-            }
-
-            return obj;
-        }
+      
 
         /// <summary>
         /// 
@@ -338,6 +302,11 @@ namespace GSAV.Data.Oracle.Implementation
         }
 
         public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow, DateTime fechaCreacion)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ReturnObject<Notificacion> EnviarSolucionSolicitud(Solicitud solicitud)
         {
             throw new NotImplementedException();
         }

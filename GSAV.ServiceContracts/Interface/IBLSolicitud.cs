@@ -12,7 +12,7 @@ namespace GSAV.ServiceContracts.Interface
     {
         ReturnObject<List<Solicitud>> ConsultarSolicitudes(Solicitud solicitud);
         ReturnObject<Solicitud> ObtenerSolicitud(Solicitud solicitud);
-        ReturnObject<bool> EnviarSolucionSolicitud(Solicitud solicitud);
+        ReturnObject<Notificacion> EnviarSolucionSolicitud(Solicitud solicitud);
         ReturnObject<List<Solicitud>> ConsultarSolicitudesDashboard(Solicitud solicitud);
         ReturnObject<List<ChartCustom>> ConsultarDemandaUnidadNegocio(ChartCustom chart);
         ReturnObject<List<ChartCustom>> ConsultarDemandaTipoConsulta(ChartCustom chart);

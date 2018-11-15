@@ -196,11 +196,17 @@ namespace GSAV.Web.Controllers
                 solicitud.Solucion = solucion;
                
                 var objResult = oIBLSolicitud.EnviarSolucionSolicitud(solicitud);
-                var rpt = objResult.OneResult;
+                var notificacion = objResult.OneResult;
 
-                if(rpt)
+                if(notificacion != null)
                 {
-                    respuesta = "OK";
+                    var email = new EmailUtil();
+                    var sendEmail = email.NotificarSolucionConsultaAcademica(notificacion);
+
+                    if (sendEmail)
+                    {
+                        respuesta = "SEND_EMAIL_OK";
+                    }                    
                 }
             }
             catch (Exception ex)

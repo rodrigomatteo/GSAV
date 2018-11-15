@@ -148,13 +148,16 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
         /// </summary>
         /// <param name="solicitud"></param>
         /// <returns></returns>
-        public ReturnObject<bool> EnviarSolucionSolicitud(Solicitud solicitud)
+        public ReturnObject<Notificacion> EnviarSolucionSolicitud(Solicitud solicitud)
         {
-            ReturnObject<bool> obj = new ReturnObject<bool>();
-            obj.OneResult = false;
+            ReturnObject<Notificacion> obj = new ReturnObject<Notificacion>();
+            
 
             try
             {
+                var notificacion = new Notificacion();
+                obj.OneResult = notificacion;
+
                 using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
                 {
                     SqlCommand cmd = null;
@@ -165,16 +168,45 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@P_IDSOLICITUD", solicitud.IdSolicitud);
                     cmd.Parameters.AddWithValue("@P_SOLUCION", solicitud.Solucion);
+                    cmd.Parameters.AddWithValue("@P_ESTADO", "R");
+                    cmd.Parameters.AddWithValue("@P_FECHA_SOL", GmtToPacific(DateTime.Now));
+                    cmd.Parameters.AddWithValue("@P_CUMPLE_SLA", "1");
 
-                    cmd.ExecuteNonQuery();
+                    SqlDataReader rd = cmd.ExecuteReader();
+
+                    var first = 0;
+
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            first++;
+                            if (first.Equals(1))
+                            {                               
+                                notificacion.IdSolicitud = rd.GetInt32(rd.GetOrdinal("IDSOLICITUD"));
+                                notificacion.Email = rd.GetValue(rd.GetOrdinal("EMAIL")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("EMAIL"));
+                                notificacion.Nombres = rd.GetValue(rd.GetOrdinal("NOMBRE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE"));
+                                notificacion.CodigoAlumno = rd.GetValue(rd.GetOrdinal("CODIGOALUMNO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CODIGOALUMNO"));                                
+                                notificacion.ApellidoPat = rd.GetValue(rd.GetOrdinal("APELLIDOPAT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APELLIDOPAT"));
+                                notificacion.ConsultaAcademica = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
+                                notificacion.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
+
+                                if (rd.GetValue(rd.GetOrdinal("FECHAREGISTRO")) != DBNull.Value)
+                                    notificacion.DtFechaConsulta = rd.GetDateTime(rd.GetOrdinal("FECHAREGISTRO"));
+
+                                if (rd.GetValue(rd.GetOrdinal("FECHASOLUCION")) != DBNull.Value)
+                                    notificacion.DtFechaSolucion = rd.GetDateTime(rd.GetOrdinal("FECHASOLUCION"));
+                            }
+                        }
+                    }
 
                     obj.Success = true;
-                    obj.OneResult = true;
+                    obj.OneResult = notificacion;
                 }
             }
             catch (Exception ex)
             {
-                obj.OneResult = false;
+                obj.OneResult = null;
                 obj.Success = false;
                 obj.ErrorMessage = ex.Message;
             }
@@ -480,6 +512,11 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             }
             return resultado;
+        }
+
+        public static DateTime GmtToPacific(DateTime dateTime)
+        {
+            return TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
         }
     }
 }

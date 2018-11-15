@@ -283,32 +283,52 @@
 
                                             function Enviar() {
 
-                                                var parametros = {
-                                                    idSolicitud: $('#IdSolicitud').val(),
-                                                    solucion: $('#Respuesta').val()
-                                                };
+                                                if (confirm('¿Desea enviar la respuesta a la Consulta?')) {
 
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '/Consulta/EnviarSolucionSolicitud',
-                                                    data: parametros,
-                                                    dataType: 'json',
-                                                    success: function (rpta) {
-                                                        if (rpta) {
-                                                            $.alert({
-                                                                closeIcon: true,
-                                                                title: 'Detalle Consulta',
-                                                                content: 'La respuesta se ha registrado correctamente',
-                                                                type: 'red',
-                                                                typeAnimated: true,
-                                                            });
+                                                    $.blockUI();
+
+                                                    var parametros = {
+                                                        idSolicitud: $('#IdSolicitud').val(),
+                                                        solucion: $('#Respuesta').val()
+                                                    };
+
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '/Consulta/EnviarSolucionSolicitud',
+                                                        data: parametros,
+                                                        dataType: 'json',
+                                                        success: function (rpta) {
+
+                                                            $.unblockUI();
+
+                                                            if (rpta === 'SEND_EMAIL_OK') {
+                                                                $.alert({
+                                                                    closeIcon: true,
+                                                                    title: 'Detalle Consulta',
+                                                                    content: 'Se notifico satisfactoriamente la respuesta a la consulta ingresada por el alumno',
+                                                                    type: 'red',
+                                                                    typeAnimated: true,
+                                                                });
+
+                                                                setTimeout(function () { Cancelar(); }, 3000);
+
+                                                            } else {
+                                                                $.alert({
+                                                                    closeIcon: true,
+                                                                    title: 'Detalle Consulta',
+                                                                    content: 'Ha ocurrido un error. Por favor, intente de nuevo.',
+                                                                    type: 'red',
+                                                                    typeAnimated: true,
+                                                                });
+                                                            }
+                                                        },
+                                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
                                                         }
-                                                    },
-                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                                    });
 
-
-                                                    }
-                                                });
+                                                }                                               
 
                                             }
 

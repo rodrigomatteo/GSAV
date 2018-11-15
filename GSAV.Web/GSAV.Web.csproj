@@ -283,6 +283,7 @@
     <Compile Include="Models\FraseEntrenamientoModel.cs" />
     <Compile Include="Models\IndicadoresDashboard.cs" />
     <Compile Include="Models\IntentoModel.cs" />
+    <Compile Include="Models\NotificacionModel.cs" />
     <Compile Include="Models\RespuestaIntentoModel.cs" />
     <Compile Include="Models\SolicitudModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -290,6 +291,7 @@
     <Compile Include="Util\ConstantesWeb.cs" />
     <Compile Include="Util\ConvertidorUtil.cs" />
     <Compile Include="Util\DateTimeSpan.cs" />
+    <Compile Include="Util\EmailUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -405,7 +407,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Consulta\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Consulta\Crear.cshtml" />
     <Content Include="Views\Consulta\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>

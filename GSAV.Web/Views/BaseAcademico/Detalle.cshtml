@@ -506,6 +506,8 @@
 
                                             function Grabar() {
 
+                                                $.blockUI();
+
                                                 var frases_ = jQuery("#jqGridPF").jqGrid('getRowData');
                                                 var strFrases = JSON.stringify(frases_);
 
@@ -522,6 +524,7 @@
                                                     data: parametros,
                                                     dataType: 'json',
                                                     success: function (rpta) {
+                                                        $.unblockUI();
 
                                                         console.log(rpta);
                                                         var message_ = '';
