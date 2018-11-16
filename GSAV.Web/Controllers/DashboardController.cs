@@ -94,7 +94,7 @@ namespace GSAV.Web.Controllers
 
         }
 
-        public JsonResult ListarSolicitudesAtencion(string fechaInicio, string fechaFin)
+        public JsonResult ListarSolicitudesAtencion(string fechaInicio, string fechaFin,string indicadorStatus)
         {
             var lista = new List<Solicitud>();
 
@@ -115,22 +115,36 @@ namespace GSAV.Web.Controllers
                     }
                     else
                     {
-                        if (dateSpan.Hours <= 6)
+                        if (dateSpan.Hours < 12)
                         {
                             solicitud.IndicadorStatus = "VERDE";
                         }
 
-                        if (dateSpan.Hours > 6 && dateSpan.Hours <= 12)
+                        if (dateSpan.Hours < 18 && dateSpan.Hours >= 12)
                         {
                             solicitud.IndicadorStatus = "AMARILLO";
                         }
 
-                        if (dateSpan.Hours > 12)
+                        if (dateSpan.Hours >= 18)
                         {
                             solicitud.IndicadorStatus = "ROJO";
                         }
                     }                    
                 }
+
+                if (indicadorStatus.Equals("VERDE"))
+                {
+                    lista = lista.AsEnumerable().Where(q => q.IndicadorStatus.Equals("VERDE")).ToList();
+                }
+                if (indicadorStatus.Equals("AMARILLO"))
+                {
+                    lista = lista.AsEnumerable().Where(q => q.IndicadorStatus.Equals("AMARILLO")).ToList();
+                }
+                if (indicadorStatus.Equals("ROJO"))
+                {
+                    lista = lista.AsEnumerable().Where(q => q.IndicadorStatus.Equals("ROJO")).ToList();
+                }
+
             }
             catch (Exception ex)
             {

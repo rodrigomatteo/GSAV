@@ -438,6 +438,42 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
+                                                                <td>
+                                                                    <table style="width:100%" border="0">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <img id="btnGreen" src="../Content/images/color_label_circle_green_T.png" width="16px" height="16px" style="cursor:pointer" />
+                                                                            </td>
+                                                                            <td>
+                                                                                <label class="labelTextIndicador">6 <= T(h) < 12</label>
+                                                                            </td>
+                                                                            <td>
+                                                                                <img id="btnYellow" src="../Content/images/color_label_circle_yellow_T.png" width="16px" height="16px" style="cursor:pointer"/>
+                                                                            </td>
+                                                                            <td>
+                                                                                <label class="labelTextIndicador">12 <= T(h) < 18</label>
+                                                                            </td>
+                                                                            <td>
+                                                                                <img id="btnRed" src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px" style="cursor:pointer"/>
+                                                                            </td>
+                                                                            <td>
+                                                                                <label class="labelTextIndicador">18 <= T(h) </label>
+                                                                            </td>
+                                                                            <td>
+                                                                                <img id="btnAll" src="../Content/images/color_label_circle_grey_T.png" width="16px" height="16px" style="cursor:pointer"/>
+                                                                            </td>
+                                                                            <td>
+                                                                                <label class="labelTextIndicador">Todos </label>
+                                                                                <input type="hidden" id="hdnIndicadorStatus" value="TODOS"/>
+                                                                            </td>
+                                                                            <td style="text-align:right">
+                                                                                <input type="button" value="Enviar Alerta para Atención"/>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
                                                                 <td id="tdjQueryTable">
                                                                     <div id="div_data_loading" class="div-loading-data">
                                                                         <div style="position:relative;top:45%;">
@@ -512,6 +548,30 @@
                                             }
                                             
                                             $(document).ready(function () {
+
+                                                $('#btnGreen').click(function () {
+                                                    console.log('btnGreen');
+                                                    $('#hdnIndicadorStatus').val("VERDE");
+                                                    ListarSolicitudesAtencion()
+                                                });
+
+                                                $('#btnYellow').click(function () {
+                                                    console.log('btnYellow');
+                                                    $('#hdnIndicadorStatus').val("AMARILLO");
+                                                    ListarSolicitudesAtencion()
+                                                });
+
+                                                $('#btnRed').click(function () {
+                                                    console.log('btnRed');
+                                                    $('#hdnIndicadorStatus').val("ROJO");
+                                                    ListarSolicitudesAtencion()
+                                                });
+
+                                                $('#btnAll').click(function () {
+                                                    console.log('btnAll');
+                                                    $('#hdnIndicadorStatus').val("TODOS");
+                                                    ListarSolicitudesAtencion()
+                                                });
 
                                                 DisplayLoading();
 
@@ -606,15 +666,20 @@
                                                 $('#txtFechaFin_Buscar').datepicker();
 
                                                 var now = new Date();
-                                                var day = ("0" + now.getDate()).slice(-2);
+                                                //var day = ("0" + now.getDate()).slice(-2);
                                                 var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
                                                 var lastDate = new Date().add(-6).month();
                                                 var lastDay = ("0" + lastDate.getDate()).slice(-2);
-                                                var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
+                                                //var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
 
-                                                var fchStart = (lastDay) + "/" + (lastMonth) + "/" + lastDate.getFullYear();
-                                                var fchEnd = (day) + "/" + (month) + "/" + now.getFullYear();
+                                                var date = new Date();
+                                                //var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                                                var lastDayDT = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                                                var lastDay = ("0" + lastDayDT.getDate()).slice(-2);
+
+                                                var fchStart = "01" + "/" + (month) + "/" + now.getFullYear();
+                                                var fchEnd = lastDay + "/" + (month) + "/" + now.getFullYear();
 
                                                 $('#txtFechaInicio_Buscar').val(fchStart);
                                                 $('#txtFechaFin_Buscar').val(fchEnd);
@@ -636,11 +701,13 @@
 
                                                 var parametros = {
                                                     fechaInicio: $('#txtFechaInicio_Buscar').val(),
-                                                    fechaFin: $('#txtFechaFin_Buscar').val()
+                                                    fechaFin: $('#txtFechaFin_Buscar').val(),
+                                                    indicadorStatus: $('#hdnIndicadorStatus').val()
                                                 };
 
                                                 $("#jqGrid").clearGridData();
                                                 //$("#jqGrid").closest(".ui-jqgrid").find('.loading').show();
+                                                $("#div_data_loading").css("display", "block");
 
                                                 $.ajax({
                                                     type: 'POST',
@@ -654,7 +721,7 @@
                                                         for (var x in parsed) {
                                                             array_.push(parsed[x]);
                                                         }
-                                                        //$("#jqGrid").closest(".ui-jqgrid").find('.loading').hide();
+                                                        $("#jqGrid").closest(".ui-jqgrid").find('.loading').hide();
 
                                                         $("#div_data_loading").css("display", "none");
                                                         $("#jqGrid").jqGrid('setGridParam', { data: array_ });
@@ -867,6 +934,7 @@
                                                 $("#divNoCumpleSla").css("display", "none");
                                                 $("#divNoCumpleSla_loading").css("display", "block");
                                             }
+
                                         </script>
                                     </div>
                                 </div>

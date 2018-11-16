@@ -317,6 +317,7 @@
     <Content Include="Content\images\BMANUALES1.jpg" />
     <Content Include="Content\images\chat5.png" />
     <Content Include="Content\images\color_label_circle_green_T.png" />
+    <Content Include="Content\images\color_label_circle_grey_T.png" />
     <Content Include="Content\images\color_label_circle_orange_T.png" />
     <Content Include="Content\images\color_label_circle_red_T.png" />
     <Content Include="Content\images\color_label_circle_yellow_T.png" />
