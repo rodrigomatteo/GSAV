@@ -156,5 +156,17 @@ namespace GSAV.ServiceContracts.Implementation
                 throw;
             }
         }
+
+        public ReturnObject<Intencion> ObtenerIntencion(string intencionNombre)
+        {
+            try
+            {
+                return oIDASolicitud.ObtenerIntencion(intencionNombre);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

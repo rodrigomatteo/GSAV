@@ -19,6 +19,6 @@ namespace GSAV.Data.Interface
         ReturnObject<string> ObtenerFechaIntencion(string intencionNombre);
         ReturnObject<List<Intencion>> ObtenerIntenciones();
         ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow, DateTime fechaCreacion);
-
+        ReturnObject<Intencion> ObtenerIntencion(string intencionNombre);
     }
 }

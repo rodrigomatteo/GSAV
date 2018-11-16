@@ -185,20 +185,31 @@ namespace GSAV.Web.Controllers
         /// <param name="idSolicitud"></param>
         /// <param name="solucion"></param>
         /// <returns></returns>
-        public JsonResult EnviarSolucionSolicitud(string idSolicitud, string solucion)
+        public JsonResult EnviarSolucionSolicitud(string idSolicitud, string solucion,string crearConsulta,string nombreIntencion,string frase,string solucionIntencion)
         {
             var respuesta = string.Empty;
 
             try
             {
+                if (crearConsulta.Equals("1"))
+                {
+                    var intencion = new Intencion();
+                    intencion.IdDialogFlow = "NEW";
+                    intencion.Nombre = nombreIntencion;
+                    intencion.Respuesta = solucionIntencion;
+                    var frases_ = new List<FraseEntrenamientoModel>();
+                    frases_.Add(new FraseEntrenamientoModel { Descripcion = frase });
+                    var resultado = new Dialogflow.DialogFlow(oIBLSolicitud).CreateIntent(intencion, frases_);
+                }
+
                 var solicitud = new Solicitud();
                 solicitud.IdSolicitud = ConvertidorUtil.ConvertirInt32(idSolicitud);
                 solicitud.Solucion = solucion;
-               
+
                 var objResult = oIBLSolicitud.EnviarSolucionSolicitud(solicitud);
                 var notificacion = objResult.OneResult;
 
-                if(notificacion != null)
+                if (notificacion != null)
                 {
                     var email = new EmailUtil();
                     var sendEmail = email.NotificarSolucionConsultaAcademica(notificacion);
@@ -206,7 +217,7 @@ namespace GSAV.Web.Controllers
                     if (sendEmail)
                     {
                         respuesta = "SEND_EMAIL_OK";
-                    }                    
+                    }
                 }
             }
             catch (Exception ex)
@@ -217,6 +228,32 @@ namespace GSAV.Web.Controllers
             return new JsonResult { Data = respuesta, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        public JsonResult ValidarIntencion(string nombreIntencion)
+        {
+            var respuesta = string.Empty;
+
+            try
+            {
+                
+
+                var objResult = oIBLSolicitud.ObtenerIntencion(nombreIntencion);
+                var intencion = objResult.OneResult;
+
+                if (intencion != null)
+                {
+                    if (nombreIntencion.Equals(intencion.Nombre))
+                    {
+                        respuesta = "EXISTE";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return new JsonResult { Data = respuesta, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         /// <summary>
         /// 
         /// </summary>

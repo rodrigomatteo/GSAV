@@ -223,9 +223,7 @@
                                                                 </td>
                                                                 <td colspan="3">
                                                                     @Html.TextArea("Consulta", new { @style = "", @readonly = true, @class = "textAreaCustom text-box-read-only" })
-                                                                </td>
-                                                                <td></td>
-                                                                <td></td>
+                                                                </td>                                                               
                                                             </tr>
                                                             <tr>
                                                                 <td valign="top">
@@ -246,9 +244,52 @@
                                                                         }
                                                                     }
 
+                                                                </td>                                                               
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    <input type="checkbox" id="chkAgregarDialogFlow" name="chkAgregarDialogFlow" /> Crear Consulta Frecuente
                                                                 </td>
-                                                                <td></td>
-                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td  colspan="4">
+                                                                    <div id="divCrearConsultaFrecuente" style="display:none">
+                                                                        <table style="width: 100%; text-align: left" class="tablePopup">
+                                                                            <colgroup>
+                                                                                <col width="15%" />
+                                                                                <col width="35%" />
+                                                                                <col width="12%" />
+                                                                                <col width="38%" />
+                                                                            </colgroup>
+                                                                            <tr>
+                                                                                <td valign="top">
+                                                                                    Intención:
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text" id="txtNuevaIntencion" style="width: 100%;" />
+                                                                                </td>
+                                                                                <td colspan="2">
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">
+                                                                                    Frase:
+                                                                                </td>
+                                                                                <td colspan="3">
+                                                                                    <textarea id="txtFrase" name="txtFrase" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">
+                                                                                    Solución:
+                                                                                </td>
+                                                                                <td colspan="3">
+                                                                                    <textarea id="txtSolucion" name="txtSolucion" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>                                                                   
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                     </fieldset>
@@ -279,7 +320,32 @@
 
                                             $(document).ready(function () {
 
+                                                $("#chkAgregarDialogFlow").change(function () {
+                                                    if ($(this).is(':checked')) {
+                                                        var consulta = $('#Consulta').val();
+                                                        var frase = $('#txtFrase').val();
+
+                                                        if (frase != null && frase === '') {
+                                                            $('#txtFrase').val(consulta);
+                                                        }
+                                                        
+                                                        $('#divCrearConsultaFrecuente').css('display', 'block');
+
+                                                    } else {
+                                                        $('#divCrearConsultaFrecuente').css('display', 'none');
+                                                    }
+
+                                                });
+
                                             });
+
+                                            function stringToBoolean(string) {
+                                                switch (string) {
+                                                    case "TRUE": case "True": case "true": case "yes": case "1": return true;
+                                                    case "FALSE": case "False": case "false": case "no": case "0": case null: return false;
+                                                    default: return Boolean(string);
+                                                }
+                                            }
 
                                             function Enviar() {
 
@@ -288,14 +354,87 @@
                                                     $("#Respuesta").focus();
                                                     return;
                                                 }
+                                               
 
+                                                var crearConsulta = document.getElementById("chkAgregarDialogFlow").checked;
+                                                var strCrearConsulta = "0";
+
+                                                if (stringToBoolean(crearConsulta)) {
+                                                    strCrearConsulta = "1";
+                                                    //Validar Nueva Intencion Ingresada
+                                                    if ($('#txtNuevaIntencion').val() === '') {
+                                                        alert("Por favor, ingrese el nombre de la intención");
+                                                        $("#txtNuevaIntencion").focus();
+                                                        return;
+                                                    }
+                                                    //Validar Frase Ingresada
+                                                    if ($('#txtFrase').val() === '') {
+                                                        alert("Por favor, ingrese la nueva frase de entrenamiento");
+                                                        $("#txtFrase").focus();
+                                                        return;
+                                                    }
+                                                    //Validar Solucion Ingresada
+                                                    if ($('#txtSolucion').val() === '') {
+                                                        alert("Por favor, ingrese la solución");
+                                                        $("#txtSolucion").focus();
+                                                        return;
+                                                    }
+
+                                                    //BEGIN - Validar Si Existe Intencion
+                                                    $.blockUI();
+
+                                                    var parametros_ = {
+                                                        nombreIntencion: $('#txtNuevaIntencion').val()
+                                                    };
+
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '/Consulta/ValidarIntencion',
+                                                        data: parametros_,
+                                                        dataType: 'json',
+                                                        success: function (rpta) {
+
+                                                            $.unblockUI();
+
+                                                            if (rpta === 'EXISTE') {
+                                                                $("#txtNuevaIntencion").focus();
+                                                                $.alert({
+                                                                    closeIcon: true,
+                                                                    title: 'Detalle Consulta',
+                                                                    content: 'La intención ingresada ya existe, ingrese una distinta',
+                                                                    type: 'red',
+                                                                    typeAnimated: true,
+                                                                });
+                                                            } else {
+                                                                //Registrar la Respuesta y La Nueva Intencion
+                                                                ConfirmarGrabarDatos(strCrearConsulta);
+                                                            }                                                           
+
+                                                        },
+                                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                                        }
+                                                    });
+                                                    //END   - Validar Si Existe Intencion
+
+                                                } else {
+                                                    //Registrar la Respuesta y La Nueva Intencion
+                                                    ConfirmarGrabarDatos(strCrearConsulta);
+                                                } 
+
+                                            }
+
+                                            function ConfirmarGrabarDatos(strCrearConsulta) {
                                                 if (confirm('¿Desea enviar la respuesta a la Consulta?')) {
 
                                                     $.blockUI();
 
                                                     var parametros = {
                                                         idSolicitud: $('#IdSolicitud').val(),
-                                                        solucion: $('#Respuesta').val()
+                                                        solucion: $('#Respuesta').val(),
+                                                        crearConsulta: strCrearConsulta,
+                                                        nombreIntencion: $('#txtNuevaIntencion').val(),
+                                                        frase: $('#txtFrase').val(),
+                                                        solucionIntencion: $('#txtSolucion').val()
                                                     };
 
                                                     $.ajax({
@@ -334,8 +473,7 @@
                                                         }
                                                     });
 
-                                                }                                               
-
+                                                }  
                                             }
 
                                             function Cancelar() {

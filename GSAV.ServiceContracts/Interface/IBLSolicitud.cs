@@ -19,6 +19,6 @@ namespace GSAV.ServiceContracts.Interface
         ReturnObject<string> ObtenerFechaIntencion(string idDialogFlow);
         ReturnObject<List<Intencion>> ObtenerIntenciones();
         ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow, DateTime fechaCreacion);
-
+        ReturnObject<Intencion> ObtenerIntencion(string intencionNombre);
     }
 }

@@ -310,5 +310,10 @@ namespace GSAV.Data.Oracle.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public ReturnObject<Intencion> ObtenerIntencion(string intencionNombre)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

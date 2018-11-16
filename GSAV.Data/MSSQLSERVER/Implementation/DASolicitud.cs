@@ -518,5 +518,57 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
         {
             return TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="intencionNombre"></param>
+        /// <returns></returns>
+        public ReturnObject<Intencion> ObtenerIntencion(string intencionNombre)
+        {
+            ReturnObject<Intencion> obj = new ReturnObject<Intencion>();
+            obj.OneResult = new Intencion();
+
+            try
+            {
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    cmd = new SqlCommand(SP.GSAV_SP_BUSCAR_INTENCION_X_NOMBRE, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", intencionNombre);
+
+
+                    SqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            var intencion = new Intencion();
+                            intencion.IdIntencionConsulta = rd.GetInt32(rd.GetOrdinal("IDINTENCIONCONSULTA"));
+                            intencion.Nombre = (rd.GetValue(rd.GetOrdinal("NOMBRE")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE"));
+                            intencion.IdPadreIntencion = (rd.GetValue(rd.GetOrdinal("IDPADREINTENCION")) == DBNull.Value) ? 0 : rd.GetInt32(rd.GetOrdinal("IDPADREINTENCION"));
+                            intencion.IdDialogFlow = (rd.GetValue(rd.GetOrdinal("IDDIALOGFLOW")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("IDDIALOGFLOW"));
+                            intencion.FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FECHACREACION"));
+                            intencion.StrFechaCreacion = FormatearFechaEsp(intencion.FechaCreacion);
+                            obj.OneResult = intencion;
+                        }
+                    }
+
+                    obj.Success = true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Success = false;
+                obj.ErrorMessage = ex.Message;
+            }
+
+            return obj;
+        }
     }
 }
