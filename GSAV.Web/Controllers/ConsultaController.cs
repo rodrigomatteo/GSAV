@@ -280,8 +280,8 @@ namespace GSAV.Web.Controllers
 
                 if (ConstantesWeb.Rol.Docente.Equals(user.Rol))
                 {
-                    lista.Add(new Estado() { IdEstado = "D", Descripcion = "Derivado" });
-                    lista.Add(new Estado() { IdEstado = "R" ,Descripcion = "Atendido por Derivación" });                    
+                    lista.Add(new Estado() { IdEstado = "D", Descripcion = "Pendiente" });
+                    lista.Add(new Estado() { IdEstado = "R" ,Descripcion = "Atendido" });                    
                 }
             }
 

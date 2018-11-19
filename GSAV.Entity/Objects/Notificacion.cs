@@ -66,5 +66,6 @@ namespace GSAV.Entity.Objects
         }
         public string NombreDocente { get; set; }
         public string ApellidoPaternoDocente { get; set; }
+        public string NombreCurso { get; set; }
     }
 }

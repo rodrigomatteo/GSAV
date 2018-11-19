@@ -46,7 +46,7 @@ namespace GSAV.Web.Util
                 sbBody.AppendLine("<br/>");
                 sbBody.AppendLine("Saludos Cordiales," + "<br/>");
                 sbBody.AppendLine("<table><tr><td> <img src=cid:myImageID> </td>");
-                sbBody.AppendLine("<td><table><tr><td>" + notificacion.NombreApellidoDocente + "</td></tr><tr><td>Docente</td></tr><tr><td>Curso</td></tr></table></td></tr></table>");
+                sbBody.AppendLine("<td><table><tr><td>" + notificacion.NombreApellidoDocente + "</td></tr><tr><td>Docente</td></tr><tr><td>" +  notificacion.NombreCurso +"</td></tr></table></td></tr></table>");
                 sbBody.AppendLine("" + "<br/>");
                 //sbBody.AppendLine("Universidad Peruana de Ciencias Aplicadas (UPC)" + "<br/>");
 

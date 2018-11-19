@@ -199,6 +199,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
                                 notificacion.NombreDocente = rd.GetValue(rd.GetOrdinal("NOMBRE_DOCENTE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE_DOCENTE"));
                                 notificacion.ApellidoPaternoDocente = rd.GetValue(rd.GetOrdinal("APEPAT_DOCENTE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APEPAT_DOCENTE"));
+                                notificacion.NombreCurso = rd.GetValue(rd.GetOrdinal("NOMBRE_CURSO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE_CURSO"));
                             }
                         }
                     }
