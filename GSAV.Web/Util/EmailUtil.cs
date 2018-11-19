@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace GSAV.Web.Util
 {
@@ -18,45 +20,66 @@ namespace GSAV.Web.Util
             var resultado = false;
             try
             {
-              
-                    string emailAddressTo = string.Empty;
-                    string subject = string.Empty;
 
-                    /*Enviar correo*/
+                string emailAddressTo = string.Empty;
+                string subject = string.Empty;
 
-                    subject = string.Format("Notificación - Consulta Académica {0} {1}", notificacion.NumeroConsulta, notificacion.FechaSolucion);
-                
-                    var sbBody = new StringBuilder();
-                    sbBody.AppendLine("<br/>");
-                    sbBody.AppendLine("<br/>");
-                    sbBody.AppendLine("Estimado(a) " + notificacion.NombreApellidoAlumno + " (" + notificacion.CodigoAlumno + ")<br/>");
-                    sbBody.AppendLine("<br/>");
-                    sbBody.AppendLine("Por medio de la presente, se hace de conocimiento la respuesta a su consulta:" + "<br/>");
-                    sbBody.AppendLine("<br/>");
-                    sbBody.AppendLine("Consulta: " + notificacion.ConsultaAcademica + "<br/>");
-                    sbBody.AppendLine("Fecha Consulta: " + notificacion.FechaConsulta + "<br/>");
-                    sbBody.AppendLine("<br/>");
-                    sbBody.AppendLine("Solución: " + notificacion.Solucion + "<br/>");
-                    sbBody.AppendLine("Fecha Solución: " + notificacion.FechaSolucion + "<br/>");
-                    sbBody.AppendLine("<br/>");
-                    sbBody.AppendLine("Si usted tiene alguna duda o consulta puede responder al presente correo y lo atenderemos lo mas pronto posible." + "<br/>");
-                    sbBody.AppendLine("<br/>");
-                    sbBody.AppendLine("Atentamente" + "<br/>");
-                    sbBody.AppendLine("" + "<br/>");
-                    sbBody.AppendLine("Secretaría Académica" + "<br/>");
-                    sbBody.AppendLine("" + "<br/>");
-                    sbBody.AppendLine("Universidad Peruana de Ciencias Aplicadas (UPC)" + "<br/>");
+                /*Enviar correo*/
 
-                    EnviarCorreo(notificacion.Email, subject, sbBody.ToString(), null, string.Empty, string.Empty);
-                    resultado = true;
+                subject = string.Format("Notificación - Consulta Académica {0} {1}", notificacion.NumeroConsulta, notificacion.FechaSolucion);
 
-                
+                var sbBody = new StringBuilder();
+                //sbBody.AppendLine("<br/>");
+                sbBody.AppendLine("<br/>");
+                //sbBody.AppendLine("Estimado(a) " + notificacion.NombreApellidoAlumno + " (" + notificacion.CodigoAlumno + ")<br/>");
+                sbBody.AppendLine("Estimado Alumno:" + "<br/>");
+                sbBody.AppendLine("<br/>");
+                sbBody.AppendLine(GetSaludoHora(ConvertidorUtil.GmtToPacific(DateTime.Now)) + "a continuación, se remite la respuesta a su consulta:" + "<b>" + notificacion.ConsultaAcademica + "</b>" + "</br>");
+                sbBody.AppendLine("<br/>");
+                //sbBody.AppendLine("Consulta: " + notificacion.ConsultaAcademica + "<br/>");
+                //sbBody.AppendLine("Fecha Consulta: " + notificacion.FechaConsulta + "<br/>");
+                sbBody.AppendLine("<br/>");
+                sbBody.AppendLine("<u><b>Respuesta:</b></u>" + notificacion.Solucion + "<br/>");
+                //sbBody.AppendLine("Fecha Solución: " + notificacion.FechaSolucion + "<br/>");
+                sbBody.AppendLine("<br/>");
+                //sbBody.AppendLine("Si usted tiene alguna duda o consulta puede responder al presente correo y lo atenderemos lo mas pronto posible." + "<br/>");
+                sbBody.AppendLine("<br/>");
+                sbBody.AppendLine("Saludos Cordiales," + "<br/>");
+                sbBody.AppendLine("<table><tr><td> <img src=cid:myImageID> </td>");
+                sbBody.AppendLine("<td><table><tr><td>" + notificacion.NombreApellidoDocente + "</td></tr><tr><td>Docente</td></tr><tr><td>Curso</td></tr></table></td></tr></table>");
+                sbBody.AppendLine("" + "<br/>");
+                //sbBody.AppendLine("Universidad Peruana de Ciencias Aplicadas (UPC)" + "<br/>");
+
+                EnviarCorreo(notificacion.Email, subject, sbBody.ToString(), null, string.Empty, string.Empty);
+                resultado = true;
+
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
             return resultado;
+        }
+
+        private string GetSaludoHora(DateTime dt)
+        {
+            var saludo = string.Empty;
+
+            if (dt.Hour >= 0 && dt.Hour < 12)
+            {
+                saludo = "Buenos días,";
+            }
+            else if (dt.Hour >= 12 && dt.Hour < 18)
+            {
+                saludo = "Buenas tardes,";
+            }
+            else
+            {
+                saludo = "Buenas noches,";
+            }
+
+            return saludo;
         }
 
         private void EnviarCorreo(string emailAddressTo, string subject, string body, byte[] attachment, string fileName, string mediaType)
@@ -70,6 +93,7 @@ namespace GSAV.Web.Util
             mmsg.To.Add(emailAddressTo);
 
             //Nota: La propiedad To es una colección que permite enviar el mensaje a más de un destinatario
+
 
             //Asunto
             mmsg.Subject = subject;
@@ -91,39 +115,64 @@ namespace GSAV.Web.Util
 
 
             //Cuerpo del Mensaje
-            mmsg.Body = body;
-            mmsg.BodyEncoding = System.Text.Encoding.UTF8;
-            mmsg.IsBodyHtml = true;
 
+            //create Alrternative HTML view
+            AlternateView htmlView = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
 
-            //Correo electronico desde la que enviamos el mensaje
-            mmsg.From = new System.Net.Mail.MailAddress(ConstantesWeb.Email.Administrador);
+            //Add Image
+            var fileSavePath = HttpContext.Current.Server.MapPath("~/Content/images/") + "upc_logo.png";
+            FileInfo fileInfo = new FileInfo(fileSavePath);
+            byte[] file = File.ReadAllBytes(fileSavePath);
 
-
-            /*-------------------------CLIENTE DE CORREO----------------------*/
-
-            //Creamos un objeto de cliente de correo
-
-            System.Net.Mail.SmtpClient cliente = new System.Net.Mail.SmtpClient();
-            cliente.Host = "smtp.gmail.com";
-            cliente.Port = 587;
-            cliente.EnableSsl = true;
-            cliente.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-            cliente.UseDefaultCredentials = false;
-            cliente.Credentials = new System.Net.NetworkCredential(ConstantesWeb.Email.Administrador, ConstantesWeb.Email.Password);
-
-            /*-------------------------ENVIO DE CORREO----------------------*/
-
-            try
+            if (fileInfo.Exists)
             {
-                //Enviamos el mensaje      
-                cliente.Send(mmsg);
-            }
-            catch (System.Net.Mail.SmtpException ex)
-            {
-                //Aquí gestionamos los errores al intentar enviar el correo
-                throw ex;
-            }
+                using (var stream = new MemoryStream(file))
+                {
+                    LinkedResource theEmailImage = new LinkedResource(stream);
+                    theEmailImage.ContentId = "myImageID";
+
+                    //Add the Image to the Alternate view
+                    htmlView.LinkedResources.Add(theEmailImage);
+
+                    //Add view to the Email Message
+                    mmsg.AlternateViews.Add(htmlView);
+
+
+                    mmsg.BodyEncoding = System.Text.Encoding.UTF8;
+                    mmsg.IsBodyHtml = true;
+
+
+                    //Correo electronico desde la que enviamos el mensaje
+                    mmsg.From = new System.Net.Mail.MailAddress(ConstantesWeb.Email.Administrador);
+
+
+                    /*-------------------------CLIENTE DE CORREO----------------------*/
+
+                    //Creamos un objeto de cliente de correo
+
+                    System.Net.Mail.SmtpClient cliente = new System.Net.Mail.SmtpClient();
+                    cliente.Host = "smtp.gmail.com";
+                    cliente.Port = 587;
+                    cliente.EnableSsl = true;
+                    cliente.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                    cliente.UseDefaultCredentials = false;
+                    cliente.Credentials = new System.Net.NetworkCredential(ConstantesWeb.Email.Administrador, ConstantesWeb.Email.Password);
+
+                    /*-------------------------ENVIO DE CORREO----------------------*/
+
+                    try
+                    {
+                        //Enviamos el mensaje      
+                        cliente.Send(mmsg);
+                    }
+                    catch (System.Net.Mail.SmtpException ex)
+                    {
+                        //Aquí gestionamos los errores al intentar enviar el correo
+                        throw ex;
+                    }
+
+                }
+            }            
         }
     }
 }

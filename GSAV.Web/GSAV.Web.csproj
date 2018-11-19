@@ -325,6 +325,7 @@
     <Content Include="Content\images\if_internet-group-chat_118807.png" />
     <Content Include="Content\images\like.png" />
     <Content Include="Content\images\unlike.png" />
+    <Content Include="Content\images\upc_logo.png" />
     <Content Include="Content\jquery-confirm.css" />
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\Table.css" />

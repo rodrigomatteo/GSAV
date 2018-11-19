@@ -59,5 +59,12 @@ namespace GSAV.Entity.Objects
             return resultado;
         }
         public int IdSolicitud { get; set; }
+        public string NombreApellidoDocente {
+            get{
+                return NombreDocente + ", " + ApellidoPaternoDocente;
+            }
+        }
+        public string NombreDocente { get; set; }
+        public string ApellidoPaternoDocente { get; set; }
     }
 }

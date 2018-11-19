@@ -196,6 +196,9 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
                                 if (rd.GetValue(rd.GetOrdinal("FECHASOLUCION")) != DBNull.Value)
                                     notificacion.DtFechaSolucion = rd.GetDateTime(rd.GetOrdinal("FECHASOLUCION"));
+
+                                notificacion.NombreDocente = rd.GetValue(rd.GetOrdinal("NOMBRE_DOCENTE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE_DOCENTE"));
+                                notificacion.ApellidoPaternoDocente = rd.GetValue(rd.GetOrdinal("APEPAT_DOCENTE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APEPAT_DOCENTE"));
                             }
                         }
                     }
