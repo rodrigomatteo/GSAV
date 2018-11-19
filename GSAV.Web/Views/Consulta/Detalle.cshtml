@@ -57,7 +57,7 @@
                                                 <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
                                             </li>
 
-                                            @if (@Session["Login-Info"] != null && 
+                                            @if (@Session["Login-Info"] != null &&
                                                 ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
                                             {
                                                 <li>
@@ -223,7 +223,7 @@
                                                                 </td>
                                                                 <td colspan="3">
                                                                     @Html.TextArea("Consulta", new { @style = "", @readonly = true, @class = "textAreaCustom text-box-read-only" })
-                                                                </td>                                                               
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td valign="top">
@@ -234,7 +234,8 @@
 
                                                                     @if (@Session["Login-Info"] != null)
                                                                     {
-                                                                        if (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
+
+                                                                        if (!Model.ReadOnly.Equals("Y") && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
                                                                         {
                                                                             @Html.TextArea("Respuesta", new { @style = "", @class = "textAreaCustom" })
                                                                         }
@@ -244,51 +245,61 @@
                                                                         }
                                                                     }
 
-                                                                </td>                                                               
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="4">
-                                                                    <input type="checkbox" id="chkAgregarDialogFlow" name="chkAgregarDialogFlow" /> Crear Consulta Frecuente
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <td  colspan="4">
-                                                                    <div id="divCrearConsultaFrecuente" style="display:none">
-                                                                        <table style="width: 100%; text-align: left" class="tablePopup">
-                                                                            <colgroup>
-                                                                                <col width="15%" />
-                                                                                <col width="35%" />
-                                                                                <col width="12%" />
-                                                                                <col width="38%" />
-                                                                            </colgroup>
-                                                                            <tr>
-                                                                                <td valign="top">
-                                                                                    Intención:
-                                                                                </td>
-                                                                                <td>
-                                                                                    <input type="text" id="txtNuevaIntencion" style="width: 100%;" />
-                                                                                </td>
-                                                                                <td colspan="2">
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td valign="top">
-                                                                                    Frase:
-                                                                                </td>
-                                                                                <td colspan="3">
-                                                                                    <textarea id="txtFrase" name="txtFrase" style="height:80px;width:100%" class="textAreaCustom"></textarea>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td valign="top">
-                                                                                    Solución:
-                                                                                </td>
-                                                                                <td colspan="3">
-                                                                                    <textarea id="txtSolucion" name="txtSolucion" style="height:80px;width:100%" class="textAreaCustom"></textarea>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </div>                                                                   
+                                                                <td colspan="4">
+
+                                                                    @if (!Model.ReadOnly.Equals("Y"))
+                                                                    {
+                                                                        <input type="checkbox" id="chkAgregarDialogFlow" name="chkAgregarDialogFlow" />
+                                                                        <label>Crear Consulta Frecuente</label>
+                                                                    }
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">
+
+                                                                    @if (!Model.ReadOnly.Equals("Y"))
+                                                                    {
+                                                                        <div id="divCrearConsultaFrecuente" style="display:none">
+                                                                            <table style="width: 100%; text-align: left" class="tablePopup">
+                                                                                <colgroup>
+                                                                                    <col width="15%" />
+                                                                                    <col width="35%" />
+                                                                                    <col width="12%" />
+                                                                                    <col width="38%" />
+                                                                                </colgroup>
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        Intención:
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="text" id="txtNuevaIntencion" style="width: 100%;" />
+                                                                                    </td>
+                                                                                    <td colspan="2"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        Frase:
+                                                                                    </td>
+                                                                                    <td colspan="3">
+                                                                                        <textarea id="txtFrase" name="txtFrase" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        Solución:
+                                                                                    </td>
+                                                                                    <td colspan="3">
+                                                                                        <textarea id="txtSolucion" name="txtSolucion" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+                                                                    }
+
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -302,7 +313,10 @@
                                                                     {
                                                                         if (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
                                                                         {
-                                                                            <input type="button" value="Enviar" onclick="javascript: Enviar();" />
+                                                                            if (!Model.ReadOnly.Equals("Y"))
+                                                                            {
+                                                                                <input type="button" value="Enviar" onclick="javascript: Enviar();" />
+                                                                            }
                                                                         }
                                                                     }
 
@@ -328,7 +342,7 @@
                                                         if (frase != null && frase === '') {
                                                             $('#txtFrase').val(consulta);
                                                         }
-                                                        
+
                                                         $('#divCrearConsultaFrecuente').css('display', 'block');
 
                                                     } else {
@@ -354,7 +368,7 @@
                                                     $("#Respuesta").focus();
                                                     return;
                                                 }
-                                               
+
 
                                                 var crearConsulta = document.getElementById("chkAgregarDialogFlow").checked;
                                                 var strCrearConsulta = "0";
@@ -408,7 +422,7 @@
                                                             } else {
                                                                 //Registrar la Respuesta y La Nueva Intencion
                                                                 ConfirmarGrabarDatos(strCrearConsulta);
-                                                            }                                                           
+                                                            }
 
                                                         },
                                                         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -419,7 +433,7 @@
                                                 } else {
                                                     //Registrar la Respuesta y La Nueva Intencion
                                                     ConfirmarGrabarDatos(strCrearConsulta);
-                                                } 
+                                                }
 
                                             }
 
@@ -473,7 +487,7 @@
                                                         }
                                                     });
 
-                                                }  
+                                                }
                                             }
 
                                             function Cancelar() {

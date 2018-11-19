@@ -176,7 +176,7 @@ namespace GSAV.Web.Controllers
                     indicadoresDashboard.Cancelados = lista.FindAll(q => q.Estado.Equals("C")).Count() + "";
 
                     indicadoresDashboard.CumplioSla = lista.FindAll(q => q.CumpleSla.Equals("1")).Count() + "";
-                    indicadoresDashboard.NoCumplioSla = lista.FindAll(q => q.CumpleSla.Equals("0")).Count() + "";
+                    indicadoresDashboard.NoCumplioSla = lista.FindAll(q => q.CumpleSla.Equals("2")).Count() + "";
                 }
                 
                 lst.Add(indicadoresDashboard);

@@ -164,6 +164,12 @@ namespace GSAV.Web.Controllers
                     model.Alumno = solicitud.CodigoAlumnoNombresApellidos;
                     model.Consulta = solicitud.Consulta;
                     model.Respuesta = solicitud.Solucion;
+                    model.Estatus = solicitud.Estado;
+
+                    if (model.Estatus.Equals("R"))
+                    {
+                        model.ReadOnly = "Y";
+                    }
 
                     return View("Detalle", model);
                               
