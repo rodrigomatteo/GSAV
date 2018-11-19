@@ -371,7 +371,7 @@ namespace GSAV.Web.Dialogflow
                     
                     resultado.Id = newIntent.IntentName.IntentId;
                     resultado.DisplayName = newIntent.DisplayName;              
-                    oIBLSolicitud.InsertarIntencionConsulta(newIntent.DisplayName, newIntent.IntentName.IntentId, ConvertidorUtil.GmtToPacific(DateTime.Now));
+                    oIBLSolicitud.InsertarIntencionConsulta(newIntent.DisplayName, newIntent.IntentName.IntentId, ConvertidorUtil.GmtToPacific(DateTime.Now), intencion.IntencionPadre);
                     resultado.Mensaje = "INSERT-OK";
 
                 }

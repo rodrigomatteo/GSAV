@@ -301,7 +301,7 @@ namespace GSAV.Data.Oracle.Implementation
             throw new NotImplementedException();
         }
 
-        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow, DateTime fechaCreacion)
+        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow, DateTime fechaCreacion, string intencionPadre)
         {
             throw new NotImplementedException();
         }

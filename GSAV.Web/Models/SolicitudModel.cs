@@ -25,5 +25,6 @@ namespace GSAV.Web.Models
         public string PalabraClave { get; set; }
         public string Respuesta { get; set; }  
         public string ReadOnly { get; set; }
+        public string IntencionConsulta { get; set; }
     }
 }

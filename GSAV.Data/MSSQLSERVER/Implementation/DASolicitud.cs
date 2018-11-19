@@ -127,6 +127,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                                 solicitud_.Estado = rd.GetValue(rd.GetOrdinal("ESTADO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("ESTADO"));
                                 solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
                                 solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
+                                solicitud_.IntencionConsulta = rd.GetValue(rd.GetOrdinal("INTENCION_CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("INTENCION_CONSULTA"));
                                 obj.OneResult = solicitud_;
                             }
                         }
@@ -170,7 +171,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     cmd.Parameters.AddWithValue("@P_SOLUCION", solicitud.Solucion);
                     cmd.Parameters.AddWithValue("@P_ESTADO", "R");
                     cmd.Parameters.AddWithValue("@P_FECHA_SOL", GmtToPacific(DateTime.Now));
-                    cmd.Parameters.AddWithValue("@P_CUMPLE_SLA", "1");
+                    cmd.Parameters.AddWithValue("@P_CUMPLE_SLA", "1");                    
 
                     SqlDataReader rd = cmd.ExecuteReader();
 
@@ -462,7 +463,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
             return obj;
         }
 
-        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow,DateTime fechaCreacion)
+        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow,DateTime fechaCreacion,string intencionPadre)
         {
             ReturnObject<string> obj = new ReturnObject<string>();
             obj.OneResult = string.Empty;
@@ -480,6 +481,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", nombreIntencion);
                     cmd.Parameters.AddWithValue("@P_ID_DIALOG_FLOW", idDialogFlow);
                     cmd.Parameters.AddWithValue("@P_FECHA_CREACION", fechaCreacion);
+                    cmd.Parameters.AddWithValue("@P_INTENCION_PADRE", intencionPadre);
 
                     cmd.ExecuteNonQuery();
                   

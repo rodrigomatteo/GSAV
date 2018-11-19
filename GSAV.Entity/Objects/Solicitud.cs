@@ -104,5 +104,7 @@ namespace GSAV.Entity.Objects
         public int IdEmpleado { get; set; }
         public int IdAlumno { get; set; }
         public string IndicadorStatus { get; set; }
+        public string IntencionConsulta { get; set; }
+        public string IntencionPadre { get; set; }
     }
 }

@@ -145,11 +145,11 @@ namespace GSAV.ServiceContracts.Implementation
             }
         }
 
-        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow, DateTime fechaCreacion)
+        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow, DateTime fechaCreacion, string intencionPadre)
         {
             try
             {
-                return oIDASolicitud.InsertarIntencionConsulta(nombreIntencion, idDialogFlow, fechaCreacion);
+                return oIDASolicitud.InsertarIntencionConsulta(nombreIntencion, idDialogFlow, fechaCreacion,intencionPadre);
             }
             catch (Exception)
             {

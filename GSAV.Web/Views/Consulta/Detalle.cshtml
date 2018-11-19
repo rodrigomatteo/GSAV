@@ -200,13 +200,13 @@
                                                                     Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    @Html.TextBoxFor(model => model.TipoConsulta, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+                                                                    @Html.TextBoxFor(model => model.IntencionConsulta, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
                                                                 </td>
                                                                 <td align="left" class="Texto" style="padding-left:10px;">
-                                                                    Palabra Clave:
+                                                                   
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    @Html.TextBoxFor(model => model.PalabraClave, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+                                                                    
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -273,16 +273,16 @@
                                                                                 </colgroup>
                                                                                 <tr>
                                                                                     <td valign="top">
-                                                                                        Intención:
+                                                                                        Palabra Clave:
                                                                                     </td>
                                                                                     <td>
-                                                                                        <input type="text" id="txtNuevaIntencion" style="width: 100%;" />
+                                                                                        <input type="text" id="txtPalabraClave" style="width: 100%;" />
                                                                                     </td>
                                                                                     <td colspan="2"></td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <td valign="top">
-                                                                                        Frase:
+                                                                                        Pregunta:
                                                                                     </td>
                                                                                     <td colspan="3">
                                                                                         <textarea id="txtFrase" name="txtFrase" style="height:80px;width:100%" class="textAreaCustom"></textarea>
@@ -332,6 +332,8 @@
 
                                         <script type="text/javascript">
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             $(document).ready(function () {
 
                                                 $("#chkAgregarDialogFlow").change(function () {
@@ -353,6 +355,8 @@
 
                                             });
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function stringToBoolean(string) {
                                                 switch (string) {
                                                     case "TRUE": case "True": case "true": case "yes": case "1": return true;
@@ -360,6 +364,8 @@
                                                     default: return Boolean(string);
                                                 }
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function Enviar() {
 
@@ -376,9 +382,9 @@
                                                 if (stringToBoolean(crearConsulta)) {
                                                     strCrearConsulta = "1";
                                                     //Validar Nueva Intencion Ingresada
-                                                    if ($('#txtNuevaIntencion').val() === '') {
-                                                        alert("Por favor, ingrese el nombre de la intención");
-                                                        $("#txtNuevaIntencion").focus();
+                                                    if ($('#txtPalabraClave').val() === '') {
+                                                        alert("Por favor, ingrese Palabra Clave");
+                                                        $("#txtPalabraClave").focus();
                                                         return;
                                                     }
                                                     //Validar Frase Ingresada
@@ -398,7 +404,7 @@
                                                     $.blockUI();
 
                                                     var parametros_ = {
-                                                        nombreIntencion: $('#txtNuevaIntencion').val()
+                                                        nombreIntencion: $('#txtPalabraClave').val()
                                                     };
 
                                                     $.ajax({
@@ -411,7 +417,7 @@
                                                             $.unblockUI();
 
                                                             if (rpta === 'EXISTE') {
-                                                                $("#txtNuevaIntencion").focus();
+                                                                $("#txtPalabraClave").focus();
                                                                 $.alert({
                                                                     closeIcon: true,
                                                                     title: 'Detalle Consulta',
@@ -437,6 +443,8 @@
 
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function ConfirmarGrabarDatos(strCrearConsulta) {
                                                 if (confirm('¿Desea enviar la respuesta a la Consulta?')) {
 
@@ -444,10 +452,12 @@
 
                                                     var parametros = {
                                                         idSolicitud: $('#IdSolicitud').val(),
+                                                        intencionPadre: $('#IntencionConsulta').val(),
                                                         solucion: $('#Respuesta').val(),
                                                         crearConsulta: strCrearConsulta,
-                                                        nombreIntencion: $('#txtNuevaIntencion').val(),
-                                                        frase: $('#txtFrase').val(),
+                                                        nombreIntencion: $('#txtPalabraClave').val(),
+                                                        frase1: $('#Consulta').val(),
+                                                        frase2: $('#txtFrase').val(),
                                                         solucionIntencion: $('#txtSolucion').val()
                                                     };
 
@@ -490,9 +500,13 @@
                                                 }
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function Cancelar() {
                                                 window.open('@Url.Action("Index", "Consulta")', '_self');
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                         </script>
                                     </div>

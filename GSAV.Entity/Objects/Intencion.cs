@@ -25,6 +25,7 @@ namespace GSAV.Entity.Objects
         public DateTime FechaCreacion { get; set; }
         public string StrFechaCreacion { get; set; }
         public string Respuesta { get; set; }
+        public string IntencionPadre { get; set; }
         
     }
 }
