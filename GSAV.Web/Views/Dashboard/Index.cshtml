@@ -55,7 +55,7 @@
                                             </li>
 
 
-                                            @if (@Session["Login-Info"] != null && 
+                                            @if (@Session["Login-Info"] != null &&
                                                 ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
                                             {
                                                 <li>
@@ -198,7 +198,7 @@
 
 
                                     <div class="collapsible" style="overflow: auto;">
-                                        <table>                                           
+                                        <table>
                                             <tr>
                                                 <td style="border:1px solid #ccc;width:120px">
                                                     <table style="padding-left: 4px;padding-right: 4px;width: 100%;">
@@ -351,7 +351,7 @@
                                                     <div class="divChartArea" id="piechart_3d_loading" style="width: 400px; height: 300px;">
                                                         <div class="centrado-porcentual">
                                                             <img src="~/Content/images/ajax-loader.gif" />
-                                                        </div>                                                        
+                                                        </div>
                                                     </div>
                                                     <div class="divChartArea" id="piechart_3d" style="width: 400px; height: 300px;"></div>
                                                 </td>
@@ -445,29 +445,29 @@
                                                                                 <img id="btnGreen" src="../Content/images/color_label_circle_green_T.png" width="16px" height="16px" style="cursor:pointer" />
                                                                             </td>
                                                                             <td>
-                                                                                <label class="labelTextIndicador">6 <= T(h) < 12</label>
+                                                                                <label class="labelTextIndicador">T(h) < 12</label>
                                                                             </td>
                                                                             <td>
-                                                                                <img id="btnYellow" src="../Content/images/color_label_circle_yellow_T.png" width="16px" height="16px" style="cursor:pointer"/>
+                                                                                <img id="btnYellow" src="../Content/images/color_label_circle_yellow_T.png" width="16px" height="16px" style="cursor:pointer" />
                                                                             </td>
                                                                             <td>
                                                                                 <label class="labelTextIndicador">12 <= T(h) < 18</label>
                                                                             </td>
                                                                             <td>
-                                                                                <img id="btnRed" src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px" style="cursor:pointer"/>
+                                                                                <img id="btnRed" src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px" style="cursor:pointer" />
                                                                             </td>
                                                                             <td>
                                                                                 <label class="labelTextIndicador">18 <= T(h) </label>
                                                                             </td>
                                                                             <td>
-                                                                                <img id="btnAll" src="../Content/images/color_label_circle_grey_T.png" width="16px" height="16px" style="cursor:pointer"/>
+                                                                                <img id="btnAll" src="../Content/images/color_label_circle_grey_T.png" width="16px" height="16px" style="cursor:pointer" />
                                                                             </td>
                                                                             <td>
                                                                                 <label class="labelTextIndicador">Todos </label>
-                                                                                <input type="hidden" id="hdnIndicadorStatus" value="TODOS"/>
+                                                                                <input type="hidden" id="hdnIndicadorStatus" value="TODOS" />
                                                                             </td>
                                                                             <td style="text-align:right">
-                                                                                <input type="button" value="Enviar Alerta para Atención"/>
+                                                                                <input type="button" value="Enviar Alerta para Atención" />
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -478,7 +478,7 @@
                                                                     <div id="div_data_loading" class="div-loading-data">
                                                                         <div style="position:relative;top:45%;">
                                                                             <img src="/Content/images/ajax-loader.gif">
-                                                                        </div>                                                                        
+                                                                        </div>
                                                                     </div>
                                                                     <div id="divContenedor" style="width:100%">
                                                                         <table id="jqGrid"></table>
@@ -491,12 +491,14 @@
                                                 </td>
                                             </tr>
                                         </table>
-                                        
+
                                         <script type="text/javascript" src="~/Scripts/loader.js"></script>
                                         <script type="text/javascript">
 
                                             google.charts.load("current", { packages: ["corechart"] });
                                             google.charts.setOnLoadCallback(CargarChartUnidadNegocio);
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function CargarChartUnidadNegocio() {
 
@@ -510,10 +512,10 @@
                                                     url: '/Dashboard/CargarChartDemandaUnidNegocio',
                                                     data: parametros,
                                                     dataType: 'json',
-                                                    success: function (rpta) {                                                        
+                                                    success: function (rpta) {
                                                         $("#piechart_3d").css("display", "block");
                                                         $("#piechart_3d_loading").css("display", "none");
-                                                        
+
                                                         drawChartPie(rpta);
                                                     },
                                                     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -522,7 +524,11 @@
                                                 });
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             google.charts.setOnLoadCallback(CargarChartTipoConsulta);
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function CargarChartTipoConsulta() {
 
@@ -546,7 +552,9 @@
                                                     }
                                                 });
                                             }
-                                            
+
+                                            //-----------------------------------------------------------------------------------------
+
                                             $(document).ready(function () {
 
                                                 $('#btnGreen').click(function () {
@@ -688,14 +696,47 @@
 
                                             });
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function FiltrarDashboard() {
+
+                                                var expreg = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+
+                                                if (!expreg.test($('#txtFechaInicio_Buscar').val())) {
+                                                    alert("La Fecha Desde no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
+                                                    $("#txtFechaInicio_Buscar").focus();                                                  
+                                                    return;
+                                                }
+
+                                                //var expreg = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                                                if (!expreg.test($('#txtFechaFin_Buscar').val())) {
+                                                    alert("La Fecha Hasta no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
+                                                    $("#txtFechaFin_Buscar").focus();
+                                                    return;
+                                                }
+
+                                                var fechaInicio = $('#txtFechaInicio_Buscar').val();
+                                                var fechaFin = $('#txtFechaFin_Buscar').val();
+
+                                                var dayDiff_1 = getDateDiff(fechaFin,fechaInicio);
+                                                //console.log("dayDiff_1: " + dayDiff_1);
+                                                if (dayDiff_1 < 0) {
+                                                    alert("La Fecha Desde no puede ser posterior a la Fecha Hasta. Por favor, verifique el filtro ingresado");
+                                                    $("#txtFechaInicio_Buscar").focus();
+                                                    return;
+                                                }
+
+                                                
 
                                                 DisplayLoading();
                                                 ListarSolicitudesAtencion();
                                                 CargarIndicadores();
                                                 CargarChartUnidadNegocio();
                                                 CargarChartTipoConsulta();
+                                                                                            
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function ListarSolicitudesAtencion() {
 
@@ -735,6 +776,8 @@
                                                 });
 
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function CargarIndicadores() {
 
@@ -795,6 +838,8 @@
                                                 });
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function drawChartPie(rpta) {
 
                                                 var parsed = JSON.parse(JSON.stringify(rpta));
@@ -821,6 +866,8 @@
                                                 var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
                                                 chart.draw(data, options);
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function drawBarChart(rpta) {
 
@@ -857,8 +904,10 @@
                                                 chart.draw(view, options);
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function Visualizar(id) {
-                                                
+
 
                                                 var parametros = {
                                                     idSolicitud: id
@@ -895,9 +944,13 @@
 
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function Cerrar() {
                                                 $('#dialogConsulta').dialog('close');
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function DisplayLoading() {
 
@@ -935,6 +988,60 @@
                                                 $("#divNoCumpleSla_loading").css("display", "block");
                                             }
 
+
+                                            //-----------------------------------------------------------------------------------------
+                                            function getDateDiff(time1, time2) {
+
+                                                //console.log(time1);
+                                                //console.log(time2);
+
+                                                var str1 = time1.split('/');
+                                                var str2 = time2.split('/');
+
+                                                //                  yyyy   ,              mm       ,            dd
+                                                var t1 = new Date(parseInt(str1[2]), parseInt(str1[1]) - 1, parseInt(str1[0]));
+                                                var t2 = new Date(parseInt(str2[2]), parseInt(str2[1]) - 1, parseInt(str2[0]));
+
+                                                //console.log(t1);
+                                                //console.log(t2);
+
+                                                var diffMS = t1 - t2;
+                                                //console.log(diffMS + ' ms');
+
+                                                var diffS = diffMS / 1000;
+                                                //console.log(diffS + ' ');
+
+                                                var diffM = diffS / 60;
+                                                //console.log(diffM + ' minutes');
+
+                                                var diffH = diffM / 60;
+                                                //console.log(diffH + ' hours');
+
+                                                var diffD = diffH / 24;
+                                                //console.log(diffD + ' days');
+
+                                                return diffD;
+
+                                            }
+                                            //-----------------------------------------------------------------------------------------
+                                            function getCurrentDate() {
+                                                var today = new Date();
+                                                var dd = today.getDate();
+                                                var mm = today.getMonth() + 1; //January is 0!
+                                                var yyyy = today.getFullYear();
+
+                                                if (dd < 10) {
+                                                    dd = '0' + dd
+                                                }
+
+                                                if (mm < 10) {
+                                                    mm = '0' + mm
+                                                }
+
+                                                today = dd + '/' + mm + '/' + yyyy;
+                                                return today;
+                                            }
+                                            //-----------------------------------------------------------------------------------------
                                         </script>
                                     </div>
                                 </div>
@@ -1017,7 +1124,7 @@
                 </tr>
             </table>
         </div>
-        <div id="divBotones" style="text-align: center; padding-top: 5px; border-bottom-color: Navy; border-width: 5px;">            
+        <div id="divBotones" style="text-align: center; padding-top: 5px; border-bottom-color: Navy; border-width: 5px;">
             <input id="btnCancelar" type="button" value="Cerrar" onclick="javascript:Cerrar(); return false;" />
         </div>
     </div>
