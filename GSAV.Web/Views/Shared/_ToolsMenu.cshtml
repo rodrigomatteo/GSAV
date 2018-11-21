@@ -1,0 +1,40 @@
+﻿@using GSAV.Entity.Objects
+@using GSAV.Entity.Util
+
+<h2 class="  clearfix" id="anonymous_element_4">
+    <span class="moduleTitle">Herramientas</span>
+</h2>
+
+
+<div class="collapsible" style="overflow: auto;">
+
+    <ul class="portletList">
+        <li>
+            <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
+        </li>
+
+        @{ string rol = ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol; }
+
+        @if (@Session["Login-Info"] != null && (rol == "DOCENTE" || rol == "ADMINISTRADOR"))
+        {
+            <li>
+                <a href="@Url.Content("/Consulta/Index")" _self">Bandeja de Consultas</a>
+            </li>
+            <li>
+                <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>
+            </li>
+
+        }
+
+        @if (@Session["Login-Info"] != null && rol == "COORDINADOR" || rol == "ADMINISTRADOR")
+        {
+            <li>
+                <a href="@Url.Content("/Dashboard/Index")" _self">Dashboard de Consultas</a>
+            </li>
+        }
+
+
+    </ul>
+
+
+</div>

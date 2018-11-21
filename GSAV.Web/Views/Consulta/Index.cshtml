@@ -43,49 +43,8 @@
                                     <div class="edit_controls">
                                     </div>
 
+                                    @Html.Partial("_ToolsMenu")
 
-                                    <h2 class="  clearfix" id="anonymous_element_4">
-                                        <span class="moduleTitle">Herramientas</span>
-                                    </h2>
-
-
-                                    <div class="collapsible" style="overflow: auto;">
-
-                                        <ul class="portletList">
-                                            <li>
-                                                <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
-                                            </li>
-
-                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
-                                            {
-                                                <li>
-                                                    <a href="@Url.Content("/Consulta/Index")" _self">Bandeja de Consultas</a>
-                                                </li>
-
-                                            }
-
-                                            @if (@Session["Login-Info"] != null &&
-                                                ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
-                                            {
-                                                <li>
-                                                    <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>
-                                                </li>
-
-                                            }
-
-                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR")
-                                            {
-                                                <li>
-                                                    <a href="@Url.Content("/Dashboard/Index")" _self">Dashboard de Consultas</a>
-                                                </li>
-                                            }
-
-
-
-                                        </ul>
-
-
-                                    </div>
                                 </div>
 
                                 <div class="portlet clearfix  " id="module:_522_1">
