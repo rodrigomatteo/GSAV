@@ -167,9 +167,13 @@ namespace GSAV.Web.Controllers
                     model.Estatus = solicitud.Estado;
                     model.IntencionConsulta = solicitud.IntencionConsulta;
 
-                    if (model.Estatus.Equals("R"))
+                    if (!model.Estatus.Equals("D"))
                     {
                         model.ReadOnly = "Y";
+                    }
+                    else
+                    {
+                        model.ReadOnly = "N";
                     }
 
                     return View("Detalle", model);
