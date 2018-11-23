@@ -127,6 +127,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                                 solicitud_.Estado = rd.GetValue(rd.GetOrdinal("ESTADO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("ESTADO"));
                                 solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
                                 solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
+                                solicitud_.IntencionConsulta = rd.GetValue(rd.GetOrdinal("INTENCION_CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("INTENCION_CONSULTA"));
                                 obj.OneResult = solicitud_;
                             }
                         }
@@ -148,13 +149,16 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
         /// </summary>
         /// <param name="solicitud"></param>
         /// <returns></returns>
-        public ReturnObject<bool> EnviarSolucionSolicitud(Solicitud solicitud)
+        public ReturnObject<Notificacion> EnviarSolucionSolicitud(Solicitud solicitud)
         {
-            ReturnObject<bool> obj = new ReturnObject<bool>();
-            obj.OneResult = false;
+            ReturnObject<Notificacion> obj = new ReturnObject<Notificacion>();
+            
 
             try
             {
+                var notificacion = new Notificacion();
+                obj.OneResult = notificacion;
+
                 using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
                 {
                     SqlCommand cmd = null;
@@ -165,16 +169,49 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@P_IDSOLICITUD", solicitud.IdSolicitud);
                     cmd.Parameters.AddWithValue("@P_SOLUCION", solicitud.Solucion);
+                    cmd.Parameters.AddWithValue("@P_ESTADO", "R");
+                    cmd.Parameters.AddWithValue("@P_FECHA_SOL", GmtToPacific(DateTime.Now));
+                    cmd.Parameters.AddWithValue("@P_CUMPLE_SLA", "1");                    
 
-                    cmd.ExecuteNonQuery();
+                    SqlDataReader rd = cmd.ExecuteReader();
+
+                    var first = 0;
+
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            first++;
+                            if (first.Equals(1))
+                            {                               
+                                notificacion.IdSolicitud = rd.GetInt32(rd.GetOrdinal("IDSOLICITUD"));
+                                notificacion.Email = rd.GetValue(rd.GetOrdinal("EMAIL")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("EMAIL"));
+                                notificacion.Nombres = rd.GetValue(rd.GetOrdinal("NOMBRE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE"));
+                                notificacion.CodigoAlumno = rd.GetValue(rd.GetOrdinal("CODIGOALUMNO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CODIGOALUMNO"));                                
+                                notificacion.ApellidoPat = rd.GetValue(rd.GetOrdinal("APELLIDOPAT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APELLIDOPAT"));
+                                notificacion.ConsultaAcademica = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
+                                notificacion.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
+
+                                if (rd.GetValue(rd.GetOrdinal("FECHAREGISTRO")) != DBNull.Value)
+                                    notificacion.DtFechaConsulta = rd.GetDateTime(rd.GetOrdinal("FECHAREGISTRO"));
+
+                                if (rd.GetValue(rd.GetOrdinal("FECHASOLUCION")) != DBNull.Value)
+                                    notificacion.DtFechaSolucion = rd.GetDateTime(rd.GetOrdinal("FECHASOLUCION"));
+
+                                notificacion.NombreDocente = rd.GetValue(rd.GetOrdinal("NOMBRE_DOCENTE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE_DOCENTE"));
+                                notificacion.ApellidoPaternoDocente = rd.GetValue(rd.GetOrdinal("APEPAT_DOCENTE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APEPAT_DOCENTE"));
+                                notificacion.NombreCurso = rd.GetValue(rd.GetOrdinal("NOMBRE_CURSO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE_CURSO"));
+                            }
+                        }
+                    }
 
                     obj.Success = true;
-                    obj.OneResult = true;
+                    obj.OneResult = notificacion;
                 }
             }
             catch (Exception ex)
             {
-                obj.OneResult = false;
+                obj.OneResult = null;
                 obj.Success = false;
                 obj.ErrorMessage = ex.Message;
             }
@@ -340,7 +377,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
         /// </summary>
         /// <param name="idDialogFlow"></param>
         /// <returns></returns>
-        public ReturnObject<string> ObtenerFechaIntencion(string idDialogFlow)
+        public ReturnObject<string> ObtenerFechaIntencion(string intencionNombre)
         {
             ReturnObject<string> obj = new ReturnObject<string>();
             obj.OneResult = string.Empty;
@@ -355,8 +392,8 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     cmd = new SqlCommand(SP.GSAV_SP_BUSCAR_FECHA_CREA_INTENCION, cnn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", idDialogFlow);
-                    
+                    cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", intencionNombre);
+
 
                     SqlDataReader rd = cmd.ExecuteReader();
                     if (rd.HasRows)
@@ -425,6 +462,42 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             return obj;
         }
+
+        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow,DateTime fechaCreacion,string intencionPadre)
+        {
+            ReturnObject<string> obj = new ReturnObject<string>();
+            obj.OneResult = string.Empty;
+
+            try
+            {
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    cmd = new SqlCommand(SP.GSAV_SP_INSERTAR_INTENCION_CONSULTA, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", nombreIntencion);
+                    cmd.Parameters.AddWithValue("@P_ID_DIALOG_FLOW", idDialogFlow);
+                    cmd.Parameters.AddWithValue("@P_FECHA_CREACION", fechaCreacion);
+                    cmd.Parameters.AddWithValue("@P_INTENCION_PADRE", intencionPadre);
+
+                    cmd.ExecuteNonQuery();
+                  
+                    obj.Success = true;
+                    obj.OneResult = "INSERT OK";
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Success = false;
+                obj.ErrorMessage = ex.Message;
+            }
+
+            return obj;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -436,7 +509,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
             try
             {
                 if (resultado != null)
-                    resultado = string.Format("{0:dd/MM/yyyy}", date);
+                    resultado = string.Format("{0:dd/MM/yyyy HH:mm}", date);
                 if (date == DateTime.MinValue)
                     resultado = string.Empty;
             }
@@ -445,6 +518,63 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             }
             return resultado;
+        }
+
+        public static DateTime GmtToPacific(DateTime dateTime)
+        {
+            return TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time"));
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="intencionNombre"></param>
+        /// <returns></returns>
+        public ReturnObject<Intencion> ObtenerIntencion(string intencionNombre)
+        {
+            ReturnObject<Intencion> obj = new ReturnObject<Intencion>();
+            obj.OneResult = new Intencion();
+
+            try
+            {
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    cmd = new SqlCommand(SP.GSAV_SP_BUSCAR_INTENCION_X_NOMBRE, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", intencionNombre);
+
+
+                    SqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            var intencion = new Intencion();
+                            intencion.IdIntencionConsulta = rd.GetInt32(rd.GetOrdinal("IDINTENCIONCONSULTA"));
+                            intencion.Nombre = (rd.GetValue(rd.GetOrdinal("NOMBRE")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE"));
+                            intencion.IdPadreIntencion = (rd.GetValue(rd.GetOrdinal("IDPADREINTENCION")) == DBNull.Value) ? 0 : rd.GetInt32(rd.GetOrdinal("IDPADREINTENCION"));
+                            intencion.IdDialogFlow = (rd.GetValue(rd.GetOrdinal("IDDIALOGFLOW")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("IDDIALOGFLOW"));
+                            intencion.FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FECHACREACION"));
+                            intencion.StrFechaCreacion = FormatearFechaEsp(intencion.FechaCreacion);
+                            obj.OneResult = intencion;
+                        }
+                    }
+
+                    obj.Success = true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Success = false;
+                obj.ErrorMessage = ex.Message;
+            }
+
+            return obj;
         }
     }
 }

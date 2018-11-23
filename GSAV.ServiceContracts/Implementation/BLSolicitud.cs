@@ -41,7 +41,7 @@ namespace GSAV.ServiceContracts.Implementation
         /// </summary>
         /// <param name="solicitud"></param>
         /// <returns></returns>
-        public ReturnObject<bool> EnviarSolucionSolicitud(Solicitud solicitud)
+        public ReturnObject<Notificacion> EnviarSolucionSolicitud(Solicitud solicitud)
         {
             try
             {
@@ -121,11 +121,11 @@ namespace GSAV.ServiceContracts.Implementation
             }
         }
 
-        public ReturnObject<string> ObtenerFechaIntencion(string idDialogFlow)
+        public ReturnObject<string> ObtenerFechaIntencion(string intencionNombre)
         {
             try
             {
-                return oIDASolicitud.ObtenerFechaIntencion(idDialogFlow);
+                return oIDASolicitud.ObtenerFechaIntencion(intencionNombre);
             }
             catch (Exception)
             {
@@ -138,6 +138,30 @@ namespace GSAV.ServiceContracts.Implementation
             try
             {
                 return oIDASolicitud.ObtenerIntenciones();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow, DateTime fechaCreacion, string intencionPadre)
+        {
+            try
+            {
+                return oIDASolicitud.InsertarIntencionConsulta(nombreIntencion, idDialogFlow, fechaCreacion,intencionPadre);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public ReturnObject<Intencion> ObtenerIntencion(string intencionNombre)
+        {
+            try
+            {
+                return oIDASolicitud.ObtenerIntencion(intencionNombre);
             }
             catch (Exception)
             {

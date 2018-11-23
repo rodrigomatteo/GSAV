@@ -147,10 +147,38 @@
                                                                     <input type="text" id="txtIntencion" style="width:80%" maxlength="10" />
                                                                 </td>
                                                                 <td align="left" class="Texto" style="">
-                                                                    Palabra Clave:
+                                                                    Frase Entrenamiento:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <input type="text" id="txtPalabraClave" style="width:80%" maxlength="10" />
+                                                                    <input type="text" id="txtFraseEntrena" style="width:80%" maxlength="10" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="left" class="Texto" style="">
+                                                                    Respuesta:
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    <input type="text" id="txtRespuesta" style="width:80%" maxlength="10" />
+                                                                </td>
+                                                                <td align="left" class="Texto" style="">
+                                                                   
+                                                                </td>
+                                                                <td style="text-align: left">
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Fecha Inicial:
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="txtFechaInicio_Buscar" style="width: 100px;" />
+                                                                </td>
+                                                                <td>
+                                                                    Fecha Final:
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="txtFechaFin_Buscar" style="width: 100px;" />
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -189,6 +217,7 @@
 
                                             $(document).ready(function () {
 
+                                                //-----------------------------------------------------------------------------------------
 
                                                 $("#dialogConsulta").dialog({
                                                     autoOpen: false,
@@ -237,8 +266,9 @@
                                                             name: 'Id', index: 'Id', align: "center", width: 5, sortable: false, jsonmap: "Id",
                                                             formatter: function (cellvalue, options, rowObject) {
 
-                                                                var _id = rowObject.Id;
-                                                                return '<input class="buttonTable" type="button" value="Anular" onclick="javascript:Eliminar(' + _id + ')"\>';
+                                                                var _id = "'" + rowObject.Id + "'";
+                                                                var displayName = "'" + rowObject.Nombre + "'";
+                                                                return '<input class="buttonTable" type="button" value="Anular" onclick="javascript:Eliminar(' + _id + ',' + displayName +')"\>';
                                                             }
                                                         }
                                                     ],
@@ -262,12 +292,12 @@
                                                 jQuery("#jqGridPF").jqGrid({
                                                     datatype: "local",
                                                     width: 600,
-                                                    colNames: ['Id', 'IdShort', 'Tipo', 'Descripcion'],
+                                                    colNames: ['Id', 'Id', 'Tipo', 'Descripcion'],
                                                     colModel: [
-                                                        { name: 'Id', index: 'Id', width: 15, sortable: false, hidden: true },
+                                                        { name: 'Id', index: 'Id', width: 5, sortable: false, hidden: true },
                                                         { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: false },
-                                                        { name: 'Tipo', index: 'Tipo', align: "center", width: 15, sortable: false },
-                                                        { name: 'Descripcion', index: 'Descripcion', align: "center", width: 8, sortable: false }
+                                                        { name: 'Tipo', index: 'Tipo', align: "center", width: 4, sortable: false },
+                                                        { name: 'Descripcion', index: 'Descripcion', align: "left", width: 20, sortable: false }
                                                     ],
                                                     height: 250,
                                                     rowNum: 10,
@@ -284,23 +314,106 @@
                                                     pgtext: 'Página: {0} de {1}'
 
                                                 });
-                                                
+
+                                                CargarFechas();
+
                                                 $("#btnBuscar").click();
 
 
                                             });
 
-                                            function VerFrases(idDialogFlow, nombre_) {
+                                            //-----------------------------------------------------------------------------------------
 
-                                                console.log(nombre_);
+                                            function CargarFechas() {
+                                                $.datepicker.regional['es'] = {
+                                                    closeText: 'Cerrar',
+                                                    prevText: '<Ant',
+                                                    nextText: 'Sig>',
+                                                    currentText: 'Hoy',
+                                                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                                                    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                                                    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                                                    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                                                    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                                                    weekHeader: 'Sm',
+                                                    dateFormat: 'dd/mm/yy',
+                                                    firstDay: 1,
+                                                    isRTL: false,
+                                                    showMonthAfterYear: false,
+                                                    yearSuffix: ''
+                                                };
+
+                                                $.datepicker.setDefaults($.datepicker.regional['es']);
+
+                                                $('#txtFechaInicio_Buscar').datepicker();
+                                                $('#txtFechaFin_Buscar').datepicker();
+
+                                                var now = new Date();
+                                                var day = ("0" + now.getDate()).slice(-2);
+                                                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                                                var lastDate = new Date().add(-6).month();
+                                                var lastDay = ("0" + lastDate.getDate()).slice(-2);
+                                                var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
+
+                                                var fchStart = (lastDay) + "/" + (lastMonth) + "/" + lastDate.getFullYear();
+                                                var fchEnd = (day) + "/" + (month) + "/" + now.getFullYear();
+
+                                                $('#txtFechaInicio_Buscar').val(fchStart);
+                                                $('#txtFechaFin_Buscar').val(fchEnd);
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function VerFrases(idIntencion, nombre_) {
 
                                                 $('#txtNombreIntencion').val(nombre_);
                                                 $('#dialogConsulta').dialog('open');
+
+                                                var parametros = {
+                                                    idIntencion: idIntencion
+                                                };
+
+                                                $("#jqGridPF").clearGridData();
+
+                                                $("#jqGridPF").closest(".ui-jqgrid").find('.loading').show();
+
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: '/BaseAcademico/ConsultarFrasesEntrenamiento',
+                                                    data: parametros,
+                                                    dataType: 'json',
+                                                    success: function (rpta) {
+
+                                                        var parsed = JSON.parse(JSON.stringify(rpta));
+                                                        var array_ = [];
+                                                        for (var x in parsed) {
+                                                            array_.push(parsed[x]);
+                                                        }
+
+                                                        $("#jqGridPF").closest(".ui-jqgrid").find('.loading').hide();
+                                                        $("#jqGridPF").jqGrid('setGridParam', { data: array_ });
+                                                        $("#jqGridPF").trigger('reloadGrid');
+
+                                                    },
+                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                    }
+                                                });
+
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function CrearEntrada() {
-                                                window.open('@Url.Action("Crear", "BaseAcademico")', '_self');
+                                                var id = 'NEW';
+                                                var url = '@Url.Action("Detalle", "BaseAcademico", new { id = "__id__"  })';
+                                                url = url.replace('__id__', id);
+                                                window.location.href = url;
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function CargarEstados() {
 
@@ -333,6 +446,8 @@
                                                 });
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function _updateSelect($select, value, text, selected) {
                                                 var opt_ = document.createElement("option");
                                                 opt_.value = value;
@@ -341,32 +456,126 @@
                                                 $select[0].add(opt_, $select[0].options[1]);
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function Buscar() {
+
+                                                var expreg = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+
+                                                if (!expreg.test($('#txtFechaInicio_Buscar').val())) {
+                                                    alert("La Fecha Inicial no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
+                                                    $("#txtFechaInicio_Buscar").focus();
+                                                    return;
+                                                }
+
+                                                //var expreg = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                                                if (!expreg.test($('#txtFechaFin_Buscar').val())) {
+                                                    alert("La Fecha Final no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
+                                                    $("#txtFechaFin_Buscar").focus();
+                                                    return;
+                                                }
+
+                                                var fechaInicio = $('#txtFechaInicio_Buscar').val();
+                                                var fechaFin = $('#txtFechaFin_Buscar').val();
+
+                                                var dayDiff_1 = getDateDiff(fechaFin, fechaInicio);
+
+                                                if (dayDiff_1 < 0) {
+                                                    alert("La Fecha Inicial no puede ser posterior a la Fecha Final. Por favor, verifique el filtro ingresado");
+                                                    $("#txtFechaInicio_Buscar").focus();
+                                                    return;
+                                                }
+
                                                 ConsultarIntenciones();
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function Cerrar() {
                                                 $('#dialogConsulta').dialog('close');
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function Limpiar() {
-                                                $('#cbIntencion').val($(this).find('option:first').val());
-                                                $('#txtPalabraClave').val('');
+                                                $('#txtIntencion').val('');
+                                                $('#txtFraseEntrena').val('');
+                                                $('#txtRespuesta').val('');
+                                                $('#txtFechaInicio_Buscar').val('');
+                                                $('#txtFechaFin_Buscar').val('');
                                             }
 
-                                            function Editar(id) {
+                                            //-----------------------------------------------------------------------------------------
 
-                                                console.log(id);
+                                            function Editar(id) {                                                
                                                  var url = '@Url.Action("Detalle", "BaseAcademico", new { id = "__id__"  })';
                                                  url = url.replace('__id__', id);
                                                  window.location.href = url;
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function Eliminar(id,displayName) {
+                                                if (confirm('Ha seleccionado el siguente registro: ' + displayName + ' ¿Esta seguro que desea eliminar este registro?')) {
+                                                   
+                                                    var parametros = {
+                                                        id: id
+                                                    };
+
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '/BaseAcademico/EliminarIntencion',
+                                                        data: parametros,
+                                                        dataType: 'json',
+                                                        success: function (rpta) {
+
+                                                            console.log(rpta);
+                                                            var message_ = '';
+
+                                                            if (rpta.Mensaje === 'DELETE-OK') {
+                                                                message_ = 'El registro ha sido eliminado correctamente.';                                                              
+                                                                MostrarAlert(message_);
+                                                               
+                                                            }
+
+                                                            if (rpta.Mensaje === 'DELETE-ERROR') {
+                                                                message_ = 'Ha ocurrido un error no se pudo eliminar el registro ' + rpta.MessageError;
+                                                                MostrarAlert(message_);
+                                                            }
+                                                                                                                      
+                                                            ConsultarIntenciones();
+
+                                                        },
+                                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function MostrarAlert(message_) {
+                                                $.alert({
+                                                    closeIcon: false,
+                                                    title: 'Base Conocimiento Académico',
+                                                    content: message_,
+                                                    type: 'red',
+                                                    typeAnimated: true
+                                                });
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
+
                                             function ConsultarIntenciones() {
 
                                                 var parametros = {
-                                                    idIntencion: $("#cbIntencion").find("option:selected").val(),
-                                                    palabraClave: $('#txtPalabraClave').val()
+                                                    intencion: $('#txtIntencion').val(),
+                                                    fraseEntrena: $('#txtFraseEntrena').val(),
+                                                    respuesta: $('#txtRespuesta').val(),
+                                                    fechaInicio: $('#txtFechaInicio_Buscar').val(),
+                                                    fechaFin: $('#txtFechaFin_Buscar').val()
                                                 };
 
                                                 $("#jqGrid").clearGridData();
@@ -399,6 +608,46 @@
 
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function getDateDiff(time1, time2) {
+
+                                                //console.log(time1);
+                                                //console.log(time2);
+
+                                                var str1 = time1.split('/');
+                                                var str2 = time2.split('/');
+
+                                                //                  yyyy   ,              mm       ,            dd
+                                                var t1 = new Date(parseInt(str1[2]), parseInt(str1[1]) - 1, parseInt(str1[0]));
+                                                var t2 = new Date(parseInt(str2[2]), parseInt(str2[1]) - 1, parseInt(str2[0]));
+
+                                                //console.log(t1);
+                                                //console.log(t2);
+
+                                                var diffMS = t1 - t2;
+                                                //console.log(diffMS + ' ms');
+
+                                                var diffS = diffMS / 1000;
+                                                //console.log(diffS + ' ');
+
+                                                var diffM = diffS / 60;
+                                                //console.log(diffM + ' minutes');
+
+                                                var diffH = diffM / 60;
+                                                //console.log(diffH + ' hours');
+
+                                                var diffD = diffH / 24;
+                                                //console.log(diffD + ' days');
+
+                                                return diffD;
+
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
+
+
+                                            //-----------------------------------------------------------------------------------------
                                         </script>
 
                                     </div>

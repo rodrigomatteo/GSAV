@@ -279,9 +279,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AlertModel.cs" />
     <Compile Include="Models\FraseEntrenamientoModel.cs" />
     <Compile Include="Models\IndicadoresDashboard.cs" />
     <Compile Include="Models\IntentoModel.cs" />
+    <Compile Include="Models\NotificacionModel.cs" />
     <Compile Include="Models\RespuestaIntentoModel.cs" />
     <Compile Include="Models\SolicitudModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -289,6 +291,7 @@
     <Compile Include="Util\ConstantesWeb.cs" />
     <Compile Include="Util\ConvertidorUtil.cs" />
     <Compile Include="Util\DateTimeSpan.cs" />
+    <Compile Include="Util\EmailUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -314,6 +317,7 @@
     <Content Include="Content\images\BMANUALES1.jpg" />
     <Content Include="Content\images\chat5.png" />
     <Content Include="Content\images\color_label_circle_green_T.png" />
+    <Content Include="Content\images\color_label_circle_grey_T.png" />
     <Content Include="Content\images\color_label_circle_orange_T.png" />
     <Content Include="Content\images\color_label_circle_red_T.png" />
     <Content Include="Content\images\color_label_circle_yellow_T.png" />
@@ -321,6 +325,7 @@
     <Content Include="Content\images\if_internet-group-chat_118807.png" />
     <Content Include="Content\images\like.png" />
     <Content Include="Content\images\unlike.png" />
+    <Content Include="Content\images\upc_logo.png" />
     <Content Include="Content\jquery-confirm.css" />
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\Table.css" />
@@ -358,7 +363,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\BaseAcademico\Crear.cshtml" />
     <Content Include="Views\BaseAcademico\Detalle.cshtml" />
     <Content Include="Views\BaseAcademico\Index.cshtml" />
     <Content Include="Dialogflow.json\upc-chatbot-2b629c2109dc.json">
@@ -408,7 +412,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Consulta\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
-    <Content Include="Views\Consulta\Crear.cshtml" />
     <Content Include="Views\Consulta\Detalle.cshtml" />
   </ItemGroup>
   <ItemGroup>

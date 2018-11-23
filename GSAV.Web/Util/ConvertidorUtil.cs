@@ -104,7 +104,23 @@ namespace GSAV.Web.Util
             }
             catch (Exception)
             {
-                throw;
+                
+            }
+            return resultado;
+
+        }
+
+        public static DateTime? ConvertirDateTimeLarge(string strDateTime)
+        {
+            DateTime? resultado = null;
+
+            try
+            {
+                resultado = DateTime.ParseExact(strDateTime, "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+            }
+            catch (Exception)
+            {
+
             }
             return resultado;
 

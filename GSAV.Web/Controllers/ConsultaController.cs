@@ -52,7 +52,7 @@ namespace GSAV.Web.Controllers
         {
             if (this.Request.IsAuthenticated)
             {
-                return View("Crear", TempData["id"]);                
+                return View("Crear", TempData["id"]);
             }
             else
             {
@@ -72,7 +72,7 @@ namespace GSAV.Web.Controllers
             }
         }
 
-        public JsonResult ConsultarSolicitudes(string numSolicitud, string estado,string codigoAlumno,string nombreAlumno,string fechaInicio, string fechaFin)
+        public JsonResult ConsultarSolicitudes(string numSolicitud, string estado, string codigoAlumno, string nombreAlumno, string fechaInicio, string fechaFin)
         {
             var lista = new List<Solicitud>();
 
@@ -81,7 +81,7 @@ namespace GSAV.Web.Controllers
                 var solicitud = new Solicitud();
                 solicitud.IdSolicitud = ConvertidorUtil.ConvertirInt32(numSolicitud);
                 solicitud.Estado = string.IsNullOrEmpty(estado) ? "0" : estado;
-                solicitud.CodigoAlumno = string.IsNullOrEmpty(codigoAlumno) ? "NULL" : codigoAlumno; 
+                solicitud.CodigoAlumno = string.IsNullOrEmpty(codigoAlumno) ? "NULL" : codigoAlumno;
                 solicitud.Nombre = string.IsNullOrEmpty(nombreAlumno) ? "NULL" : nombreAlumno;
                 solicitud.FechaInicio = string.IsNullOrEmpty(fechaInicio) ? "NULL" : fechaInicio;
                 solicitud.FechaFin = string.IsNullOrEmpty(fechaFin) ? "NULL" : fechaFin;
@@ -99,7 +99,7 @@ namespace GSAV.Web.Controllers
 
                     if (ConstantesWeb.Rol.Docente.Equals(user.Rol))
                     {
-                        solicitud.IdEmpleado = ConvertidorUtil.ConvertirInt32(user.Empleado.IdEmpleado);                        
+                        solicitud.IdEmpleado = ConvertidorUtil.ConvertirInt32(user.Empleado.IdEmpleado);
                     }
 
                     if (ConstantesWeb.Rol.Coordinador.Equals(user.Rol))
@@ -107,11 +107,11 @@ namespace GSAV.Web.Controllers
                         solicitud.IdEmpleado = 0;
                     }
                 }
-                
+
                 DateTime? dtFechaInicio = (fechaInicio.Length > 0) ? ConvertidorUtil.ConvertirDateTimeShort(fechaInicio) : null;
                 DateTime? dtFechaFin = (fechaFin.Length > 0) ? ConvertidorUtil.ConvertirDateTimeShort(fechaFin) : null;
                 DateTime dtFchFin;
-                if(dtFechaInicio != null && dtFechaFin != null)
+                if (dtFechaInicio != null && dtFechaFin != null)
                 {
                     dtFchFin = dtFechaFin.GetValueOrDefault();
                     var nuevaFchFin = dtFchFin.AddDays(1);
@@ -142,12 +142,12 @@ namespace GSAV.Web.Controllers
             {
                 try
                 {
-                    
+
                     var solicitud = new Solicitud();
                     var sol = new Solicitud();
                     sol.IdSolicitud = ConvertidorUtil.ConvertirInt32(id);
 
-                    if(sol.IdSolicitud.Equals(0))
+                    if (sol.IdSolicitud.Equals(0))
                     {
                         return this.RedirectToAction("Index", "Consulta");
                     }
@@ -164,19 +164,26 @@ namespace GSAV.Web.Controllers
                     model.Alumno = solicitud.CodigoAlumnoNombresApellidos;
                     model.Consulta = solicitud.Consulta;
                     model.Respuesta = solicitud.Solucion;
+                    model.Estatus = solicitud.Estado;
+                    model.IntencionConsulta = solicitud.IntencionConsulta;
+
+                    if (model.Estatus.Equals("R"))
+                    {
+                        model.ReadOnly = "Y";
+                    }
 
                     return View("Detalle", model);
-                              
+
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     return this.RedirectToAction("Index", "Consulta");
-                }                
+                }
             }
             else
             {
                 return this.RedirectToAction("Login", "Account");
-            }          
+            }
         }
 
         /// <summary>
@@ -185,22 +192,49 @@ namespace GSAV.Web.Controllers
         /// <param name="idSolicitud"></param>
         /// <param name="solucion"></param>
         /// <returns></returns>
-        public JsonResult EnviarSolucionSolicitud(string idSolicitud, string solucion)
+        public JsonResult EnviarSolucionSolicitud(
+            string idSolicitud,
+            string intencionPadre,
+            string solucion,
+            string crearConsulta,
+            string nombreIntencion,
+            string frase1,
+            string frase2,
+            string solucionIntencion)
         {
             var respuesta = string.Empty;
 
             try
             {
+                if (crearConsulta.Equals("1"))
+                {
+                    var intencion = new Intencion();
+                    intencion.IdDialogFlow = "NEW";
+                    intencion.Nombre = nombreIntencion;
+                    intencion.Respuesta = solucionIntencion;
+                    intencion.IntencionPadre = intencionPadre;
+                    var frases_ = new List<FraseEntrenamientoModel>();
+                    frases_.Add(new FraseEntrenamientoModel { Descripcion = frase1 });
+                    frases_.Add(new FraseEntrenamientoModel { Descripcion = frase2 });
+                    var resultado = new Dialogflow.DialogFlow(oIBLSolicitud).CreateIntent(intencion, frases_);
+                }
+
                 var solicitud = new Solicitud();
                 solicitud.IdSolicitud = ConvertidorUtil.ConvertirInt32(idSolicitud);
                 solicitud.Solucion = solucion;
-               
-                var objResult = oIBLSolicitud.EnviarSolucionSolicitud(solicitud);
-                var rpt = objResult.OneResult;
 
-                if(rpt)
+                var objResult = oIBLSolicitud.EnviarSolucionSolicitud(solicitud);
+                var notificacion = objResult.OneResult;
+
+                if (notificacion != null)
                 {
-                    respuesta = "OK";
+                    var email = new EmailUtil();
+                    var sendEmail = email.NotificarSolucionConsultaAcademica(notificacion);
+
+                    if (sendEmail)
+                    {
+                        respuesta = "SEND_EMAIL_OK";
+                    }
                 }
             }
             catch (Exception ex)
@@ -211,6 +245,32 @@ namespace GSAV.Web.Controllers
             return new JsonResult { Data = respuesta, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
 
+        public JsonResult ValidarIntencion(string nombreIntencion)
+        {
+            var respuesta = string.Empty;
+
+            try
+            {
+
+
+                var objResult = oIBLSolicitud.ObtenerIntencion(nombreIntencion);
+                var intencion = objResult.OneResult;
+
+                if (intencion != null)
+                {
+                    if (nombreIntencion.Equals(intencion.Nombre))
+                    {
+                        respuesta = "EXISTE";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return new JsonResult { Data = respuesta, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -218,8 +278,8 @@ namespace GSAV.Web.Controllers
         public JsonResult ListarEstados()
         {
             var lista = new List<Estado>();
-            
-            
+
+
             if (Session["Login-Info"] != null)
             {
                 var user = ((Entity.Util.ReturnObject<Usuario>)Session["Login-Info"]).OneResult;
@@ -237,8 +297,8 @@ namespace GSAV.Web.Controllers
 
                 if (ConstantesWeb.Rol.Docente.Equals(user.Rol))
                 {
-                    lista.Add(new Estado() { IdEstado = "D", Descripcion = "Derivado" });
-                    lista.Add(new Estado() { IdEstado = "R" ,Descripcion = "Atendido por Derivación" });                    
+                    lista.Add(new Estado() { IdEstado = "D", Descripcion = "Pendiente" });
+                    lista.Add(new Estado() { IdEstado = "R", Descripcion = "Atendido" });
                 }
             }
 

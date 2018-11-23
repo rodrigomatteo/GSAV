@@ -24,5 +24,8 @@ namespace GSAV.Entity.Objects
         public string IdDialogFlow { get; set; }
         public DateTime FechaCreacion { get; set; }
         public string StrFechaCreacion { get; set; }
+        public string Respuesta { get; set; }
+        public string IntencionPadre { get; set; }
+        
     }
 }
