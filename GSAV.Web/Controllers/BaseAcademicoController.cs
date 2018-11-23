@@ -39,7 +39,7 @@ namespace GSAV.Web.Controllers
                 {
                     var user = ((Entity.Util.ReturnObject<Usuario>)Session["Login-Info"]).OneResult;
 
-                    if (!ConstantesWeb.Rol.Docente.Equals(user.Rol))
+                    if (!ConstantesWeb.Rol.Docente.Equals(user.Rol) && !ConstantesWeb.Rol.Administrador.Equals(user.Rol))
                     {
                         return this.RedirectToAction("Index", "Home");
                     }

@@ -44,49 +44,8 @@
                                     <div class="edit_controls">
                                     </div>
 
+                                    @Html.Partial("_ToolsMenu")
 
-                                    <h2 class="  clearfix" id="anonymous_element_4">
-                                        <span class="moduleTitle">Herramientas</span>
-                                    </h2>
-
-
-                                    <div class="collapsible" style="overflow: auto;">
-
-                                        <ul class="portletList">
-                                            <li>
-                                                <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
-                                            </li>
-
-
-                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
-                                            {
-                                                <li>
-                                                    <a href="@Url.Content("/Consulta/Index")" _self">Bandeja de Consultas</a>
-                                                </li>
-
-                                            }
-
-                                            @if ( @Session["Login-Info"] != null &&
-                                                ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE" )
-                                            {
-                                                <li>
-                                                    <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>
-                                                </li>
-
-                                            }
-
-                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR" )
-                                            {
-                                                <li>
-                                                    <a href="@Url.Content("/Dashboard/Index")" _self">Dashboard de Consultas</a>
-                                                </li>
-                                            }
-
-
-                                        </ul>
-
-
-                                    </div>
                                 </div>
 
                                 <div class="portlet clearfix  " id="module:_522_1">
@@ -140,7 +99,9 @@
     </div>
 </div>
 
-@if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "ALUMNO")
+@{ var rol = ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol; }
+
+@if (@Session["Login-Info"] != null && (rol == "ALUMNO" || rol == "ADMINISTRADOR"))
 {
     <div class="wrapper" id="divChatBotContainer">
         <div class="chat-box">
@@ -149,8 +110,10 @@
                 <label style="cursor:pointer !important">Consultar a UPECITO!</label>
                 <img src="https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_up-16.png" title="Expand Arrow" width="14" class="chat-head-img-angle" id="img-head-chat">
             </div>
+
             <div class="chat-body" style="display:none">
                 <label class="LabelCSSTop"></label>
+
                 <div id="divIniciarChatBot">
                     <div class="" style="height: 400px;overflow: hidden;margin-bottom: 0px;border: 1px solid #E3000F;padding-top: 50px;padding-left: 10px;">
                         <img src="/Content/images/if_88_171447.png" class="" style="">
@@ -158,14 +121,17 @@
                         <br />
                         <label style="padding-left: 50px;">Información...</label>
                     </div>
+
                     <div class="chat-text" style="text-align: center; padding-top: 25px; border-bottom-color: Navy; border-width: 5px;width:350px">
-                        <button id="btnUpecito" onclick="ShowChat();" type="button">
-                           Iniciar                            
+                        <button id="btnUpecito" onclick="ShowChat();ExecuteChat();">
+                            Iniciar
                         </button>
                     </div>
                 </div>
-                <div id="BotChatGoesHere" style="width:100%;height:400px;display:none" />
+
+                <div id="BotChatGoesHere" style="width:100%;height:400px;display:none;" />
             </div>
+
         </div>
     </div>
 }
@@ -173,47 +139,54 @@
 
 
 
-    <script>
-        $(function () {
-            var arrow = $('.chat-head');
-           
-            arrow.on('click', function () {
-                var src = $('#img-head-chat').attr('src');
 
-                $('.chat-body').slideToggle('fast');
-                if (src == 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png') {
-                    $('#img-head-chat').attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_up-16.png'); 
-                }
-                else {
-                    $('#img-head-chat').attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png');                                       
-                }
-            });            
 
+<script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
+
+<script>
+    $(function () {
+        var arrow = $('.chat-head');
+
+        arrow.on('click', function () {
+            var src = $('#img-head-chat').attr('src');
+
+            $('.chat-body').slideToggle('fast');
+
+            if (src == 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_down-16.png') {
+                $('#img-head-chat').attr('src', 'https://maxcdn.icons8.com/windows10/PNG/16/Arrows/angle_up-16.png');
+            }
+            else {
+                $('#img-head-chat').attr('src', src);
+            }
         });
-    </script>
 
-    <script src="https://cdn.botframework.com/botframework-webchat/latest/botchat.js"></script>
+        //ExecuteChat();
+    });
+</script>
 
-    <script type="text/javascript">
+
+<script type="text/javascript">
 
 
     function ShowChat() {
-        console.log('show chat');
         var divBotChatGoesHere = document.getElementById("BotChatGoesHere");
         var divIniciarChatBot = document.getElementById("divIniciarChatBot");
 
-        divBotChatGoesHere.style.display = "block";
-        divIniciarChatBot.style.display = "none";
-       
-    }   
+        if (divBotChatGoesHere.style.display === "none") {
+            divBotChatGoesHere.style.display = "block";
+            divIniciarChatBot.style.display = "none";
+        } else {
+            divBotChatGoesHere.style.display = "none";
+        }
+    }
 
     function ExecuteChat() {
 
         var params = BotChat.queryParams(location.search);
 
         var user = {
-            id: "@Session["User-Id"]", 
-            name: '@User.Identity.GetUserName()' 
+            id: "@Session["User-Id"]",
+            name: '@User.Identity.GetUserName()'
         };
 
         console.log(user);
@@ -231,20 +204,24 @@
             sendTyping: true,    // defaults to false. set to true to send 'typing' activities to bot (and other users) when user is typing
             user: user,
             locale: 'es-es', // override locale to Spanish
-            directLine: {                
+            //directLine: {
+            //    secret: "aNm6Ihl-Feg.cwA.UiU.yJCPLacQKOpFVzxZjbEJRZV9cdA6dVZHkUDkVw1LM0g",
+            //    webSocket: false
+            //},
+            directLine: {
                 secret: "DWjCh-AFKgI.cwA.AdA.gqr0jZJ1bQy-fxwxPYbRyEqav0u9x6rM0qT3UY9OuPU",
                 webSocket: false
-            }        
+            }
         }, document.getElementById('BotChatGoesHere'));
 
         $('.wc-header').css('display', 'none');
-        
+
     }
 
 
-    </script>
+</script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
     $(document).ready(function () {
 
@@ -254,17 +231,17 @@
         $('#globalNavPageContentArea').height(windowHeight - valheight - 50);
         $('#divCointainerRenderBody').height(windowHeight - valheight - 15);
 
-        var divChatBotContainer = document.getElementById('divChatBotContainer');            
-        if (divChatBotContainer != null) {
-            ExecuteChat();
-        }
+        //var divChatBotContainer = document.getElementById('divChatBotContainer');
+        //if (divChatBotContainer != null) {
+        //    ExecuteChat();
+        //}
 
     });
 
-    </script>
+</script>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
     var myIndex = 0;
     carousel();
@@ -281,4 +258,4 @@
         setTimeout(carousel, 3500);
     }
 
-    </script>
+</script>
