@@ -159,14 +159,10 @@
                                                                     Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    @Html.TextBoxFor(model => model.TipoConsulta, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+                                                                    @Html.TextBoxFor(model => model.IntencionConsulta, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
                                                                 </td>
-                                                                <td align="left" class="Texto" style="padding-left:10px;">
-                                                                    Palabra Clave:
-                                                                </td>
-                                                                <td style="text-align: left">
-                                                                    @Html.TextBoxFor(model => model.PalabraClave, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
-                                                                </td>
+                                                                <td align="left" class="Texto" style="padding-left:10px;"></td>
+                                                                <td style="text-align: left"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -183,8 +179,6 @@
                                                                 <td colspan="3">
                                                                     @Html.TextArea("Consulta", new { @style = "", @readonly = true, @class = "textAreaCustom text-box-read-only" })
                                                                 </td>
-                                                                <td></td>
-                                                                <td></td>
                                                             </tr>
                                                             <tr>
                                                                 <td valign="top">
@@ -195,7 +189,8 @@
 
                                                                     @if (@Session["Login-Info"] != null)
                                                                     {
-                                                                        if (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
+
+                                                                        if (!Model.ReadOnly.Equals("Y") && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
                                                                         {
                                                                             @Html.TextArea("Respuesta", new { @style = "", @class = "textAreaCustom" })
                                                                         }
@@ -206,8 +201,61 @@
                                                                     }
 
                                                                 </td>
-                                                                <td></td>
-                                                                <td></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">
+
+                                                                    @if (!Model.ReadOnly.Equals("Y"))
+                                                                    {
+                                                                        <input type="checkbox" id="chkAgregarDialogFlow" name="chkAgregarDialogFlow" />
+                                                                        <label>Crear Consulta Frecuente</label>
+                                                                    }
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">
+
+                                                                    @if (!Model.ReadOnly.Equals("Y"))
+                                                                    {
+                                                                        <div id="divCrearConsultaFrecuente" style="display:none">
+                                                                            <table style="width: 100%; text-align: left" class="tablePopup">
+                                                                                <colgroup>
+                                                                                    <col width="15%" />
+                                                                                    <col width="35%" />
+                                                                                    <col width="12%" />
+                                                                                    <col width="38%" />
+                                                                                </colgroup>
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        Palabra Clave:
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <input type="text" id="txtPalabraClave" style="width: 100%;" />
+                                                                                    </td>
+                                                                                    <td colspan="2"></td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        Pregunta:
+                                                                                    </td>
+                                                                                    <td colspan="3">
+                                                                                        <textarea id="txtFrase" name="txtFrase" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <td valign="top">
+                                                                                        Solución:
+                                                                                    </td>
+                                                                                    <td colspan="3">
+                                                                                        <textarea id="txtSolucion" name="txtSolucion" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+                                                                    }
+
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                     </fieldset>
@@ -220,7 +268,10 @@
                                                                     {
                                                                         if (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
                                                                         {
-                                                                            <input type="button" value="Enviar" onclick="javascript: Enviar();" />
+                                                                            if (!Model.ReadOnly.Equals("Y"))
+                                                                            {
+                                                                                <input type="button" value="Enviar" onclick="javascript: Enviar();" />
+                                                                            }
                                                                         }
                                                                     }
 
@@ -236,44 +287,181 @@
 
                                         <script type="text/javascript">
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             $(document).ready(function () {
+
+                                                $("#chkAgregarDialogFlow").change(function () {
+                                                    if ($(this).is(':checked')) {
+                                                        var consulta = $('#Consulta').val();
+                                                        var frase = $('#txtFrase').val();
+
+                                                        if (frase != null && frase === '') {
+                                                            $('#txtFrase').val(consulta);
+                                                        }
+
+                                                        $('#divCrearConsultaFrecuente').css('display', 'block');
+
+                                                    } else {
+                                                        $('#divCrearConsultaFrecuente').css('display', 'none');
+                                                    }
+
+                                                });
 
                                             });
 
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function stringToBoolean(string) {
+                                                switch (string) {
+                                                    case "TRUE": case "True": case "true": case "yes": case "1": return true;
+                                                    case "FALSE": case "False": case "false": case "no": case "0": case null: return false;
+                                                    default: return Boolean(string);
+                                                }
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
+
                                             function Enviar() {
 
-                                                var parametros = {
-                                                    idSolicitud: $('#IdSolicitud').val(),
-                                                    solucion: $('#Respuesta').val()
-                                                };
-
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '/Consulta/EnviarSolucionSolicitud',
-                                                    data: parametros,
-                                                    dataType: 'json',
-                                                    success: function (rpta) {
-                                                        if (rpta) {
-                                                            $.alert({
-                                                                closeIcon: true,
-                                                                title: 'Detalle Consulta',
-                                                                content: 'La respuesta se ha registrado correctamente',
-                                                                type: 'red',
-                                                                typeAnimated: true,
-                                                            });
-                                                        }
-                                                    },
-                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                                if ($('#Respuesta').val() === '') {
+                                                    alert("Por favor, ingrese una respuesta a la solicitud");
+                                                    $("#Respuesta").focus();
+                                                    return;
+                                                }
 
 
+                                                var crearConsulta = document.getElementById("chkAgregarDialogFlow").checked;
+                                                var strCrearConsulta = "0";
+
+                                                if (stringToBoolean(crearConsulta)) {
+                                                    strCrearConsulta = "1";
+                                                    //Validar Nueva Intencion Ingresada
+                                                    if ($('#txtPalabraClave').val() === '') {
+                                                        alert("Por favor, ingrese Palabra Clave");
+                                                        $("#txtPalabraClave").focus();
+                                                        return;
                                                     }
-                                                });
+                                                    //Validar Frase Ingresada
+                                                    if ($('#txtFrase').val() === '') {
+                                                        alert("Por favor, ingrese la nueva frase de entrenamiento");
+                                                        $("#txtFrase").focus();
+                                                        return;
+                                                    }
+                                                    //Validar Solucion Ingresada
+                                                    if ($('#txtSolucion').val() === '') {
+                                                        alert("Por favor, ingrese la solución");
+                                                        $("#txtSolucion").focus();
+                                                        return;
+                                                    }
+
+                                                    //BEGIN - Validar Si Existe Intencion
+                                                    $.blockUI();
+
+                                                    var parametros_ = {
+                                                        nombreIntencion: $('#txtPalabraClave').val()
+                                                    };
+
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '/Consulta/ValidarIntencion',
+                                                        data: parametros_,
+                                                        dataType: 'json',
+                                                        success: function (rpta) {
+
+                                                            $.unblockUI();
+
+                                                            if (rpta === 'EXISTE') {
+                                                                $("#txtPalabraClave").focus();
+                                                                $.alert({
+                                                                    closeIcon: true,
+                                                                    title: 'Detalle Consulta',
+                                                                    content: 'La intención ingresada ya existe, ingrese una distinta',
+                                                                    type: 'red',
+                                                                    typeAnimated: true,
+                                                                });
+                                                            } else {
+                                                                //Registrar la Respuesta y La Nueva Intencion
+                                                                ConfirmarGrabarDatos(strCrearConsulta);
+                                                            }
+
+                                                        },
+                                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                                        }
+                                                    });
+                                                    //END   - Validar Si Existe Intencion
+
+                                                } else {
+                                                    //Registrar la Respuesta y La Nueva Intencion
+                                                    ConfirmarGrabarDatos(strCrearConsulta);
+                                                }
 
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function ConfirmarGrabarDatos(strCrearConsulta) {
+                                                if (confirm('¿Desea enviar la respuesta a la Consulta?')) {
+
+                                                    $.blockUI();
+
+                                                    var parametros = {
+                                                        idSolicitud: $('#IdSolicitud').val(),
+                                                        intencionPadre: $('#IntencionConsulta').val(),
+                                                        solucion: $('#Respuesta').val(),
+                                                        crearConsulta: strCrearConsulta,
+                                                        nombreIntencion: $('#txtPalabraClave').val(),
+                                                        frase1: $('#Consulta').val(),
+                                                        frase2: $('#txtFrase').val(),
+                                                        solucionIntencion: $('#txtSolucion').val()
+                                                    };
+
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '/Consulta/EnviarSolucionSolicitud',
+                                                        data: parametros,
+                                                        dataType: 'json',
+                                                        success: function (rpta) {
+
+                                                            $.unblockUI();
+
+                                                            if (rpta === 'SEND_EMAIL_OK') {
+                                                                $.alert({
+                                                                    closeIcon: true,
+                                                                    title: 'Detalle Consulta',
+                                                                    content: 'Se notifico satisfactoriamente la respuesta a la consulta ingresada por el alumno',
+                                                                    type: 'red',
+                                                                    typeAnimated: true,
+                                                                });
+
+                                                                setTimeout(function () { Cancelar(); }, 3000);
+
+                                                            } else {
+                                                                $.alert({
+                                                                    closeIcon: true,
+                                                                    title: 'Detalle Consulta',
+                                                                    content: 'Ha ocurrido un error. Por favor, intente de nuevo.',
+                                                                    type: 'red',
+                                                                    typeAnimated: true,
+                                                                });
+                                                            }
+                                                        },
+                                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                        }
+                                                    });
+
+                                                }
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function Cancelar() {
                                                 window.open('@Url.Action("Index", "Consulta")', '_self');
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                         </script>
                                     </div>
@@ -286,4 +474,3 @@
         </div>
     </div>
 </div>
-
