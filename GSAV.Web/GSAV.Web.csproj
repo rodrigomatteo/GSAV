@@ -360,6 +360,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\upc\branding\themes\UPC2018\fonts\utilicons\utilicons-web-webfont.woff" />
+    <Content Include="Scripts\botchat.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -371,6 +372,7 @@
     <Content Include="Views\Shared\_ToolsMenu.cshtml" />
     <None Include="Properties\PublishProfiles\blackboard-upc - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\blackboard-upc - Web Deploy.pubxml" />
+    <Content Include="Views\Home\Index - Copy.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
