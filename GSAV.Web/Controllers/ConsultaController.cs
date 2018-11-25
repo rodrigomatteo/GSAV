@@ -167,9 +167,13 @@ namespace GSAV.Web.Controllers
                     model.Estatus = solicitud.Estado;
                     model.IntencionConsulta = solicitud.IntencionConsulta;
 
-                    if (model.Estatus.Equals("R"))
+                    if (!model.Estatus.Equals("D"))
                     {
                         model.ReadOnly = "Y";
+                    }
+                    else
+                    {
+                        model.ReadOnly = "N";
                     }
 
                     return View("Detalle", model);
@@ -284,7 +288,7 @@ namespace GSAV.Web.Controllers
             {
                 var user = ((Entity.Util.ReturnObject<Usuario>)Session["Login-Info"]).OneResult;
 
-                if (ConstantesWeb.Rol.Coordinador.Equals(user.Rol) || ConstantesWeb.Rol.Administrador.Equals(user.Rol) )
+                if (ConstantesWeb.Rol.Coordinador.Equals(user.Rol) || ConstantesWeb.Rol.Administrador.Equals(user.Rol))
                 {
                     lista.Add(new Estado() { IdEstado = "P", Descripcion = "Pendiente" });
                     lista.Add(new Estado() { IdEstado = "F", Descripcion = "No Resuelta Falta Información" });
