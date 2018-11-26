@@ -190,14 +190,26 @@
                                                                     @if (@Session["Login-Info"] != null)
                                                                     {
 
-                                                                        if (!Model.ReadOnly.Equals("Y") && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
+                                                                    if (!Model.ReadOnly.Equals("Y") && ((ReturnObject<Usuario>
+                                                                        )@Session["Login-Info"]).OneResult.Empleado != null)
                                                                         {
-                                                                            @Html.TextArea("Respuesta", new { @style = "", @class = "textAreaCustom" })
+                                                                        @Html.TextArea("Respuesta", new { @style = "", @class = "textAreaCustom" })
                                                                         }
                                                                         else
                                                                         {
-                                                                            @Html.TextArea("Respuesta", new { @style = "", @readonly = true, @class = "textAreaCustom text-box-read-only" })
+                                                                        @Html.TextArea("Respuesta", new { @style = "", @readonly = true, @class = "textAreaCustom text-box-read-only" })
                                                                         }
+                                                                        }
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4">
+
+                                                                    @if (!Model.ReadOnly.Equals("Y"))
+                                                                    {
+                                                                    <input type="checkbox" id="chkAgregarDialogFlow" name="chkAgregarDialogFlow" />
+                                                                    <label>Crear Consulta Frecuente</label>
                                                                     }
 
                                                                 </td>
@@ -207,52 +219,41 @@
 
                                                                     @if (!Model.ReadOnly.Equals("Y"))
                                                                     {
-                                                                        <input type="checkbox" id="chkAgregarDialogFlow" name="chkAgregarDialogFlow" />
-                                                                        <label>Crear Consulta Frecuente</label>
-                                                                    }
-
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="4">
-
-                                                                    @if (!Model.ReadOnly.Equals("Y"))
-                                                                    {
-                                                                        <div id="divCrearConsultaFrecuente" style="display:none">
-                                                                            <table style="width: 100%; text-align: left" class="tablePopup">
-                                                                                <colgroup>
-                                                                                    <col width="15%" />
-                                                                                    <col width="35%" />
-                                                                                    <col width="12%" />
-                                                                                    <col width="38%" />
-                                                                                </colgroup>
-                                                                                <tr>
-                                                                                    <td valign="top">
-                                                                                        Palabra Clave:
-                                                                                    </td>
-                                                                                    <td>
-                                                                                        <input type="text" id="txtPalabraClave" style="width: 100%;" />
-                                                                                    </td>
-                                                                                    <td colspan="2"></td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td valign="top">
-                                                                                        Pregunta:
-                                                                                    </td>
-                                                                                    <td colspan="3">
-                                                                                        <textarea id="txtFrase" name="txtFrase" style="height:80px;width:100%" class="textAreaCustom"></textarea>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td valign="top">
-                                                                                        Solución:
-                                                                                    </td>
-                                                                                    <td colspan="3">
-                                                                                        <textarea id="txtSolucion" name="txtSolucion" style="height:80px;width:100%" class="textAreaCustom"></textarea>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
-                                                                        </div>
+                                                                    <div id="divCrearConsultaFrecuente" style="display:none">
+                                                                        <table style="width: 100%; text-align: left" class="tablePopup">
+                                                                            <colgroup>
+                                                                                <col width="15%" />
+                                                                                <col width="35%" />
+                                                                                <col width="12%" />
+                                                                                <col width="38%" />
+                                                                            </colgroup>
+                                                                            <tr>
+                                                                                <td valign="top">
+                                                                                    Palabra Clave:
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="text" id="txtPalabraClave" style="width: 100%;" />
+                                                                                </td>
+                                                                                <td colspan="2"></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">
+                                                                                    Pregunta:
+                                                                                </td>
+                                                                                <td colspan="3">
+                                                                                    <textarea id="txtFrase" name="txtFrase" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">
+                                                                                    Solución:
+                                                                                </td>
+                                                                                <td colspan="3">
+                                                                                    <textarea id="txtSolucion" name="txtSolucion" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </div>
                                                                     }
 
                                                                 </td>
@@ -266,17 +267,18 @@
                                                                 <td colspan="4">
                                                                     @if (@Session["Login-Info"] != null)
                                                                     {
-                                                                        if (((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Empleado != null)
+                                                                    if (((ReturnObject<Usuario>
+                                                                        )@Session["Login-Info"]).OneResult.Empleado != null)
                                                                         {
-                                                                            if (!Model.ReadOnly.Equals("Y"))
-                                                                            {
-                                                                                <input type="button" value="Enviar" onclick="javascript: Enviar();" />
-                                                                            }
+                                                                        if (!Model.ReadOnly.Equals("Y"))
+                                                                        {
+                                                                        <input type="button" value="Enviar" onclick="javascript: Enviar();" />
                                                                         }
-                                                                    }
+                                                                        }
+                                                                        }
 
 
-                                                                    <input type="button" value="Regresar" onclick="javascript: Cancelar();" />
+                                                                        <input type="button" value="Regresar" onclick="javascript: Cancelar();" />
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -461,7 +463,7 @@
                                                 window.open('@Url.Action("Index", "Consulta")', '_self');
                                             }
 
-                                            //-----------------------------------------------------------------------------------------
+                                                                                    //-----------------------------------------------------------------------------------------
 
                                         </script>
                                     </div>

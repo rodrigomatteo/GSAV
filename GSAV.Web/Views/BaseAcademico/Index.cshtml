@@ -39,7 +39,7 @@
                             <div id="column0" class="column-2 clearfix" style="width: 20%;">
 
                                 <div class="portlet clearfix  " id="module:_48_1">
-                                    <!-- extid:portal/tools/my_institution: -->
+
                                     <div class="edit_controls">
                                     </div>
 
@@ -160,12 +160,8 @@
                                                                 <td style="text-align: left">
                                                                     <input type="text" id="txtRespuesta" style="width:80%" maxlength="10" />
                                                                 </td>
-                                                                <td align="left" class="Texto" style="">
-                                                                   
-                                                                </td>
-                                                                <td style="text-align: left">
-                                                                    
-                                                                </td>
+                                                                <td align="left" class="Texto" style=""></td>
+                                                                <td style="text-align: left"></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -507,7 +503,7 @@
 
                                             //-----------------------------------------------------------------------------------------
 
-                                            function Editar(id) {                                                
+                                            function Editar(id) {
                                                  var url = '@Url.Action("Detalle", "BaseAcademico", new { id = "__id__"  })';
                                                  url = url.replace('__id__', id);
                                                  window.location.href = url;
@@ -517,7 +513,7 @@
 
                                             function Eliminar(id,displayName) {
                                                 if (confirm('Ha seleccionado el siguente registro: ' + displayName + ' ¿Esta seguro que desea eliminar este registro?')) {
-                                                   
+
                                                     var parametros = {
                                                         id: id
                                                     };
@@ -533,16 +529,16 @@
                                                             var message_ = '';
 
                                                             if (rpta.Mensaje === 'DELETE-OK') {
-                                                                message_ = 'El registro ha sido eliminado correctamente.';                                                              
+                                                                message_ = 'El registro ha sido eliminado correctamente.';
                                                                 MostrarAlert(message_);
-                                                               
+
                                                             }
 
                                                             if (rpta.Mensaje === 'DELETE-ERROR') {
                                                                 message_ = 'Ha ocurrido un error no se pudo eliminar el registro ' + rpta.MessageError;
                                                                 MostrarAlert(message_);
                                                             }
-                                                                                                                      
+
                                                             ConsultarIntenciones();
 
                                                         },
@@ -682,18 +678,18 @@
             <tr>
                 <td valign="top" colspan="4">
 
-                   
-                        <table width="100%">
-                            <tr>
-                                <td id="tdjQueryTablePF">
-                                    <div id="divContenedorPF" style="width:100%">
-                                        <table id="jqGridPF"></table>
-                                        <div id="jqGridPagerPF"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                 
+
+                    <table width="100%">
+                        <tr>
+                            <td id="tdjQueryTablePF">
+                                <div id="divContenedorPF" style="width:100%">
+                                    <table id="jqGridPF"></table>
+                                    <div id="jqGridPagerPF"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+
 
                 </td>
             </tr>
