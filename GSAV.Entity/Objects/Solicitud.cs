@@ -12,6 +12,7 @@ namespace GSAV.Entity.Objects
         public DateTime FechaRegistro { get; set; }
         public string Canal { get; set; }
         public string Intencion { get; set; }
+        public string IntencionActual { get; set; }
         public string CodigoAlumno { get; set; }
         public string Nombre { get; set; }
         public string ApellidoPat { get; set; }
@@ -106,5 +107,7 @@ namespace GSAV.Entity.Objects
         public string IndicadorStatus { get; set; }
         public string IntencionConsulta { get; set; }
         public string IntencionPadre { get; set; }
+        
+        
     }
 }

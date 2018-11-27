@@ -556,7 +556,7 @@
                                                 jQuery("#jqGrid").jqGrid({
                                                     datatype: "local",
                                                     width: 800,
-                                                    colNames: ['IdSolicitud', 'Estatus', 'Código', 'Alumno', 'Tipo Consulta', 'Fecha Registro', 'Derivado A', 'Consulta'],
+                                                    colNames: ['IdSolicitud', 'Estatus', 'Código', 'Alumno', 'Intención Consulta', 'Fecha Registro', 'Derivado A', 'Consulta'],
                                                     colModel: [
                                                         { name: 'IdSolicitud', index: 'IdSolicitud', width: 10, sortable: false, hidden: true },
                                                         {
@@ -582,9 +582,9 @@
                                                         },
                                                         { name: 'CodigoAlumno', index: 'CodigoAlumno', width: 7, sortable: false },
                                                         { name: 'NombreApePaterno', index: 'NombreApePaterno', width: 13, sortable: false },
-                                                        { name: 'Canal', index: 'Canal', width: 10, sortable: false },
-                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', width: 10, align: "center", sortable: false },
-                                                        { name: 'DerivadoA', index: 'DerivadoA', width: 10, align: "center", sortable: false },
+                                                        { name: 'IntencionActual', index: 'IntencionActual', width: 10, sortable: false },
+                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', width:9, align: "center", sortable: false },
+                                                        { name: 'DerivadoA', index: 'DerivadoA', width: 9, align: "center", sortable: false },
                                                         {
                                                             name: 'IdSolicitud', index: 'IdSolicitud', align: "center", width: 5, sortable: false, jsonmap: "IdSolicitud",
                                                             formatter: function (cellvalue, options, rowObject) {
@@ -887,7 +887,7 @@
                                                             $('#txtNombreApellidos').val(parsed[x].NombreApePaterno);
                                                             $('#txtCodigoAlumno').val(parsed[x].CodigoAlumno);
                                                             $('#txtEstado').val(parsed[x].EstadoDesc);
-                                                            $('#txtTipoConsulta').val(parsed[x].Canal);
+                                                            $('#txtTipoConsulta').val(parsed[x].IntencionActual);
                                                             $('#txtFechaAtencion').val(parsed[x].StrFechRegistro);
                                                             $('#txtConsulta').val(parsed[x].Consulta);
                                                             $('#txtRespuesta').val(parsed[x].Solucion);
@@ -1054,7 +1054,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="labelTextIndicador">Tipo Consulta:</label>
+                        <label class="labelTextIndicador">Intención Consulta:</label>
                     </td>
                     <td>
                         <input type="text" id="txtTipoConsulta" style="width:100%" class="text-box-read-only" />

@@ -65,6 +65,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                             solicitud_.Estado = rd.GetValue(rd.GetOrdinal("ESTADO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("ESTADO"));
                             solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
                             solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
+                            solicitud_.IntencionActual = rd.GetValue(rd.GetOrdinal("INTENCION_CURRENT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("INTENCION_CURRENT"));
                             obj.OneResult.Add(solicitud_);
                         }
                     }
@@ -252,6 +253,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                             solicitud_.FechaRegistro = rd.GetDateTime(rd.GetOrdinal("FECHAREGISTRO"));
                             solicitud_.Canal = rd.GetValue(rd.GetOrdinal("CANAL")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CANAL"));
                             solicitud_.Intencion = rd.GetValue(rd.GetOrdinal("INTENCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("INTENCION"));
+                            solicitud_.IntencionActual = rd.GetValue(rd.GetOrdinal("INTENCION_CURRENT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("INTENCION_CURRENT"));
                             solicitud_.CodigoAlumno = rd.GetValue(rd.GetOrdinal("CODIGOALUMNO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CODIGOALUMNO"));
                             solicitud_.Nombre = rd.GetValue(rd.GetOrdinal("NOMBRE")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE"));
                             solicitud_.ApellidoPat = rd.GetValue(rd.GetOrdinal("APELLIDOPAT")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APELLIDOPAT"));
@@ -259,6 +261,10 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                             solicitud_.Estado = rd.GetValue(rd.GetOrdinal("ESTADO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("ESTADO"));
                             solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
                             solicitud_.CumpleSla = rd.GetValue(rd.GetOrdinal("CUMPLESLA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CUMPLESLA"));
+                            var  nombreEmpleado = rd.GetValue(rd.GetOrdinal("NOMBRE_EMPLEADO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("NOMBRE_EMPLEADO"));
+                            var apellidoEmpleado = rd.GetValue(rd.GetOrdinal("APEPATERNO_EMPLEADO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("APEPATERNO_EMPLEADO"));
+                            solicitud_.DerivadoA = string.Format("{0}, {1}", nombreEmpleado, apellidoEmpleado);
+
                             obj.OneResult.Add(solicitud_);
                         }
                     }
