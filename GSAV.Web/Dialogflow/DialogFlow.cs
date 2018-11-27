@@ -66,6 +66,7 @@ namespace GSAV.Web.Dialogflow
                         if (row != null)
                         {
                             intento.FechaCreacion = row.StrFechaCreacion;
+                            intento.IntencionPadre = row.IdPadreIntencion + string.Empty;
                         }
 
                         //Frases de Entrenamiento

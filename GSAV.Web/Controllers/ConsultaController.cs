@@ -251,7 +251,7 @@ namespace GSAV.Web.Controllers
 
         public JsonResult ValidarIntencion(string nombreIntencion)
         {
-            var respuesta = string.Empty;
+            var respuesta = new Intencion();
 
             try
             {
@@ -264,7 +264,8 @@ namespace GSAV.Web.Controllers
                 {
                     if (nombreIntencion.Equals(intencion.Nombre))
                     {
-                        respuesta = "EXISTE";
+                        respuesta.ValidacionIntencion = "EXISTE";
+                        respuesta.IdDialogFlow = intencion.IdDialogFlow;
                     }
                 }
             }

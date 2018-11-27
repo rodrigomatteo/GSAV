@@ -62,6 +62,7 @@ namespace GSAV.Web.Models
                 return ConvertidorUtil.ConvertirDateTimeLarge(this.FechaCreacion);
             }
         }
+        public string IntencionPadre { get; set; }
 
     }
 }

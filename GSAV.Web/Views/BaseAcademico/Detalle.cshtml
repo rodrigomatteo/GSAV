@@ -289,7 +289,7 @@
                                                     colNames: ['Id', 'Id', 'Descripcion'],
                                                     colModel: [
                                                         { name: 'Id', index: 'Id', width: 5, sortable: false, hidden: true },
-                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: false },                                                        
+                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: true },                                                        
                                                         { name: 'Descripcion', index: 'Descripcion', align: "left", width: 20, sortable: false }
                                                     ],
                                                     height: 250,
@@ -508,11 +508,59 @@
 
                                                 $.blockUI();
 
+                                                //BEGIN - Validar Si Existe Intencion
+                                                
+                                                var parametros_ = {
+                                                    nombreIntencion: $('#Nombre').val()
+                                                };
+
+                                                //NUEVO
+                                                if ($('#Id').val() === 'NEW') {
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: '/Consulta/ValidarIntencion',
+                                                        data: parametros_,
+                                                        dataType: 'json',
+                                                        success: function (rpta) {
+
+                                                            $.unblockUI();
+
+                                                            if (rpta.ValidacionIntencion === 'EXISTE') {
+                                                                $("#Nombre").focus();
+
+                                                                if (confirm('La intención ingresada ya existe. ¿Desea reemplazarla?')) {
+                                                                    GrabarIntencion(rpta.IdDialogFlow);
+                                                                }
+                                                            } else {
+                                                                GrabarIntencion($('#Id').val());
+                                                            }
+
+                                                        },
+                                                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                                                        }
+                                                    });
+                                                } else {
+                                                    GrabarIntencion($('#Id').val());
+                                                }
+
+                                                
+
+
+                                                //END   - Validar Si Existe Intencion
+
+
+
+                                            }
+
+                                            function GrabarIntencion(idIntencion) {
+                                                //BEGIN Grabar Datos
+                                                $.blockUI();
+
                                                 var frases_ = jQuery("#jqGridPF").jqGrid('getRowData');
                                                 var strFrases = JSON.stringify(frases_);
 
                                                 var parametros = {
-                                                    id: $('#Id').val(),
+                                                    id: idIntencion,
                                                     nombreIntencion: $('#Nombre').val(),
                                                     frases: strFrases,
                                                     respuesta: $('#Respuesta').val()
@@ -534,7 +582,7 @@
                                                             $('#Id').val(rpta.Id);
                                                             console.log(rpta.Id);
                                                             MostrarAlertRedirect(message_);
-                                                            setTimeout(function () { Editar(rpta.Id); }, 3000);
+                                                            setTimeout(function () { Cancelar(); }, 3000);
                                                         }
 
                                                         if (rpta.Mensaje === 'INSERT-ERROR') {
@@ -545,12 +593,13 @@
                                                         if (rpta.Mensaje === 'UPDATE-OK') {
                                                             message_ = 'Los datos han sido actualizados correctamente.';
                                                             MostrarAlertRedirect(message_);
+                                                            setTimeout(function () { Cancelar(); }, 3000);
                                                         }
 
                                                         if (rpta.Mensaje === 'UPDATE-ERROR') {
                                                             message_ = 'Ha ocurrido un error no se pudo actualizar la información. ' + + rpta.MessageError;
                                                             MostrarAlert(message_);
-                                                        }                                                        
+                                                        }
 
                                                         CargarFrases();
 
@@ -561,6 +610,7 @@
                                                     }
                                                 });
 
+                                                //END Grabar Datos
                                             }
 
                                              function Editar(id) {                                                

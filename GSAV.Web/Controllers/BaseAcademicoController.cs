@@ -57,7 +57,7 @@ namespace GSAV.Web.Controllers
         /// 
         /// </summary>
         /// <returns></returns>
-        public JsonResult ConsultarIntenciones(string intencion, string fraseEntrena, string respuesta, string fechaInicio, string fechaFin)
+        public JsonResult ConsultarIntenciones(string intencionPadre, string fraseEntrena, string respuesta, string fechaInicio, string fechaFin)
         {
             var lista = new List<IntentoModel>();
             var listaAuxFecha = new List<IntentoModel>();
@@ -70,9 +70,9 @@ namespace GSAV.Web.Controllers
                 lista = lista.Where(q => q.Respuesta.ToUpper().Contains(respuesta.ToUpper())).ToList();
             }
 
-            if (!string.IsNullOrEmpty(intencion))
+            if (!string.IsNullOrEmpty(intencionPadre))
             {
-                lista = lista.Where(q => q.Nombre.ToUpper().Contains(intencion.ToUpper())).ToList();
+                lista = lista.Where(q => q.IntencionPadre != null &&  q.IntencionPadre.ToUpper().Contains(intencionPadre.ToUpper())).ToList();
             }
 
             //-------------------------------------------------------------------------------------------------------------
@@ -202,6 +202,7 @@ namespace GSAV.Web.Controllers
                         intencion.IdDialogFlow = id;
                         intencion.Nombre = nombreIntencion;
                         intencion.Respuesta = respuesta;
+                        intencion.IntencionPadre = "NULL";
                         var frases_ = JsonConvert.DeserializeObject<List<FraseEntrenamientoModel>>(frases);
 
                         resultado = new Dialogflow.DialogFlow(oIBLSolicitud).CreateIntent(intencion, frases_);

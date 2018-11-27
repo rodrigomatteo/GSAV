@@ -144,7 +144,16 @@
                                                                     Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <input type="text" id="txtIntencion" style="width:80%" maxlength="10" />
+                                                                    @*<input type="text" id="txtIntencion" style="width:80%" maxlength="10" />*@
+
+                                                                    <select id="cbIntencion" style="width: 81%">
+                                                                        <option value="">Seleccione</option>
+                                                                        <option value="1">Asistencia</option>
+                                                                        <option value="7">Matricula</option>
+                                                                        <option value="26">Retiro</option>
+                                                                        <option value="22">Promedio</option>
+                                                                        <option value="51">Actividad Académica</option>
+                                                                    </select>
                                                                 </td>
                                                                 <td align="left" class="Texto" style="">
                                                                     Frase Entrenamiento:
@@ -231,10 +240,10 @@
                                                 jQuery("#jqGrid").jqGrid({
                                                     datatype: "local",
                                                     width: valwidth,
-                                                    colNames: ['Id', 'Código', 'Nombre', 'FechaCreacion', 'Respuesta', 'Training' , 'Editar', 'Anular'],
+                                                    colNames: ['Id', 'Código', 'Intención', 'Fecha Creación', 'Respuesta', 'Training' , 'Editar', 'Anular'],
                                                     colModel: [
                                                         { name: 'Id', index: 'Id', width: 15, sortable: false, hidden: true },
-                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: false },
+                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: true },
                                                         { name: 'Nombre', index: 'Nombre', align: "center", width: 15, sortable: false },
                                                         { name: 'FechaCreacion', index: 'FechaCreacion', align: "center", width: 8, sortable: false },
                                                         { name: 'Respuesta', index: 'Respuesta', width: 20, align: "left", sortable: false },
@@ -291,8 +300,8 @@
                                                     colNames: ['Id', 'Id', 'Tipo', 'Descripcion'],
                                                     colModel: [
                                                         { name: 'Id', index: 'Id', width: 5, sortable: false, hidden: true },
-                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: false },
-                                                        { name: 'Tipo', index: 'Tipo', align: "center", width: 4, sortable: false },
+                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: true },
+                                                        { name: 'Tipo', index: 'Tipo', align: "center", width: 4, sortable: false, hidden: true },
                                                         { name: 'Descripcion', index: 'Descripcion', align: "left", width: 20, sortable: false }
                                                     ],
                                                     height: 250,
@@ -344,16 +353,35 @@
                                                 $('#txtFechaInicio_Buscar').datepicker();
                                                 $('#txtFechaFin_Buscar').datepicker();
 
+                                                //var now = new Date();
+                                                //var day = ("0" + now.getDate()).slice(-2);
+                                                //var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                                                //var lastDate = new Date().add(-6).month();
+                                                //var lastDay = ("0" + lastDate.getDate()).slice(-2);
+                                                //var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
+
+                                                //var fchStart = (lastDay) + "/" + (lastMonth) + "/" + lastDate.getFullYear();
+                                                //var fchEnd = (day) + "/" + (month) + "/" + now.getFullYear();
+
+                                                //$('#txtFechaInicio_Buscar').val(fchStart);
+                                                //$('#txtFechaFin_Buscar').val(fchEnd);
+
                                                 var now = new Date();
-                                                var day = ("0" + now.getDate()).slice(-2);
+                                                //var day = ("0" + now.getDate()).slice(-2);
                                                 var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
                                                 var lastDate = new Date().add(-6).month();
                                                 var lastDay = ("0" + lastDate.getDate()).slice(-2);
-                                                var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
+                                                //var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
 
-                                                var fchStart = (lastDay) + "/" + (lastMonth) + "/" + lastDate.getFullYear();
-                                                var fchEnd = (day) + "/" + (month) + "/" + now.getFullYear();
+                                                var date = new Date();
+                                                //var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                                                var lastDayDT = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                                                var lastDay = ("0" + lastDayDT.getDate()).slice(-2);
+
+                                                var fchStart = "01" + "/" + (month) + "/" + now.getFullYear();
+                                                var fchEnd = lastDay + "/" + (month) + "/" + now.getFullYear();
 
                                                 $('#txtFechaInicio_Buscar').val(fchStart);
                                                 $('#txtFechaFin_Buscar').val(fchEnd);
@@ -458,29 +486,46 @@
 
                                                 var expreg = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
 
-                                                if (!expreg.test($('#txtFechaInicio_Buscar').val())) {
-                                                    alert("La Fecha Inicial no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
-                                                    $("#txtFechaInicio_Buscar").focus();
-                                                    return;
-                                                }
+                                                if ($('#txtFechaInicio_Buscar').val().length > 0) {
+                                                    if (!expreg.test($('#txtFechaInicio_Buscar').val())) {
+                                                        alert("La Fecha Inicial no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
+                                                        $("#txtFechaInicio_Buscar").focus();
+                                                        return;
+                                                    }
+                                                }                                              
 
                                                 //var expreg = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                                                if (!expreg.test($('#txtFechaFin_Buscar').val())) {
-                                                    alert("La Fecha Final no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
-                                                    $("#txtFechaFin_Buscar").focus();
-                                                    return;
-                                                }
+                                                if ($('#txtFechaFin_Buscar').val().length > 0) {
+                                                    if (!expreg.test($('#txtFechaFin_Buscar').val())) {
+                                                        alert("La Fecha Final no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
+                                                        $("#txtFechaFin_Buscar").focus();
+                                                        return;
+                                                    }
+                                                }                                                
 
                                                 var fechaInicio = $('#txtFechaInicio_Buscar').val();
                                                 var fechaFin = $('#txtFechaFin_Buscar').val();
 
-                                                var dayDiff_1 = getDateDiff(fechaFin, fechaInicio);
+                                                if (fechaInicio.length > 0 && fechaFin.length > 0) {
+                                                    var dayDiff_1 = getDateDiff(fechaFin, fechaInicio);
 
-                                                if (dayDiff_1 < 0) {
-                                                    alert("La Fecha Inicial no puede ser posterior a la Fecha Final. Por favor, verifique el filtro ingresado");
-                                                    $("#txtFechaInicio_Buscar").focus();
-                                                    return;
-                                                }
+                                                    if (dayDiff_1 < 0) {
+                                                        alert("La Fecha Inicial no puede ser posterior a la Fecha Final. Por favor, verifique el filtro ingresado");
+                                                        $("#txtFechaInicio_Buscar").focus();
+                                                        return;
+                                                    }
+                                                } else {
+                                                    if (fechaInicio.length === 0 && fechaFin.length > 0) {
+                                                        alert("Debe ingresar una Fecha Inicio. Por favor, verifique el filtro ingresado");
+                                                        $("#txtFechaInicio_Buscar").focus();
+                                                        return;
+                                                    }
+                                                    if (fechaFin.length === 0 && fechaInicio.length > 0) {
+                                                        alert("Debe ingresar una Fecha Fin. Por favor, verifique el filtro ingresado");
+                                                        $("#txtFechaFin_Buscar").focus();
+                                                        return;
+                                                    }
+                                                }                                               
 
                                                 ConsultarIntenciones();
                                             }
@@ -494,7 +539,7 @@
                                             //-----------------------------------------------------------------------------------------
 
                                             function Limpiar() {
-                                                $('#txtIntencion').val('');
+                                                $('#cbIntencion').val($(this).find('option:first').val());
                                                 $('#txtFraseEntrena').val('');
                                                 $('#txtRespuesta').val('');
                                                 $('#txtFechaInicio_Buscar').val('');
@@ -566,8 +611,10 @@
 
                                             function ConsultarIntenciones() {
 
+                                                var intencionPadre = $("#cbIntencion").find("option:selected").val();
+
                                                 var parametros = {
-                                                    intencion: $('#txtIntencion').val(),
+                                                    intencionPadre: intencionPadre,
                                                     fraseEntrena: $('#txtFraseEntrena').val(),
                                                     respuesta: $('#txtRespuesta').val(),
                                                     fechaInicio: $('#txtFechaInicio_Buscar').val(),
