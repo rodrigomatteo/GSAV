@@ -566,12 +566,45 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                             intencion.IdDialogFlow = (rd.GetValue(rd.GetOrdinal("IDDIALOGFLOW")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("IDDIALOGFLOW"));
                             intencion.FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FECHACREACION"));
                             intencion.StrFechaCreacion = FormatearFechaEsp(intencion.FechaCreacion);
+                            intencion.DescripcionIntencionPadre = (rd.GetValue(rd.GetOrdinal("DESC_INTENCION_PADRE")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("DESC_INTENCION_PADRE"));
                             obj.OneResult = intencion;
                         }
                     }
 
                     obj.Success = true;
 
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Success = false;
+                obj.ErrorMessage = ex.Message;
+            }
+
+            return obj;
+        }
+
+        public ReturnObject<string> EliminarIntencionConsulta(string idDialogFlow)
+        {
+            ReturnObject<string> obj = new ReturnObject<string>();
+            obj.OneResult = string.Empty;
+
+            try
+            {
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    cmd = new SqlCommand(SP.GSAV_SP_ELIMINAR_INTENCION_X_ID_DIALOG_FLOW, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    
+                    cmd.Parameters.AddWithValue("@P_ID_DIALOG_FLOW", idDialogFlow);                  
+
+                    cmd.ExecuteNonQuery();
+
+                    obj.Success = true;
+                    obj.OneResult = "DELETE-OK";
                 }
             }
             catch (Exception ex)

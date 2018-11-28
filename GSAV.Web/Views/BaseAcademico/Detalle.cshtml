@@ -156,7 +156,17 @@
 
 
                                     <h2 class="  clearfix" id="anonymous_element_9">
-                                        <span class="moduleTitle">Detalle de Base de Conocimiento</span>
+                                        <span class="moduleTitle">
+
+                                            @if (Model.Id.Equals("NEW"))
+                                            {
+                                            <label>Crear Entrada En La Base de Conocimiento</label>
+                                            }
+                                            else
+                                            {
+                                            <label>Editar Entrada En La Base de Conocimiento</label> 
+                                            }
+                                        </span>
                                     </h2>
 
 
@@ -193,6 +203,31 @@
                                                             <tr>
                                                                 <td align="left" class="Texto">
                                                                     Intención:
+                                                                </td>
+                                                                <td style="text-align: left">
+
+                                                                    @if (Model.Id.Equals("NEW"))
+                                                                    {
+                                                                        <select id="cbIntencion" style="width: 100%">
+                                                                            <option value="">Seleccione</option>
+                                                                            <option value="1">Asistencia</option>
+                                                                            <option value="7">Matricula</option>
+                                                                            <option value="26">Retiro</option>
+                                                                            <option value="22">Promedio</option>
+                                                                            <option value="51">Actividad Académica</option>
+                                                                        </select>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @Html.TextBoxFor(model => model.DescripcionIntencionPadre, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+                                                                    }
+
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="left" class="Texto">
+                                                                    Sub-Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
 
@@ -289,7 +324,7 @@
                                                     colNames: ['Id', 'Id', 'Descripcion'],
                                                     colModel: [
                                                         { name: 'Id', index: 'Id', width: 5, sortable: false, hidden: true },
-                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: true },                                                        
+                                                        { name: 'IdShort', index: 'IdShort', align: "center", width: 4, sortable: false, hidden: true },
                                                         { name: 'Descripcion', index: 'Descripcion', align: "left", width: 20, sortable: false }
                                                     ],
                                                     height: 250,
@@ -315,7 +350,7 @@
                                                 $('a', '#t_jqGridPF').click(function (event) {
                                                     var control = event.target.id;
                                                     switch (control) {
-                                                        case 'lblNuevo':                                                            
+                                                        case 'lblNuevo':
                                                             CrearNuevaFrase();
                                                             break;
                                                         case 'lblEditar':
@@ -376,7 +411,7 @@
                                                 var array = [];
                                                 var obj_ = new Object();
                                                 obj_.Id = idNew;
-                                                obj_.IdShort = 'New';                                              
+                                                obj_.IdShort = 'New';
                                                 obj_.Descripcion = frase;
                                                 array.push(obj_);
 
@@ -384,7 +419,7 @@
                                                     for (n = 0; n < list.length; n++) {
                                                         var obj = new Object();
                                                         obj.Id = list[n]["Id"];
-                                                        obj.IdShort = list[n]["IdShort"];                                                      
+                                                        obj.IdShort = list[n]["IdShort"];
                                                         obj.Descripcion = list[n]["Descripcion"];
                                                         array.push(obj);
                                                     }
@@ -406,13 +441,13 @@
                                                             var obj_ = new Object();
                                                             obj_.Id = list[m]["Id"];
                                                             obj_.IdShort = list[m]["IdShort"];
-                                                            obj_.Descripcion = frase;                                                           
+                                                            obj_.Descripcion = frase;
                                                             array.push(obj_);
                                                         } else {
                                                             var obj = new Object();
                                                             obj.Id = list[m]["Id"];
                                                             obj.IdShort = list[m]["IdShort"];
-                                                            obj.Descripcion = list[m]["Descripcion"];                                                           
+                                                            obj.Descripcion = list[m]["Descripcion"];
                                                             array.push(obj);
                                                         }
                                                     }
@@ -430,7 +465,7 @@
                                                     for (m = 0; m < list.length; m++) {
 
                                                         if (parseInt(list[m]["Id"]) === parseInt(id)) {
-                                                            
+
                                                         } else {
                                                             var obj = new Object();
                                                             obj.Id = list[m]["Id"];
@@ -444,7 +479,7 @@
                                                 $("#jqGridPF").jqGrid('setGridParam', { data: array });
                                                 $("#jqGridPF").trigger('reloadGrid');
                                             }
-                                            
+
                                             function CancelarFrase() {
                                                 $('#diagFraseEntrena').dialog('close');
                                             }
@@ -462,7 +497,7 @@
                                                     return;
                                                 }
 
-                                                var fila = $('#jqGridPF').jqGrid('getRowData', id);                                                
+                                                var fila = $('#jqGridPF').jqGrid('getRowData', id);
                                                 $('#hdnIdFrase').val(fila.Id);
                                                 $("#txtFrase").val(fila.Descripcion);
                                                 $('#diagFraseEntrena').dialog('open');
@@ -505,11 +540,24 @@
                                             }
 
                                             function Grabar() {
+                                                
+                                                var intencionPadre = $("#cbIntencion").find("option:selected").val();
+                                                if (intencionPadre === '') {
+                                                    alert("Por favor, seleccione la Intención");
+                                                    $("#cbIntencion").focus();
+                                                    return;
+                                                }
+                                                
+                                                if ($('#Nombre').val() === '') {
+                                                    alert("Por favor, ingrese Sub-Intención");
+                                                    $("#Nombre").focus();
+                                                    return;
+                                                }
 
                                                 $.blockUI();
 
                                                 //BEGIN - Validar Si Existe Intencion
-                                                
+
                                                 var parametros_ = {
                                                     nombreIntencion: $('#Nombre').val()
                                                 };
@@ -543,7 +591,7 @@
                                                     GrabarIntencion($('#Id').val());
                                                 }
 
-                                                
+
 
 
                                                 //END   - Validar Si Existe Intencion
@@ -563,7 +611,8 @@
                                                     id: idIntencion,
                                                     nombreIntencion: $('#Nombre').val(),
                                                     frases: strFrases,
-                                                    respuesta: $('#Respuesta').val()
+                                                    respuesta: $('#Respuesta').val(),
+                                                    idIntencionPadre: $("#cbIntencion").find("option:selected").val()
                                                 };
 
                                                 $.ajax({
@@ -613,7 +662,7 @@
                                                 //END Grabar Datos
                                             }
 
-                                             function Editar(id) {                                                
+                                             function Editar(id) {
                                                  var url = '@Url.Action("Detalle", "BaseAcademico", new { id = "__id__"  })';
                                                  url = url.replace('__id__', id);
                                                  window.location.href = url;

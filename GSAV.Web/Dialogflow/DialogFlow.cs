@@ -55,54 +55,61 @@ namespace GSAV.Web.Dialogflow
                     };
 
                     var intents = client.ListIntents(request);
+                    var intentoValido = false;
 
                     foreach (var intent in intents)
                     {
                         var intento = new IntentoModel();
                         intento.Id = intent.IntentName.IntentId;
                         intento.Nombre = intent.DisplayName;
+                        intentoValido = false;
 
                         var row = intenciones.AsEnumerable().Where(q => q.IdDialogFlow.Equals(intento.Id)).FirstOrDefault();
                         if (row != null)
                         {
+                            intento.IdIntencionConsulta = row.IdIntencionConsulta + string.Empty;
                             intento.FechaCreacion = row.StrFechaCreacion;
-                            intento.IntencionPadre = row.IdPadreIntencion + string.Empty;
+                            intento.IdIntencionPadre = row.IdPadreIntencion + string.Empty;
+                            intentoValido = true;
                         }
-
-                        //Frases de Entrenamiento
-                        var feId = 1;
-                        foreach (var trainingPhrase in intent.TrainingPhrases)
+                                                
+                        if (intentoValido)
                         {
-                            var fraseEntrenamiento = new FraseEntrenamientoModel();
-                            fraseEntrenamiento.Id = feId++;
-                            fraseEntrenamiento.StrId = trainingPhrase.Name;
-
-                            foreach (var phrasePart in trainingPhrase.Parts)
+                            //Frases de Entrenamiento
+                            var feId = 1;
+                            foreach (var trainingPhrase in intent.TrainingPhrases)
                             {
-                                fraseEntrenamiento.Descripcion = phrasePart.Text;
+                                var fraseEntrenamiento = new FraseEntrenamientoModel();
+                                fraseEntrenamiento.Id = feId++;
+                                fraseEntrenamiento.StrId = trainingPhrase.Name;
+
+                                foreach (var phrasePart in trainingPhrase.Parts)
+                                {
+                                    fraseEntrenamiento.Descripcion = phrasePart.Text;
+                                }
+
+                                intento.FrasesEntrenamiento.Add(fraseEntrenamiento);
                             }
 
-                            intento.FrasesEntrenamiento.Add(fraseEntrenamiento);
-                        }
-
-                        //Respuestas
-                        foreach (var message in intent.Messages)
-                        {
-                            if (message.Text != null)
+                            //Respuestas
+                            foreach (var message in intent.Messages)
                             {
-                                var idRespuesta = 0;
-                                foreach (var text in message.Text.Text_)
+                                if (message.Text != null)
                                 {
-                                    idRespuesta++;
-                                    var respuesta = new RespuestaIntentoModel();
-                                    respuesta.Id = idRespuesta + string.Empty;
-                                    respuesta.Descripcion = text;
-                                    intento.Respuestas.Add(respuesta);
+                                    var idRespuesta = 0;
+                                    foreach (var text in message.Text.Text_)
+                                    {
+                                        idRespuesta++;
+                                        var respuesta = new RespuestaIntentoModel();
+                                        respuesta.Id = idRespuesta + string.Empty;
+                                        respuesta.Descripcion = text;
+                                        intento.Respuestas.Add(respuesta);
+                                    }
                                 }
                             }
-                        }
 
-                        intentos.Add(intento);
+                            intentos.Add(intento);
+                        }                       
 
                     }
 
@@ -145,7 +152,19 @@ namespace GSAV.Web.Dialogflow
                                                            
                     intento.Id = intent.IntentName.IntentId;
                     intento.Nombre = intent.DisplayName;
-                    intento.FechaCreacion = oIBLSolicitud.ObtenerFechaIntencion(intento.Nombre).OneResult;
+
+                    var objResult = oIBLSolicitud.ObtenerIntencion(intento.Nombre);
+                    var intencion = objResult.OneResult;
+
+                    intento.FechaCreacion = intencion.StrFechaCreacion;
+                    intento.DescripcionIntencionPadre = intencion.DescripcionIntencionPadre;
+
+                    if (intencion.IdPadreIntencion.Equals(0))
+                    {
+                        intento.Nombre = string.Empty;
+                    }
+
+
 
                     //Frases de Entrenamiento
                     var feId = 1;
@@ -372,7 +391,7 @@ namespace GSAV.Web.Dialogflow
                     
                     resultado.Id = newIntent.IntentName.IntentId;
                     resultado.DisplayName = newIntent.DisplayName;              
-                    oIBLSolicitud.InsertarIntencionConsulta(newIntent.DisplayName, newIntent.IntentName.IntentId, ConvertidorUtil.GmtToPacific(DateTime.Now), intencion.IntencionPadre);
+                    oIBLSolicitud.InsertarIntencionConsulta(newIntent.DisplayName, newIntent.IntentName.IntentId, ConvertidorUtil.GmtToPacific(DateTime.Now), intencion.IdIntencionPadre);
                     resultado.Mensaje = "INSERT-OK";
 
                 }
@@ -404,7 +423,8 @@ namespace GSAV.Web.Dialogflow
 
                     client.DeleteIntent(new IntentName(ConstantesWeb.DialogFlow.ProjectId, intencion.IdDialogFlow));
 
-                  
+                    oIBLSolicitud.EliminarIntencionConsulta(intencion.IdDialogFlow);
+                    
                     resultado.Mensaje = "DELETE-OK";
 
                 }

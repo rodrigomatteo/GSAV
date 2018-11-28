@@ -315,5 +315,10 @@ namespace GSAV.Data.Oracle.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public ReturnObject<string> EliminarIntencionConsulta(string idDialogFlow)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

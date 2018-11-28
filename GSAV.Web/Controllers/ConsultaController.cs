@@ -216,7 +216,9 @@ namespace GSAV.Web.Controllers
                     intencion.IdDialogFlow = "NEW";
                     intencion.Nombre = nombreIntencion;
                     intencion.Respuesta = solucionIntencion;
-                    intencion.IntencionPadre = intencionPadre;
+                    intencion.IdIntencionPadre = intencionPadre;
+
+
                     var frases_ = new List<FraseEntrenamientoModel>();
                     frases_.Add(new FraseEntrenamientoModel { Descripcion = frase1 });
                     frases_.Add(new FraseEntrenamientoModel { Descripcion = frase2 });

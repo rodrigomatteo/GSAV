@@ -168,5 +168,17 @@ namespace GSAV.ServiceContracts.Implementation
                 throw;
             }
         }
+
+        public ReturnObject<string> EliminarIntencionConsulta(string idDialogFlow)
+        {
+            try
+            {
+                return oIDASolicitud.EliminarIntencionConsulta(idDialogFlow);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
