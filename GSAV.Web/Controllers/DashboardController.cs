@@ -106,7 +106,7 @@ namespace GSAV.Web.Controllers
 
                 foreach (var solicitud in lista)
                 {
-                    var dateNow = DateTime.Now;
+                    var dateNow = ConvertidorUtil.GmtToPacific(DateTime.Now);
                     var dateSpan = dateNow - solicitud.FechaRegistro;
                     
                     if (dateSpan.Days > 0)
