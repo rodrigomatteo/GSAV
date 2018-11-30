@@ -129,6 +129,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                                 solicitud_.Consulta = rd.GetValue(rd.GetOrdinal("CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CONSULTA"));
                                 solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
                                 solicitud_.IntencionConsulta = rd.GetValue(rd.GetOrdinal("INTENCION_CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("INTENCION_CONSULTA"));
+                                solicitud_.IdIntencionPadre = rd.GetValue(rd.GetOrdinal("IDINTENCIONCONSULTA_PADRE")) == DBNull.Value ? string.Empty : rd.GetInt32(rd.GetOrdinal("IDINTENCIONCONSULTA_PADRE")) + string.Empty;
                                 obj.OneResult = solicitud_;
                             }
                         }
@@ -469,7 +470,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
             return obj;
         }
 
-        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow,DateTime fechaCreacion,string intencionPadre)
+        public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow,DateTime fechaCreacion,string idIntencionPadre)
         {
             ReturnObject<string> obj = new ReturnObject<string>();
             obj.OneResult = string.Empty;
@@ -487,7 +488,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     cmd.Parameters.AddWithValue("@P_INTENCION_NOMBRE", nombreIntencion);
                     cmd.Parameters.AddWithValue("@P_ID_DIALOG_FLOW", idDialogFlow);
                     cmd.Parameters.AddWithValue("@P_FECHA_CREACION", fechaCreacion);
-                    cmd.Parameters.AddWithValue("@P_INTENCION_PADRE", intencionPadre);
+                    cmd.Parameters.AddWithValue("@P_INTENCION_PADRE", idIntencionPadre);
 
                     cmd.ExecuteNonQuery();
                   

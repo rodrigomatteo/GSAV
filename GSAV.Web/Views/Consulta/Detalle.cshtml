@@ -160,6 +160,7 @@
                                                                 </td>
                                                                 <td style="text-align: left">
                                                                     @Html.TextBoxFor(model => model.IntencionConsulta, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+                                                                    @Html.HiddenFor(model=> model.IdIntencionPadre)
                                                                 </td>
                                                                 <td align="left" class="Texto" style="padding-left:10px;"></td>
                                                                 <td style="text-align: left"></td>
@@ -409,7 +410,7 @@
 
                                                     var parametros = {
                                                         idSolicitud: $('#IdSolicitud').val(),
-                                                        intencionPadre: $('#IntencionConsulta').val(),
+                                                        intencionPadre: $('#IdIntencionPadre').val(),
                                                         solucion: $('#Respuesta').val(),
                                                         crearConsulta: strCrearConsulta,
                                                         nombreIntencion: $('#txtPalabraClave').val(),

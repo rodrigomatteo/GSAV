@@ -166,6 +166,7 @@ namespace GSAV.Web.Controllers
                     model.Respuesta = solicitud.Solucion;
                     model.Estatus = solicitud.Estado;
                     model.IntencionConsulta = solicitud.IntencionConsulta;
+                    model.IdIntencionPadre = solicitud.IdIntencionPadre;
 
                     if (!model.Estatus.Equals("D"))
                     {
@@ -258,16 +259,14 @@ namespace GSAV.Web.Controllers
             try
             {
 
-
-                var objResult = oIBLSolicitud.ObtenerIntencion(nombreIntencion);
-                var intencion = objResult.OneResult;
-
+                var intencion = new Dialogflow.DialogFlow(oIBLSolicitud).ObtenerIntentoDialogFlow(nombreIntencion);
+              
                 if (intencion != null)
                 {
                     if (nombreIntencion.Equals(intencion.Nombre))
                     {
                         respuesta.ValidacionIntencion = "EXISTE";
-                        respuesta.IdDialogFlow = intencion.IdDialogFlow;
+                        respuesta.IdDialogFlow = intencion.Id;
                     }
                 }
             }

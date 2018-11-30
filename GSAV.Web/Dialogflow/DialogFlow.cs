@@ -437,5 +437,83 @@ namespace GSAV.Web.Dialogflow
 
             return resultado;
         }
+
+        public IntentoModel ObtenerIntentoDialogFlow(string nombreIntento)
+        {
+            var pIntento = new IntentoModel();
+
+            try
+            {
+                var fileSavePath = System.Web.HttpContext.Current.Server.MapPath("~/Dialogflow.json/") + ConstantesWeb.DialogFlow.FilePrivateKeyIdJson;
+
+                if ((System.IO.File.Exists(fileSavePath)))
+                {
+                    var cred = GoogleCredential.FromFile(fileSavePath);
+
+                    var channel = new Channel(SessionsClient.DefaultEndpoint.Host, SessionsClient.DefaultEndpoint.Port, cred.ToChannelCredentials());
+
+                    var client = IntentsClient.Create(channel);
+
+                    ListIntentsRequest request = new ListIntentsRequest
+                    {
+                        ParentAsProjectAgentName = new ProjectAgentName(ConstantesWeb.DialogFlow.ProjectId),
+                        IntentView = IntentView.Full
+                    };
+
+                    var intents = client.ListIntents(request);
+
+                    foreach (var intent in intents)
+                    {
+                        var intento = new IntentoModel();
+                        intento.Id = intent.IntentName.IntentId;
+                        intento.Nombre = intent.DisplayName;
+
+
+                        if (intento.Nombre.ToUpper().Equals(nombreIntento.ToUpper()))
+                        {
+                            //Frases de Entrenamiento
+                            var feId = 1;
+                            foreach (var trainingPhrase in intent.TrainingPhrases)
+                            {
+                                var fraseEntrenamiento = new FraseEntrenamientoModel();
+                                fraseEntrenamiento.Id = feId++;
+                                fraseEntrenamiento.StrId = trainingPhrase.Name;
+
+                                foreach (var phrasePart in trainingPhrase.Parts)
+                                {
+                                    fraseEntrenamiento.Descripcion = phrasePart.Text;
+                                }
+
+                                intento.FrasesEntrenamiento.Add(fraseEntrenamiento);
+                            }
+
+                            //Respuestas
+                            foreach (var message in intent.Messages)
+                            {
+                                if (message.Text != null)
+                                {
+                                    var idRespuesta = 0;
+                                    foreach (var text in message.Text.Text_)
+                                    {
+                                        idRespuesta++;
+                                        var respuesta = new RespuestaIntentoModel();
+                                        respuesta.Id = idRespuesta + string.Empty;
+                                        respuesta.Descripcion = text;
+                                        intento.Respuestas.Add(respuesta);
+                                    }
+                                }
+                            }
+                            pIntento = intento;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return pIntento;
+        }
     }
 }
