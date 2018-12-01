@@ -1,13 +1,16 @@
 ﻿using GSAV.Entity.Objects;
 using GSAV.Web.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Xml;
 
 namespace GSAV.Web.Util
 {
@@ -185,10 +188,10 @@ namespace GSAV.Web.Util
 
             var templateName = pathInfo.FullName + @"\" + "SolicitudPendiente.xml";
             var tarea = new Tarea(templateName, string.Empty, DateTime.Now,
-                new[] { "ID_SOLICITUD", solicitud.IdSolicitud.ToString() },
-                new[] { "NOMBRE_RESPONSABLE", solicitud.NombreApePaterno },
-                new[] { "NUMERO_SOLICITUD", solicitud.NumSolicitud },
-                new[] { "DETALLE_SOLICITUD", solicitud.Consulta })
+                new[] {"ID_SOLICITUD", solicitud.IdSolicitud.ToString()},
+                new[] {"NOMBRE_RESPONSABLE", solicitud.NombreApePaterno},
+                new[] {"NUMERO_SOLICITUD", solicitud.NumSolicitud},
+                new[] {"DETALLE_SOLICITUD", solicitud.Consulta})
             {
                 Destinatario = solicitud.EmailResponsable
             };
@@ -209,5 +212,6 @@ namespace GSAV.Web.Util
                 path1 = Path.Combine(path1, appSetting);
             return Path.Combine(path1, path);
         }
+
     }
 }

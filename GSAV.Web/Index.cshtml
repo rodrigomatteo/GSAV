@@ -427,7 +427,7 @@
                                                                                 <input type="hidden" id="hdnIndicadorStatus" value="TODOS" />
                                                                             </td>
                                                                             <td style="text-align:right">
-                                                                                <input type="button" value="Enviar Alerta para Atención" onclick="location.href='@Url.Action("EnviarAlerta", "Dashboard") '"/>
+                                                                                <input type="button" value="Enviar Alerta para Atención" onclick="location.href='@Url.Action("EnviarAlerta", "Dashboard") '" />
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -556,7 +556,7 @@
                                                 jQuery("#jqGrid").jqGrid({
                                                     datatype: "local",
                                                     width: 800,
-                                                    colNames: ['IdSolicitud', 'Estatus', 'Código', 'Alumno', 'Intención Consulta', 'Fecha Registro', 'Derivado A', 'Consulta'],
+                                                    colNames: ['IdSolicitud', 'Estatus', 'Código', 'Alumno', 'Tipo Consulta', 'Fecha Registro', 'Derivado A', 'Consulta'],
                                                     colModel: [
                                                         { name: 'IdSolicitud', index: 'IdSolicitud', width: 10, sortable: false, hidden: true },
                                                         {
@@ -565,8 +565,6 @@
 
                                                                 var _estatus = rowObject.Estado;
                                                                 var _indicador = rowObject.IndicadorStatus;
-
-                                                                console.log(_indicador);
 
                                                                 var img_ = "<label>" + _estatus + "</label>";
 
@@ -578,15 +576,15 @@
                                                                 }
                                                                 if (_indicador === 'ROJO') {
                                                                     img_ = '<img src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px"/>';
-                                                                } 
+                                                                }
                                                                 return img_;
                                                             }
                                                         },
                                                         { name: 'CodigoAlumno', index: 'CodigoAlumno', width: 7, sortable: false },
                                                         { name: 'NombreApePaterno', index: 'NombreApePaterno', width: 13, sortable: false },
-                                                        { name: 'IntencionActual', index: 'IntencionActual', width: 10, sortable: false },
-                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', width:9, align: "center", sortable: false },
-                                                        { name: 'DerivadoA', index: 'DerivadoA', width: 9, align: "center", sortable: false },
+                                                        { name: 'Canal', index: 'Canal', width: 10, sortable: false },
+                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', width: 10, align: "center", sortable: false },
+                                                        { name: 'DerivadoA', index: 'DerivadoA', width: 10, align: "center", sortable: false },
                                                         {
                                                             name: 'IdSolicitud', index: 'IdSolicitud', align: "center", width: 5, sortable: false, jsonmap: "IdSolicitud",
                                                             formatter: function (cellvalue, options, rowObject) {
@@ -889,7 +887,7 @@
                                                             $('#txtNombreApellidos').val(parsed[x].NombreApePaterno);
                                                             $('#txtCodigoAlumno').val(parsed[x].CodigoAlumno);
                                                             $('#txtEstado').val(parsed[x].EstadoDesc);
-                                                            $('#txtTipoConsulta').val(parsed[x].IntencionActual);
+                                                            $('#txtTipoConsulta').val(parsed[x].Canal);
                                                             $('#txtFechaAtencion').val(parsed[x].StrFechRegistro);
                                                             $('#txtConsulta').val(parsed[x].Consulta);
                                                             $('#txtRespuesta').val(parsed[x].Solucion);
@@ -1056,7 +1054,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <label class="labelTextIndicador">Intención Consulta:</label>
+                        <label class="labelTextIndicador">Tipo Consulta:</label>
                     </td>
                     <td>
                         <input type="text" id="txtTipoConsulta" style="width:100%" class="text-box-read-only" />

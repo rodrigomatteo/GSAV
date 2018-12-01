@@ -180,5 +180,30 @@ namespace GSAV.ServiceContracts.Implementation
                 throw;
             }
         }
+
+        public ReturnObject<List<Solicitud>> ConsultarSolicitudePendientesAlerta()
+        {
+            try
+            {
+                return oIDASolicitud.ConsultarSolicitudePendientesAlerta();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
+        public void ActualizarFechaNotificacion(List<Solicitud> solicitudes)
+        {
+            try
+            {
+                oIDASolicitud.ActualizarFechaNotificacion(solicitudes);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
+
     }
 }

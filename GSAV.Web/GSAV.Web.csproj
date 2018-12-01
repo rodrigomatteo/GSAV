@@ -361,6 +361,9 @@
     </Content>
     <Content Include="Content\upc\branding\themes\UPC2018\fonts\utilicons\utilicons-web-webfont.woff" />
     <Content Include="Scripts\botchat.js" />
+    <Content Include="Templates\SolicitudPendiente.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

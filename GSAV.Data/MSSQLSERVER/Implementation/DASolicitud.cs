@@ -616,5 +616,97 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
 
             return obj;
         }
+
+        public ReturnObject<List<Solicitud>> ConsultarSolicitudePendientesAlerta()
+        {
+            var obj = new ReturnObject<List<Solicitud>>
+            {
+                OneResult = new List<Solicitud>()
+            };
+
+            try
+            {
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    cmd = new SqlCommand(SP.GSAV_SP_CONSULTAR_SOLICITUDES_PENDIENTES_ALERTA, cnn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
+
+                    var rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            var solicitud = new Solicitud
+                            {
+                                IdSolicitud = rd.GetInt32(rd.GetOrdinal("idsolicitud")),
+                                Nombre = rd.GetString(rd.GetOrdinal("NOMBRE_RESPONSABLE")),
+                                ApellidoPat = rd.GetString(rd.GetOrdinal("PATERNO_RESPONSABLE")),
+                                Consulta = rd.GetString(rd.GetOrdinal("CONSULTA")),
+                                EmailResponsable = rd.GetString(rd.GetOrdinal("EMAIL_RESPONSABLE"))
+                            };
+                            obj.OneResult.Add(solicitud);
+                        }
+                    }
+
+                    obj.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Success = false;
+                obj.ErrorMessage = ex.Message;
+            }
+
+            return obj;
+        }
+
+        public void ActualizarFechaNotificacion(List<Solicitud> solicitudes)
+        {
+            var cnn = MSSQLSERVERCnx.MSSqlCnx();
+
+            try
+            {
+                using (cnn)
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    try
+                    {
+                        foreach (var solicitud in solicitudes)
+                        {
+                            cmd = new SqlCommand(SP.GSAV_SP_UPD_FECHA_NOTIFICACION_SOLICITUD, cnn)
+                            {
+                                CommandType = CommandType.StoredProcedure
+                            };
+
+                            cmd.Parameters.AddWithValue("@P_IDSOLICITUD", solicitud.IdSolicitud);
+                            cmd.Parameters.AddWithValue("@P_FECHA_NOTIFICACION", DateTime.Now);
+
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch
+                    {
+                        // do nothing...just continue silently...shhhhhh...
+                    }
+                }
+            }
+            catch
+            {
+                // do nothing...just continue silently...shhhhhh...
+            }
+            finally
+            {
+                if (cnn.State == ConnectionState.Open)
+                    cnn.Close();
+            }
+        }
+
     }
 }

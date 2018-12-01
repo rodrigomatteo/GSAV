@@ -320,5 +320,15 @@ namespace GSAV.Data.Oracle.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public ReturnObject<List<Solicitud>> ConsultarSolicitudePendientesAlerta()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ActualizarFechaNotificacion(List<Solicitud> solicitudes)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

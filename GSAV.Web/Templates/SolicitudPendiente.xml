@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<task>
+  <subject>Solicitud [ID_SOLICITUD] pendiente de atención</subject>
+  <description>Estimado [NOMBRE_RESPONSABLE]
+    Se le recuerda que tiene pendiente por atender las siguientes solicitudes:
+    [NUMERO_SOLICITUD] - [DETALLE_SOLICITUD]
+    Por favor, su apoyo para priorizar su atención a fin de asegurar el cumplimiento de las políticas de calidad de la organización.
+    Saludos cordiales
+    [DEPARTAMENTO DE DIRECCION Y APRENDIZAJE DIGITAL]</description>
+</task>
