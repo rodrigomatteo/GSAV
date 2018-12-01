@@ -427,7 +427,8 @@
                                                                                 <input type="hidden" id="hdnIndicadorStatus" value="TODOS" />
                                                                             </td>
                                                                             <td style="text-align:right">
-                                                                                <input type="button" value="Enviar Alerta para Atención" onclick="location.href='@Url.Action("EnviarAlerta", "Dashboard") '"/>
+                                                                                <input type="button" value="Enviar Alerta para Atención" 
+                                                                                       onclick="javascript: EnviarAlerta(); return false;"/>
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -1004,6 +1005,17 @@
                                                 return today;
                                             }
                                             //-----------------------------------------------------------------------------------------
+                                            function EnviarAlerta() {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: '/Dashboard/EnviarAlerta',
+                                                    contentType: "application/json; charset=utf-8",
+                                                    dataType: "json",
+                                                    error: function (error) {
+                                                        console.log("Fallo en enviar alerta " + error);
+                                                    }
+                                                });
+                                            }
                                         </script>
                                     </div>
                                 </div>

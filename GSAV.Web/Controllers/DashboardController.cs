@@ -281,6 +281,7 @@ namespace GSAV.Web.Controllers
 
         #region Alerta
 
+        [HttpPost]
         public ActionResult EnviarAlerta()
         {
             // Qué hace? => Envía una alerta

@@ -686,8 +686,6 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                             };
 
                             cmd.Parameters.AddWithValue("@P_IDSOLICITUD", solicitud.IdSolicitud);
-                            cmd.Parameters.AddWithValue("@P_FECHA_NOTIFICACION", DateTime.Now);
-
                             cmd.ExecuteNonQuery();
                         }
                     }
