@@ -107,6 +107,7 @@ namespace GSAV.Entity.Objects
         public string IndicadorStatus { get; set; }
         public string IntencionConsulta { get; set; }
         public string IntencionPadre { get; set; }
+        public string IdIntencionPadre { get; set; }
         
         
     }

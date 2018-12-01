@@ -72,7 +72,12 @@ namespace GSAV.Web.Controllers
 
             if (!string.IsNullOrEmpty(intencionPadre))
             {
-                lista = lista.Where(q => q.IntencionPadre != null &&  q.IntencionPadre.ToUpper().Contains(intencionPadre.ToUpper())).ToList();
+                lista = lista.Where(q => 
+                
+                        (q.IdIntencionPadre != null &&  q.IdIntencionPadre.ToUpper().Equals(intencionPadre.ToUpper())) || 
+                        (q.IdIntencionPadre.Equals("0") &&  q.IdIntencionConsulta.Equals(intencionPadre))
+                
+                ).ToList();
             }
 
             //-------------------------------------------------------------------------------------------------------------
@@ -188,7 +193,7 @@ namespace GSAV.Web.Controllers
             }
         }
 
-        public JsonResult ActualizarIntencion(string id, string nombreIntencion, string frases, string respuesta)
+        public JsonResult ActualizarIntencion(string id, string nombreIntencion, string frases, string respuesta,string idIntencionPadre)
         {
             var resultado = new AlertModel();
 
@@ -202,9 +207,9 @@ namespace GSAV.Web.Controllers
                         intencion.IdDialogFlow = id;
                         intencion.Nombre = nombreIntencion;
                         intencion.Respuesta = respuesta;
-                        intencion.IntencionPadre = "NULL";
-                        var frases_ = JsonConvert.DeserializeObject<List<FraseEntrenamientoModel>>(frases);
+                        intencion.IdIntencionPadre = idIntencionPadre;
 
+                        var frases_ = JsonConvert.DeserializeObject<List<FraseEntrenamientoModel>>(frases);
                         resultado = new Dialogflow.DialogFlow(oIBLSolicitud).CreateIntent(intencion, frases_);
 
                     }
@@ -213,8 +218,9 @@ namespace GSAV.Web.Controllers
                         var intencion = new Intencion();
                         intencion.IdDialogFlow = id;
                         intencion.Respuesta = respuesta;
-                        var frases_ = JsonConvert.DeserializeObject<List<FraseEntrenamientoModel>>(frases);
+                        intencion.IdIntencionPadre = idIntencionPadre;
 
+                        var frases_ = JsonConvert.DeserializeObject<List<FraseEntrenamientoModel>>(frases);
                         resultado = new Dialogflow.DialogFlow(oIBLSolicitud).UpdateIntent(intencion, frases_);
 
                     }

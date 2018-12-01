@@ -21,11 +21,12 @@ namespace GSAV.Entity.Objects
         public int IdIntencionConsulta { get; set; }
         public string Nombre { get; set; }    
         public int IdPadreIntencion { get; set; }
+        public string DescripcionIntencionPadre { get; set; }
         public string IdDialogFlow { get; set; }
         public DateTime FechaCreacion { get; set; }
         public string StrFechaCreacion { get; set; }
         public string Respuesta { get; set; }
-        public string IntencionPadre { get; set; }
+        public string IdIntencionPadre { get; set; }
         public string ValidacionIntencion { get; set; }
         
     }

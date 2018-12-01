@@ -102,11 +102,11 @@ namespace GSAV.Web.Controllers
             {
                 var plista = plistarSolicitudesAtencion(fechaInicio, fechaFin);
 
-                lista = plista.Where(q => q.Estado.Equals("P") || q.Estado.Equals("D") || q.Estado.Equals("R")).ToList();
+                lista = plista.Where(q => q.Estado.Equals("P") || q.Estado.Equals("D")).ToList();
 
                 foreach (var solicitud in lista)
                 {
-                    var dateNow = DateTime.Now;
+                    var dateNow = ConvertidorUtil.GmtToPacific(DateTime.Now);
                     var dateSpan = dateNow - solicitud.FechaRegistro;
                     
                     if (dateSpan.Days > 0)

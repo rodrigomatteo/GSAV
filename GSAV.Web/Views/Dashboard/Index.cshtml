@@ -566,6 +566,8 @@
                                                                 var _estatus = rowObject.Estado;
                                                                 var _indicador = rowObject.IndicadorStatus;
 
+                                                                console.log(_indicador);
+
                                                                 var img_ = "<label>" + _estatus + "</label>";
 
                                                                 if (_indicador === 'VERDE') {
@@ -576,7 +578,7 @@
                                                                 }
                                                                 if (_indicador === 'ROJO') {
                                                                     img_ = '<img src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px"/>';
-                                                                }
+                                                                } 
                                                                 return img_;
                                                             }
                                                         },
