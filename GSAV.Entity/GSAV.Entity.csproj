@@ -49,6 +49,7 @@
     <Compile Include="Objects\Notificacion.cs" />
     <Compile Include="Objects\Persona.cs" />
     <Compile Include="Objects\Solicitud.cs" />
+    <Compile Include="Objects\Tarea.cs" />
     <Compile Include="Objects\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\ReturnObject.cs" />
