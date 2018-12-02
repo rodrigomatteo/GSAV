@@ -685,7 +685,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                                 CommandType = CommandType.StoredProcedure
                             };
 
-                            cmd.Parameters.AddWithValue("@P_IDSOLICITUD", solicitud.IdSolicitud);
+                            cmd.Parameters.AddWithValue("@pIdSolicitud ", solicitud.IdSolicitud);
                             cmd.ExecuteNonQuery();
                         }
                     }

@@ -1006,6 +1006,7 @@
                                             }
                                             //-----------------------------------------------------------------------------------------
                                             function EnviarAlerta() {
+                                                if (confirm("¿Está seguro de que desea enviar un recordatorio para la atención de las solicitudes ?"))
                                                 $.ajax({
                                                     type: "POST",
                                                     url: '/Dashboard/EnviarAlerta',
