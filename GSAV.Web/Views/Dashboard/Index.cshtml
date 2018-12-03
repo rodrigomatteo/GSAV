@@ -871,6 +871,15 @@
 
                                             function Visualizar(id) {
 
+                                                $('#txtNumeroSolicitud').val("");
+                                                $('#txtNombreApellidos').val("");
+                                                $('#txtCodigoAlumno').val("");
+                                                $('#txtEstado').val("");
+                                                $('#txtTipoConsulta').val("");
+                                                $('#txtFechaAtencion').val("");
+                                                $('#txtConsulta').val("");
+                                                $('#txtRespuesta').val("");
+
 
                                                 var parametros = {
                                                     idSolicitud: id
@@ -886,14 +895,20 @@
                                                         var parsed = JSON.parse(JSON.stringify(rpta));
                                                         var array_ = [];
                                                         for (var x in parsed) {
-                                                            $('#txtNumeroSolicitud').val(parsed[x].NumSolicitud);
-                                                            $('#txtNombreApellidos').val(parsed[x].NombreApePaterno);
-                                                            $('#txtCodigoAlumno').val(parsed[x].CodigoAlumno);
-                                                            $('#txtEstado').val(parsed[x].EstadoDesc);
-                                                            $('#txtTipoConsulta').val(parsed[x].IntencionActual);
-                                                            $('#txtFechaAtencion').val(parsed[x].StrFechRegistro);
-                                                            $('#txtConsulta').val(parsed[x].Consulta);
-                                                            $('#txtRespuesta').val(parsed[x].Solucion);
+
+                                                            if (parsed[x].NumSolicitud != null && !(parsed[x].NumSolicitud === '')) {
+                                                                $('#txtNumeroSolicitud').val(parsed[x].NumSolicitud);
+                                                                $('#txtNombreApellidos').val(parsed[x].NombreApePaterno);
+                                                                $('#txtCodigoAlumno').val(parsed[x].CodigoAlumno);
+                                                                $('#txtEstado').val(parsed[x].EstadoDesc);
+                                                                $('#txtTipoConsulta').val(parsed[x].IntencionActual);
+                                                                $('#txtFechaAtencion').val(parsed[x].StrFechRegistro);
+                                                                $('#txtConsulta').val(parsed[x].Consulta);
+                                                                $('#txtRespuesta').val(parsed[x].Solucion);
+                                                            } else {
+                                                                alert("No se encuentran datos para mostrar.");
+                                                            }                                                         
+
                                                         }
 
                                                         $('#dialogConsulta').dialog('open');
