@@ -14,37 +14,49 @@ namespace GSAV.Entity.Objects
 
         public Tarea(string plantilla, string creadoPor, DateTime fechaCreacion, params string[][] parametros)
         {
-            var xmlConfiguration = new XmlDocument();
-
-            var configFileInfo = new FileInfo(plantilla);
-            if (!configFileInfo.Exists)
-                throw new Exception($"El archivo no existe {plantilla}");
-
-            xmlConfiguration.Load(configFileInfo.FullName);
-
-            // subject
-            var xpath = @"task/subject";
-            var nSubject = xmlConfiguration.SelectSingleNode(xpath);
-
-            if (nSubject == null)
-                throw new Exception($"Seccion {xpath} no existe");
-            xpath = @"task/description";
-
-            var nDescription = xmlConfiguration.SelectSingleNode(xpath);
-
-            Asunto = nSubject.InnerText;
-            Descripcion = nDescription?.InnerText ?? throw new Exception($"Elemento {xpath} no existe");
-            CreadoPor = creadoPor;
-            FechaCreacion = fechaCreacion;
-
-            if (parametros == null) return;
-
-            foreach (var paramKey in parametros)
+            try
             {
-                var paramValue = paramKey[1];
-                Asunto = Asunto.Replace(paramKey[0], paramValue);
-                Descripcion = Descripcion.Replace(paramKey[0], paramValue);
+                var xmlConfiguration = new XmlDocument();
+
+                var configFileInfo = new FileInfo(plantilla);
+
+                //if (!configFileInfo.Exists)
+                //    throw new Exception($"El archivo no existe {plantilla}");
+
+                if (configFileInfo.Exists)
+                {
+                    xmlConfiguration.Load(configFileInfo.FullName);
+
+                    // subject
+                    var xpath = @"task/subject";
+                    var nSubject = xmlConfiguration.SelectSingleNode(xpath);
+
+                    if (nSubject == null)
+                        throw new Exception($"Seccion {xpath} no existe");
+                    xpath = @"task/description";
+
+                    var nDescription = xmlConfiguration.SelectSingleNode(xpath);
+
+                    Asunto = nSubject.InnerText;
+                    Descripcion = nDescription.InnerText;
+                    CreadoPor = creadoPor;
+                    FechaCreacion = fechaCreacion;
+
+                    if (parametros == null) return;
+
+                    foreach (var paramKey in parametros)
+                    {
+                        var paramValue = paramKey[1];
+                        Asunto = Asunto.Replace(paramKey[0], paramValue);
+                        Descripcion = Descripcion.Replace(paramKey[0], paramValue);
+                    }
+                }
             }
+            catch(Exception ex)
+            {
+
+            }
+           
         }
     }
 }
