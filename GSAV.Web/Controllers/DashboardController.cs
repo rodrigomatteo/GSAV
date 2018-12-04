@@ -321,7 +321,7 @@ namespace GSAV.Web.Controllers
         {
             var emailUtil = new EmailUtil();
             var tarea = emailUtil.EnviarNotificacion(solicitud);
-            emailUtil.EnviarCorreo(tarea.Destinatario, tarea.Asunto, tarea.Descripcion, null, string.Empty, string.Empty);
+            emailUtil.EnviarCorreo(tarea.Destinatario, tarea.Asunto, tarea.Descripcion, null, string.Empty, string.Empty, false);
         }
 
         private void RegistrarLog(string paso)

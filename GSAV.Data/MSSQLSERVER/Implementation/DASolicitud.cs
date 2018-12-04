@@ -643,10 +643,9 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                         {
                             var solicitud = new Solicitud
                             {
-                                IdSolicitud = rd.GetInt32(rd.GetOrdinal("idsolicitud")),
                                 Nombre = rd.GetString(rd.GetOrdinal("NOMBRE_RESPONSABLE")),
                                 ApellidoPat = rd.GetString(rd.GetOrdinal("PATERNO_RESPONSABLE")),
-                                Consulta = rd.GetString(rd.GetOrdinal("CONSULTA")),
+                                Consulta = rd.GetString(rd.GetOrdinal("DETALLE_SOLICITUD")),
                                 EmailResponsable = rd.GetString(rd.GetOrdinal("EMAIL_RESPONSABLE"))
                             };
                             obj.OneResult.Add(solicitud);

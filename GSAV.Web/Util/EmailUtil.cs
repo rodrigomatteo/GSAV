@@ -82,7 +82,7 @@ namespace GSAV.Web.Util
             return saludo;
         }
 
-        public void EnviarCorreo(string emailAddressTo, string subject, string body, byte[] attachment, string fileName, string mediaType)
+        public void EnviarCorreo(string emailAddressTo, string subject, string body, byte[] attachment, string fileName, string mediaType, bool isHtml = true)
         {
             /*-------------------------MENSAJE DE CORREO----------------------*/
 
@@ -98,6 +98,7 @@ namespace GSAV.Web.Util
             //Asunto
             mmsg.Subject = subject;
             mmsg.SubjectEncoding = System.Text.Encoding.UTF8;
+            mmsg.Body = body;
 
             //Attachment
 
@@ -131,16 +132,17 @@ namespace GSAV.Web.Util
                     LinkedResource theEmailImage = new LinkedResource(stream);
                     theEmailImage.ContentId = "myImageID";
 
-                    //Add the Image to the Alternate view
-                    htmlView.LinkedResources.Add(theEmailImage);
+                    if(isHtml)
+                    {
+                        //Add the Image to the Alternate view
+                        htmlView.LinkedResources.Add(theEmailImage);
 
-                    //Add view to the Email Message
-                    mmsg.AlternateViews.Add(htmlView);
-
+                        //Add view to the Email Message
+                        mmsg.AlternateViews.Add(htmlView);
+                    }
 
                     mmsg.BodyEncoding = System.Text.Encoding.UTF8;
-                    mmsg.IsBodyHtml = true;
-
+                    mmsg.IsBodyHtml = isHtml;
 
                     //Correo electronico desde la que enviamos el mensaje
                     mmsg.From = new System.Net.Mail.MailAddress(ConstantesWeb.Email.Administrador);
@@ -185,9 +187,7 @@ namespace GSAV.Web.Util
 
             var templateName = pathInfo.FullName + @"\" + "SolicitudPendiente.xml";
             var tarea = new Tarea(templateName, string.Empty, DateTime.Now,
-                new[] { "ID_SOLICITUD", solicitud.IdSolicitud.ToString() },
                 new[] { "NOMBRE_RESPONSABLE", solicitud.NombreApePaterno },
-                new[] { "NUMERO_SOLICITUD", solicitud.NumSolicitud },
                 new[] { "DETALLE_SOLICITUD", solicitud.Consulta })
             {
                 Destinatario = solicitud.EmailResponsable

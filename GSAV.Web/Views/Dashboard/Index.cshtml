@@ -1027,7 +1027,11 @@
                                                     url: '/Dashboard/EnviarAlerta',
                                                     contentType: "application/json; charset=utf-8",
                                                     dataType: "json",
+                                                    success: function () {
+                                                        alert("Alerta generada correctamente");
+                                                    },
                                                     error: function (error) {
+                                                        alert("Ocurrió un error al generar la alerta");
                                                         console.log("Fallo en enviar alerta " + error);
                                                     }
                                                 });
