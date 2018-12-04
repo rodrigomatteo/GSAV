@@ -254,5 +254,18 @@ namespace GSAV.Web.Controllers
 
             return new JsonResult { Data = resultado, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
+
+        public JsonResult ListarIntencionesFrecuentes()
+        {
+            var lista = new List<Intencion>();
+
+
+            if (Session["Login-Info"] != null)
+            {
+                lista = oIBLSolicitud.ObtenerIntencionesFrecuentes().OneResult;                              
+            }
+
+            return new JsonResult { Data = lista, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
     }
 }

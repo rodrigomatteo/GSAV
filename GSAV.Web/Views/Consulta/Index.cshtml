@@ -458,9 +458,12 @@
                                                     }
                                                 }
 
+                                                var pEstado = $("#cbEstado").find("option:selected").val();
+                                                if (pEstado === '0') pEstado = '';
+
                                                 var parametros = {
                                                     numSolicitud: $('#txtNumeroSolicitud').val(),
-                                                    estado: $("#cbEstado").find("option:selected").val(),
+                                                    estado: pEstado,
                                                     codigoAlumno: $('#txtCodigoAlumno').val(),
                                                     nombreAlumno: $('#txtNombreAlumno').val(),
                                                     fechaInicio: $('#txtFechaInicio_Buscar').val(),

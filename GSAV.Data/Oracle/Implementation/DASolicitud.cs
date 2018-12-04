@@ -330,5 +330,10 @@ namespace GSAV.Data.Oracle.Implementation
         {
             throw new NotImplementedException();
         }
+
+        public ReturnObject<List<Intencion>> ObtenerIntencionesFrecuentes()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

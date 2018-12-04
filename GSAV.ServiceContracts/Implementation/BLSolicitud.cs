@@ -205,5 +205,16 @@ namespace GSAV.ServiceContracts.Implementation
             }
         }
 
+        public ReturnObject<List<Intencion>> ObtenerIntencionesFrecuentes()
+        {            
+            try
+            {
+                return oIDASolicitud.ObtenerIntencionesFrecuentes();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+        }
     }
 }

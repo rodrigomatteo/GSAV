@@ -472,6 +472,51 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
             return obj;
         }
 
+        public ReturnObject<List<Intencion>> ObtenerIntencionesFrecuentes()
+        {
+            ReturnObject<List<Intencion>> obj = new ReturnObject<List<Intencion>>();
+            obj.OneResult = new List<Intencion>();
+
+            try
+            {
+                using (var cnn = MSSQLSERVERCnx.MSSqlCnx())
+                {
+                    SqlCommand cmd = null;
+                    cnn.Open();
+
+                    cmd = new SqlCommand(SP.GSAV_SP_BUSCAR_INTENCIONES_FRECUENTES, cnn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    SqlDataReader rd = cmd.ExecuteReader();
+                    if (rd.HasRows)
+                    {
+                        while (rd.Read())
+                        {
+                            var intencion = new Intencion();
+                            intencion.IdIntencionConsulta = rd.GetInt32(rd.GetOrdinal("IdIntencionConsulta"));
+                            intencion.Nombre = (rd.GetValue(rd.GetOrdinal("Nombre")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("Nombre"));
+                            intencion.IdPadreIntencion = (rd.GetValue(rd.GetOrdinal("IdPadreIntencion")) == DBNull.Value) ? 0 : rd.GetInt32(rd.GetOrdinal("IdPadreIntencion"));
+                            intencion.IdDialogFlow = (rd.GetValue(rd.GetOrdinal("IdDialogFlow")) == DBNull.Value) ? string.Empty : rd.GetString(rd.GetOrdinal("IdDialogFlow"));
+                            intencion.FechaCreacion = rd.GetDateTime(rd.GetOrdinal("FechaCreacion"));
+                            intencion.StrFechaCreacion = FormatearFechaEsp(intencion.FechaCreacion);
+                            obj.OneResult.Add(intencion);
+                        }
+                    }
+
+                    obj.Success = true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                obj.Success = false;
+                obj.ErrorMessage = ex.Message;
+            }
+
+            return obj;
+        }
+
         public ReturnObject<string> InsertarIntencionConsulta(string nombreIntencion, string idDialogFlow,DateTime fechaCreacion,string idIntencionPadre)
         {
             ReturnObject<string> obj = new ReturnObject<string>();

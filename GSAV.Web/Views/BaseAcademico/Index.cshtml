@@ -144,22 +144,14 @@
                                                                     Intención:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    @*<input type="text" id="txtIntencion" style="width:80%" maxlength="10" />*@
-
-                                                                    <select id="cbIntencion" style="width: 81%">
-                                                                        <option value="">Seleccione</option>
-                                                                        <option value="1">Asistencia</option>
-                                                                        <option value="7">Matricula</option>
-                                                                        <option value="26">Retiro</option>
-                                                                        <option value="22">Promedio</option>
-                                                                        <option value="51">Actividad Académica</option>
+                                                                    <select id="cbIntencion" style="width: 81%">                                                                        
                                                                     </select>
                                                                 </td>
                                                                 <td align="left" class="Texto" style="">
                                                                     Frase Entrenamiento:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <input type="text" id="txtFraseEntrena" style="width:80%" maxlength="10" />
+                                                                    <input type="text" id="txtFraseEntrena" style="width:80%" maxlength="256" />
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -167,7 +159,7 @@
                                                                     Respuesta:
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <input type="text" id="txtRespuesta" style="width:80%" maxlength="10" />
+                                                                    <input type="text" id="txtRespuesta" style="width:80%" maxlength="256" />
                                                                 </td>
                                                                 <td align="left" class="Texto" style=""></td>
                                                                 <td style="text-align: left"></td>
@@ -220,9 +212,59 @@
 
                                         <script type="text/javascript">
 
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function CargarIntencionesFrecuentes() {
+                                                try {
+                                                    if ($("#cbIntencion") != null) {
+                                                        $("#cbIntencion").get(0).options.length = 0;
+                                                        $("#cbIntencion").get(0).options[0] = new Option("Seleccione", "0");
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: '/BaseAcademico/ListarIntencionesFrecuentes',
+                                                            contentType: "application/json; charset=utf-8",
+                                                            dataType: "json",
+                                                            success: function (data) {
+
+                                                                var _intenciones = JSON.parse(JSON.stringify(data));
+
+                                                                for (var x in _intenciones) {
+                                                                    var _id = _intenciones[x].StrIdIntencionConsulta;
+                                                                    var _descripcion = _intenciones[x].Nombre;
+                                                                    var selected = false;
+                                                                    //if (_id === 'D') selected = true;
+                                                                    _updateSelect($("#cbIntencion"), _id, _descripcion, selected);
+                                                                }
+
+                                                            },
+                                                            error: function (error) {
+                                                                console.log("Fallo carga de intenciones frecuentes... " + error);
+                                                            }
+                                                        });
+                                                    }
+                                                } catch{
+
+                                                }
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function _updateSelect($select, value, text, selected) {
+                                                var opt_ = document.createElement("option");
+                                                opt_.value = value;
+                                                opt_.text = text;
+                                                opt_.selected = selected;
+                                                $select[0].add(opt_, $select[0].options[1]);
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
+
                                             $(document).ready(function () {
 
                                                 //-----------------------------------------------------------------------------------------
+
+                                                CargarIntencionesFrecuentes();
 
                                                 $("#dialogConsulta").dialog({
                                                     autoOpen: false,
@@ -612,6 +654,7 @@
                                             function ConsultarIntenciones() {
 
                                                 var intencionPadre = $("#cbIntencion").find("option:selected").val();
+                                                if (intencionPadre === "0") intencionPadre = '';
 
                                                 var parametros = {
                                                     intencionPadre: intencionPadre,

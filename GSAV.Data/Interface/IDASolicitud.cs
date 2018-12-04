@@ -23,5 +23,6 @@ namespace GSAV.Data.Interface
         ReturnObject<string> EliminarIntencionConsulta(string idDialogFlow);
         ReturnObject<List<Solicitud>> ConsultarSolicitudePendientesAlerta();
         void ActualizarFechaNotificacion(List<Solicitud> solicitudes);
+        ReturnObject<List<Intencion>> ObtenerIntencionesFrecuentes();
     }
 }

@@ -28,6 +28,13 @@ namespace GSAV.Entity.Objects
         public string Respuesta { get; set; }
         public string IdIntencionPadre { get; set; }
         public string ValidacionIntencion { get; set; }
+        public string StrIdIntencionConsulta
+        {
+            get
+            {
+                return IdIntencionConsulta + string.Empty;
+            }
+        }
         
     }
 }

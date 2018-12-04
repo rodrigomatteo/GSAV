@@ -208,13 +208,7 @@
 
                                                                     @if (Model.Id.Equals("NEW"))
                                                                     {
-                                                                        <select id="cbIntencion" style="width: 100%">
-                                                                            <option value="">Seleccione</option>
-                                                                            <option value="1">Asistencia</option>
-                                                                            <option value="7">Matricula</option>
-                                                                            <option value="26">Retiro</option>
-                                                                            <option value="22">Promedio</option>
-                                                                            <option value="51">Actividad Académica</option>
+                                                                        <select id="cbIntencion" style="width: 100%">                                                                            
                                                                         </select>
                                                                     }
                                                                     else
@@ -304,7 +298,57 @@
 
                                         <script type="text/javascript">
 
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function CargarIntencionesFrecuentes() {
+                                                try {
+                                                    if ($("#cbIntencion") != null) {
+                                                        $("#cbIntencion").get(0).options.length = 0;
+                                                        $("#cbIntencion").get(0).options[0] = new Option("Seleccione", "0");
+
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url: '/BaseAcademico/ListarIntencionesFrecuentes',
+                                                            contentType: "application/json; charset=utf-8",
+                                                            dataType: "json",
+                                                            success: function (data) {
+
+                                                                var _intenciones = JSON.parse(JSON.stringify(data));
+
+                                                                for (var x in _intenciones) {
+                                                                    var _id = _intenciones[x].StrIdIntencionConsulta;
+                                                                    var _descripcion = _intenciones[x].Nombre;
+                                                                    var selected = false;
+                                                                    //if (_id === 'D') selected = true;
+                                                                    _updateSelect($("#cbIntencion"), _id, _descripcion, selected);
+                                                                }
+
+                                                            },
+                                                            error: function (error) {
+                                                                console.log("Fallo carga de intenciones frecuentes... " + error);
+                                                            }
+                                                        });
+                                                    }             
+                                                } catch{
+
+                                                }                                                                                  
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function _updateSelect($select, value, text, selected) {
+                                                var opt_ = document.createElement("option");
+                                                opt_.value = value;
+                                                opt_.text = text;
+                                                opt_.selected = selected;
+                                                $select[0].add(opt_, $select[0].options[1]);
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
+
                                             $(document).ready(function () {
+
+                                                CargarIntencionesFrecuentes();
 
                                                 $("#diagFraseEntrena").dialog({
                                                     autoOpen: false,
@@ -373,6 +417,8 @@
 
                                             });
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function AceptarFrase() {
                                                 var frase = $("#txtFrase").val();
                                                 var idFrase = $("#hdnIdFrase").val();
@@ -390,6 +436,8 @@
                                                 }
                                                 $('#diagFraseEntrena').dialog('close');
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function NuevaFraseGridView(frase) {
                                                 var list = jQuery("#jqGridPF").jqGrid('getRowData');
@@ -429,6 +477,8 @@
                                                 $("#jqGridPF").trigger('reloadGrid');
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function EditarFraseGridView(id, frase) {
                                                 console.log('EditarFraseGridView');
                                                 var list = jQuery("#jqGridPF").jqGrid('getRowData');
@@ -457,6 +507,8 @@
                                                 $("#jqGridPF").trigger('reloadGrid');
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function EliminarFraseGridView(id) {
                                                 var list = jQuery("#jqGridPF").jqGrid('getRowData');
                                                 var array = [];
@@ -480,15 +532,21 @@
                                                 $("#jqGridPF").trigger('reloadGrid');
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function CancelarFrase() {
                                                 $('#diagFraseEntrena').dialog('close');
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function CrearNuevaFrase() {
                                                 $('#txtFrase').val('');
                                                 $('#hdnIdFrase').val('0');
                                                 $('#diagFraseEntrena').dialog('open');
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function EditarFrase() {
                                                 var id = $("#jqGridPF").jqGrid('getGridParam', 'selrow');
@@ -502,6 +560,8 @@
                                                 $("#txtFrase").val(fila.Descripcion);
                                                 $('#diagFraseEntrena').dialog('open');
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function CargarFrases() {
 
@@ -539,10 +599,12 @@
 
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function Grabar() {
                                                 
                                                 var intencionPadre = $("#cbIntencion").find("option:selected").val();
-                                                if (intencionPadre === '') {
+                                                if (intencionPadre === '0') {
                                                     alert("Por favor, seleccione la Intención");
                                                     $("#cbIntencion").focus();
                                                     return;
@@ -551,6 +613,20 @@
                                                 if ($('#Nombre').val() === '') {
                                                     alert("Por favor, ingrese Sub-Intención");
                                                     $("#Nombre").focus();
+                                                    return;
+                                                }
+
+                                                var frases_ = jQuery("#jqGridPF").jqGrid('getRowData');
+
+                                                if (frases_.length === 0) {
+                                                    alert("Debe ingresar al menos una frase de entrenamiento");
+                                                    CrearNuevaFrase();
+                                                    return;
+                                                }
+
+                                                if ($('#Respuesta').val() === '') {
+                                                    alert("Por favor, ingrese una respuesta");
+                                                    $("#Respuesta").focus();
                                                     return;
                                                 }
 
@@ -599,6 +675,8 @@
 
 
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function GrabarIntencion(idIntencion) {
                                                 //BEGIN Grabar Datos
@@ -662,11 +740,15 @@
                                                 //END Grabar Datos
                                             }
 
-                                             function Editar(id) {
+                                            //-----------------------------------------------------------------------------------------
+
+                                            function Editar(id) {
                                                  var url = '@Url.Action("Detalle", "BaseAcademico", new { id = "__id__"  })';
                                                  url = url.replace('__id__', id);
                                                  window.location.href = url;
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             function MostrarAlertRedirect(message_) {
                                                 $.alert({
@@ -678,6 +760,8 @@
                                                 });
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function MostrarAlert(message_) {
                                                 $.alert({
                                                     closeIcon: false,
@@ -688,9 +772,13 @@
                                                 });
                                             }
 
+                                            //-----------------------------------------------------------------------------------------
+
                                             function Cancelar() {
                                                 window.open('@Url.Action("Index", "BaseAcademico")', '_self');
                                             }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                         </script>
                                     </div>
