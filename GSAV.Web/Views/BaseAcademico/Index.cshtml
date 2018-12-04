@@ -395,30 +395,14 @@
                                                 $('#txtFechaInicio_Buscar').datepicker();
                                                 $('#txtFechaFin_Buscar').datepicker();
 
-                                                //var now = new Date();
-                                                //var day = ("0" + now.getDate()).slice(-2);
-                                                //var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-                                                //var lastDate = new Date().add(-6).month();
-                                                //var lastDay = ("0" + lastDate.getDate()).slice(-2);
-                                                //var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
-
-                                                //var fchStart = (lastDay) + "/" + (lastMonth) + "/" + lastDate.getFullYear();
-                                                //var fchEnd = (day) + "/" + (month) + "/" + now.getFullYear();
-
-                                                //$('#txtFechaInicio_Buscar').val(fchStart);
-                                                //$('#txtFechaFin_Buscar').val(fchEnd);
-
-                                                var now = new Date();
-                                                //var day = ("0" + now.getDate()).slice(-2);
+                                                
+                                                var now = new Date();                                                
                                                 var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
                                                 var lastDate = new Date().add(-6).month();
-                                                var lastDay = ("0" + lastDate.getDate()).slice(-2);
-                                                //var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
+                                                var lastDay = ("0" + lastDate.getDate()).slice(-2);                                                
 
-                                                var date = new Date();
-                                                //var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                                                var date = new Date();                                                
                                                 var lastDayDT = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                                                 var lastDay = ("0" + lastDayDT.getDate()).slice(-2);
 
