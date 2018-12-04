@@ -284,32 +284,40 @@ namespace GSAV.Web.Controllers
         [HttpPost]
         public ActionResult EnviarAlerta()
         {
-            // Qué hace? => Envía una alerta
-            // Cómo lo hace => De manera automática
-            // A quién? => A los responsables de la atención de una solicitud académica o técnica
-            // Qué incluye? => Solicitudes que se encuentran pendientes de atención por más de 18 horas
-            // Cuándo se ejecuta? => Cada 4 horas. [Si está vacío, se ejecuta de manera inmediata]
-            // Paso 1: Registrar datos en el log
-            RegistrarLog("1");
-
-            // Paso 2: Obtener solicitudes que se encuentran pendientes de atención por más de 18 horas
-            var solicitudes = ObtenerSolicitudePendientesAlerta();
-
-            // Paso 3: Validar si existen solicitudes en el paso 2
-            if (solicitudes.Any())
+            try
             {
-                foreach (var solicitud in solicitudes)
-                    // Paso 5: Preparar solicitud
-                    EnviarSolicitud(solicitud);
+                // Qué hace? => Envía una alerta
+                // Cómo lo hace => De manera automática
+                // A quién? => A los responsables de la atención de una solicitud académica o técnica
+                // Qué incluye? => Solicitudes que se encuentran pendientes de atención por más de 18 horas
+                // Cuándo se ejecuta? => Cada 4 horas. [Si está vacío, se ejecuta de manera inmediata]
+                // Paso 1: Registrar datos en el log
+                RegistrarLog("1");
 
-                // Paso 4: Actualizar la fecha de notificación de la solicitud
-                ActualizarFechaNotificacion(solicitudes);
+                // Paso 2: Obtener solicitudes que se encuentran pendientes de atención por más de 18 horas
+                var solicitudes = ObtenerSolicitudePendientesAlerta();
+
+                // Paso 3: Validar si existen solicitudes en el paso 2
+                if (solicitudes.Any())
+                {
+                    foreach (var solicitud in solicitudes)
+                        // Paso 5: Preparar solicitud
+                        EnviarSolicitud(solicitud);
+
+                    // Paso 4: Actualizar la fecha de notificación de la solicitud
+                    ActualizarFechaNotificacion(solicitudes);
+                }
+
+                // Paso 6: Registrar en el log
+                RegistrarLog("2");
+
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch(Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.Message);
             }
 
-            // Paso 6: Registrar en el log
-            RegistrarLog("2");
-
-            return new HttpStatusCodeResult(HttpStatusCode.Accepted);
         }
 
         private void ActualizarFechaNotificacion(List<Solicitud> solicitudes)
