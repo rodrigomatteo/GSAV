@@ -282,7 +282,7 @@ namespace GSAV.Web.Controllers
         #region Alerta
 
         [HttpPost]
-        public ActionResult EnviarAlerta()
+        public JsonResult EnviarAlerta()
         {
             try
             {
@@ -311,11 +311,17 @@ namespace GSAV.Web.Controllers
                 // Paso 6: Registrar en el log
                 RegistrarLog("2");
 
-                return new HttpStatusCodeResult(HttpStatusCode.OK);
+                return new JsonResult()
+                {
+                    Data = new { msg = "ok" }
+                };
             }
             catch(Exception ex)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, ex.Message);
+                return new JsonResult()
+                {
+                    Data = new { msg = ex.Message }
+                };
             }
 
         }
