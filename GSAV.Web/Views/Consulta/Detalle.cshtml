@@ -381,12 +381,14 @@
                                                     return;
                                                 }
 
-
-                                                var crearConsulta = document.getElementById("chkAgregarDialogFlow").checked;
+                                                var crearConsulta = "0";
                                                 var strCrearConsulta = "0";
 
+                                                if (document.getElementById("chkAgregarDialogFlow") != null) {
+                                                    crearConsulta = document.getElementById("chkAgregarDialogFlow").checked;
+                                                }                                                
+                                                
                                                 if (stringToBoolean(crearConsulta)) {
-
                                                     strCrearConsulta = "1";
                                                     //Validar Nueva Intencion Ingresada
                                                     if ($('#txtPalabraClave').val() === '') {
