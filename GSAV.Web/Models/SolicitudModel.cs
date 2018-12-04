@@ -8,8 +8,9 @@ namespace GSAV.Web.Models
     public class SolicitudModel
     {
         public SolicitudModel()
-        {
-            this.ReadOnly = string.Empty;
+        {            
+            this.ReadOnly = "N";
+            this.VisibleCrearConsulta = "N";
         }
 
         public string IdSolicitud { get; set; }
@@ -27,5 +28,8 @@ namespace GSAV.Web.Models
         public string ReadOnly { get; set; }
         public string IntencionConsulta { get; set; }
         public string IdIntencionPadre { get; set; }
+        public string VisibleCrearConsulta { get; set; }
+        public string Curso { get; set; }
+        public string Actividad { get; set; }
     }
 }

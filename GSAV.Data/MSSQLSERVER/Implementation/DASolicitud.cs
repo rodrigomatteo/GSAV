@@ -130,6 +130,8 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                                 solicitud_.Solucion = rd.GetValue(rd.GetOrdinal("SOLUCION")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("SOLUCION"));
                                 solicitud_.IntencionConsulta = rd.GetValue(rd.GetOrdinal("INTENCION_CONSULTA")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("INTENCION_CONSULTA"));
                                 solicitud_.IdIntencionPadre = rd.GetValue(rd.GetOrdinal("IDINTENCIONCONSULTA_PADRE")) == DBNull.Value ? string.Empty : rd.GetInt32(rd.GetOrdinal("IDINTENCIONCONSULTA_PADRE")) + string.Empty;
+                                solicitud_.Curso = rd.GetValue(rd.GetOrdinal("CURSO")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("CURSO"));
+                                solicitud_.Actividad = rd.GetValue(rd.GetOrdinal("DESCRIPCIONACTIVIDAD")) == DBNull.Value ? string.Empty : rd.GetString(rd.GetOrdinal("DESCRIPCIONACTIVIDAD"));
                                 obj.OneResult = solicitud_;
                             }
                         }

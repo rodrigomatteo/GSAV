@@ -109,6 +109,8 @@ namespace GSAV.Entity.Objects
         public string IntencionPadre { get; set; }
         public string IdIntencionPadre { get; set; }
         public string EmailResponsable { get; set; }
+        public string Curso { get; set; }
+        public string Actividad { get; set; }
 
     }
 }

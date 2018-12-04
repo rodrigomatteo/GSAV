@@ -190,17 +190,16 @@
 
                                                                     @if (@Session["Login-Info"] != null)
                                                                     {
-
-                                                                    if (!Model.ReadOnly.Equals("Y") && ((ReturnObject<Usuario>
-                                                                        )@Session["Login-Info"]).OneResult.Empleado != null)
+                                                                        if (!Model.ReadOnly.Equals("Y") && ((ReturnObject<Usuario>
+                                                                            )@Session["Login-Info"]).OneResult.Empleado != null)
                                                                         {
-                                                                        @Html.TextArea("Respuesta", new { @style = "", @class = "textAreaCustom" })
+                                                                            @Html.TextArea("Respuesta", new { @style = "", @class = "textAreaCustom" })
                                                                         }
                                                                         else
                                                                         {
-                                                                        @Html.TextArea("Respuesta", new { @style = "", @readonly = true, @class = "textAreaCustom text-box-read-only" })
+                                                                            @Html.TextArea("Respuesta", new { @style = "", @readonly = true, @class = "textAreaCustom text-box-read-only" })
                                                                         }
-                                                                        }
+                                                                     }
 
                                                                 </td>
                                                             </tr>
@@ -209,8 +208,12 @@
 
                                                                     @if (!Model.ReadOnly.Equals("Y"))
                                                                     {
-                                                                    <input type="checkbox" id="chkAgregarDialogFlow" name="chkAgregarDialogFlow" />
-                                                                    <label>Crear Consulta Frecuente</label>
+                                                                        if (Model.VisibleCrearConsulta.Equals("Y"))
+                                                                        {
+                                                                            <input type="checkbox" id="chkAgregarDialogFlow" name="chkAgregarDialogFlow" />
+                                                                            <label>Crear Consulta Frecuente</label>
+                                                                            
+                                                                        }
                                                                     }
 
                                                                 </td>
@@ -220,7 +223,9 @@
 
                                                                     @if (!Model.ReadOnly.Equals("Y"))
                                                                     {
-                                                                    <div id="divCrearConsultaFrecuente" style="display:none">
+                                                                        if (Model.VisibleCrearConsulta.Equals("Y"))
+                                                                        {
+                                                                             <div id="divCrearConsultaFrecuente" style="display:none">
                                                                         <table style="width: 100%; text-align: left" class="tablePopup">
                                                                             <colgroup>
                                                                                 <col width="15%" />
@@ -239,10 +244,31 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td valign="top">
+                                                                                    Etiquetas:
+                                                                                </td>
+                                                                                <td>
+                                                                                    <table>
+                                                                                        <tr>                                                                                            
+                                                                                            <td>
+                                                                                                <div id="divFields">
+                                                                                                    <ul style="height:45px">
+                                                                                                        <li style="background-color:lightgreen;border-radius:4px;margin: 5px">@Html.LabelFor(model => model.Curso,Model.Curso, new { id = "lblCurso" })</li>                                                                                                        
+                                                                                                        <li style="background-color:lightgreen;border-radius:4px"> @Html.LabelFor(model => model.Actividad, Model.Actividad, new { id = "lblActividad" })</li>
+                                                                                                    </ul>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">
                                                                                     Pregunta:
                                                                                 </td>
                                                                                 <td colspan="3">
-                                                                                    <textarea id="txtFrase" name="txtFrase" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                    <div id="divDroppedFields">
+                                                                                        <textarea id="txtFrase" name="txtFrase" style="height:80px;width:100%" class="textAreaCustom"></textarea>
+                                                                                    </div>                                                                                    
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -255,8 +281,8 @@
                                                                             </tr>
                                                                         </table>
                                                                     </div>
+                                                                        }
                                                                     }
-
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -268,18 +294,19 @@
                                                                 <td colspan="4">
                                                                     @if (@Session["Login-Info"] != null)
                                                                     {
-                                                                    if (((ReturnObject<Usuario>
-                                                                        )@Session["Login-Info"]).OneResult.Empleado != null)
+                                                                        if (((ReturnObject<Usuario>
+                                                                            )@Session["Login-Info"]).OneResult.Empleado != null)
                                                                         {
-                                                                        if (!Model.ReadOnly.Equals("Y"))
-                                                                        {
-                                                                        <input type="button" value="Enviar" onclick="javascript: Enviar();" />
+
+                                                                            if (!Model.ReadOnly.Equals("Y"))
+                                                                            {
+                                                                                <input type="button" value="Enviar" onclick="javascript: Enviar();" />
+                                                                            }
                                                                         }
-                                                                        }
-                                                                        }
+                                                                     }
 
 
-                                                                        <input type="button" value="Regresar" onclick="javascript: Cancelar();" />
+                                                                     <input type="button" value="Regresar" onclick="javascript: Cancelar();" />
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -291,17 +318,38 @@
                                         <script type="text/javascript">
 
                                             //-----------------------------------------------------------------------------------------
+                                            function initializeDragDrop() {
+
+                                                $("#divFields li").draggable({
+                                                    helper: "clone"
+                                                });
+
+                                             
+                                                $("#divDroppedFields").droppable({
+                                                    accept: "#divFields li",
+                                                    drop: function (event, ui) {
+                                                        var text = $('#txtFrase').val();
+                                                        $(this).find('#txtFrase').val('');
+                                                        $(this).find('#txtFrase').val((text + ' ' + ui.draggable.text()));
+                                                    }
+
+                                                });                                               
+                                            }
+
+                                            //-----------------------------------------------------------------------------------------
 
                                             $(document).ready(function () {
+
+                                                initializeDragDrop();
 
                                                 $("#chkAgregarDialogFlow").change(function () {
                                                     if ($(this).is(':checked')) {
                                                         var consulta = $('#Consulta').val();
                                                         var frase = $('#txtFrase').val();
 
-                                                        if (frase != null && frase === '') {
-                                                            $('#txtFrase').val(consulta);
-                                                        }
+                                                        //if (frase != null && frase === '') {
+                                                        //    $('#txtFrase').val(consulta);
+                                                        //}
 
                                                         $('#divCrearConsultaFrecuente').css('display', 'block');
 
@@ -338,6 +386,7 @@
                                                 var strCrearConsulta = "0";
 
                                                 if (stringToBoolean(crearConsulta)) {
+
                                                     strCrearConsulta = "1";
                                                     //Validar Nueva Intencion Ingresada
                                                     if ($('#txtPalabraClave').val() === '') {
@@ -355,6 +404,18 @@
                                                     if ($('#txtSolucion').val() === '') {
                                                         alert("Por favor, ingrese la solución");
                                                         $("#txtSolucion").focus();
+                                                        return;
+                                                    }
+
+                                                    //Validar q' Frase 2 contenga los valores de las etiquetas
+                                                    //Curso y Actividad
+                                                    var frase = $('#txtFrase').val();
+                                                    var curso = $('#lblCurso').text();
+                                                    var actividad = $('#lblActividad').text();
+
+                                                    if (!(frase.includes(curso) && frase.includes(actividad))) {
+                                                        alert("Por favor, incluya las etiquetas de Curso y Actividad");
+                                                        $("#txtFrase").focus();
                                                         return;
                                                     }
 
@@ -416,7 +477,9 @@
                                                         nombreIntencion: $('#txtPalabraClave').val(),
                                                         frase1: $('#Consulta').val(),
                                                         frase2: $('#txtFrase').val(),
-                                                        solucionIntencion: $('#txtSolucion').val()
+                                                        solucionIntencion: $('#txtSolucion').val(),
+                                                        curso: $('#lblCurso').text(),
+                                                        actividad: $('#lblActividad').text()
                                                     };
 
                                                     $.ajax({
@@ -464,7 +527,7 @@
                                                 window.open('@Url.Action("Index", "Consulta")', '_self');
                                             }
 
-                                                                                    //-----------------------------------------------------------------------------------------
+                                            //-----------------------------------------------------------------------------------------
 
                                         </script>
                                     </div>

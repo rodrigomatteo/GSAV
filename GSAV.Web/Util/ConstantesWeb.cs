@@ -26,5 +26,10 @@ namespace GSAV.Web.Util
             public const string FilePrivateKeyIdJson = "upc-chatbot-2b629c2109dc.json";
             public const string ProjectId = "upc-chatbot";
         }
+
+        public static class IntencionConsulta
+        {
+            public const string ActividadAcademica = "ActividadAcademica";
+        }
     }
 }

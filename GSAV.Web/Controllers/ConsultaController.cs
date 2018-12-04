@@ -167,14 +167,17 @@ namespace GSAV.Web.Controllers
                     model.Estatus = solicitud.Estado;
                     model.IntencionConsulta = solicitud.IntencionConsulta;
                     model.IdIntencionPadre = solicitud.IdIntencionPadre;
+                    model.Curso = "Curso: " + solicitud.Curso;
+                    model.Actividad = "Actividad: " + solicitud.Actividad;
 
                     if (!model.Estatus.Equals("D"))
                     {
                         model.ReadOnly = "Y";
-                    }
-                    else
+                    }                    
+
+                    if (ConstantesWeb.IntencionConsulta.ActividadAcademica.Equals(model.IntencionConsulta))
                     {
-                        model.ReadOnly = "N";
+                        model.VisibleCrearConsulta = "Y";
                     }
 
                     return View("Detalle", model);
@@ -205,7 +208,9 @@ namespace GSAV.Web.Controllers
             string nombreIntencion,
             string frase1,
             string frase2,
-            string solucionIntencion)
+            string solucionIntencion,
+            string curso,
+            string actividad)
         {
             var respuesta = string.Empty;
 
@@ -219,6 +224,9 @@ namespace GSAV.Web.Controllers
                     intencion.Respuesta = solucionIntencion;
                     intencion.IdIntencionPadre = intencionPadre;
 
+                    //Validar Frase 2
+
+                    
 
                     var frases_ = new List<FraseEntrenamientoModel>();
                     frases_.Add(new FraseEntrenamientoModel { Descripcion = frase1 });
