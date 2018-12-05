@@ -31,5 +31,7 @@ namespace GSAV.Web.Models
         public string VisibleCrearConsulta { get; set; }
         public string Curso { get; set; }
         public string Actividad { get; set; }
+        public string EtiquetaCurso { get; set; }
+        public string EtiquetaActividad { get; set; }
     }
 }

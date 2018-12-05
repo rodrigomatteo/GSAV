@@ -167,8 +167,10 @@ namespace GSAV.Web.Controllers
                     model.Estatus = solicitud.Estado;
                     model.IntencionConsulta = solicitud.IntencionConsulta;
                     model.IdIntencionPadre = solicitud.IdIntencionPadre;
-                    model.Curso = "Curso: " + solicitud.Curso;
-                    model.Actividad = "Actividad: " + solicitud.Actividad;
+                    model.EtiquetaCurso = "Curso:" + solicitud.Curso;
+                    model.EtiquetaActividad = "Actividad:" + solicitud.Actividad;
+                    model.Curso = solicitud.Curso;
+                    model.Actividad = solicitud.Actividad;
 
                     if (!model.Estatus.Equals("D"))
                     {
@@ -204,34 +206,47 @@ namespace GSAV.Web.Controllers
             string idSolicitud,
             string intencionPadre,
             string solucion,
-            string crearConsulta,
+            string accion,
             string nombreIntencion,
             string frase1,
             string frase2,
             string solucionIntencion,
             string curso,
-            string actividad)
+            string actividad,
+            string idDialogFlow)
         {
             var respuesta = string.Empty;
 
             try
             {
-                if (crearConsulta.Equals("1"))
+                if (accion.Equals("NEW"))
                 {
                     var intencion = new Intencion();
                     intencion.IdDialogFlow = "NEW";
+
+                   
                     intencion.Nombre = nombreIntencion;
                     intencion.Respuesta = solucionIntencion;
                     intencion.IdIntencionPadre = intencionPadre;
-
-                    //Validar Frase 2
-
                     
-
                     var frases_ = new List<FraseEntrenamientoModel>();
                     frases_.Add(new FraseEntrenamientoModel { Descripcion = frase1 });
                     frases_.Add(new FraseEntrenamientoModel { Descripcion = frase2 });
                     var resultado = new Dialogflow.DialogFlow(oIBLSolicitud).CreateIntent(intencion, frases_);
+                }
+
+                if (accion.Equals("EDIT"))
+                {
+                    var intencion = new Intencion();
+                    intencion.IdDialogFlow = idDialogFlow;
+                    intencion.Respuesta = respuesta;
+                    intencion.IdIntencionPadre = intencionPadre;
+
+                    var frases_ = new List<FraseEntrenamientoModel>();
+                    frases_.Add(new FraseEntrenamientoModel { Descripcion = frase1 });
+                    frases_.Add(new FraseEntrenamientoModel { Descripcion = frase2 });
+                    var resultado = new Dialogflow.DialogFlow(oIBLSolicitud).UpdateIntent(intencion, frases_);
+
                 }
 
                 var solicitud = new Solicitud();

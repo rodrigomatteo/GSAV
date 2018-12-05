@@ -160,7 +160,9 @@
                                                                 </td>
                                                                 <td style="text-align: left">
                                                                     @Html.TextBoxFor(model => model.IntencionConsulta, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
-                                                                    @Html.HiddenFor(model=> model.IdIntencionPadre)
+                                                                    @Html.HiddenFor(model => model.IdIntencionPadre)
+                                                                    @Html.HiddenFor(model => model.Curso)
+                                                                    @Html.HiddenFor(model => model.Actividad)
                                                                 </td>
                                                                 <td align="left" class="Texto" style="padding-left:10px;"></td>
                                                                 <td style="text-align: left"></td>
@@ -233,15 +235,15 @@
                                                                                 <col width="12%" />
                                                                                 <col width="38%" />
                                                                             </colgroup>
-                                                                            <tr>
+                                                                            @*<tr>
                                                                                 <td valign="top">
                                                                                     Palabra Clave:
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input type="text" id="txtPalabraClave" style="width: 100%;" />
+                                                                                    <input type="text" id="txtPalabraClave" style="width: 100%;display:none" />
                                                                                 </td>
                                                                                 <td colspan="2"></td>
-                                                                            </tr>
+                                                                            </tr>*@
                                                                             <tr>
                                                                                 <td valign="top">
                                                                                     Etiquetas:
@@ -252,8 +254,8 @@
                                                                                             <td>
                                                                                                 <div id="divFields">
                                                                                                     <ul style="height:45px">
-                                                                                                        <li style="background-color:lightgreen;border-radius:4px;margin: 5px">@Html.LabelFor(model => model.Curso,Model.Curso, new { id = "lblCurso" })</li>                                                                                                        
-                                                                                                        <li style="background-color:lightgreen;border-radius:4px"> @Html.LabelFor(model => model.Actividad, Model.Actividad, new { id = "lblActividad" })</li>
+                                                                                                        <li style="background-color:lightgreen;border-radius:4px;margin: 5px">@Html.LabelFor(model => model.EtiquetaCurso,Model.EtiquetaCurso, new { id = "lblCurso" })</li>                                                                                                        
+                                                                                                        <li style="background-color:lightgreen;border-radius:4px"> @Html.LabelFor(model => model.EtiquetaActividad, Model.EtiquetaActividad, new { id = "lblActividad" })</li>
                                                                                                     </ul>
                                                                                                 </div>
                                                                                             </td>
@@ -382,39 +384,28 @@
                                                     return;
                                                 }
 
-                                                var crearConsulta = "0";
-                                                var strCrearConsulta = "0";
+                                                
+                                                var strAccion = "NONE";
 
                                                 if (document.getElementById("chkAgregarDialogFlow") != null) {
                                                     crearConsulta = document.getElementById("chkAgregarDialogFlow").checked;
                                                 }                                                
                                                 
                                                 if (stringToBoolean(crearConsulta)) {
-                                                    strCrearConsulta = "1";
-                                                    //Validar Nueva Intencion Ingresada
-                                                    if ($('#txtPalabraClave').val() === '') {
-                                                        alert("Por favor, ingrese Palabra Clave");
-                                                        $("#txtPalabraClave").focus();
-                                                        return;
-                                                    }
+                                                    strAccion = "NEW";
+                                                    
                                                     //Validar Frase Ingresada
                                                     if ($('#txtFrase').val() === '') {
                                                         alert("Por favor, ingrese la nueva frase de entrenamiento");
                                                         $("#txtFrase").focus();
                                                         return;
                                                     }
-                                                    //Validar Solucion Ingresada
-                                                    if ($('#txtSolucion').val() === '') {
-                                                        alert("Por favor, ingrese la solución");
-                                                        $("#txtSolucion").focus();
-                                                        return;
-                                                    }
 
                                                     //Validar q' Frase 2 contenga los valores de las etiquetas
                                                     //Curso y Actividad
-                                                    var frase = $('#txtFrase').val();
-                                                    var curso = $('#lblCurso').text();
-                                                    var actividad = $('#lblActividad').text();
+                                                    var frase = $('#txtFrase').val().trim();
+                                                    var curso = $('#lblCurso').text().trim();
+                                                    var actividad = $('#lblActividad').text().trim();
 
                                                     if (!(frase.includes(curso) && frase.includes(actividad))) {
                                                         alert("Por favor, incluya las etiquetas de Curso y Actividad");
@@ -422,11 +413,24 @@
                                                         return;
                                                     }
 
+
+                                                    //Validar Solucion Ingresada
+                                                    if ($('#txtSolucion').val() === '') {
+                                                        alert("Por favor, ingrese la solución");
+                                                        $("#txtSolucion").focus();
+                                                        return;
+                                                    }
+
+                                                    
+
                                                     //BEGIN - Validar Si Existe Intencion
                                                     $.blockUI();
 
+                                                    var pNombreIntencion = $('#IntencionConsulta').val() + $('#Actividad').val() + $('#Curso').val();
+                                                    pNombreIntencion = pNombreIntencion.replace(/\s/g, '');  
+                                                    
                                                     var parametros_ = {
-                                                        nombreIntencion: $('#txtPalabraClave').val()
+                                                        nombreIntencion: pNombreIntencion
                                                     };
 
                                                     $.ajax({
@@ -439,17 +443,15 @@
                                                             $.unblockUI();
 
                                                             if (rpta.ValidacionIntencion === 'EXISTE') {
-                                                                $("#txtPalabraClave").focus();
-                                                                $.alert({
-                                                                    closeIcon: true,
-                                                                    title: 'Detalle Consulta',
-                                                                    content: 'La intención ingresada ya existe, ingrese una distinta',
-                                                                    type: 'red',
-                                                                    typeAnimated: true,
-                                                                });
+                                                                //$("#txtPalabraClave").focus();
+
+                                                                if (confirm('La intención ingresada ya existe. ¿Desea reemplazarla?')) {
+                                                                    strAccion = "EDIT";
+                                                                    ConfirmarGrabarDatos(strAccion, rpta.IdDialogFlow);
+                                                                }
                                                             } else {
                                                                 //Registrar la Respuesta y La Nueva Intencion
-                                                                ConfirmarGrabarDatos(strCrearConsulta);
+                                                                ConfirmarGrabarDatos(strAccion);
                                                             }
 
                                                         },
@@ -460,29 +462,36 @@
 
                                                 } else {
                                                     //Registrar la Respuesta y La Nueva Intencion
-                                                    ConfirmarGrabarDatos(strCrearConsulta);
+                                                    ConfirmarGrabarDatos(strAccion);
                                                 }
 
                                             }
 
+                                            function ConfirmarGrabarDatos(strAccion) {
+                                                ConfirmarGrabarDatos(strAccion, '');
+                                            }
                                             //-----------------------------------------------------------------------------------------
 
-                                            function ConfirmarGrabarDatos(strCrearConsulta) {
+                                            function ConfirmarGrabarDatos(strAccion, idDialogFlow) {
                                                 if (confirm('¿Desea enviar la respuesta a la Consulta?')) {
 
                                                     $.blockUI();
+
+                                                    var pNombreIntencion = $('#IntencionConsulta').val() + $('#Actividad').val() + $('#Curso').val();
+                                                    pNombreIntencion = pNombreIntencion.replace(/\s/g, '');  
 
                                                     var parametros = {
                                                         idSolicitud: $('#IdSolicitud').val(),
                                                         intencionPadre: $('#IdIntencionPadre').val(),
                                                         solucion: $('#Respuesta').val(),
-                                                        crearConsulta: strCrearConsulta,
-                                                        nombreIntencion: $('#txtPalabraClave').val(),
+                                                        accion: strAccion,
+                                                        nombreIntencion: pNombreIntencion,
                                                         frase1: $('#Consulta').val(),
                                                         frase2: $('#txtFrase').val(),
                                                         solucionIntencion: $('#txtSolucion').val(),
                                                         curso: $('#lblCurso').text(),
-                                                        actividad: $('#lblActividad').text()
+                                                        actividad: $('#lblActividad').text(),
+                                                        idDialogFlow: idDialogFlow
                                                     };
 
                                                     $.ajax({
