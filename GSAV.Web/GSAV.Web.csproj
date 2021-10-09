@@ -89,7 +89,7 @@
       <HintPath>..\packages\Grpc.Auth.1.13.1\lib\net45\Grpc.Auth.dll</HintPath>
     </Reference>
     <Reference Include="Grpc.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d754f35622e28bad, processorArchitecture=MSIL">
-      <HintPath>..\packages\Grpc.Core.1.13.1\lib\net45\Grpc.Core.dll</HintPath>
+      <HintPath>..\packages\Grpc.Core.1.18.0\lib\net45\Grpc.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
@@ -274,6 +274,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ConsultaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ToolsController.cs" />
     <Compile Include="Dialogflow\DialogFlow.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -330,6 +331,12 @@
     <Content Include="Content\jquery-ui-timepicker-addon.css" />
     <Content Include="Content\Table.css" />
     <Content Include="Content\ui.jqgrid.css" />
+    <Content Include="Content\upc\bbcswebdav\institution\Branding\New_Login\appstore.png" />
+    <Content Include="Content\upc\bbcswebdav\institution\Branding\New_Login\bblearn_2011_bg.png" />
+    <Content Include="Content\upc\bbcswebdav\institution\Branding\New_Login\correo.png" />
+    <Content Include="Content\upc\bbcswebdav\institution\Branding\New_Login\fondo-bb.jpg" />
+    <Content Include="Content\upc\bbcswebdav\institution\Branding\New_Login\google-play.png" />
+    <Content Include="Content\upc\bbcswebdav\institution\Branding\New_Login\soporte.png" />
     <Content Include="Content\upc\branding\themes\UPC2018\app_nav.css" />
     <Content Include="Content\upc\branding\themes\UPC2018\images\aulavirtual-logo.png" />
     <Content Include="Content\upc\branding\themes\UPC2018\images\bblearn_2011_bg.png" />
@@ -342,12 +349,34 @@
     <Content Include="Content\upc\branding\themes\UPC2018\theme1.css" />
     <Content Include="Content\upc\branding\themes\UPC2018\theme2.css" />
     <Content Include="Content\upc\branding\_1_1\brand.css" />
+    <Content Include="Content\upc\branding\_1_1\CustomNavigationLogo.png" />
+    <Content Include="Content\upc\branding\_1_1\loginLogo\CustomLoginLogo.png" />
     <Content Include="Content\upc\branding\_1_1\logo-90x90.png" />
     <Content Include="Content\upc\common\shared.css" />
     <Content Include="Content\upc\fonts\icon-core.css" />
     <Content Include="Content\upc\fonts\icon-listing.css" />
+    <Content Include="Content\upc\groupjs\0B1FC17DEDC3A018704EC34651A58AB9.js" />
+    <Content Include="Content\upc\groupjs\AC879C98C04B4D84F7C9F97BBF61F4D8.js" />
     <Content Include="Content\upc\groupjs\EAB0C82B128EE3ABB7F3ADB960052484.js" />
+    <Content Include="Content\upc\javascript\i18n.js" />
+    <Content Include="Content\upc\ui-ultra\css\ultra.css" />
+    <Content Include="Content\upc\ui-ultra\js\hide-focus-outline.js" />
+    <Content Include="Content\upc\ui-ultra\js\login-page.js" />
     <Content Include="Content\upc\ui\bb-icon2.ico" />
+    <Content Include="Content\upc\ui\bb-icon3.ico" />
+    <Content Include="Content\upc\ui\styles\print.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\0-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\143-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\16-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\18-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\28-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\4-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\534-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\567-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\580-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\app-fa2dcc8d839b58312b15.css" />
+    <Content Include="Content\upc\webapps\videointegration\css\video-integration.css" />
+    <Content Include="Content\upc\webapps\vtbe-tinymce\css\prism\prism.css" />
     <Content Include="Content\webchat-stable\botchat-fullwindow.css" />
     <Content Include="Content\webchat-stable\botchat.css" />
     <Content Include="favicon.ico" />
@@ -373,9 +402,16 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Shared\_ToolsMenu.cshtml" />
+    <Content Include="Content\upc\ui-ultra\fonts\noto-serif\noto-serif-regular.woff" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\71184349f4d000a8dda37aa80ccfd4b2.woff" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\061b81d58cf24a5d58d0168809d74764.woff" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\6b08026f6fea05532f43a4cbc0c9bac4.woff" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\580-fa2dcc8d839b58312b15.js" />
+    <Content Include="Content\upc\ultra\uiv3900.19.0-rel.9_e8cb3db\vendors_app-fa2dcc8d839b58312b15.js" />
     <None Include="Properties\PublishProfiles\blackboard-upc - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\blackboard-upc - Web Deploy.pubxml" />
     <Content Include="Views\Home\Index - Copy.cshtml" />
+    <Content Include="Views\Tools\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -481,11 +517,11 @@
     <PropertyGroup>
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Grpc.Core.1.13.1\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grpc.Core.1.13.1\build\net45\Grpc.Core.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.4.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Grpc.Core.1.18.0\build\net45\Grpc.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grpc.Core.1.18.0\build\net45\Grpc.Core.targets'))" />
   </Target>
-  <Import Project="..\packages\Grpc.Core.1.13.1\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.13.1\build\net45\Grpc.Core.targets')" />
+  <Import Project="..\packages\Grpc.Core.1.18.0\build\net45\Grpc.Core.targets" Condition="Exists('..\packages\Grpc.Core.1.18.0\build\net45\Grpc.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

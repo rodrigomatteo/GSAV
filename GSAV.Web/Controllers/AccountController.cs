@@ -104,7 +104,7 @@ namespace GSAV.Web.Controllers
                         if (string.IsNullOrEmpty(returnUrl))
                         {
                             TempData["id"] = logindetails.Id;
-                            this.RedirectToAction("Index", "Home");
+                            return this.RedirectToAction("Index", "Home");
                         }
                         return this.RedirectToLocal(returnUrl);
                     }

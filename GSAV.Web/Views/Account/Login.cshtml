@@ -16,162 +16,665 @@
     <meta name="keywords" content="Blackboard">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="-1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script type="text/javascript">window.NREUM || (NREUM = {}), __nr_require = function (e, t, n) { function r(n) { if (!t[n]) { var o = t[n] = { exports: {} }; e[n][0].call(o.exports, function (t) { var o = e[n][1][t]; return r(o || t) }, o, o.exports) } return t[n].exports } if ("function" == typeof __nr_require) return __nr_require; for (var o = 0; o < n.length; o++)r(n[o]); return r }({ 1: [function (e, t, n) { function r() { } function o(e, t, n) { return function () { return i(e, [f.now()].concat(u(arguments)), t ? null : this, n), t ? void 0 : this } } var i = e("handle"), a = e(2), u = e(3), c = e("ee").get("tracer"), f = e("loader"), s = NREUM; "undefined" == typeof window.newrelic && (newrelic = s); var p = ["setPageViewName", "setCustomAttribute", "setErrorHandler", "finished", "addToTrace", "inlineHit", "addRelease"], d = "api-", l = d + "ixn-"; a(p, function (e, t) { s[t] = o(d + t, !0, "api") }), s.addPageAction = o(d + "addPageAction", !0), s.setCurrentRouteName = o(d + "routeName", !0), t.exports = newrelic, s.interaction = function () { return (new r).get() }; var m = r.prototype = { createTracer: function (e, t) { var n = {}, r = this, o = "function" == typeof t; return i(l + "tracer", [f.now(), e, n], r), function () { if (c.emit((o ? "" : "no-") + "fn-start", [f.now(), r, o], n), o) try { return t.apply(this, arguments) } catch (e) { throw c.emit("fn-err", [arguments, this, e], n), e } finally { c.emit("fn-end", [f.now()], n) } } } }; a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","), function (e, t) { m[t] = o(l + t) }), newrelic.noticeError = function (e) { "string" == typeof e && (e = new Error(e)), i("err", [e, f.now()]) } }, {}], 2: [function (e, t, n) { function r(e, t) { var n = [], r = "", i = 0; for (r in e) o.call(e, r) && (n[i] = t(r, e[r]), i += 1); return n } var o = Object.prototype.hasOwnProperty; t.exports = r }, {}], 3: [function (e, t, n) { function r(e, t, n) { t || (t = 0), "undefined" == typeof n && (n = e ? e.length : 0); for (var r = -1, o = n - t || 0, i = Array(o < 0 ? 0 : o); ++r < o;)i[r] = e[t + r]; return i } t.exports = r }, {}], 4: [function (e, t, n) { t.exports = { exists: "undefined" != typeof window.performance && window.performance.timing && "undefined" != typeof window.performance.timing.navigationStart } }, {}], ee: [function (e, t, n) { function r() { } function o(e) { function t(e) { return e && e instanceof r ? e : e ? c(e, u, i) : i() } function n(n, r, o, i) { if (!d.aborted || i) { e && e(n, r, o); for (var a = t(o), u = m(n), c = u.length, f = 0; f < c; f++)u[f].apply(a, r); var p = s[y[n]]; return p && p.push([b, n, r, a]), a } } function l(e, t) { v[e] = m(e).concat(t) } function m(e) { return v[e] || [] } function w(e) { return p[e] = p[e] || o(n) } function g(e, t) { f(e, function (e, n) { t = t || "feature", y[n] = t, t in s || (s[t] = []) }) } var v = {}, y = {}, b = { on: l, emit: n, get: w, listeners: m, context: t, buffer: g, abort: a, aborted: !1 }; return b } function i() { return new r } function a() { (s.api || s.feature) && (d.aborted = !0, s = d.backlog = {}) } var u = "nr@context", c = e("gos"), f = e(2), s = {}, p = {}, d = t.exports = o(); d.backlog = s }, {}], gos: [function (e, t, n) { function r(e, t, n) { if (o.call(e, t)) return e[t]; var r = n(); if (Object.defineProperty && Object.keys) try { return Object.defineProperty(e, t, { value: r, writable: !0, enumerable: !1 }), r } catch (i) { } return e[t] = r, r } var o = Object.prototype.hasOwnProperty; t.exports = r }, {}], handle: [function (e, t, n) { function r(e, t, n, r) { o.buffer([e], r), o.emit(e, t, n) } var o = e("ee").get("handle"); t.exports = r, r.ee = o }, {}], id: [function (e, t, n) { function r(e) { var t = typeof e; return !e || "object" !== t && "function" !== t ? -1 : e === window ? 0 : a(e, i, function () { return o++ }) } var o = 1, i = "nr@id", a = e("gos"); t.exports = r }, {}], loader: [function (e, t, n) { function r() { if (!x++) { var e = h.info = NREUM.info, t = d.getElementsByTagName("script")[0]; if (setTimeout(s.abort, 3e4), !(e && e.licenseKey && e.applicationID && t)) return s.abort(); f(y, function (t, n) { e[t] || (e[t] = n) }), c("mark", ["onload", a() + h.offset], null, "api"); var n = d.createElement("script"); n.src = "https://" + e.agent, t.parentNode.insertBefore(n, t) } } function o() { "complete" === d.readyState && i() } function i() { c("mark", ["domContent", a() + h.offset], null, "api") } function a() { return E.exists && performance.now ? Math.round(performance.now()) : (u = Math.max((new Date).getTime(), u)) - h.offset } var u = (new Date).getTime(), c = e("handle"), f = e(2), s = e("ee"), p = window, d = p.document, l = "addEventListener", m = "attachEvent", w = p.XMLHttpRequest, g = w && w.prototype; NREUM.o = { ST: setTimeout, SI: p.setImmediate, CT: clearTimeout, XHR: w, REQ: p.Request, EV: p.Event, PR: p.Promise, MO: p.MutationObserver }; var v = "" + location, y = { beacon: "bam.nr-data.net", errorBeacon: "bam.nr-data.net", agent: "js-agent.newrelic.com/nr-1071.min.js" }, b = w && g && g[l] && !/CriOS/.test(navigator.userAgent), h = t.exports = { offset: u, now: a, origin: v, features: {}, xhrWrappable: b }; e(1), d[l] ? (d[l]("DOMContentLoaded", i, !1), p[l]("load", r, !1)) : (d[m]("onreadystatechange", o), p[m]("onload", r)), c("mark", ["firstbyte", u], null, "api"); var x = 0, E = e(4) }, {}] }, {}, ["loader"]);</script>
-    <link rel="SHORTCUT ICON" type="image/x-icon" href="~/Content/upc/ui/bb-icon2.ico">
-    <link rel="stylesheet" type="text/css" href="~/Content/upc/common/shared.css?v=3200.0.5-rel.6+3dd6b56" id="css_0">
-    <link rel="stylesheet" type="text/css" href="~/Content/upc/branding/themes/UPC2018/theme.css?v=3200.0.5-rel.6+3dd6b56" id="css_1">
-    <link rel="stylesheet" type="text/css" href="~/Content/upc/branding/_1_1/brand.css?ts=1514300964000&v=3200.0.5-rel.6+3dd6b56" id="css_2">
+    <link rel="SHORTCUT ICON" type="image/x-icon" href="~/Content/upc/ui/bb-icon3.ico">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ui-ultra/css/ultra.css?v=3900.19.0-rel.35+4040100" id="css_0">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/webapps/vtbe-tinymce/css/prism/prism.css?v=3900.19.0-rel.35+4040100" id="css_1">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/webapps/videointegration/css/video-integration.css?v=3900.19.0-rel.35+4040100_3900.19.0-rel.35+4040100" id="css_2">
     <style type="text/css">
-        /* Custom styles go here */
-        #loginBox li label,
-        .portlet #loginBoxFull li label {
-            color: #333;
+        @@charset "utf-8";
+
+        /*------------main quick changes-----------*/
+        /*login button*/
+        input#entry-login {
+            background-color: #ff0000;
         }
 
-        #loginBox li input {
-            box-shadow: none;
-            -moz-box-shadow: none;
-            -webkit-box-shadow: none;
+        /*background image*/
+    body#learn-oe-body { background: url('../../Content/upc/bbcswebdav/institution/Branding/New_Login/fondo-bb.jpg') no-repeat center center fixed; }
+
+        /*background color left block*/
+        div#loginblockmain {
+            background-color: white;
         }
 
-        #loginBox input[type="text"],
-        #loginBox input[type="password"] {
-            -moz-border-radius: 0;
-            -webkit-border-radius: 0;
+        /*Background color right block*/
+        div#contentblock {
+            background-color: #0000007a;
+            color: #fff;
+            border-radius: 0px 10px 10px 0px;
+        }
+
+        /*Create a new account*/
+        .trial-registration a {
+            color: #ff0000;
+        }
+
+        /*Hide or show Forgot Password*/
+        .collapse:not(.show) {
+            display: none;
+        }
+
+        .login-form-footer .text-right a {
+            color: #ff0000;
+
+        }
+
+        /*Course Catalogue Button*/
+        div#ultraCourseCatalogLink a {
+            color: #fff !important;
+            background-color: #ff0000;
+        }
+
+        /*-----------main body blocks-----------*/
+        div#mainblocks {
+            max-width: 800px;
+            margin: 5% auto;
+        }
+
+        div#mainblocks .row {
+            margin: 0;
+        }
+
+        div#loginblockmain,
+        div#contentblock {
+            padding: 2em;
+        }
+
+        body#learn-oe-body {
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+        /*-------------Login block-------------*/
+        .bb-login #login-block {
+            margin: 0 auto;
+            min-width: 15rem;
+            max-width: 20rem;
+        }
+
+        .bb-login .login-form ul input[type='text'],
+        .bb-login .login-form ul input[type='password'] {
+            border: 1px solid black;
+            border-radius: 2em;
+        }
+
+        .bb-login .login-form ul input[type='text']:focus,
+        .bb-login .login-form ul input[type='password']:focus {
+            border-bottom-color: black;
+        }
+
+        .bb-login .login-form ul label.float-above {
+            margin-top: -6px;
+            color: #272726;
+        }
+
+        .bb-login .login-form ul label {
+            margin-left: 10px;
+            width: 100%;
+            margin-top: 6px;
+            left: 0;
+        }
+
+        input#entry-login {
+            margin-bottom: 2em;
+            border-radius: 2em;
+            margin-top: 1em;
+            width: 100%;
+            max-width: 70%;
+            color: #fff;
+            border: 0px;
+            box-shadow: 0 0 0 0px #fff inset;
+            font-family: 'Oswald', sans-serif;
+        }
+
+    div#loginblockmain { background: url('../../Content/upc/bbcswebdav/institution/Branding/New_Login/bblearn_2011_bg.png') repeat 0 0; border-radius: 10px 10px 10px 10px; }
+
+        .bb-login .login-form ul label {
+            color: black;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="date"],
+        input[type="datetime"],
+        input[type="datetime-local"],
+        input[type="month"],
+        input[type="week"],
+        input[type="email"],
+        input[type="number"],
+        input[type="search"],
+        input[type="tel"],
+        input[type="time"],
+        input[type="url"],
+        input[type="color"],
+        textarea {
+            padding: 1rem;
+        }
+
+        .bb-login .login-form ul input[type='text'],
+        .bb-login .login-form ul input[type='password'] {
+            color: black;
+        }
+
+        .trial-registration {
+            margin-top: 0;
+        }
+
+        .login-form-footer .small-6 {
+            width: 100% !important;
+        }
+
+        .login-form-footer .text-right a {
+            text-align: center;
+            display: block;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        div#ultraCourseCatalogLink a {
+            text-decoration: none !important;
+            padding: 1em 2em;
+            margin-bottom: 10px;
+            border-radius: 2em;
+            font-size: 14px !important;
+        }
+
+        div#ultraCourseCatalogLink {
+            margin-bottom: 2em;
+        }
+
+        /*------------logo-----------------*/
+        h1.login-logo.new-logo.customized-logo {
+            margin: 5% 0;
+        }
+
+        .bb-login .new-logo.customized-logo img {
+            width: 100%;
+            height: auto;
             border-radius: 0;
-            background: #efefef;
-            padding: 6px;
-            border: 2px solid #ddd;
-            color: #666;
-            font-weight: bold;
-            margin: 0 0 0 -10px;
+            max-width: 70%;
         }
 
-            #loginBox input[type="text"]:focus,
-            #loginBox input[type="password"]:focus,
-            #loginBox input[type="text"]:hover,
-            #loginBox input[type="password"]:hover {
-                background: #fff;
-                border-color: #E3000F;
-                color: #333;
-                outline: none;
-            }
+        /*-------------Announcements------------*/
+        .bb-login .login-page-announcements {
+            margin-top: 0;
+            margin-bottom: 2em;
+        }
 
-        #loginOptions {
-            margin: 38px auto 26px;
-            width: 431px;
+        .bb-login .login-page-announcements #loginAnnouncements>ul>li {
+            width: auto;
+            border-radius: 2px;
+            background-color: #2125291a !important;
+            color: #212529;
+            border: 1px solid white;
+            border-radius: 2em;
+            padding: 20px !important;
+            max-width: auto;
+            display: block;
+            padding-top: 24px;
+        }
+
+        .bb-login .login-page-announcements #loginAnnouncements>ul>li strong {
+            padding: 0;
+        }
+
+        div#loginAnnouncements {
+            max-height: 210px;
+        }
+
+        a.appimg img {
+            width: 25%;
+            margin: 0 0% !important;
+        }
+
+        .bbResources h1 {
+            color: #fff;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .bb-login .login-page-announcements #loginAnnouncements>ul>li .announcementDate {
+            display: block;
+            flex: 0 0 100%;
+            text-align: justify;
+            padding-top: 0;
+        }
+
+        .vtbegenerated p {
+            font-family: inherit;
+            font-weight: 400;
+            font-size: 12px !important;
+            line-height: 1.6;
+            margin-bottom: 1.25rem;
+            text-rendering: optimizeLegibility;
+            text-align: justify;
+        }
+
+        .bb-login .login-page-announcements #loginAnnouncements>ul>li .vtbegenerated {
+            max-height: auto;
+            padding-right: 0px;
+            margin-top: 15px;
+            overflow-y: initial;
+            flex: 0 0 100%;
+        }
+
+        /*------------Footer-----------*/
+        .bb-login #gatewayButtons {
+            margin-bottom: 0;
+        }
+
+        div#gatewayButtons ul {
+            margin-bottom: 0;
+        }
+
+        div#gatewayButtons ul li a {
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .bb-login #copyright {
+            margin-top: 15px;
+            color: white;
+        }
+
+        #footernew {
+            bottom: 0;
             text-align: center;
         }
 
-            #loginOptions ul li a,
-            #loginOptions ul li.subOption a {
-                font-size: 130%;
-                border-bottom: 1px dotted #E3000F;
-            }
+        div#loginOptions,
+        div#copyright {
+            margin: 0px auto;
+        }
 
-        #loginFormList .forgot {
+        /*---------Browser Edits-------*/
+        .row:before,
+        .row:after {
+            display: flex !important;
+        }
+
+        /*-----------media queries-----------*/
+        @@media (max-width: 576px) {
+            div#loginblockmain {
+                margin: 0;
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #btn-mas {
             display: none;
         }
 
-        #loginFormList li:first-child + li + li {
-            float: right;
+        .sticky {
+            position: fixed;
+            right: 0px;
+            top: 230px;
+
         }
 
-        .custom_forgot a {
-            color: #000;
-            border-bottom: 1px dotted #000
+        .redes a,
+        .icon-mas2 {
+            display: block;
+            text-decoration: none;
+            background: #ffffff;
+            color: #fff;
+            width: 150px;
+            height: 55px;
+            line-height: 55px;
+            text-align: center;
+            box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.4);
+            transition: all 500ms ease;
+            border-radius: 10px 0px 0px 10px;
+            font-family: 'Oswald', sans-serif;
         }
 
-            .custom_forgot a:hover {
-                color: #E3000F;
-                border-bottom: 1px dotted #E3000F
-            }
-
-        .custom_forgot {
-            float: left;
-            position: relative;
-            text-align: left;
-            top: -15px;
-            left: 80px;
+        .redes a:hover {
+            background: rgb(47, 47, 47);
+            color: #ffffff;
         }
 
-        #custom_forgot_msg {
-            border: 2px solid #ccc;
-            background: #ffa;
-            width: 200px;
-            float: left;
-            text-align: left;
-            margin: 10px 0 0 -45px;
-            padding: 10px;
-            display: none;
+        .redes a {
+            margin-bottom: -15px;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #btn-mas:checked~.redes a {
+            margin-bottom: 10px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .icon-mas2 {
+            cursor: pointer;
+            background: #ff0000;
+            font-size: 12px;
+            width: 150px;
+        }
+
+        #btn-mas:checked~.btn-mas .icon-mas2 {
+            font-size: 12px;
+        }
+
+        a.pregrado {
+            color: #ff0000;
+            height: 50px;
+            font-size: 15px;
+        }
+
+        a.posgrado {
+            color: black;
+            height: 50px;
+            font-size: 15px;
+        }
+
+        .correo {
+            height: 50px;
+            color: #fff !important;
+            text-align: center;
+            text-decoration: none !important;
+        }
+
+        a.appimg img {
+            width: 30%;
+            margin: 0 0% !important;
         }
     </style>
 
-    <script type="text/javascript" src="~/Content/upc/groupjs/EAB0C82B128EE3ABB7F3ADB960052484.js?v=3200.0.5-rel.6+3dd6b56"></script>
+    <link rel="stylesheet" type="text/css" media="print" href="~/Content/upc/ui/styles/print.css?v=3900.19.0-rel.35+4040100">
+    <script type="text/javascript" src="~/Content/upc/javascript/i18n.js?v=3900.19.0-rel.35+4040100"></script>
+    <script language='javascript' type='text/javascript'>
+
+        var JS_RESOURCES = new Object();
+
+        function _init_bundle_JS_RESOURCES() {
+
+            JS_RESOURCES['validation.email'] = 'Se debe introducir una dirección de correo electrónico válida (por ejemplo, info@blackboard.com).';
+            JS_RESOURCES['validation.radio.required'] = 'Para continuar, realice una selección.';
+            JS_RESOURCES['assessment.incomplete.confirm.backtrackProhibited.survey'] = 'Las siguientes preguntas podrían estar incompletas:\n {0}\nHaga clic en Cancelar para volver a la encuesta. Haga clic en Aceptar para guardar la respuesta incompleta.';
+            JS_RESOURCES['common.list.separator.comma'] = '{0}, {1}';
+            JS_RESOURCES['active.filter.search.terms'] = 'Términos de búsqueda';
+            JS_RESOURCES['validation.points.decimal.places.error.location'] = 'Los valores en puntos pueden tener 5 lugares decimales como máximo: {0}.';
+            JS_RESOURCES['validation.maximum_length.plural'] = 'No debe contener más de {1} caracteres: {0}.\nReduzca el tamaño de la entrada en {2} caracteres.';
+            JS_RESOURCES['assessment.incomplete.confirm.backtrackProhibited'] = 'Las siguientes preguntas podrían estar incompletas:\n {0}\nHaga clic en Cancelar para volver a al examen Haga clic en Aceptar para guardar la respuesta incompleta.';
+            JS_RESOURCES['validation.multiSelect.minItems'] = 'El cuadro de multiselección debe contener al menos {0} elementos.';
+            JS_RESOURCES['validation.cmp_field.required'] = 'Se debe proporcionar un valor de {0}\ncuando el campo {1} no está vacío';
+            JS_RESOURCES['warning.email'] = 'La dirección de correo electrónico es un campo recomendado. Los usuarios no podrán utilizar ciertas partes del sistema sin una dirección de correo electrónico.';
+            JS_RESOURCES['validation.maximum_length.no_name.singular'] = 'No debe contener más de {0} caracteres.\nReducir el tamaño de la entrada en un carácter.';
+            JS_RESOURCES['validation.multiSelect.maxItems'] = 'El cuadro de multiselección no debe contener más de {0} elementos.';
+            JS_RESOURCES['validation.number'] = 'Se debe introducir un valor numérico válido: {0}.';
+            JS_RESOURCES['validation.date.required'] = 'Es necesario proporcionar un valor de fecha completo: {0}.';
+            JS_RESOURCES['portalmodule.section.remove'] = '¿Eliminar: {0}?';
+            JS_RESOURCES['show.helptext'] = 'Mostrar texto de ayuda';
+            JS_RESOURCES['validation.password'] = 'La contraseña no puede estar vacía ni contener solo espacios.';
+            JS_RESOURCES['validation.percent'] = 'Se debe introducir un valor de porcentaje entre 0 y 100 válido.';
+            JS_RESOURCES['validation.mismatch'] = 'Los valores que introdujo no coinciden: {0}.\nConfirmar: {0}.';
+            JS_RESOURCES['validation.maximum_length.no_name.plural'] = 'No debe contener más de {0} caracteres.\nReducir {1} caracteres el tamaño de la entrada.';
+            JS_RESOURCES['validation.invalid_value'] = 'Se ha proporcionado un valor numérico no válido: {0}.';
+            JS_RESOURCES['field_name.substitute'] = '\'\'Campo de entrada {0}.';
+            JS_RESOURCES['validation.required'] = 'Es necesario suministrar un valor: {0}';
+            JS_RESOURCES['active.filter.free.form.text.blank'] = 'Especifique un valor para el campo de texto de búsqueda.';
+            JS_RESOURCES['validate.alignment.missing.content'] = 'Ha seleccionado las alineaciones pero no ha seleccionado ningún contenido alineable que copiar.';
+            JS_RESOURCES['validation.system_role.reserve'] = '"bb" no se permite al comienzo de una ID de rol.';
+            JS_RESOURCES['validation.date_past'] = 'La fecha de finalización no puede ser anterior a la fecha de inicio.';
+            JS_RESOURCES['validation.invalid_chars'] = 'Contiene caracteres no válidos: {0}.\nElimine estos caracteres: {1}';
+            JS_RESOURCES['confirm.delete_item_value'] = 'Este elemento {0} se eliminará. ¿Desea continuar?';
+            JS_RESOURCES['hide.helptext'] = 'Ocultar texto de ayuda';
+            JS_RESOURCES['validate.range.lessthen.str'] = 'Menos de {0}';
+            JS_RESOURCES['validation.date_past.confirm'] = 'La hora indicada ya ha pasado.\n¿Desea continuar con esta hora?';
+            JS_RESOURCES['validate.login.invalid.username.or.pass'] = 'Introduzca un nombre de usuario y una contraseña.';
+            JS_RESOURCES['validation.negative'] = 'Se debe introducir un valor no negativo válido: {0}.';
+            JS_RESOURCES['validation.url'] = 'Se debe introducir una dirección URL válida (por ejemplo, http://www.miuniversidad.es).';
+            JS_RESOURCES['validate.range.overlap'] = 'criterios ({0}) se superpone a los criterios ({1}).';
+            JS_RESOURCES['validate.range.between.str'] = 'Entre {0} y {1}';
+            JS_RESOURCES['validation.portal.tool.items.remove'] = '¿Eliminar: {0}?';
+            JS_RESOURCES['validation.association.refresh.confirm'] = 'Es posible que la información de los elementos asociados se haya actualizado.\nHaga clic en "Aceptar" para actualizar la lista o haga clic en "Cancelar" para continuar en la página actual.';
+            JS_RESOURCES['validate.enrolloptions.error.codeconflict'] = 'La opción Inscripción por código de acceso no es compatible con la selección de inscripción dirigida por {instructor}.';
+            JS_RESOURCES['validation.points.decimal.places'] = 'Los valores en puntos pueden tener 5 lugares decimales como máximo.';
+            JS_RESOURCES['validation.option.required'] = 'Debe seleccionar como mínimo una opción de la lista.';
+            JS_RESOURCES['list.checkToSelectAllItems'] = 'Para seleccionar todos los elementos, active esta casilla';
+            JS_RESOURCES['active.filter.changed.alert'] = 'los criterios ahora contienen';
+            JS_RESOURCES['vtbe.artifact.footer.validate.nameIfSaveArtifact'] = 'Especifique un nombre para guardar como objeto reutilizable.';
+            JS_RESOURCES['validate.invalidate.number'] = 'Introduzca un número válido en lugar de {0}.';
+            JS_RESOURCES['validation.valid_course_id'] = 'La ID del curso contiene caracteres ilegales o caracteres multibyte.';
+            JS_RESOURCES['assessment.incomplete.confirm'] = 'Las siguientes preguntas podrían estar incompletas:\n {0}\nHaga clic en Cancelar para volver a al examen Haga clic en Aceptar para enviar la evaluación.';
+            JS_RESOURCES['validate.enrolloptions.error.nooption'] = 'Advertencia: debe seleccionar la opción Dirigida por {instructor} o Autoinscripción.';
+            JS_RESOURCES['validation.date_equal'] = 'La fecha de inicio no puede ser la misma que la fecha de finalización.';
+            JS_RESOURCES['validation.cmp_field.rejected'] = 'No se puede utilizar el {0} sin un valor {1} correspondiente.';
+            JS_RESOURCES['validation.time.required'] = 'Es necesario proporcionar un valor de hora completo: {0}.';
+            JS_RESOURCES['validation.integer_number'] = 'Se debe introducir un valor numérico entero válido: {0}.';
+            JS_RESOURCES['validation.maximum_length'] = 'No debe contener más de 255 caracteres';
+            JS_RESOURCES['validate.enrolloptions.error.emailrequestconflict'] = 'La opción de inscripción por correo electrónico seleccionada no es compatible con la selección de autoinscripción.';
+            JS_RESOURCES['invalid_char.space'] = 'espacio';
+            JS_RESOURCES['validate.range.morethen.str'] = 'Más de {0}';
+            JS_RESOURCES['notification.submit'] = 'Esta acción ya fue enviada.\nEspere hasta que haya finalizado la acción.';
+            JS_RESOURCES['validation.plain_text.confirm'] = 'Para mostrar las ecuaciones correctamente en este documento, se debe seleccionar formato Texto inteligente o HTML.\nHaga clic en "Aceptar" para guardar en formato Solo texto seleccionado, o haga clic en "Cancelar" para seleccionar un formato nuevo.';
+            JS_RESOURCES['invalid_char.comma'] = 'coma';
+            JS_RESOURCES['validation.allow_negtive.percent'] = 'Debe introducirse un valor válido entre -100 y 100.';
+            JS_RESOURCES['confirm.remove_item'] = 'Esta acción es definitiva y no se puede deshacer. ¿Desea continuar?';
+            JS_RESOURCES['list.uncheckToDeselectAllItems'] = 'Para anular la selección de todos los elementos, desactive esta casilla';
+            JS_RESOURCES['validation.maximum_length.singular'] = 'No debe contener más de {1} caracteres: {0}.\nReduzca el tamaño de la entrada en un carácter.';
+            JS_RESOURCES['validation.rubric.decimalplaces'] = 'Demasiados espacios decimales. El máximo es 5.';
+            JS_RESOURCES['validation.minimum_length'] = 'Se debe introducir un mínimo de {0} caracteres: {1}.';
+            JS_RESOURCES['vtbe.artifact.footer.validate.saveLocationIfSaveArtifact'] = 'Especifique una ubicación para el objeto reutilizable.';
+            JS_RESOURCES['assessment.incomplete.confirm.survey'] = 'Las siguientes preguntas podrían estar incompletas:\n {0}\nHaga clic en Cancelar para volver a la encuesta. Haga clic en Aceptar para enviar la evaluación.';
+            JS_RESOURCES['validation.image_type'] = 'Tipo de imagen desconocido: {0}. Es posible que la imagen no se visualice correctamente.';
+            JS_RESOURCES['validate.invalidate.number.space'] = 'Espacio';
+
+            JS_RESOURCES.getString = i18n_get_string;
+            JS_RESOURCES.getFormattedString = i18n_get_formatted_string;
+
+        }
+
+        _init_bundle_JS_RESOURCES();
+
+    </script>
+    <script language='javascript' type='text/javascript'>
+
+        var LOCALE_SETTINGS = new Object();
+
+        function _init_bundle_LOCALE_SETTINGS() {
+
+            LOCALE_SETTINGS['LOCALE_SETTINGS.ADDRESS_FIELD_ORDER'] = 'STREET_1 STREET_2 CITY STATE ZIP_CODE COUNTRY';
+            LOCALE_SETTINGS['number_format.exponent'] = 'eE';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.NAME.COLUMN.2'] = '{1}';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.YEAR_CHARACTER.03255'] = '';
+            LOCALE_SETTINGS['BBI18N.SOLARIS_CHARSET'] = 'ISO8859-1';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.NAME.COLUMN.1'] = '{0}';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.CALENDAR_COLUMN_FORMAT_MONTH.03255'] = 'ddd';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.internal_date_format'] = 'dd/MM/yy';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.CALENDAR_TITLE_FORMAT_MONTH.03259'] = 'MMMM \'de\' yyyy';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.TIME_ORDER.00519'] = 'HMP';
+            LOCALE_SETTINGS['float.format'] = '^([0-9]{1,3}(\\.[0-9]{3})*(\\,[0-9]+)?|\\,[0-9]+)?$';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.NAME.SORT_COLUMN'] = 'familyName';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.SHORT'] = '{1} {3}';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.DAY_SHORT.02097'] = 'LUN MAR MIÉ JUE VIE SÁB DOM';
+            LOCALE_SETTINGS['float.allow.negative.format'] = '^((([-]?[0-9]{1,3}(\\.[0-9]{3})*)|[-]?[0-9]*)(\\,[0-9]+)?|\\,[0-9]+)?$';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.CALENDAR_TYPE'] = 'GREGORIAN';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.GIVEN_INITIAL_FAMILY_NAME'] = '{4} {3}';
+            LOCALE_SETTINGS['efloat.format'] = '^[+-]?[0-9]*(\\,[0-9]+)?([eE][+-]?[0-9]+)?$';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.CALENDAR_TITLE_FORMAT_WEEK.03260'] = 'd[ MMM][ yyyy]{\'&#8212;\'d MMM \'de\' yyyy}';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.MONTH_FULL.02100'] = 'enero febrero marzo abril mayo junio julio agosto septiembre octubre noviembre diciembre';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.NUMBERS_HIJRI_LOCALIZED.00521'] = 'NO';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.LONG'] = '{0} {1} {2} {3}';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.WORK_FIELD_ORDER'] = 'JOB_TITLE DEPARTMENT COMPANY B_PHONE_1 B_PHONE_2 B_FAX';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.MONTH_FULL_HIJRI.02100'] = 'Muḥarram,Ṣafar,Rabīʿ\'al-Awwal,Rabīʿ\'ath-Thānī,Jumādā\'al-Ūlā,Jumādā\'ath-Thāniya,Rajab,Shaʿbān,Ramaḍān,Shawwāl,Dhū\'al-Qaʿda,Dhū\'al-Ḥijja';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.GREETING'] = 'Bienvenido, {1}';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.MONTH_SHORT.00520'] = 'ene feb mar abr may jun jul ago sep oct nov dic';
+            LOCALE_SETTINGS['number_format.thousands_sep'] = '.';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.CALENDAR_COLUMN_FORMAT_WEEK.03256'] = 'ddd, d/M';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.SHORT_SURNAME'] = '{3}, {1}';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.AM_PM.00522'] = 'AM PM';
+            LOCALE_SETTINGS['number_format.negative_prefix'] = '-';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.DATE_ORDER.00519'] = 'DMY';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.PHONE_FIELD_ORDER'] = 'H_PHONE_1 H_PHONE_2 H_FAX M_PHONE';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.DAY_MIN.02099'] = 'lun mar mié jue vie sáb dom';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.24HR_SUPPORT.03208'] = '1';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.FIRST_DAY_OF_WEEK.03207'] = '1';
+            LOCALE_SETTINGS['BBI18N.WINDOWS_CHARSET'] = 'ISO-8859-1';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.MONTH_SHORT_HIJRI.00520'] = 'Muḥarram,Ṣafar,Rabīʿ\'I,Rabīʿ\'II,Jumādā\'I,Jumādā\'II,Rajab,Shaʿbān,Ramaḍān,Shawwāl,Dhū\'al-Qaʿda,Dhū\'al-Ḥijja';
+            LOCALE_SETTINGS['BBI18N.LINUX_CHARSET'] = 'iso88591';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.DAY_CHARACTER.03253'] = '';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.MONTH_CHARACTER.03254'] = '';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.NAME.COLUMN_ORDER'] = 'title,givenName,middleName,familyName,suffix,otherName';
+            LOCALE_SETTINGS['number_format.decimal_point'] = ',';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.CALENDAR_TITLE_FORMAT_DAY.03258'] = 'dddd, d \'de\' MMM \'de\' yyyy';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.DAYS.00521'] = '01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.OVERRIDE_LONG_TIME_WITH_FULL'] = 'false';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.DAY_FULL.02098'] = 'Lunes Martes Miércoles Jueves Viernes Sábado Domingo';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.date_display_pattern'] = 'DD/MM/AA';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.EXTENDED_SURNAME'] = '{3}';
+            LOCALE_SETTINGS['thousand.sep.format'] = '\\.';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.NUMBERS_HIJRI.00521'] = '0 1 2 3 4 5 6 7 8 9';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.ADDRESS_ORDER.07832'] = 'street,city,region,postal_code,country';
+            LOCALE_SETTINGS['number_format.negative_suffix'] = '';
+            LOCALE_SETTINGS['LOCALE_SETTINGS.CALENDAR_COLUMN_FORMAT_DAY.03257'] = 'dddd, d/M';
+
+            LOCALE_SETTINGS.getString = i18n_get_string;
+            LOCALE_SETTINGS.getFormattedString = i18n_get_formatted_string;
+
+        }
+
+        _init_bundle_LOCALE_SETTINGS();
+
+    </script>
+    
+    <script type="text/javascript" src="~/Content/upc/groupjs/0B1FC17DEDC3A018704EC34651A58AB9.js?v=3900.19.0-rel.35+4040100"></script>
+    <script type="text/javascript" src="~/Content/upc/ui-ultra/js/hide-focus-outline.js?v=3900.19.0-rel.35+4040100"></script>
+    <script type="text/javascript" src="~/Content/upc/ui-ultra/js/login-page.js?v=3900.19.0-rel.35+4040100"></script>
+    <script type="text/javascript" src="~/Content/upc/groupjs/AC879C98C04B4D84F7C9F97BBF61F4D8.js?v=3900.19.0-rel.35+4040100"></script>
 </head>
-<body class='login-page'>
+<body id="learn-oe-body" class="bb-login hide-focus-outline">
+    <!-- If you wanted to call your own css file and keep the css outside of the login.jsp file you could call it from here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;500&display=swap" rel="stylesheet">
+    <!-- INSERT YOUR CUSTOM CSS IN THIS SECTION IF PROVIDING INLINE CSS. The bbng:cssBlock tag does not come in the default template file. You need to add it separately -->
+    <!-- END OF CUSTOM CSS -->
+    <div class="container" id="mainblocks">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-8 col-sm-12" id="loginblockmain">
+                <div id="login-block"
+                     class="loginblocks small-11 small-centered medium-12 medium-centered text-center columns">
+                    <!-- This is the default Blackboard logo which appears in/above the login block -->
+                    <h1 class="login-logo new-logo customized-logo">
+                        <span>Blackboard Learn ™</span>
+                        <img src="~/Content/upc/branding/_1_1/loginLogo/CustomLoginLogo.png?m=kox2ycsx" alt="" />
+                    </h1>
+                    <!-- the "login-form" contains the username and password fields in the login block -->
+                    <div id="login-form" class="login-form">
+                        
+                            @Html.ValidationSummary(true, "", new { @class = "receipt bad editmode alert-box alert" })
+                        
 
-    <div id="loginPageContainer1">
-        <div id="loginPane">
-            <div id="loginContainer">
-
-                <div class="clearfix loginBody">
-                    @Html.ValidationSummary(true, "", new { @class = "receipt bad editmode alert-box alert" })
-                    <div id="loginBox">
                         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { onsubmit = "return validate_form( this, false, true );" }))
                         {
 
                             @Html.AntiForgeryToken()
-                            <div id="loginFormFields" class="clearfix">
-                                <ul id="loginFormList" class="clearfix">
-                                    <li class="clearfix">
-                                        @Html.LabelFor(m => m.user_id)
-                                        @Html.TextBoxFor(m => m.user_id, new { size = "25", maxlength = "50" })
-                                        @Html.ValidationMessageFor(m => m.user_id, "", new { @class = "text-danger" })
+                                <script type="text/javascript">
+                                    function login_openForgotPassword(url) {
+                                        var passwordWin = window.open(url, 'forgotPasswordWindow', 'menubar=1,resizable=1,scrollbars=1,status=1,width=850,height=480');
+                                        passwordWin.focus();
+                                    }
+                                </script>
+                                <div id="loginFormFields" class="clearfix">
+                                    <ul id="loginFormList" class="clearfix">
+                                        <li class="clearfix">
+                                            @Html.LabelFor(m => m.user_id)
+                                            @Html.TextBoxFor(m => m.user_id, new { size = "25", maxlength = "50" })
+                                            @Html.ValidationMessageFor(m => m.user_id, "", new { @class = "text-danger" })
+                                        </li>
+                                        <li class="clearfix">
+                                            @Html.LabelFor(m => m.password)
+                                            @Html.PasswordFor(m => m.password, new { autocomplete = "off", size = "25" })
+                                            @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
+                                        </li>
+                                        <li class="clearfix">
+                                            <input id="entry-login" type="submit" value="Iniciar sesión" name="login"
+                                                   class="button expand inverse outline">
+                                        </li>
+                                    </ul>
 
-                                    </li>
-                                    <li class="clearfix">
-                                        @Html.LabelFor(m => m.password)
-                                        @Html.PasswordFor(m => m.password, new { autocomplete = "off", size = "25" })
-                                        @Html.ValidationMessageFor(m => m.password, "", new { @class = "text-danger" })
-                                    </li>
-                                    <li class="clearfix">
-                                        <input id="entry-login" type="submit"
-                                               value="Iniciar sesión"
-                                               name="login"
-                                               class="button expand"
-                                               style="height: 40px;" />
-                                    </li>
-                                </ul>
-                            </div>
+                                    <div class="login-form-footer row collapse">
+                                        <div class="stay-signed-in small-6 columns text-left">
+                                        </div>
+                                        <div class="small-6 columns text-right">
+                                            <a href="https://aulavirtual.upc.edu.pe/webapps/blackboard/password">
+                                                ¿Ha
+                                                olvidado su contraseña?
+                                            </a>
+                                        </div>
+                                    </div>
 
-                            <input type="hidden" name="action" value="login" />
-                            <input type="hidden" name="new_loc" value="" />
+                                </div>
+                                <input type="hidden" name="action" value="login">
+                                <input type="hidden" name="new_loc" value="">
+                                <input type="hidden" name="blackboard.platform.security.NonceUtil.nonce"
+                                       value="ac20ce67-0646-4a63-a4d4-c3e83e971cb4">
+                            
                         }
+                        </div>
+                    <a style="color:#737373; text-decoration:none;" href="https://micuenta.upc.edu.pe/Home/Index?_f=1"
+                       target="_blank">
+                        <p style="font-family: 'Oswald', sans-serif; text-transform: uppercase; text-align: center;">
+                            ¿OLVIDASTE TU contraseÑa?<br>
+                        </p>
+                    </a>
+                </div>
+                <!-- login-page-announcements contains system announcements displayed on the login page. This appears below the "login-block" by default. -->
+
+                <div class="login-page-announcements">
+                    <div id="loginAnnouncements">
+                        <h3>Anuncios de sistema</h3>
+                        <ul>
+                            <li>
+                                <strong>COVID-19: Si te cuidas, nos cuidamos todos</strong>
+                                <em class="announcementDate">
+                                    (miércoles 18 de agosto de 2021)
+                                </em>
+                                <br>
+                                <div class="vtbegenerated">
+                                    <p>Recuerda que si tú o algún familiar directo presentan síntomas, o se encuentran enfermos(as) con COVID-19, por favor escribe un correo informando a: <a href="mailto:covid_alumnosUPC@upc.pe">covid_alumnosUPC@upc.pe</a>, y también coméntaselo a tu director de carrera.</p>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                    <div>
-                        <br />
-                        <br />
-                        <span class="custom_forgot">
+                </div>
 
-                            <a href="https://intranet.upc.edu.pe/LoginIntranet/ResetPassword.aspx" alt="" title="">
-                                ¿Olvidaste tu contraseña para alumnos de Pregrado y Epe?
+                <div class="bbResources">
+                    <div style="text-align: center;" class="blockBTNlogin">
+                        <p style="font-family: 'Oswald', sans-serif;">Disponible en iOS o Android:</p>
+                        <p>
+                            <a class="appimg" href="https://itunes.apple.com/app/blackboard-app/id950424861?mt=8"
+                               target="_blank">
+                                <img src="~/Content/upc/bbcswebdav/institution/Branding/New_Login/appstore.png" alt="iTunes" width="70"
+                                     height="25" style="margin: 5px;">
                             </a>
-                            <br>
-                            <br>
-
-                            <a href="https://intranet-epg.upc.edu.pe/LoginIntranet/ResetPassword.aspx" alt="" title="">
-                                ¿Olvidaste tu contraseña para alumnos de Postgrado?
+                            <a class="appimg"
+                               href="https://play.google.com/store/apps/details?id=com.blackboard.android.bbstudent&amp;hl=en"
+                               target="_blank">
+                                <img src="~/Content/upc/bbcswebdav/institution/Branding/New_Login/google-play.png" alt="Google Play"
+                                     width="70" height="25" style="margin: 5px;">
                             </a>
-
-                            <br>
-                            <br>
-                            <img src="https://aulavirtual.upc.edu.pe/branding/themes/NUEVOUPC/images/banner-aula-virtual.jpg" alt="" class="productLogo">
-                        </span>
+                        </p>
                     </div>
+                </div>
+            </div>
+            <!-- this class contains the course catalog styling if course catalog is enabled. -->
+            <div class="container" id="footernew">
+                <div class="small-12 small-centered text-center columns">
 
+                    <!-- this calls the copyright notice -->
                     <div id="copyright" class="clearfix">
                         <script type="text/javascript">
                             function showCopyrightDetail() {
@@ -180,35 +683,30 @@
                             }
                         </script>
                         <div class="newCopyright">
-                            <div class="logo">
-                                <img src="https://aulavirtual.upc.edu.pe/images/ci/logos/bb_signature/Bb_Signature_StdMed.png" alt="Blackboard Learn">
-                            </div>
                             <div class="legal">
-                                © 1997-2018 Blackboard Inc. Todos los derechos reservados. Número de patente 7.493.396 y 7.558.853 de Estados Unidos. Resto de patentes en trámite.
-                            </div>
-                            <div class="additionalInfo">
-                                <p><a href="http://access.blackboard.com" id="accessibilityLink">Información sobre accesibilidad</a></p>
-                                <p><a href="Javascript:showCopyrightDetail()">Detalles de instalación</a></p>
+                                © 1997-2021 Blackboard Inc. Todos los derechos reservados.
                             </div>
                         </div>
+                    </div>
+                    <div id="loginOptions">
+                        <div id="gatewayButtons">
+                            <ul class="inline-list">
+                                <li id="help-link">
+                                    <a href="https://help.blackboard.com/es-es" target="_blank"
+                                       title="Ayuda de inicio de sesión de Bb">Ayuda</a>
+                                </li>
 
-                        <div class="copyrightDetailContents clearfix" id="copyrightDetail">
-                            <a class="closeCopyright" href="#" onclick="showCopyrightDetail()"></a>
-                            <img src="https://aulavirtual.upc.edu.pe/images/ci/logos/bb_signature/Bb_Signature_StdMed.png" class="productImg" alt="Blackboard Learn">
-                            <ul>
-                                <li><i>Blackboard Learn ™</i> </li>
-                                <li>Course Delivery (3200.0.5-rel.6+3dd6b56)</li>
-                                <li> Community Engagement (3200.0.5-rel.6+3dd6b56)</li>
-                                <li> Content Management (3200.0.5-rel.6+3dd6b56)</li>
-                                <li><span>Tema: UPC2018</span></li>
+                                <li id="privacy-link">
+                                    <a href="https://aulavirtual.upc.edu.pe/#"
+                                       onclick="showPrivacyPolicy();"
+                                       title="Privacidad y condiciones de uso">Privacidad y condiciones de uso</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
     </div>
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

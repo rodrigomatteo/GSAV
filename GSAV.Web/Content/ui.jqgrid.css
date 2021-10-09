@@ -352,6 +352,11 @@ tr.ui-search-toolbar select {
     height: 13px;
     font-size: .8em;
     margin: 0;
+    display: unset;
+    min-height: 20px;
+    width: 50%;
+    text-align: center;
+    padding: unset;
 }
 
 .ui-jqgrid .ui-pg-selbox {

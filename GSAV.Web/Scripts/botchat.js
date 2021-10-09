@@ -3108,6 +3108,7 @@
                 , p = function () {
                     function e(e) {
                         this.connectionStatus$ = new i.BehaviorSubject(s.Uninitialized),
+                            //this.domain = "https://webchat.botframework.com/embed/UpecitoBot4?s=8Dkr_8xlF-s.qTV_NS0DyGHSfAM7zGT8ngSf6j3XJ4oP_yS3gEtLlhM",
                             this.domain = "https://directline.botframework.com/v3/directline",
                             this.watermark = "",
                             this.pollingInterval = 1e3,

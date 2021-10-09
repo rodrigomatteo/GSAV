@@ -3,214 +3,348 @@
 @using GSAV.Entity.Util
 @{
     /**/
-
+    Layout = null;
     ViewBag.Title = "Base de Conocimiento Académico";
 }
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://aulavirtual.upc.edu.pe/ultra/institution-page -->
+<html lang="es-es"
+      class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths"
+      dir="ltr" has-applied-locale-text-direction="">
 
-<div class="contentPaneWide clearfix tabbedPane portal">
+<head>
+    <link class="initial-css-link" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/534-fa2dcc8d839b58312b15.css" rel="stylesheet">
+    <link class="initial-css-link" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/app-fa2dcc8d839b58312b15.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/0-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/18-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/28-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/567-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/4-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/16-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/143-fa2dcc8d839b58312b15.css">
 
-    <div class="paneTabs clearfix">
-        <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
-        <ul id="paneTabs" class="clearfix nav">
-            <li class="active ">
-                <a href="@Url.Content("/BaseAcademico/Index")">Base de Conocimiento Académico<span class="hideoff"> (ficha activa)</span></a>
-            </li>
+    <link rel="stylesheet" href="https://cdn.botframework.com/botframework-webchat/latest/botchat.css" />
 
-            <li class="" style="display:none;"></li>
-            <li id="overflowLiId" class="sub" style="display: none;">
-                <a href="#" id="overflowIconId" class="hiddenTabsLink"></a>
-                <ul class="more" id="overflowULId"></ul>
-            </li>
-        </ul>
-    </div>
-
-    <div id="content" class="contentBox clearfix">
-        <div class="container clearfix">
-
-            <div class="row">
-                <div class="col-md-12">
+    <link href="~/Content/custom/jquery-ui-1.10.4.custom.css" rel="stylesheet">
 
 
+    <link href="~/Content/jquery-ui-timepicker-addon.css" rel="stylesheet">
+    <link href="~/Content/ui.jqgrid.css" rel="stylesheet">
+    <link href="~/Content/site.css" rel="stylesheet">
+    <link href="~/Content/jquery-confirm.css" rel="stylesheet">
+    <link href="~/Content/webchat-stable/botchat.css" rel="stylesheet">
+    <link href="~/Content/webchat-stable/botchat-fullwindow.css" rel="stylesheet">
 
-                    <div class="contentBox contentBox-edit clearfix">
-
-                        <div class="containerPortal clearfix">
-
-                            <div id="column0" class="column-2 clearfix" style="width: 20%;">
-
-                                <div class="portlet clearfix  " id="module:_48_1">
-
-                                    <div class="edit_controls">
-                                    </div>
-
-                                    @Html.Partial("_ToolsMenu")
-                                </div>
-
-                                <div class="portlet clearfix  " id="module:_522_1">
-                                    <!-- extid:522: -->
-                                    <div class="edit_controls">
-                                    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
 
-                                    <h2 class="  clearfix" id="anonymous_element_5">
-                                        <span class="moduleTitle">Videotutoriales y manuales de Aprendizaje Digital</span>
-                                    </h2>
+    <script src="~/Scripts/jquery-ui-1.9.2.custom.js"></script>
 
+    <script src="~/Scripts/jquery-ui-timepicker-addon.js"></script>
+    <script src="~/Scripts/jquery-ui-timepicker-addon-i18n.min.js"></script>
+    <script src="~/Scripts/jqgrid/jquery.layout.js"></script>
+    <script src="~/Scripts/jqgrid/grid.locale-es.js"></script>
+    <script src="~/Scripts/jqgrid/jquery.jqGrid.js"></script>
+    <script src="~/Scripts/jquery-ui-sliderAccess.js"></script>
+    <script src="~/Scripts/date.js"></script>
+    <script src="~/Scripts/jquery-confirm.js"></script>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
 
-                                    <div class="collapsible" style="overflow: auto;">
+    <style type="text/css">
+        .topGlobalLinks a.home {
+            background-image: url(/images/console/icons/home_0.gif)
+        }
 
-                                        <div class="vtbegenerated"><p style="text-align: center;"><a href="https://www.youtube.com/playlist?list=PLontYaReEU1seUE3ACG3sEc3zR7Br7URU" target="_blank"><img src="~/Content/images/BMANUALES1.jpg" width="100%" height="100%" alt="videotutoriales" title="videotutoriales"></a></p></div>
+        .bottom-buttons-home a {
+            background-image: url(/images/console/icons/home_0.gif);
+            background-repeat: no-repeat;
+            background-position: 50% 0
+        }
 
-                                    </div>
-                                </div>
+        .topGlobalLinks a.help {
+            background-image: url(/images/console/icons/help_0.gif)
+        }
 
-                                <div class="portlet clearfix  " id="module:_528_1">
-                                    <!-- extid:528: -->
-                                    <div class="edit_controls">
-                                    </div>
+        .bottom-buttons-help a {
+            background-image: url(/images/console/icons/help_0.gif);
+            background-repeat: no-repeat;
+            background-position: 50% 0
+        }
 
+        .topGlobalLinks a.logout {
+            background-image: url(/images/console/icons/logout_0.gif)
+        }
 
-                                    <h2 class="  clearfix" id="anonymous_element_7">
-                                        <span class="moduleTitle">Reglamentos y Políticas de UPC</span>
-                                    </h2>
+        .global-nav-bar .logout-link, .global-nav-bar .logout-link:hover, .global-nav-bar .logout-link:focus {
+            background-image: url(/images/console/icons/logout_0.gif);
+            background-repeat: no-repeat;
+            background-position: 50% 0
+        }
 
+        #BotChatGoesHere {
+            border: 1px solid #333;
+            float: right;
+            height: 500px;
+            position: relative;
+            width: 400px;
+        }
 
-                                    <div class="collapsible" style="overflow: auto;">
+        #btnUpecito {
+            /*float: right;
+            position: relative;*/
+        }
 
-                                        <div class="vtbegenerated">
-                                            <div class="w3-content w3-section" style="max-width: 100%;">
-                                                <a href="http://sica.upc.edu.pe/publico/reglamentos-upc" target="_blank="><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_reg.png" style="width: 100%; display: block;"></a>
-                                                <a href="http://sica.upc.edu.pe/publico/politicas-upc" target="_blank"><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_pol.png" style="width: 100%; display: none;"></a>
-                                            </div>
-                                            <script type="text/javascript">
-                                                /*<![CDATA[*/
-                                                var myIndex1 = 0;
-                                                carousel1();
+        input[type="button"], input[type="submit"], button {
+            height: 22px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e3000f;
+            color: #ffffff;
+            border: 1px solid;
+            border-color: #e3000f;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/580-fa2dcc8d839b58312b15.css">
 
-                                                function carousel1() {
-                                                    var i;
-                                                    var x = document.getElementsByClassName("mySlides1");
-                                                    for (i = 0; i < x.length; i++) {
-                                                        x[i].style.display = "none";
-                                                    }
-                                                    myIndex1++;
-                                                    if (myIndex1 > x.length) { myIndex1 = 1 }
-                                                    x[myIndex1 - 1].style.display = "block";
-                                                    setTimeout(carousel1, 3000); // Change image every 2 seconds
-                                                }
-                                                /*]]>*/</script>
+</head>
+<body class="default ms-Fabric hide-focus-outline help-page-visible" bb-keyboard-click="" bb-focus-helper=""
+      bb-foundation-dropdown-close="" bb-has-footer="" bb-prevent-drag="" bb-read-info="" bb-hover-menu-opacity=""
+      bb-live-region="" draggable="false">
+    <div data-base-state-name="base.tools.peek" class="first bb-offcanvas-panel bb-offcanvas-right full with-banner hide-in-background panel-has-focus active" tabindex="-1" aria-hidden="false" data-page-title="Inicio de LTI" style="display: block;top: 0px;left: 0px;max-width: 100% !important;">
+        <div class="bb-offcanvas-panel-wrap">
+
+            <div class="side-panel-content" style="height: calc(100% - 0px);">
+
+                <div bb-dir="" dir="ltr">
+
+                    <div ui-view="base-tools-panel" bb-offcanvas-pausal-scope="">
+                        <div class="page-lti-launch-frame">
+
+                            <div class="panel-wrap">
+
+                                <header class="panel-header simple-header">
+
+                                    <div class="panel-titles-container">
+
+                                        <span class="panel-sub-title"></span>
+                                        <div class="black-header-contents">
+
+                                            <h1 class="panel-title">Base de Conocimiento Académico</h1>
+
                                         </div>
 
                                     </div>
-                                </div>
 
-                            </div>
+                                </header>
+                                <div class="panel-content iframe-wrapper">
 
-                            <div id="column1" class="column-2 clearfix" style="width: 80%;">
-                                <div class="portlet clearfix  " id="module:_527_1">
-                                    <!-- extid:527: -->
-                                    <div class="edit_controls">
-                                    </div>
+                                    <bb-lti-launch-frame style="height: 388px;">
+
+                                        <div class="contentPaneWide clearfix tabbedPane portal">
+
+                                            @*<div class="paneTabs clearfix">
+                                                    <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
+                                                    <ul id="paneTabs" class="clearfix nav">
+                                                        <li class="active ">
+                                                            <a href="@Url.Content("/BaseAcademico/Index")">Base de Conocimiento Académico<span class="hideoff"> (ficha activa)</span></a>
+                                                        </li>
+
+                                                        <li class="" style="display:none;"></li>
+                                                        <li id="overflowLiId" class="sub" style="display: none;">
+                                                            <a href="#" id="overflowIconId" class="hiddenTabsLink"></a>
+                                                            <ul class="more" id="overflowULId"></ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>*@
+
+                                            <div id="content" class="contentBox clearfix">
+                                                <div class="container clearfix">
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
 
 
-                                    <h2 class="  clearfix" id="anonymous_element_9">
-                                        <span class="moduleTitle">Base de Conocimiento Académico</span>
-                                    </h2>
+
+                                                            <div class="contentBox contentBox-edit clearfix">
+
+                                                                <div class="containerPortal clearfix">
+
+                                                                    @*<div id="column0" class="column-2 clearfix" style="width: 20%;">
+
+                                                                            <div class="portlet clearfix  " id="module:_48_1">
+
+                                                                                <div class="edit_controls">
+                                                                                </div>
+
+                                                                                @Html.Partial("_ToolsMenu")
+                                                                            </div>
+
+                                                                            <div class="portlet clearfix  " id="module:_522_1">
+                                                                                <!-- extid:522: -->
+                                                                                <div class="edit_controls">
+                                                                                </div>
 
 
-                                    <div class="collapsible" style="overflow: auto;">
+                                                                                <h2 class="  clearfix" id="anonymous_element_5">
+                                                                                    <span class="moduleTitle">Videotutoriales y manuales de Aprendizaje Digital</span>
+                                                                                </h2>
 
-                                        <table width="100%">
-                                            <tr>
-                                                <td style="height:40px">
-                                                    <input type="button" value="Crear Entrada" onclick="javascript: CrearEntrada();" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 100%">
 
-                                                    <fieldset class="fieldset">
-                                                        <legend>Criterios de búsqueda</legend>
+                                                                                <div class="collapsible" style="overflow: auto;">
 
-                                                        <table width="100%" cellpadding="2">
-                                                            <colgroup>
-                                                                <col width="15%" />
-                                                                <col width="35%" />
-                                                                <col width="15%" />
-                                                                <col width="35%" />
-                                                            </colgroup>
-                                                            <tr>
-                                                                <td align="left" class="Texto" style="">
-                                                                    Intención:
-                                                                </td>
-                                                                <td style="text-align: left">
-                                                                    <select id="cbIntencion" style="width: 81%">                                                                        
-                                                                    </select>
-                                                                </td>
-                                                                <td align="left" class="Texto" style="">
-                                                                    Frase Entrenamiento:
-                                                                </td>
-                                                                <td style="text-align: left">
-                                                                    <input type="text" id="txtFraseEntrena" style="width:80%" maxlength="256" />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="left" class="Texto" style="">
-                                                                    Respuesta:
-                                                                </td>
-                                                                <td style="text-align: left">
-                                                                    <input type="text" id="txtRespuesta" style="width:80%" maxlength="256" />
-                                                                </td>
-                                                                <td align="left" class="Texto" style=""></td>
-                                                                <td style="text-align: left"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    Fecha Inicial:
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" id="txtFechaInicio_Buscar" style="width: 100px;" />
-                                                                </td>
-                                                                <td>
-                                                                    Fecha Final:
-                                                                </td>
-                                                                <td>
-                                                                    <input type="text" id="txtFechaFin_Buscar" style="width: 100px;" />
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </fieldset>
+                                                                                    <div class="vtbegenerated"><p style="text-align: center;"><a href="https://www.youtube.com/playlist?list=PLontYaReEU1seUE3ACG3sEc3zR7Br7URU" target="_blank"><img src="~/Content/images/BMANUALES1.jpg" width="100%" height="100%" alt="videotutoriales" title="videotutoriales"></a></p></div>
 
-                                                    <fieldset class="fieldset" style="margin-top: 5px!important;">
-                                                        <table>
-                                                            <tr>
-                                                                <td colspan="4">
-                                                                    <input id="btnBuscar" type="button" value="Buscar" onclick="javascript: Buscar();" />
+                                                                                </div>
+                                                                            </div>
 
-                                                                    <input type="button" value="Limpiar" onclick="javascript: Limpiar();" />
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </fieldset>
+                                                                            <div class="portlet clearfix  " id="module:_528_1">
+                                                                                <!-- extid:528: -->
+                                                                                <div class="edit_controls">
+                                                                                </div>
 
-                                                    <fieldset class="fieldset" style="margin-top: 5px!important;">
-                                                        <legend>Listado de Consultas</legend>
-                                                        <table width="100%">
-                                                            <tr>
-                                                                <td id="tdjQueryTable">
-                                                                    <div id="divContenedor" style="width:100%">
-                                                                        <table id="jqGrid"></table>
-                                                                        <div id="jqGridPager"></div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </fieldset>
-                                                </td>
-                                            </tr>
-                                        </table>
 
-                                        <script type="text/javascript">
+                                                                                <h2 class="  clearfix" id="anonymous_element_7">
+                                                                                    <span class="moduleTitle">Reglamentos y Políticas de UPC</span>
+                                                                                </h2>
+
+
+                                                                                <div class="collapsible" style="overflow: auto;">
+
+                                                                                    <div class="vtbegenerated">
+                                                                                        <div class="w3-content w3-section" style="max-width: 100%;">
+                                                                                            <a href="http://sica.upc.edu.pe/publico/reglamentos-upc" target="_blank="><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_reg.png" style="width: 100%; display: block;"></a>
+                                                                                            <a href="http://sica.upc.edu.pe/publico/politicas-upc" target="_blank"><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_pol.png" style="width: 100%; display: none;"></a>
+                                                                                        </div>
+                                                                                        <script type="text/javascript">
+                                                                                            /*<![CDATA[*/
+                                                                                            var myIndex1 = 0;
+                                                                                            carousel1();
+
+                                                                                            function carousel1() {
+                                                                                                var i;
+                                                                                                var x = document.getElementsByClassName("mySlides1");
+                                                                                                for (i = 0; i < x.length; i++) {
+                                                                                                    x[i].style.display = "none";
+                                                                                                }
+                                                                                                myIndex1++;
+                                                                                                if (myIndex1 > x.length) { myIndex1 = 1 }
+                                                                                                x[myIndex1 - 1].style.display = "block";
+                                                                                                setTimeout(carousel1, 3000); // Change image every 2 seconds
+                                                                                            }
+                                                                                            /*]]>*/</script>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>*@
+
+                                                                    <div id="column1" class="column-2 clearfix" style="width: 100%;">
+                                                                        <div class="portlet clearfix  " id="module:_527_1">
+                                                                            <!-- extid:527: -->
+                                                                            <div class="edit_controls">
+                                                                            </div>
+
+
+                                                                            @*<h2 class="  clearfix" id="anonymous_element_9">
+                                                                                    <span class="moduleTitle">Base de Conocimiento Académico</span>
+                                                                                </h2>*@
+
+
+                                                                            <div class="collapsible" style="overflow: auto;">
+
+                                                                                <table width="100%">
+                                                                                    <tr>
+                                                                                        <td style="height:40px">
+                                                                                            <input type="button" value="Crear Entrada" onclick="javascript: CrearEntrada();" />
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="width: 100%">
+
+                                                                                            <fieldset class="fieldset">
+                                                                                                <legend>Criterios de búsqueda</legend>
+
+                                                                                                <table width="100%" cellpadding="2">
+                                                                                                    <colgroup>
+                                                                                                        <col width="15%" />
+                                                                                                        <col width="35%" />
+                                                                                                        <col width="15%" />
+                                                                                                        <col width="35%" />
+                                                                                                    </colgroup>
+                                                                                                    <tr>
+                                                                                                        <td align="left" class="Texto" style="">
+                                                                                                            Intención:
+                                                                                                        </td>
+                                                                                                        <td style="text-align: left">
+                                                                                                            <select id="cbIntencion" style="width: 81%"></select>
+                                                                                                        </td>
+                                                                                                        <td align="left" class="Texto" style="">
+                                                                                                            Frase Entrenamiento:
+                                                                                                        </td>
+                                                                                                        <td style="text-align: left">
+                                                                                                            <input type="text" id="txtFraseEntrena" style="width:80%" maxlength="256" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td align="left" class="Texto" style="">
+                                                                                                            Respuesta:
+                                                                                                        </td>
+                                                                                                        <td style="text-align: left">
+                                                                                                            <input type="text" id="txtRespuesta" style="width:80%" maxlength="256" />
+                                                                                                        </td>
+                                                                                                        <td align="left" class="Texto" style=""></td>
+                                                                                                        <td style="text-align: left"></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            Fecha Inicial:
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <input type="text" id="txtFechaInicio_Buscar" style="width: 100px;" />
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            Fecha Final:
+                                                                                                        </td>
+                                                                                                        <td>
+                                                                                                            <input type="text" id="txtFechaFin_Buscar" style="width: 100px;" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </fieldset>
+
+                                                                                            <fieldset class="fieldset" style="margin-top: 5px!important;">
+                                                                                                <table>
+                                                                                                    <tr>
+                                                                                                        <td colspan="4">
+                                                                                                            <input id="btnBuscar" type="button" value="Buscar" onclick="javascript: Buscar();" />
+
+                                                                                                            <input type="button" value="Limpiar" onclick="javascript: Limpiar();" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </fieldset>
+
+                                                                                            <fieldset class="fieldset" style="margin-top: 5px!important;">
+                                                                                                <legend>Listado de Consultas</legend>
+                                                                                                @*<table width="100%">
+                                                                                                    <tr>
+                                                                                                        <td id="tdjQueryTable">*@
+                                                                                                <div id="divContenedor" style="width:98%">
+                                                                                                    <table id="jqGrid"></table>
+                                                                                                    <div id="jqGridPager"></div>
+                                                                                                </div>
+                                                                                                @*</td>
+                                                                                                        </tr>
+                                                                                                    </table>*@
+                                                                                            </fieldset>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+
+                                                                                <script type="text/javascript">
 
                                             //-----------------------------------------------------------------------------------------
 
@@ -268,7 +402,7 @@
 
                                                 $("#dialogConsulta").dialog({
                                                     autoOpen: false,
-                                                    height: 430,
+                                                    height: 460,
                                                     width: 650,
                                                     resizable: false,
                                                     modal: true,
@@ -277,7 +411,7 @@
                                                 });
 
 
-                                                var valwidth = $('#tdjQueryTable').width();
+                                                var valwidth = $('#divContenedor').width();
 
                                                 jQuery("#jqGrid").jqGrid({
                                                     datatype: "local",
@@ -395,14 +529,14 @@
                                                 $('#txtFechaInicio_Buscar').datepicker();
                                                 $('#txtFechaFin_Buscar').datepicker();
 
-                                                
-                                                var now = new Date();                                                
+
+                                                var now = new Date();
                                                 var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
                                                 var lastDate = new Date().add(-6).month();
-                                                var lastDay = ("0" + lastDate.getDate()).slice(-2);                                                
+                                                var lastDay = ("0" + lastDate.getDate()).slice(-2);
 
-                                                var date = new Date();                                                
+                                                var date = new Date();
                                                 var lastDayDT = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                                                 var lastDay = ("0" + lastDayDT.getDate()).slice(-2);
 
@@ -518,7 +652,7 @@
                                                         $("#txtFechaInicio_Buscar").focus();
                                                         return;
                                                     }
-                                                }                                              
+                                                }
 
                                                 //var expreg = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                                                 if ($('#txtFechaFin_Buscar').val().length > 0) {
@@ -527,7 +661,7 @@
                                                         $("#txtFechaFin_Buscar").focus();
                                                         return;
                                                     }
-                                                }                                                
+                                                }
 
                                                 var fechaInicio = $('#txtFechaInicio_Buscar').val();
                                                 var fechaFin = $('#txtFechaFin_Buscar').val();
@@ -551,7 +685,7 @@
                                                         $("#txtFechaFin_Buscar").focus();
                                                         return;
                                                     }
-                                                }                                               
+                                                }
 
                                                 ConsultarIntenciones();
                                             }
@@ -718,58 +852,77 @@
 
 
                                             //-----------------------------------------------------------------------------------------
-                                        </script>
+                                                                                </script>
 
-                                    </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </bb-lti-launch-frame>
+
                                 </div>
+
                             </div>
+                            <div ui-view=""></div>
+
                         </div>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </div>
-</div>
+    <div id="dialogConsulta" title="Detalle Frases de Entrenamiento" style="display: none;background:#EFEDE3">
+        <div>
+            <table style="width: 100%; text-align: left;border-collapse: separate;" class="tablePopup">
+                <colgroup>
+                    <col width="21%" />
+                    <col width="29%" />
+                    <col width="20%" />
+                    <col width="30%" />
+                </colgroup>
+                <tr>
+                    <td>
+                        <label class="labelTextIndicador">Nombre Intención:</label>
+                    </td>
+                    <td colspan="3">
+                        <input type="text" id="txtNombreIntencion" style="width:100%" class="text-box-read-only" />
+                    </td>
+                </tr>
 
-<div id="dialogConsulta" title="Detalle Frases de Entrenamiento" style="display: none;background:#EFEDE3">
-    <div>
-        <table style="width: 100%; text-align: left;border-collapse: separate;" class="tablePopup">
-            <colgroup>
-                <col width="21%" />
-                <col width="29%" />
-                <col width="20%" />
-                <col width="30%" />
-            </colgroup>
-            <tr>
-                <td>
-                    <label class="labelTextIndicador">Nombre Intención:</label>
-                </td>
-                <td colspan="3">
-                    <input type="text" id="txtNombreIntencion" style="width:100%" class="text-box-read-only" />
-                </td>
-            </tr>
-
-            <tr>
-                <td valign="top" colspan="4">
+                <tr>
+                    <td valign="top" colspan="4">
 
 
-                    <table width="100%">
-                        <tr>
-                            <td id="tdjQueryTablePF">
-                                <div id="divContenedorPF" style="width:100%">
-                                    <table id="jqGridPF"></table>
-                                    <div id="jqGridPagerPF"></div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                        <table width="100%">
+                            <tr>
+                                <td id="tdjQueryTablePF">
+                                    <div id="divContenedorPF" style="width:100%">
+                                        <table id="jqGridPF"></table>
+                                        <div id="jqGridPagerPF"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
 
 
-                </td>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="divBotones" style="text-align: center; padding-top: 5px; border-bottom-color: Navy; border-width: 5px;">
+            <input id="btnCerrar" type="button" value="Cerrar" onclick="javascript:Cerrar(); return false;" />
+        </div>
     </div>
-    <div id="divBotones" style="text-align: center; padding-top: 5px; border-bottom-color: Navy; border-width: 5px;">
-        <input id="btnCerrar" type="button" value="Cerrar" onclick="javascript:Cerrar(); return false;" />
-    </div>
-</div>
+</body>
+</html>

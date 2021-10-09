@@ -2,1048 +2,1203 @@
 @using GSAV.Entity.Objects
 @using GSAV.Entity.Util
 @{
-                /**/
-
-                ViewBag.Title = "Bandeja de Consultas";
+    /**/
+    Layout = null;
+    ViewBag.Title = "Dashboard de Consultas";
 }
 
-<div class="contentPaneWide clearfix tabbedPane portal">
+<!DOCTYPE html>
+<!-- saved from url=(0053)https://aulavirtual.upc.edu.pe/ultra/institution-page -->
+<html lang="es-es"
+      class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths"
+      dir="ltr" has-applied-locale-text-direction="">
 
-    <div class="paneTabs clearfix">
-        <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
-        <ul id="paneTabs" class="clearfix nav">
-            <li class="active ">
-                <a href="@Url.Content("/Dashboard/Index")">Dashboard de Consultas<span class="hideoff"> (ficha activa)</span></a>
-            </li>
+<head>
+    <link class="initial-css-link" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/534-fa2dcc8d839b58312b15.css" rel="stylesheet">
+    <link class="initial-css-link" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/app-fa2dcc8d839b58312b15.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/0-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/18-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/28-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/567-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/4-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/16-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/143-fa2dcc8d839b58312b15.css">
 
-            <li class="" style="display:none;"></li>
-            <li id="overflowLiId" class="sub" style="display: none;">
-                <a href="#" id="overflowIconId" class="hiddenTabsLink"></a>
-                <ul class="more" id="overflowULId"></ul>
-            </li>
-        </ul>
-    </div>
+    <link rel="stylesheet" href="https://cdn.botframework.com/botframework-webchat/latest/botchat.css" />
 
-    <div id="content" class="contentBox clearfix">
-        <div class="container clearfix">
-
-            <div class="row">
-                <div class="col-md-12">
+    <link href="~/Content/custom/jquery-ui-1.10.4.custom.css" rel="stylesheet">
 
 
+    <link href="~/Content/jquery-ui-timepicker-addon.css" rel="stylesheet">
+    <link href="~/Content/ui.jqgrid.css" rel="stylesheet">
+    <link href="~/Content/site.css" rel="stylesheet">
+    <link href="~/Content/jquery-confirm.css" rel="stylesheet">
+    <link href="~/Content/webchat-stable/botchat.css" rel="stylesheet">
+    <link href="~/Content/webchat-stable/botchat-fullwindow.css" rel="stylesheet">
 
-                    <div class="contentBox contentBox-edit clearfix">
-
-                        <div class="containerPortal clearfix">
-
-                            <div id="column0" class="column-2 clearfix" style="width: 20%;">
-
-                                <div class="portlet clearfix  " id="module:_48_1">
-
-                                    <div class="edit_controls">
-                                    </div>
-
-                                    @Html.Partial("_ToolsMenu")
-                                </div>
-
-                                <div class="portlet clearfix  " id="module:_522_1">
-                                    <!-- extid:522: -->
-                                    <div class="edit_controls">
-                                    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
 
-                                    <h2 class="  clearfix" id="anonymous_element_5">
-                                        <span class="moduleTitle">Videotutoriales y manuales de Aprendizaje Digital</span>
-                                    </h2>
+    <script src="~/Scripts/jquery-ui-1.9.2.custom.js"></script>
 
+    <script src="~/Scripts/jquery-ui-timepicker-addon.js"></script>
+    <script src="~/Scripts/jquery-ui-timepicker-addon-i18n.min.js"></script>
+    <script src="~/Scripts/jqgrid/jquery.layout.js"></script>
+    <script src="~/Scripts/jqgrid/grid.locale-es.js"></script>
+    <script src="~/Scripts/jqgrid/jquery.jqGrid.js"></script>
+    <script src="~/Scripts/jquery-ui-sliderAccess.js"></script>
+    <script src="~/Scripts/date.js"></script>
+    <script src="~/Scripts/jquery-confirm.js"></script>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
 
-                                    <div class="collapsible" style="overflow: auto;">
+    <style type="text/css">
+        .topGlobalLinks a.home {
+            background-image: url(/images/console/icons/home_0.gif)
+        }
 
-                                        <div class="vtbegenerated"><p style="text-align: center;"><a href="https://www.youtube.com/playlist?list=PLontYaReEU1seUE3ACG3sEc3zR7Br7URU" target="_blank"><img src="~/Content/images/BMANUALES1.jpg" width="100%" height="100%" alt="videotutoriales" title="videotutoriales"></a></p></div>
+        .bottom-buttons-home a {
+            background-image: url(/images/console/icons/home_0.gif);
+            background-repeat: no-repeat;
+            background-position: 50% 0
+        }
 
-                                    </div>
-                                </div>
+        .topGlobalLinks a.help {
+            background-image: url(/images/console/icons/help_0.gif)
+        }
 
-                                <div class="portlet clearfix  " id="module:_528_1">
-                                    <!-- extid:528: -->
-                                    <div class="edit_controls">
-                                    </div>
+        .bottom-buttons-help a {
+            background-image: url(/images/console/icons/help_0.gif);
+            background-repeat: no-repeat;
+            background-position: 50% 0
+        }
 
+        .topGlobalLinks a.logout {
+            background-image: url(/images/console/icons/logout_0.gif)
+        }
 
-                                    <h2 class="  clearfix" id="anonymous_element_7">
-                                        <span class="moduleTitle">Reglamentos y Políticas de UPC</span>
-                                    </h2>
+        .global-nav-bar .logout-link, .global-nav-bar .logout-link:hover, .global-nav-bar .logout-link:focus {
+            background-image: url(/images/console/icons/logout_0.gif);
+            background-repeat: no-repeat;
+            background-position: 50% 0
+        }
 
+        #BotChatGoesHere {
+            border: 1px solid #333;
+            float: right;
+            height: 500px;
+            position: relative;
+            width: 400px;
+        }
 
-                                    <div class="collapsible" style="overflow: auto;">
+        #btnUpecito {
+            /*float: right;
+            position: relative;*/
+        }
 
-                                        <div class="vtbegenerated">
-                                            <div class="w3-content w3-section" style="max-width: 100%;">
-                                                <a href="http://sica.upc.edu.pe/publico/reglamentos-upc" target="_blank="><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_reg.png" style="width: 100%; display: block;"></a>
-                                                <a href="http://sica.upc.edu.pe/publico/politicas-upc" target="_blank"><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_pol.png" style="width: 100%; display: none;"></a>
-                                            </div>
-                                            <script type="text/javascript">
-                                                /*<![CDATA[*/
-                                                var myIndex1 = 0;
-                                                carousel1();
+        input[type="button"], input[type="submit"], button {
+            height: 22px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e3000f;
+            color: #ffffff;
+            border: 1px solid;
+            border-color: #e3000f;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/580-fa2dcc8d839b58312b15.css">
 
-                                                function carousel1() {
-                                                    var i;
-                                                    var x = document.getElementsByClassName("mySlides1");
-                                                    for (i = 0; i < x.length; i++) {
-                                                        x[i].style.display = "none";
-                                                    }
-                                                    myIndex1++;
-                                                    if (myIndex1 > x.length) { myIndex1 = 1 }
-                                                    x[myIndex1 - 1].style.display = "block";
-                                                    setTimeout(carousel1, 3000); // Change image every 2 seconds
-                                                }
-                                                /*]]>*/</script>
+</head>
+<body class="default ms-Fabric hide-focus-outline help-page-visible" bb-keyboard-click="" bb-focus-helper=""
+      bb-foundation-dropdown-close="" bb-has-footer="" bb-prevent-drag="" bb-read-info="" bb-hover-menu-opacity=""
+      bb-live-region="" draggable="false">
+    <div data-base-state-name="base.tools.peek" class="first bb-offcanvas-panel bb-offcanvas-right full with-banner hide-in-background panel-has-focus active" tabindex="-1" aria-hidden="false" data-page-title="Inicio de LTI" style="display: block;top: 0px;left: 0px;max-width: 100% !important;">
+        <div class="bb-offcanvas-panel-wrap">
+
+            <div class="side-panel-content" style="height: calc(100% - 0px);">
+
+                <div bb-dir="" dir="ltr">
+
+                    <div ui-view="base-tools-panel" bb-offcanvas-pausal-scope="">
+                        <div class="page-lti-launch-frame">
+
+                            <div class="panel-wrap">
+
+                                <header class="panel-header simple-header">
+
+                                    <div class="panel-titles-container">
+
+                                        <span class="panel-sub-title"></span>
+                                        <div class="black-header-contents">
+
+                                            <h1 class="panel-title">Dashboard de Consultas</h1>
+
                                         </div>
 
                                     </div>
-                                </div>
 
-                            </div>
+                                </header>
+                                <div class="panel-content iframe-wrapper">
 
-                            <div id="column1" class="column-2 clearfix" style="width: 80%;">
+                                    <bb-lti-launch-frame style="height: 388px;">
 
-                                <div class="portlet clearfix  " id="module:_527_1">
-                                    <!-- extid:527: -->
+                                        <div class="contentPaneWide clearfix tabbedPane portal">
 
-                                    <h2 class="  clearfix" id="anonymous_element_9">
-                                        <span class="moduleTitle">Dashboard de Consultas</span>
-                                    </h2>
+                                            @*<div class="paneTabs clearfix">
+                                                    <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
+                                                    <ul id="paneTabs" class="clearfix nav">
+                                                        <li class="active ">
+                                                            <a href="@Url.Content("/Dashboard/Index")">Dashboard de Consultas<span class="hideoff"> (ficha activa)</span></a>
+                                                        </li>
 
-                                    <div class="" style="width:100%;padding: 10px 10px 10px 10px">
-                                        <div>
-                                            <table style="width:100%" border="0">
-                                                <colgroup>
-                                                    <col width="5%" />
-                                                    <col width="25%" />
-                                                    <col width="5%" />
-                                                    <col width="25%" />
-                                                    <col width="40%" />
-                                                </colgroup>
-                                                <tr>
-                                                    <td colspan="4">
-                                                        Fecha Atención
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="4">
-                                                        <hr />
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Desde:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="txtFechaInicio_Buscar" style="width: 100px;" />
-                                                    </td>
-                                                    <td>
-                                                        Hasta:
-                                                    </td>
-                                                    <td>
-                                                        <input type="text" id="txtFechaFin_Buscar" style="width: 100px;" />
-                                                    </td>
-                                                    <td>
-                                                        <input id="btnFiltrar" type="button" value="Filtrar" onclick="javascript:FiltrarDashboard()" />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
+                                                        <li class="" style="display:none;"></li>
+                                                        <li id="overflowLiId" class="sub" style="display: none;">
+                                                            <a href="#" id="overflowIconId" class="hiddenTabsLink"></a>
+                                                            <ul class="more" id="overflowULId"></ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>*@
+
+                                            <div id="content" class="contentBox clearfix">
+                                                <div class="container clearfix">
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
 
 
-                                    <div class="collapsible" style="overflow: auto;">
-                                        <table>
-                                            <tr>
-                                                <td style="border:1px solid #ccc;width:120px">
-                                                    <table style="padding-left: 4px;padding-right: 4px;width: 100%;">
-                                                        <tr>
-                                                            <td>
-                                                                <div class="divSla" id="divTotal_loading" style="width:100%;height:60px;">
-                                                                    <div class="centrado-porcentual">
-                                                                        <img src="~/Content/images/ajax-loader.gif" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="divSla" id="divTotal" style="width:100%;height:60px;">
-                                                                    <table style="width:100%">
-                                                                        <tr>
-                                                                            <td style="padding: 5px 5px 5px 5px;">
-                                                                                <label id="lblTextTotal" class="labelTextIndicador">Total</label>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="text-align:right">
-                                                                                <label id="lblTotal" class="labelIndicador"></label>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="divSla" id="divResueltos_loading" style="width:100%;height:60px;">
-                                                                    <div class="centrado-porcentual">
-                                                                        <img src="~/Content/images/ajax-loader.gif" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="divSla" id="divResueltos" style="width:100%;height:60px;">
-                                                                    <table style="width:100%">
-                                                                        <tr>
-                                                                            <td style="padding: 5px 5px 5px 5px;">
-                                                                                <label id="lblTextResueltos" class="labelTextIndicador">Resueltos</label>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="text-align:right">
-                                                                                <label id="lblResueltos" class="labelIndicador"></label>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="divSla" id="divDerivados_loading" style="width:100%;height:60px;">
-                                                                    <div class="centrado-porcentual">
-                                                                        <img src="~/Content/images/ajax-loader.gif" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="divSla" id="divDerivados" style="width:100%;height:60px;">
-                                                                    <table style="width:100%">
-                                                                        <tr>
-                                                                            <td style="padding: 5px 5px 5px 5px;">
-                                                                                <label id="lblTextDerivados" class="labelTextIndicador">Derivados</label>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="text-align:right">
-                                                                                <label id="lblDerivados" class="labelIndicador"></label>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="divSla" id="divPendientes_loading" style="width:100%;height:60px;">
-                                                                    <div class="centrado-porcentual">
-                                                                        <img src="~/Content/images/ajax-loader.gif" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="divSla" id="divPendientes" style="width:100%;height:60px;">
-                                                                    <table style="width:100%">
-                                                                        <tr>
-                                                                            <td style="padding: 5px 5px 5px 5px;">
-                                                                                <label id="lblTextPendientes" class="labelTextIndicador">Pendientes</label>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="text-align:right">
-                                                                                <label id="lblPendientes" class="labelIndicador"></label>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="divSla" id="divNoResueltos_loading" style="width:100%;height:60px;">
-                                                                    <div class="centrado-porcentual">
-                                                                        <img src="~/Content/images/ajax-loader.gif" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="divSla" id="divNoResueltos" style="width:100%;height:60px;">
-                                                                    <table style="width:100%">
-                                                                        <tr>
-                                                                            <td style="padding: 5px 5px 5px 5px;">
-                                                                                <label id="lblTextNoResueltos" class="labelTextIndicador">No Resueltos</label>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="text-align:right">
-                                                                                <label id="lblNoResueltos" class="labelIndicador"></label>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="divSla" id="divCancelados_loading" style="width:100%;height:60px;">
-                                                                    <div class="centrado-porcentual">
-                                                                        <img src="~/Content/images/ajax-loader.gif" />
-                                                                    </div>
-                                                                </div>
-                                                                <div class="divSla" id="divCancelados" style="width:100%;height:60px;">
-                                                                    <table style="width:100%">
-                                                                        <tr>
-                                                                            <td style="padding: 5px 5px 5px 5px;">
-                                                                                <label id="lblTextCancelados" class="labelTextIndicador">Cancelados</label>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td style="text-align:right">
-                                                                                <label id="lblCancelados" class="labelIndicador"></label>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </td>
-                                                <td style="border:1px solid #ccc">
-                                                    <div class="divTitleChart">
-                                                        <label>
-                                                            Demanda por Unidad de Negocio
-                                                        </label>
-                                                    </div>
-                                                    <div class="divChartArea" id="piechart_3d_loading" style="width: 400px; height: 300px;">
-                                                        <div class="centrado-porcentual">
-                                                            <img src="~/Content/images/ajax-loader.gif" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="divChartArea" id="piechart_3d" style="width: 400px; height: 300px;"></div>
-                                                </td>
-                                                <td style="border:1px solid #ccc">
-                                                    <div class="divTitleChart">
-                                                        <label>
-                                                            Demanda por Intención de Consulta
-                                                        </label>
-                                                    </div>
-                                                    <div class="divChartArea" id="barchart_values_loading" style="width: 400px; height: 300px;">
-                                                        <div class="centrado-porcentual">
-                                                            <img src="~/Content/images/ajax-loader.gif" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="divChartArea" id="barchart_values" style="width: 400px; height: 300px;"></div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="border:1px solid #ccc">
-                                                    <div>
-                                                        <table>
-                                                            <tr>
-                                                                <td style="width:120px">
-                                                                    <div class="divSla" id="divCumpleSla_loading" style="width:100%;height:90px;">
-                                                                        <div class="centrado-porcentual">
-                                                                            <img src="~/Content/images/ajax-loader.gif" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="divSla" id="divCumpleSla" style="width:100%;height:90px;">
-                                                                        <table>
-                                                                            <tr>
-                                                                                <td colspan="2" style="text-align:center;padding-top: 5px;">
-                                                                                    <label id="lblTextCumpleSla" class="labelTextLsa">Cumplieron SLA</label>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td style="width:70px">
-                                                                                    <img src="~/Content/images/like.png" style="width: 70px;height:70px;" />
-                                                                                </td>
-                                                                                <td>
-                                                                                    <label id="lblCumpleSla" class="labelLsa"></label>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width:120px">
-                                                                    <div class="divSla" id="divNoCumpleSla_loading" style="width:100%;height:90px;">
-                                                                        <div class="centrado-porcentual">
-                                                                            <img src="~/Content/images/ajax-loader.gif" />
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="divSla" id="divNoCumpleSla" style="width:100%;height:90px;">
-                                                                        <table>
-                                                                            <tr>
-                                                                                <td colspan="2" style="text-align:center;padding-top: 5px;">
-                                                                                    <label id="lblTextNoCumpleSla" class="labelTextLsa">No Cumplieron SLA</label>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td style="width:70px">
-                                                                                    <img src="~/Content/images/unlike.png" style="width: 70px;height:70px;" />
-                                                                                </td>
-                                                                                <td>
-                                                                                    <label id="lblNoCumpleSla" class="labelLsa"></label>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </td>
-                                                <td colspan="2" style="border:1px solid #ccc">
-                                                    <div>
-                                                        <table style="width:100%">
-                                                            <tr>
-                                                                <td style="padding-top: 10px;padding-bottom: 10px;
+
+                                                            <div class="contentBox contentBox-edit clearfix">
+
+                                                                <div class="containerPortal clearfix">
+
+                                                                    @*<div id="column0" class="column-2 clearfix" style="width: 20%;">
+
+                                                                            <div class="portlet clearfix  " id="module:_48_1">
+
+                                                                                <div class="edit_controls">
+                                                                                </div>
+
+                                                                                @Html.Partial("_ToolsMenu")
+                                                                            </div>
+
+                                                                            <div class="portlet clearfix  " id="module:_522_1">
+                                                                                <!-- extid:522: -->
+                                                                                <div class="edit_controls">
+                                                                                </div>
+
+
+                                                                                <h2 class="  clearfix" id="anonymous_element_5">
+                                                                                    <span class="moduleTitle">Videotutoriales y manuales de Aprendizaje Digital</span>
+                                                                                </h2>
+
+
+                                                                                <div class="collapsible" style="overflow: auto;">
+
+                                                                                    <div class="vtbegenerated"><p style="text-align: center;"><a href="https://www.youtube.com/playlist?list=PLontYaReEU1seUE3ACG3sEc3zR7Br7URU" target="_blank"><img src="~/Content/images/BMANUALES1.jpg" width="100%" height="100%" alt="videotutoriales" title="videotutoriales"></a></p></div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="portlet clearfix  " id="module:_528_1">
+                                                                                <!-- extid:528: -->
+                                                                                <div class="edit_controls">
+                                                                                </div>
+
+
+                                                                                <h2 class="  clearfix" id="anonymous_element_7">
+                                                                                    <span class="moduleTitle">Reglamentos y Políticas de UPC</span>
+                                                                                </h2>
+
+
+                                                                                <div class="collapsible" style="overflow: auto;">
+
+                                                                                    <div class="vtbegenerated">
+                                                                                        <div class="w3-content w3-section" style="max-width: 100%;">
+                                                                                            <a href="http://sica.upc.edu.pe/publico/reglamentos-upc" target="_blank="><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_reg.png" style="width: 100%; display: block;"></a>
+                                                                                            <a href="http://sica.upc.edu.pe/publico/politicas-upc" target="_blank"><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_pol.png" style="width: 100%; display: none;"></a>
+                                                                                        </div>
+                                                                                        <script type="text/javascript">
+                                                                                            /*<![CDATA[*/
+                                                                                            var myIndex1 = 0;
+                                                                                            carousel1();
+
+                                                                                            function carousel1() {
+                                                                                                var i;
+                                                                                                var x = document.getElementsByClassName("mySlides1");
+                                                                                                for (i = 0; i < x.length; i++) {
+                                                                                                    x[i].style.display = "none";
+                                                                                                }
+                                                                                                myIndex1++;
+                                                                                                if (myIndex1 > x.length) { myIndex1 = 1 }
+                                                                                                x[myIndex1 - 1].style.display = "block";
+                                                                                                setTimeout(carousel1, 3000); // Change image every 2 seconds
+                                                                                            }
+                                                                                            /*]]>*/</script>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>*@
+
+                                                                    <div id="column1" class="column-2 clearfix" style="width: 100%;">
+
+                                                                        <div class="portlet clearfix  " id="module:_527_1">
+                                                                            <!-- extid:527: -->
+
+                                                                            @*<h2 class="  clearfix" id="anonymous_element_9">
+                                                                                <span class="moduleTitle">Dashboard de Consultas</span>
+                                                                            </h2>*@
+
+                                                                            <div class="" style="width:100%;padding: 10px 10px 10px 10px">
+                                                                                <div>
+                                                                                    <table style="width:100%" border="0">
+                                                                                        <colgroup>
+                                                                                            <col width="5%" />
+                                                                                            <col width="25%" />
+                                                                                            <col width="5%" />
+                                                                                            <col width="25%" />
+                                                                                            <col width="40%" />
+                                                                                        </colgroup>
+                                                                                        <tr>
+                                                                                            <td colspan="4">
+                                                                                                Fecha Atención
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td colspan="5">
+                                                                                                <hr />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                Desde:
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <input type="text" id="txtFechaInicio_Buscar" style="width: 100px;" />
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                Hasta:
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <input type="text" id="txtFechaFin_Buscar" style="width: 100px;" />
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <input id="btnFiltrar" type="button" value="Filtrar" onclick="javascript:FiltrarDashboard()" />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+
+
+                                                                            <div class="collapsible" style="overflow: auto;">
+                                                                                <table style="width: 100%">
+                                                                                    <tr>
+                                                                                        <td style="border:1px solid #ccc;width:120px">
+                                                                                            <table style="padding-left: 4px;padding-right: 4px;width: 100%;">
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <div class="divSla" id="divTotal_loading" style="width:100%;height:60px;">
+                                                                                                            <div class="centrado-porcentual">
+                                                                                                                <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="divSla" id="divTotal" style="width:100%;height:60px;">
+                                                                                                            <table style="width:100%">
+                                                                                                                <tr>
+                                                                                                                    <td style="padding: 5px 5px 5px 5px;">
+                                                                                                                        <label id="lblTextTotal" class="labelTextIndicador">Total</label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td style="text-align:right">
+                                                                                                                        <label id="lblTotal" class="labelIndicador"></label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            </table>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <div class="divSla" id="divResueltos_loading" style="width:100%;height:60px;">
+                                                                                                            <div class="centrado-porcentual">
+                                                                                                                <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="divSla" id="divResueltos" style="width:100%;height:60px;">
+                                                                                                            <table style="width:100%">
+                                                                                                                <tr>
+                                                                                                                    <td style="padding: 5px 5px 5px 5px;">
+                                                                                                                        <label id="lblTextResueltos" class="labelTextIndicador">Resueltos</label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td style="text-align:right">
+                                                                                                                        <label id="lblResueltos" class="labelIndicador"></label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            </table>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <div class="divSla" id="divDerivados_loading" style="width:100%;height:60px;">
+                                                                                                            <div class="centrado-porcentual">
+                                                                                                                <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="divSla" id="divDerivados" style="width:100%;height:60px;">
+                                                                                                            <table style="width:100%">
+                                                                                                                <tr>
+                                                                                                                    <td style="padding: 5px 5px 5px 5px;">
+                                                                                                                        <label id="lblTextDerivados" class="labelTextIndicador">Derivados</label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td style="text-align:right">
+                                                                                                                        <label id="lblDerivados" class="labelIndicador"></label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            </table>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <div class="divSla" id="divPendientes_loading" style="width:100%;height:60px;">
+                                                                                                            <div class="centrado-porcentual">
+                                                                                                                <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="divSla" id="divPendientes" style="width:100%;height:60px;">
+                                                                                                            <table style="width:100%">
+                                                                                                                <tr>
+                                                                                                                    <td style="padding: 5px 5px 5px 5px;">
+                                                                                                                        <label id="lblTextPendientes" class="labelTextIndicador">Pendientes</label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td style="text-align:right">
+                                                                                                                        <label id="lblPendientes" class="labelIndicador"></label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            </table>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <div class="divSla" id="divNoResueltos_loading" style="width:100%;height:60px;">
+                                                                                                            <div class="centrado-porcentual">
+                                                                                                                <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="divSla" id="divNoResueltos" style="width:100%;height:60px;">
+                                                                                                            <table style="width:100%">
+                                                                                                                <tr>
+                                                                                                                    <td style="padding: 5px 5px 5px 5px;">
+                                                                                                                        <label id="lblTextNoResueltos" class="labelTextIndicador">No Resueltos</label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td style="text-align:right">
+                                                                                                                        <label id="lblNoResueltos" class="labelIndicador"></label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            </table>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                                <tr>
+                                                                                                    <td>
+                                                                                                        <div class="divSla" id="divCancelados_loading" style="width:100%;height:60px;">
+                                                                                                            <div class="centrado-porcentual">
+                                                                                                                <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="divSla" id="divCancelados" style="width:100%;height:60px;">
+                                                                                                            <table style="width:100%">
+                                                                                                                <tr>
+                                                                                                                    <td style="padding: 5px 5px 5px 5px;">
+                                                                                                                        <label id="lblTextCancelados" class="labelTextIndicador">Cancelados</label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <td style="text-align:right">
+                                                                                                                        <label id="lblCancelados" class="labelIndicador"></label>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            </table>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                        </td>
+                                                                                        <td style="border:1px solid #ccc">
+                                                                                            <div class="divTitleChart">
+                                                                                                <label>
+                                                                                                    Demanda por Unidad de Negocio
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div class="divChartArea" id="piechart_3d_loading" style="width: 400px; height: 300px;">
+                                                                                                <div class="centrado-porcentual">
+                                                                                                    <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="divChartArea" id="piechart_3d" style="width: 400px; height: 300px;"></div>
+                                                                                        </td>
+                                                                                        <td style="border:1px solid #ccc">
+                                                                                            <div class="divTitleChart">
+                                                                                                <label>
+                                                                                                    Demanda por Intención de Consulta
+                                                                                                </label>
+                                                                                            </div>
+                                                                                            <div class="divChartArea" id="barchart_values_loading" style="width: 400px; height: 300px;">
+                                                                                                <div class="centrado-porcentual">
+                                                                                                    <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="divChartArea" id="barchart_values" style="width: 400px; height: 300px;"></div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="border:1px solid #ccc">
+                                                                                            <div>
+                                                                                                <table>
+                                                                                                    <tr>
+                                                                                                        <td style="width:120px">
+                                                                                                            <div class="divSla" id="divCumpleSla_loading" style="width:100%;height:90px;">
+                                                                                                                <div class="centrado-porcentual">
+                                                                                                                    <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="divSla" id="divCumpleSla" style="width:100%;height:90px;">
+                                                                                                                <table>
+                                                                                                                    <tr>
+                                                                                                                        <td colspan="2" style="text-align:center;padding-top: 5px;">
+                                                                                                                            <label id="lblTextCumpleSla" class="labelTextLsa">Cumplieron SLA</label>
+                                                                                                                        </td>
+                                                                                                                    </tr>
+                                                                                                                    <tr>
+                                                                                                                        <td style="width:70px">
+                                                                                                                            <img src="~/Content/images/like.png" style="width: 70px;height:70px;" />
+                                                                                                                        </td>
+                                                                                                                        <td>
+                                                                                                                            <label id="lblCumpleSla" class="labelLsa"></label>
+                                                                                                                        </td>
+                                                                                                                    </tr>
+                                                                                                                </table>
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td style="width:120px">
+                                                                                                            <div class="divSla" id="divNoCumpleSla_loading" style="width:100%;height:90px;">
+                                                                                                                <div class="centrado-porcentual">
+                                                                                                                    <img src="~/Content/images/ajax-loader.gif" />
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div class="divSla" id="divNoCumpleSla" style="width:100%;height:90px;">
+                                                                                                                <table>
+                                                                                                                    <tr>
+                                                                                                                        <td colspan="2" style="text-align:center;padding-top: 5px;">
+                                                                                                                            <label id="lblTextNoCumpleSla" class="labelTextLsa">No Cumplieron SLA</label>
+                                                                                                                        </td>
+                                                                                                                    </tr>
+                                                                                                                    <tr>
+                                                                                                                        <td style="width:70px">
+                                                                                                                            <img src="~/Content/images/unlike.png" style="width: 70px;height:70px;" />
+                                                                                                                        </td>
+                                                                                                                        <td>
+                                                                                                                            <label id="lblNoCumpleSla" class="labelLsa"></label>
+                                                                                                                        </td>
+                                                                                                                    </tr>
+                                                                                                                </table>
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td colspan="2" style="border:1px solid #ccc">
+                                                                                            <div>
+                                                                                                <table style="width:100%">
+                                                                                                    <tr>
+                                                                                                        <td style="padding-top: 10px;padding-bottom: 10px;
 ">
-                                                                    <label class="labelTextIndicador" style="font-weight: bold;">Solicitudes de Atención Académica</label>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <table style="width:100%" border="0">
-                                                                        <tr>
-                                                                            <td>
-                                                                                <img id="btnGreen" src="../Content/images/color_label_circle_green_T.png" width="16px" height="16px" style="cursor:pointer" />
-                                                                            </td>
-                                                                            <td>
-                                                                                <label class="labelTextIndicador">T(h) < 12</label>
-                                                                            </td>
-                                                                            <td>
-                                                                                <img id="btnYellow" src="../Content/images/color_label_circle_yellow_T.png" width="16px" height="16px" style="cursor:pointer" />
-                                                                            </td>
-                                                                            <td>
-                                                                                <label class="labelTextIndicador">12 <= T(h) < 18</label>
-                                                                            </td>
-                                                                            <td>
-                                                                                <img id="btnRed" src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px" style="cursor:pointer" />
-                                                                            </td>
-                                                                            <td>
-                                                                                <label class="labelTextIndicador">18 <= T(h) </label>
-                                                                            </td>
-                                                                            <td>
-                                                                                <img id="btnAll" src="../Content/images/color_label_circle_grey_T.png" width="16px" height="16px" style="cursor:pointer" />
-                                                                            </td>
-                                                                            <td>
-                                                                                <label class="labelTextIndicador">Todos </label>
-                                                                                <input type="hidden" id="hdnIndicadorStatus" value="TODOS" />
-                                                                            </td>
-                                                                            <td style="text-align:right">
-                                                                                <input type="button" value="Enviar Alerta para Atención" 
-                                                                                       onclick="javascript: EnviarAlerta(); return false;"/>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td id="tdjQueryTable">
-                                                                    <div id="div_data_loading" class="div-loading-data">
-                                                                        <div style="position:relative;top:45%;">
-                                                                            <img src="/Content/images/ajax-loader.gif">
+                                                                                                            <label class="labelTextIndicador" style="font-weight: bold;">Solicitudes de Atención Académica</label>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <table style="width:100%" border="0">
+                                                                                                                <tr>
+                                                                                                                    <td>
+                                                                                                                        <img id="btnGreen" src="../Content/images/color_label_circle_green_T.png" width="16px" height="16px" style="cursor:pointer" />
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        <label class="labelTextIndicador">T(h) < 12</label>
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        <img id="btnYellow" src="../Content/images/color_label_circle_yellow_T.png" width="16px" height="16px" style="cursor:pointer" />
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        <label class="labelTextIndicador">12 <= T(h) < 18</label>
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        <img id="btnRed" src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px" style="cursor:pointer" />
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        <label class="labelTextIndicador">18 <= T(h) </label>
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        <img id="btnAll" src="../Content/images/color_label_circle_grey_T.png" width="16px" height="16px" style="cursor:pointer" />
+                                                                                                                    </td>
+                                                                                                                    <td>
+                                                                                                                        <label class="labelTextIndicador">Todos </label>
+                                                                                                                        <input type="hidden" id="hdnIndicadorStatus" value="TODOS" />
+                                                                                                                    </td>
+                                                                                                                    <td style="text-align:right">
+                                                                                                                        <input type="button" value="Enviar Alerta para Atención"
+                                                                                                                               onclick="javascript: EnviarAlerta(); return false;" />
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            </table>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td id="tdjQueryTable">
+                                                                                                            <div id="div_data_loading" class="div-loading-data">
+                                                                                                                <div style="position:relative;top:45%;">
+                                                                                                                    <img src="/Content/images/ajax-loader.gif">
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                            <div id="divContenedor" style="width:100%">
+                                                                                                                <table id="jqGrid"></table>
+                                                                                                                <div id="jqGridPager"></div>
+                                                                                                            </div>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+
+                                                                                <script type="text/javascript" src="~/Scripts/loader.js"></script>
+                                                                                <script type="text/javascript">
+
+                                                                                    google.charts.load("current", { packages: ["corechart"] });
+                                                                                    google.charts.setOnLoadCallback(CargarChartUnidadNegocio);
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function CargarChartUnidadNegocio() {
+
+                                                                                        var parametros = {
+                                                                                            fechaInicio: $('#txtFechaInicio_Buscar').val(),
+                                                                                            fechaFin: $('#txtFechaFin_Buscar').val()
+                                                                                        };
+
+                                                                                        $.ajax({
+                                                                                            type: 'POST',
+                                                                                            url: '/Dashboard/CargarChartDemandaUnidNegocio',
+                                                                                            data: parametros,
+                                                                                            dataType: 'json',
+                                                                                            success: function (rpta) {
+                                                                                                $("#piechart_3d").css("display", "block");
+                                                                                                $("#piechart_3d_loading").css("display", "none");
+
+                                                                                                drawChartPie(rpta);
+                                                                                            },
+                                                                                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                                                                            }
+                                                                                        });
+                                                                                    }
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    google.charts.setOnLoadCallback(CargarChartTipoConsulta);
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function CargarChartTipoConsulta() {
+
+                                                                                        var parametros = {
+                                                                                            fechaInicio: $('#txtFechaInicio_Buscar').val(),
+                                                                                            fechaFin: $('#txtFechaFin_Buscar').val()
+                                                                                        };
+
+                                                                                        $.ajax({
+                                                                                            type: 'POST',
+                                                                                            url: '/Dashboard/CargarChartDemandaTipoConsulta',
+                                                                                            data: parametros,
+                                                                                            dataType: 'json',
+                                                                                            success: function (rpta) {
+                                                                                                $("#barchart_values").css("display", "block");
+                                                                                                $("#barchart_values_loading").css("display", "none");
+                                                                                                drawBarChart(rpta);
+                                                                                            },
+                                                                                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                                                                            }
+                                                                                        });
+                                                                                    }
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    $(document).ready(function () {
+
+                                                                                        $('#btnGreen').click(function () {
+                                                                                            console.log('btnGreen');
+                                                                                            $('#hdnIndicadorStatus').val("VERDE");
+                                                                                            ListarSolicitudesAtencion()
+                                                                                        });
+
+                                                                                        $('#btnYellow').click(function () {
+                                                                                            console.log('btnYellow');
+                                                                                            $('#hdnIndicadorStatus').val("AMARILLO");
+                                                                                            ListarSolicitudesAtencion()
+                                                                                        });
+
+                                                                                        $('#btnRed').click(function () {
+                                                                                            console.log('btnRed');
+                                                                                            $('#hdnIndicadorStatus').val("ROJO");
+                                                                                            ListarSolicitudesAtencion()
+                                                                                        });
+
+                                                                                        $('#btnAll').click(function () {
+                                                                                            console.log('btnAll');
+                                                                                            $('#hdnIndicadorStatus').val("TODOS");
+                                                                                            ListarSolicitudesAtencion()
+                                                                                        });
+
+                                                                                        DisplayLoading();
+
+                                                                                        $("#dialogConsulta").dialog({
+                                                                                            autoOpen: false,
+                                                                                            height: 510,
+                                                                                            width: 670,
+                                                                                            resizable: false,
+                                                                                            modal: true,
+                                                                                            close: function () {
+                                                                                            }
+                                                                                        });
+
+                                                                                        var valwidth = $('#divContenedor').width();
+
+                                                                                        jQuery("#jqGrid").jqGrid({
+                                                                                            datatype: "local",
+                                                                                            width: valwidth,
+                                                                                            colNames: ['IdSolicitud', 'Estatus', 'Código', 'Alumno', 'Intención Consulta', 'Fecha Registro', 'Derivado A', 'Consulta'],
+                                                                                            colModel: [
+                                                                                                { name: 'IdSolicitud', index: 'IdSolicitud', width: 10, sortable: false, hidden: true },
+                                                                                                {
+                                                                                                    name: 'EstadoDesc', index: 'EstadoDesc', align: "center", width: 5, sortable: false, jsonmap: "EstadoDesc",
+                                                                                                    formatter: function (cellvalue, options, rowObject) {
+
+                                                                                                        var _estatus = rowObject.Estado;
+                                                                                                        var _indicador = rowObject.IndicadorStatus;
+
+                                                                                                        console.log(_indicador);
+
+                                                                                                        var img_ = "<label>" + _estatus + "</label>";
+
+                                                                                                        if (_indicador === 'VERDE') {
+                                                                                                            img_ = '<img src="../Content/images/color_label_circle_green_T.png" width="16px" height="16px"/>';
+                                                                                                        }
+                                                                                                        if (_indicador === 'AMARILLO') {
+                                                                                                            img_ = '<img src="../Content/images/color_label_circle_yellow_T.png" width="16px" height="16px"/>';
+                                                                                                        }
+                                                                                                        if (_indicador === 'ROJO') {
+                                                                                                            img_ = '<img src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px"/>';
+                                                                                                        }
+                                                                                                        return img_;
+                                                                                                    }
+                                                                                                },
+                                                                                                { name: 'CodigoAlumno', index: 'CodigoAlumno', width: 7, sortable: false },
+                                                                                                { name: 'NombreApePaterno', index: 'NombreApePaterno', width: 13, sortable: false },
+                                                                                                { name: 'IntencionActual', index: 'IntencionActual', width: 10, sortable: false },
+                                                                                                { name: 'StrFechRegistro', index: 'StrFechRegistro', width: 9, align: "center", sortable: false },
+                                                                                                { name: 'DerivadoA', index: 'DerivadoA', width: 9, align: "center", sortable: false },
+                                                                                                {
+                                                                                                    name: 'IdSolicitud', index: 'IdSolicitud', align: "center", width: 5, sortable: false, jsonmap: "IdSolicitud",
+                                                                                                    formatter: function (cellvalue, options, rowObject) {
+
+                                                                                                        var _id = rowObject.IdSolicitud;
+                                                                                                        return '<input class="buttonTable" type="button" value="Ver" onclick="javascript:Visualizar(' + _id + ')"\>';
+                                                                                                    }
+                                                                                                }
+                                                                                            ],
+                                                                                            height: 200,
+                                                                                            rowNum: 20,
+                                                                                            sortname: 'id',
+                                                                                            hidegrid: false,
+                                                                                            pager: "#jqGridPager",
+                                                                                            rownumbers: true,
+                                                                                            viewrecords: true,
+                                                                                            toolbar: [false, "top"],
+                                                                                            sortorder: "asc",
+                                                                                            loadtext: 'Cargando datos...',
+                                                                                            recordtext: "{0} - {1} de {2} Elementos",
+                                                                                            emptyrecords: 'No hay resultados',
+                                                                                            pgtext: 'Página: {0} de {1}'
+
+                                                                                        });
+
+                                                                                        $.datepicker.regional['es'] = {
+                                                                                            closeText: 'Cerrar',
+                                                                                            prevText: '<Ant',
+                                                                                            nextText: 'Sig>',
+                                                                                            currentText: 'Hoy',
+                                                                                            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                                                                                            monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                                                                                            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                                                                                            dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+                                                                                            dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+                                                                                            weekHeader: 'Sm',
+                                                                                            dateFormat: 'dd/mm/yy',
+                                                                                            firstDay: 1,
+                                                                                            isRTL: false,
+                                                                                            showMonthAfterYear: false,
+                                                                                            yearSuffix: ''
+                                                                                        };
+
+                                                                                        $.datepicker.setDefaults($.datepicker.regional['es']);
+
+                                                                                        $('#txtFechaInicio_Buscar').datepicker();
+                                                                                        $('#txtFechaFin_Buscar').datepicker();
+
+                                                                                        var now = new Date();
+                                                                                        //var day = ("0" + now.getDate()).slice(-2);
+                                                                                        var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+                                                                                        var lastDate = new Date().add(-6).month();
+                                                                                        var lastDay = ("0" + lastDate.getDate()).slice(-2);
+                                                                                        //var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
+
+                                                                                        var date = new Date();
+                                                                                        //var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+                                                                                        var lastDayDT = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                                                                                        var lastDay = ("0" + lastDayDT.getDate()).slice(-2);
+
+                                                                                        var fchStart = "01" + "/" + (month) + "/" + now.getFullYear();
+                                                                                        var fchEnd = lastDay + "/" + (month) + "/" + now.getFullYear();
+
+                                                                                        $('#txtFechaInicio_Buscar').val(fchStart);
+                                                                                        $('#txtFechaFin_Buscar').val(fchEnd);
+
+                                                                                        $("#btnFiltrar").click();
+
+                                                                                    });
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function FiltrarDashboard() {
+
+                                                                                        var fechaInicio = $('#txtFechaInicio_Buscar').val();
+                                                                                        var fechaFin = $('#txtFechaFin_Buscar').val();
+
+
+                                                                                        var expreg = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
+
+                                                                                        if (!expreg.test($('#txtFechaInicio_Buscar').val())) {
+                                                                                            alert("La Fecha Desde no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
+                                                                                            $("#txtFechaInicio_Buscar").focus();
+                                                                                            return;
+                                                                                        }
+
+                                                                                        //var expreg = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                                                                                        if (!expreg.test($('#txtFechaFin_Buscar').val())) {
+                                                                                            alert("La Fecha Hasta no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
+                                                                                            $("#txtFechaFin_Buscar").focus();
+                                                                                            return;
+                                                                                        }
+
+                                                                                        var dayDiff_1 = getDateDiff(fechaFin, fechaInicio);
+                                                                                        //console.log("dayDiff_1: " + dayDiff_1);
+                                                                                        if (dayDiff_1 < 0) {
+                                                                                            alert("La Fecha Desde no puede ser posterior a la Fecha Hasta. Por favor, verifique el filtro ingresado");
+                                                                                            $("#txtFechaInicio_Buscar").focus();
+                                                                                            return;
+                                                                                        }
+
+
+
+                                                                                        DisplayLoading();
+                                                                                        ListarSolicitudesAtencion();
+                                                                                        CargarIndicadores();
+                                                                                        CargarChartUnidadNegocio();
+                                                                                        CargarChartTipoConsulta();
+
+                                                                                    }
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function ListarSolicitudesAtencion() {
+
+                                                                                        var parametros = {
+                                                                                            fechaInicio: $('#txtFechaInicio_Buscar').val(),
+                                                                                            fechaFin: $('#txtFechaFin_Buscar').val(),
+                                                                                            indicadorStatus: $('#hdnIndicadorStatus').val()
+                                                                                        };
+
+                                                                                        $("#jqGrid").clearGridData();
+                                                                                        //$("#jqGrid").closest(".ui-jqgrid").find('.loading').show();
+                                                                                        $("#div_data_loading").css("display", "block");
+
+                                                                                        $.ajax({
+                                                                                            type: 'POST',
+                                                                                            url: '/Dashboard/ListarSolicitudesAtencion',
+                                                                                            data: parametros,
+                                                                                            dataType: 'json',
+                                                                                            success: function (rpta) {
+
+                                                                                                var parsed = JSON.parse(JSON.stringify(rpta));
+                                                                                                var array_ = [];
+                                                                                                for (var x in parsed) {
+                                                                                                    array_.push(parsed[x]);
+                                                                                                }
+                                                                                                $("#jqGrid").closest(".ui-jqgrid").find('.loading').hide();
+
+                                                                                                $("#div_data_loading").css("display", "none");
+                                                                                                $("#jqGrid").jqGrid('setGridParam', { data: array_ });
+                                                                                                $("#jqGrid").trigger('reloadGrid');
+
+                                                                                            },
+                                                                                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                                                            }
+                                                                                        });
+
+                                                                                    }
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function CargarIndicadores() {
+
+                                                                                        var parametros = {
+                                                                                            fechaInicio: $('#txtFechaInicio_Buscar').val(),
+                                                                                            fechaFin: $('#txtFechaFin_Buscar').val()
+                                                                                        };
+
+                                                                                        $.ajax({
+                                                                                            type: 'POST',
+                                                                                            url: '/Dashboard/CargarIndicadoresDashboard',
+                                                                                            data: parametros,
+                                                                                            dataType: 'json',
+                                                                                            success: function (rpta) {
+
+                                                                                                $("#divTotal").css("display", "block");
+                                                                                                $("#divTotal_loading").css("display", "none");
+
+                                                                                                $("#divResueltos").css("display", "block");
+                                                                                                $("#divResueltos_loading").css("display", "none");
+
+                                                                                                $("#divDerivados").css("display", "block");
+                                                                                                $("#divDerivados_loading").css("display", "none");
+
+                                                                                                $("#divPendientes").css("display", "block");
+                                                                                                $("#divPendientes_loading").css("display", "none");
+
+                                                                                                $("#divNoResueltos").css("display", "block");
+                                                                                                $("#divNoResueltos_loading").css("display", "none");
+
+                                                                                                $("#divCancelados").css("display", "block");
+                                                                                                $("#divCancelados_loading").css("display", "none");
+
+                                                                                                $("#divCumpleSla").css("display", "block");
+                                                                                                $("#divCumpleSla_loading").css("display", "none");
+
+                                                                                                $("#divNoCumpleSla").css("display", "block");
+                                                                                                $("#divNoCumpleSla_loading").css("display", "none");
+
+                                                                                                var parsed = JSON.parse(JSON.stringify(rpta));
+
+                                                                                                for (var x in parsed) {
+                                                                                                    $("#lblTotal").text(parsed[x].Total);
+                                                                                                    $("#lblResueltos").text(parsed[x].Resueltos);
+                                                                                                    $("#lblDerivados").text(parsed[x].Derivados);
+                                                                                                    $("#lblPendientes").text(parsed[x].Pendientes);
+                                                                                                    $("#lblNoResueltos").text(parsed[x].NoResueltos);
+                                                                                                    $("#lblCancelados").text(parsed[x].Cancelados);
+
+                                                                                                    $("#lblCumpleSla").text(parsed[x].CumplioSla);
+                                                                                                    $("#lblNoCumpleSla").text(parsed[x].NoCumplioSla);
+                                                                                                }
+
+                                                                                            },
+                                                                                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                                                                                            }
+                                                                                        });
+                                                                                    }
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function drawChartPie(rpta) {
+
+                                                                                        var parsed = JSON.parse(JSON.stringify(rpta));
+
+                                                                                        var data = new google.visualization.DataTable();
+
+                                                                                        data.addColumn('string', 'Unidad Negocio');
+                                                                                        data.addColumn('number', 'Cantidad');
+
+                                                                                        for (var x in parsed) {
+                                                                                            data.addRow([parsed[x].Descripcion, parsed[x].Cantidad]);
+                                                                                        }
+
+
+                                                                                        var options = {
+                                                                                            title: '',
+                                                                                            is3D: true,
+                                                                                            chartArea: { left: 50, right: 50, top: 40, width: "100%", height: "65%" },
+                                                                                            legend: {
+                                                                                                position: 'bottom'
+                                                                                            }
+                                                                                        };
+
+                                                                                        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                                                                                        chart.draw(data, options);
+                                                                                    }
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function drawBarChart(rpta) {
+
+                                                                                        var parsed = JSON.parse(JSON.stringify(rpta));
+
+                                                                                        var data = new google.visualization.DataTable();
+
+                                                                                        data.addColumn('string', 'Tipo Consulta');
+                                                                                        data.addColumn('number', 'Cantidad');
+
+                                                                                        for (var x in parsed) {
+                                                                                            data.addRow([parsed[x].Descripcion, parsed[x].Cantidad]);
+                                                                                        }
+
+                                                                                        var view = new google.visualization.DataView(data);
+
+                                                                                        var options = {
+                                                                                            title: "",
+                                                                                            bar: { groupWidth: "80%", groupHeight: "100%" },
+                                                                                            chartArea: { left: 100, right: 20, top: 40, width: "100%", height: "60%" },
+
+                                                                                            legend: {
+                                                                                                position: 'bottom'
+                                                                                            },
+                                                                                            vAxis: {
+                                                                                                textStyle: {
+                                                                                                    fontFamily: 'Arial',
+                                                                                                    fontSize: 9
+                                                                                                }
+                                                                                            }
+                                                                                        };
+
+                                                                                        var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+                                                                                        chart.draw(view, options);
+                                                                                    }
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function Visualizar(id) {
+
+                                                                                        $('#txtNumeroSolicitud').val("");
+                                                                                        $('#txtNombreApellidos').val("");
+                                                                                        $('#txtCodigoAlumno').val("");
+                                                                                        $('#txtEstado').val("");
+                                                                                        $('#txtTipoConsulta').val("");
+                                                                                        $('#txtFechaAtencion').val("");
+                                                                                        $('#txtConsulta').val("");
+                                                                                        $('#txtRespuesta').val("");
+
+
+                                                                                        var parametros = {
+                                                                                            idSolicitud: id
+                                                                                        };
+
+                                                                                        $.ajax({
+                                                                                            type: 'POST',
+                                                                                            url: '/Dashboard/ConsultarSolicitudAtencion',
+                                                                                            data: parametros,
+                                                                                            dataType: 'json',
+                                                                                            success: function (rpta) {
+
+                                                                                                var parsed = JSON.parse(JSON.stringify(rpta));
+                                                                                                var array_ = [];
+                                                                                                for (var x in parsed) {
+
+                                                                                                    if (parsed[x].NumSolicitud != null && !(parsed[x].NumSolicitud === '')) {
+                                                                                                        $('#txtNumeroSolicitud').val(parsed[x].NumSolicitud);
+                                                                                                        $('#txtNombreApellidos').val(parsed[x].NombreApePaterno);
+                                                                                                        $('#txtCodigoAlumno').val(parsed[x].CodigoAlumno);
+                                                                                                        $('#txtEstado').val(parsed[x].EstadoDesc);
+                                                                                                        $('#txtTipoConsulta').val(parsed[x].IntencionActual);
+                                                                                                        $('#txtFechaAtencion').val(parsed[x].StrFechRegistro);
+                                                                                                        $('#txtConsulta').val(parsed[x].Consulta);
+                                                                                                        $('#txtRespuesta').val(parsed[x].Solucion);
+                                                                                                    } else {
+                                                                                                        alert("No se encuentran datos para mostrar.");
+                                                                                                    }
+
+                                                                                                }
+
+                                                                                                $('#dialogConsulta').dialog('open');
+
+                                                                                            },
+                                                                                            error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+
+                                                                                            }
+                                                                                        });
+
+                                                                                    }
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function Cerrar() {
+                                                                                        $('#dialogConsulta').dialog('close');
+                                                                                    }
+
+                                                                                    //-----------------------------------------------------------------------------------------
+
+                                                                                    function DisplayLoading() {
+
+                                                                                        $("#piechart_3d").css("display", "none");
+                                                                                        $("#piechart_3d_loading").css("display", "block");
+
+                                                                                        $("#barchart_values").css("display", "none");
+                                                                                        $("#barchart_values_loading").css("display", "block");
+
+                                                                                        $("#jqGrid").clearGridData();
+                                                                                        $("#div_data_loading").css("display", "block");
+
+                                                                                        $("#divTotal").css("display", "none");
+                                                                                        $("#divTotal_loading").css("display", "block");
+
+                                                                                        $("#divResueltos").css("display", "none");
+                                                                                        $("#divResueltos_loading").css("display", "block");
+
+                                                                                        $("#divDerivados").css("display", "none");
+                                                                                        $("#divDerivados_loading").css("display", "block");
+
+                                                                                        $("#divPendientes").css("display", "none");
+                                                                                        $("#divPendientes_loading").css("display", "block");
+
+                                                                                        $("#divNoResueltos").css("display", "none");
+                                                                                        $("#divNoResueltos_loading").css("display", "block");
+
+                                                                                        $("#divCancelados").css("display", "none");
+                                                                                        $("#divCancelados_loading").css("display", "block");
+
+                                                                                        $("#divCumpleSla").css("display", "none");
+                                                                                        $("#divCumpleSla_loading").css("display", "block");
+
+                                                                                        $("#divNoCumpleSla").css("display", "none");
+                                                                                        $("#divNoCumpleSla_loading").css("display", "block");
+                                                                                    }
+
+
+                                                                                    //-----------------------------------------------------------------------------------------
+                                                                                    function getDateDiff(time1, time2) {
+
+                                                                                        //console.log(time1);
+                                                                                        //console.log(time2);
+
+                                                                                        var str1 = time1.split('/');
+                                                                                        var str2 = time2.split('/');
+
+                                                                                        //                  yyyy   ,              mm       ,            dd
+                                                                                        var t1 = new Date(parseInt(str1[2]), parseInt(str1[1]) - 1, parseInt(str1[0]));
+                                                                                        var t2 = new Date(parseInt(str2[2]), parseInt(str2[1]) - 1, parseInt(str2[0]));
+
+                                                                                        //console.log(t1);
+                                                                                        //console.log(t2);
+
+                                                                                        var diffMS = t1 - t2;
+                                                                                        //console.log(diffMS + ' ms');
+
+                                                                                        var diffS = diffMS / 1000;
+                                                                                        //console.log(diffS + ' ');
+
+                                                                                        var diffM = diffS / 60;
+                                                                                        //console.log(diffM + ' minutes');
+
+                                                                                        var diffH = diffM / 60;
+                                                                                        //console.log(diffH + ' hours');
+
+                                                                                        var diffD = diffH / 24;
+                                                                                        //console.log(diffD + ' days');
+
+                                                                                        return diffD;
+
+                                                                                    }
+                                                                                    //-----------------------------------------------------------------------------------------
+                                                                                    function getCurrentDate() {
+                                                                                        var today = new Date();
+                                                                                        var dd = today.getDate();
+                                                                                        var mm = today.getMonth() + 1; //January is 0!
+                                                                                        var yyyy = today.getFullYear();
+
+                                                                                        if (dd < 10) {
+                                                                                            dd = '0' + dd
+                                                                                        }
+
+                                                                                        if (mm < 10) {
+                                                                                            mm = '0' + mm
+                                                                                        }
+
+                                                                                        today = dd + '/' + mm + '/' + yyyy;
+                                                                                        return today;
+                                                                                    }
+                                                                                    //-----------------------------------------------------------------------------------------
+                                                                                    function EnviarAlerta() {
+                                                                                        if (confirm("¿Está seguro de que desea enviar un recordatorio para la atención de las solicitudes ?"))
+                                                                                            $.ajax({
+                                                                                                type: "POST",
+                                                                                                url: '/Dashboard/EnviarAlerta',
+                                                                                                contentType: "application/json; charset=utf-8",
+                                                                                                dataType: "json",
+                                                                                                success: function () {
+                                                                                                    alert("Alerta generada correctamente");
+                                                                                                },
+                                                                                                error: function (error) {
+                                                                                                    alert("Ocurrió un error al generar la alerta");
+                                                                                                    console.log("Fallo en enviar alerta " + error);
+                                                                                                }
+                                                                                            });
+                                                                                    }
+                                                                                </script>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div id="divContenedor" style="width:100%">
-                                                                        <table id="jqGrid"></table>
-                                                                        <div id="jqGridPager"></div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                        <script type="text/javascript" src="~/Scripts/loader.js"></script>
-                                        <script type="text/javascript">
+                                    </bb-lti-launch-frame>
 
-                                            google.charts.load("current", { packages: ["corechart"] });
-                                            google.charts.setOnLoadCallback(CargarChartUnidadNegocio);
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function CargarChartUnidadNegocio() {
-
-                                                var parametros = {
-                                                    fechaInicio: $('#txtFechaInicio_Buscar').val(),
-                                                    fechaFin: $('#txtFechaFin_Buscar').val()
-                                                };
-
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '/Dashboard/CargarChartDemandaUnidNegocio',
-                                                    data: parametros,
-                                                    dataType: 'json',
-                                                    success: function (rpta) {
-                                                        $("#piechart_3d").css("display", "block");
-                                                        $("#piechart_3d_loading").css("display", "none");
-
-                                                        drawChartPie(rpta);
-                                                    },
-                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                                                    }
-                                                });
-                                            }
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            google.charts.setOnLoadCallback(CargarChartTipoConsulta);
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function CargarChartTipoConsulta() {
-
-                                                var parametros = {
-                                                    fechaInicio: $('#txtFechaInicio_Buscar').val(),
-                                                    fechaFin: $('#txtFechaFin_Buscar').val()
-                                                };
-
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '/Dashboard/CargarChartDemandaTipoConsulta',
-                                                    data: parametros,
-                                                    dataType: 'json',
-                                                    success: function (rpta) {
-                                                        $("#barchart_values").css("display", "block");
-                                                        $("#barchart_values_loading").css("display", "none");
-                                                        drawBarChart(rpta);
-                                                    },
-                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                                                    }
-                                                });
-                                            }
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            $(document).ready(function () {
-
-                                                $('#btnGreen').click(function () {
-                                                    console.log('btnGreen');
-                                                    $('#hdnIndicadorStatus').val("VERDE");
-                                                    ListarSolicitudesAtencion()
-                                                });
-
-                                                $('#btnYellow').click(function () {
-                                                    console.log('btnYellow');
-                                                    $('#hdnIndicadorStatus').val("AMARILLO");
-                                                    ListarSolicitudesAtencion()
-                                                });
-
-                                                $('#btnRed').click(function () {
-                                                    console.log('btnRed');
-                                                    $('#hdnIndicadorStatus').val("ROJO");
-                                                    ListarSolicitudesAtencion()
-                                                });
-
-                                                $('#btnAll').click(function () {
-                                                    console.log('btnAll');
-                                                    $('#hdnIndicadorStatus').val("TODOS");
-                                                    ListarSolicitudesAtencion()
-                                                });
-
-                                                DisplayLoading();
-
-                                                $("#dialogConsulta").dialog({
-                                                    autoOpen: false,
-                                                    height: 380,
-                                                    width: 600,
-                                                    resizable: false,
-                                                    modal: true,
-                                                    close: function () {
-                                                    }
-                                                });
-
-                                                jQuery("#jqGrid").jqGrid({
-                                                    datatype: "local",
-                                                    width: 800,
-                                                    colNames: ['IdSolicitud', 'Estatus', 'Código', 'Alumno', 'Intención Consulta', 'Fecha Registro', 'Derivado A', 'Consulta'],
-                                                    colModel: [
-                                                        { name: 'IdSolicitud', index: 'IdSolicitud', width: 10, sortable: false, hidden: true },
-                                                        {
-                                                            name: 'EstadoDesc', index: 'EstadoDesc', align: "center", width: 5, sortable: false, jsonmap: "EstadoDesc",
-                                                            formatter: function (cellvalue, options, rowObject) {
-
-                                                                var _estatus = rowObject.Estado;
-                                                                var _indicador = rowObject.IndicadorStatus;
-
-                                                                console.log(_indicador);
-
-                                                                var img_ = "<label>" + _estatus + "</label>";
-
-                                                                if (_indicador === 'VERDE') {
-                                                                    img_ = '<img src="../Content/images/color_label_circle_green_T.png" width="16px" height="16px"/>';
-                                                                }
-                                                                if (_indicador === 'AMARILLO') {
-                                                                    img_ = '<img src="../Content/images/color_label_circle_yellow_T.png" width="16px" height="16px"/>';
-                                                                }
-                                                                if (_indicador === 'ROJO') {
-                                                                    img_ = '<img src="../Content/images/color_label_circle_red_T.png" width="16px" height="16px"/>';
-                                                                } 
-                                                                return img_;
-                                                            }
-                                                        },
-                                                        { name: 'CodigoAlumno', index: 'CodigoAlumno', width: 7, sortable: false },
-                                                        { name: 'NombreApePaterno', index: 'NombreApePaterno', width: 13, sortable: false },
-                                                        { name: 'IntencionActual', index: 'IntencionActual', width: 10, sortable: false },
-                                                        { name: 'StrFechRegistro', index: 'StrFechRegistro', width:9, align: "center", sortable: false },
-                                                        { name: 'DerivadoA', index: 'DerivadoA', width: 9, align: "center", sortable: false },
-                                                        {
-                                                            name: 'IdSolicitud', index: 'IdSolicitud', align: "center", width: 5, sortable: false, jsonmap: "IdSolicitud",
-                                                            formatter: function (cellvalue, options, rowObject) {
-
-                                                                var _id = rowObject.IdSolicitud;
-                                                                return '<input class="buttonTable" type="button" value="Ver" onclick="javascript:Visualizar(' + _id + ')"\>';
-                                                            }
-                                                        }
-                                                    ],
-                                                    height: 200,
-                                                    rowNum: 20,
-                                                    sortname: 'id',
-                                                    hidegrid: false,
-                                                    pager: "#jqGridPager",
-                                                    rownumbers: true,
-                                                    viewrecords: true,
-                                                    toolbar: [false, "top"],
-                                                    sortorder: "asc",
-                                                    loadtext: 'Cargando datos...',
-                                                    recordtext: "{0} - {1} de {2} Elementos",
-                                                    emptyrecords: 'No hay resultados',
-                                                    pgtext: 'Página: {0} de {1}'
-
-                                                });
-
-                                                $.datepicker.regional['es'] = {
-                                                    closeText: 'Cerrar',
-                                                    prevText: '<Ant',
-                                                    nextText: 'Sig>',
-                                                    currentText: 'Hoy',
-                                                    monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-                                                    monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                                                    dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-                                                    dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
-                                                    dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
-                                                    weekHeader: 'Sm',
-                                                    dateFormat: 'dd/mm/yy',
-                                                    firstDay: 1,
-                                                    isRTL: false,
-                                                    showMonthAfterYear: false,
-                                                    yearSuffix: ''
-                                                };
-
-                                                $.datepicker.setDefaults($.datepicker.regional['es']);
-
-                                                $('#txtFechaInicio_Buscar').datepicker();
-                                                $('#txtFechaFin_Buscar').datepicker();
-
-                                                var now = new Date();
-                                                //var day = ("0" + now.getDate()).slice(-2);
-                                                var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
-                                                var lastDate = new Date().add(-6).month();
-                                                var lastDay = ("0" + lastDate.getDate()).slice(-2);
-                                                //var lastMonth = ("0" + (lastDate.getMonth() + 1)).slice(-2);
-
-                                                var date = new Date();
-                                                //var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-                                                var lastDayDT = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-                                                var lastDay = ("0" + lastDayDT.getDate()).slice(-2);
-
-                                                var fchStart = "01" + "/" + (month) + "/" + now.getFullYear();
-                                                var fchEnd = lastDay + "/" + (month) + "/" + now.getFullYear();
-
-                                                $('#txtFechaInicio_Buscar').val(fchStart);
-                                                $('#txtFechaFin_Buscar').val(fchEnd);
-
-                                                $("#btnFiltrar").click();
-
-                                            });
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function FiltrarDashboard() {
-
-                                                var fechaInicio = $('#txtFechaInicio_Buscar').val();
-                                                var fechaFin = $('#txtFechaFin_Buscar').val();
-
-
-                                                var expreg = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/;
-
-                                                if (!expreg.test($('#txtFechaInicio_Buscar').val())) {
-                                                    alert("La Fecha Desde no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
-                                                    $("#txtFechaInicio_Buscar").focus();
-                                                    return;
-                                                }
-
-                                                //var expreg = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                                                if (!expreg.test($('#txtFechaFin_Buscar').val())) {
-                                                    alert("La Fecha Hasta no tiene un formato válido dd/MM/yyyy. Por favor, verifique el filtro ingresado");
-                                                    $("#txtFechaFin_Buscar").focus();
-                                                    return;
-                                                }                                                
-
-                                                var dayDiff_1 = getDateDiff(fechaFin, fechaInicio);
-                                                //console.log("dayDiff_1: " + dayDiff_1);
-                                                if (dayDiff_1 < 0) {
-                                                    alert("La Fecha Desde no puede ser posterior a la Fecha Hasta. Por favor, verifique el filtro ingresado");
-                                                    $("#txtFechaInicio_Buscar").focus();
-                                                    return;
-                                                }
-
-
-
-                                                DisplayLoading();
-                                                ListarSolicitudesAtencion();
-                                                CargarIndicadores();
-                                                CargarChartUnidadNegocio();
-                                                CargarChartTipoConsulta();
-
-                                            }
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function ListarSolicitudesAtencion() {
-
-                                                var parametros = {
-                                                    fechaInicio: $('#txtFechaInicio_Buscar').val(),
-                                                    fechaFin: $('#txtFechaFin_Buscar').val(),
-                                                    indicadorStatus: $('#hdnIndicadorStatus').val()
-                                                };
-
-                                                $("#jqGrid").clearGridData();
-                                                //$("#jqGrid").closest(".ui-jqgrid").find('.loading').show();
-                                                $("#div_data_loading").css("display", "block");
-
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '/Dashboard/ListarSolicitudesAtencion',
-                                                    data: parametros,
-                                                    dataType: 'json',
-                                                    success: function (rpta) {
-
-                                                        var parsed = JSON.parse(JSON.stringify(rpta));
-                                                        var array_ = [];
-                                                        for (var x in parsed) {
-                                                            array_.push(parsed[x]);
-                                                        }
-                                                        $("#jqGrid").closest(".ui-jqgrid").find('.loading').hide();
-
-                                                        $("#div_data_loading").css("display", "none");
-                                                        $("#jqGrid").jqGrid('setGridParam', { data: array_ });
-                                                        $("#jqGrid").trigger('reloadGrid');
-
-                                                    },
-                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-
-                                                    }
-                                                });
-
-                                            }
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function CargarIndicadores() {
-
-                                                var parametros = {
-                                                    fechaInicio: $('#txtFechaInicio_Buscar').val(),
-                                                    fechaFin: $('#txtFechaFin_Buscar').val()
-                                                };
-
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '/Dashboard/CargarIndicadoresDashboard',
-                                                    data: parametros,
-                                                    dataType: 'json',
-                                                    success: function (rpta) {
-
-                                                        $("#divTotal").css("display", "block");
-                                                        $("#divTotal_loading").css("display", "none");
-
-                                                        $("#divResueltos").css("display", "block");
-                                                        $("#divResueltos_loading").css("display", "none");
-
-                                                        $("#divDerivados").css("display", "block");
-                                                        $("#divDerivados_loading").css("display", "none");
-
-                                                        $("#divPendientes").css("display", "block");
-                                                        $("#divPendientes_loading").css("display", "none");
-
-                                                        $("#divNoResueltos").css("display", "block");
-                                                        $("#divNoResueltos_loading").css("display", "none");
-
-                                                        $("#divCancelados").css("display", "block");
-                                                        $("#divCancelados_loading").css("display", "none");
-
-                                                        $("#divCumpleSla").css("display", "block");
-                                                        $("#divCumpleSla_loading").css("display", "none");
-
-                                                        $("#divNoCumpleSla").css("display", "block");
-                                                        $("#divNoCumpleSla_loading").css("display", "none");
-
-                                                        var parsed = JSON.parse(JSON.stringify(rpta));
-
-                                                        for (var x in parsed) {
-                                                            $("#lblTotal").text(parsed[x].Total);
-                                                            $("#lblResueltos").text(parsed[x].Resueltos);
-                                                            $("#lblDerivados").text(parsed[x].Derivados);
-                                                            $("#lblPendientes").text(parsed[x].Pendientes);
-                                                            $("#lblNoResueltos").text(parsed[x].NoResueltos);
-                                                            $("#lblCancelados").text(parsed[x].Cancelados);
-
-                                                            $("#lblCumpleSla").text(parsed[x].CumplioSla);
-                                                            $("#lblNoCumpleSla").text(parsed[x].NoCumplioSla);
-                                                        }
-
-                                                    },
-                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                                                    }
-                                                });
-                                            }
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function drawChartPie(rpta) {
-
-                                                var parsed = JSON.parse(JSON.stringify(rpta));
-
-                                                var data = new google.visualization.DataTable();
-
-                                                data.addColumn('string', 'Unidad Negocio');
-                                                data.addColumn('number', 'Cantidad');
-
-                                                for (var x in parsed) {
-                                                    data.addRow([parsed[x].Descripcion, parsed[x].Cantidad]);
-                                                }
-
-
-                                                var options = {
-                                                    title: '',
-                                                    is3D: true,
-                                                    chartArea: { left: 50, right: 50, top: 40, width: "100%", height: "65%" },
-                                                    legend: {
-                                                        position: 'bottom'
-                                                    }
-                                                };
-
-                                                var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-                                                chart.draw(data, options);
-                                            }
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function drawBarChart(rpta) {
-
-                                                var parsed = JSON.parse(JSON.stringify(rpta));
-
-                                                var data = new google.visualization.DataTable();
-
-                                                data.addColumn('string', 'Tipo Consulta');
-                                                data.addColumn('number', 'Cantidad');
-
-                                                for (var x in parsed) {
-                                                    data.addRow([parsed[x].Descripcion, parsed[x].Cantidad]);
-                                                }
-
-                                                var view = new google.visualization.DataView(data);
-
-                                                var options = {
-                                                    title: "",
-                                                    bar: { groupWidth: "80%", groupHeight: "100%" },
-                                                    chartArea: { left: 100, right: 20, top: 40, width: "100%", height: "60%" },
-
-                                                    legend: {
-                                                        position: 'bottom'
-                                                    },
-                                                    vAxis: {
-                                                        textStyle: {
-                                                            fontFamily: 'Arial',
-                                                            fontSize: 9
-                                                        }
-                                                    }
-                                                };
-
-                                                var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
-                                                chart.draw(view, options);
-                                            }
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function Visualizar(id) {
-
-                                                $('#txtNumeroSolicitud').val("");
-                                                $('#txtNombreApellidos').val("");
-                                                $('#txtCodigoAlumno').val("");
-                                                $('#txtEstado').val("");
-                                                $('#txtTipoConsulta').val("");
-                                                $('#txtFechaAtencion').val("");
-                                                $('#txtConsulta').val("");
-                                                $('#txtRespuesta').val("");
-
-
-                                                var parametros = {
-                                                    idSolicitud: id
-                                                };
-
-                                                $.ajax({
-                                                    type: 'POST',
-                                                    url: '/Dashboard/ConsultarSolicitudAtencion',
-                                                    data: parametros,
-                                                    dataType: 'json',
-                                                    success: function (rpta) {
-
-                                                        var parsed = JSON.parse(JSON.stringify(rpta));
-                                                        var array_ = [];
-                                                        for (var x in parsed) {
-
-                                                            if (parsed[x].NumSolicitud != null && !(parsed[x].NumSolicitud === '')) {
-                                                                $('#txtNumeroSolicitud').val(parsed[x].NumSolicitud);
-                                                                $('#txtNombreApellidos').val(parsed[x].NombreApePaterno);
-                                                                $('#txtCodigoAlumno').val(parsed[x].CodigoAlumno);
-                                                                $('#txtEstado').val(parsed[x].EstadoDesc);
-                                                                $('#txtTipoConsulta').val(parsed[x].IntencionActual);
-                                                                $('#txtFechaAtencion').val(parsed[x].StrFechRegistro);
-                                                                $('#txtConsulta').val(parsed[x].Consulta);
-                                                                $('#txtRespuesta').val(parsed[x].Solucion);
-                                                            } else {
-                                                                alert("No se encuentran datos para mostrar.");
-                                                            }                                                         
-
-                                                        }
-
-                                                        $('#dialogConsulta').dialog('open');
-
-                                                    },
-                                                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-
-                                                    }
-                                                });
-
-                                            }
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function Cerrar() {
-                                                $('#dialogConsulta').dialog('close');
-                                            }
-
-                                            //-----------------------------------------------------------------------------------------
-
-                                            function DisplayLoading() {
-
-                                                $("#piechart_3d").css("display", "none");
-                                                $("#piechart_3d_loading").css("display", "block");
-
-                                                $("#barchart_values").css("display", "none");
-                                                $("#barchart_values_loading").css("display", "block");
-
-                                                $("#jqGrid").clearGridData();
-                                                $("#div_data_loading").css("display", "block");
-
-                                                $("#divTotal").css("display", "none");
-                                                $("#divTotal_loading").css("display", "block");
-
-                                                $("#divResueltos").css("display", "none");
-                                                $("#divResueltos_loading").css("display", "block");
-
-                                                $("#divDerivados").css("display", "none");
-                                                $("#divDerivados_loading").css("display", "block");
-
-                                                $("#divPendientes").css("display", "none");
-                                                $("#divPendientes_loading").css("display", "block");
-
-                                                $("#divNoResueltos").css("display", "none");
-                                                $("#divNoResueltos_loading").css("display", "block");
-
-                                                $("#divCancelados").css("display", "none");
-                                                $("#divCancelados_loading").css("display", "block");
-
-                                                $("#divCumpleSla").css("display", "none");
-                                                $("#divCumpleSla_loading").css("display", "block");
-
-                                                $("#divNoCumpleSla").css("display", "none");
-                                                $("#divNoCumpleSla_loading").css("display", "block");
-                                            }
-
-
-                                            //-----------------------------------------------------------------------------------------
-                                            function getDateDiff(time1, time2) {
-
-                                                //console.log(time1);
-                                                //console.log(time2);
-
-                                                var str1 = time1.split('/');
-                                                var str2 = time2.split('/');
-
-                                                //                  yyyy   ,              mm       ,            dd
-                                                var t1 = new Date(parseInt(str1[2]), parseInt(str1[1]) - 1, parseInt(str1[0]));
-                                                var t2 = new Date(parseInt(str2[2]), parseInt(str2[1]) - 1, parseInt(str2[0]));
-
-                                                //console.log(t1);
-                                                //console.log(t2);
-
-                                                var diffMS = t1 - t2;
-                                                //console.log(diffMS + ' ms');
-
-                                                var diffS = diffMS / 1000;
-                                                //console.log(diffS + ' ');
-
-                                                var diffM = diffS / 60;
-                                                //console.log(diffM + ' minutes');
-
-                                                var diffH = diffM / 60;
-                                                //console.log(diffH + ' hours');
-
-                                                var diffD = diffH / 24;
-                                                //console.log(diffD + ' days');
-
-                                                return diffD;
-
-                                            }
-                                            //-----------------------------------------------------------------------------------------
-                                            function getCurrentDate() {
-                                                var today = new Date();
-                                                var dd = today.getDate();
-                                                var mm = today.getMonth() + 1; //January is 0!
-                                                var yyyy = today.getFullYear();
-
-                                                if (dd < 10) {
-                                                    dd = '0' + dd
-                                                }
-
-                                                if (mm < 10) {
-                                                    mm = '0' + mm
-                                                }
-
-                                                today = dd + '/' + mm + '/' + yyyy;
-                                                return today;
-                                            }
-                                            //-----------------------------------------------------------------------------------------
-                                            function EnviarAlerta() {
-                                                if (confirm("¿Está seguro de que desea enviar un recordatorio para la atención de las solicitudes ?"))
-                                                $.ajax({
-                                                    type: "POST",
-                                                    url: '/Dashboard/EnviarAlerta',
-                                                    contentType: "application/json; charset=utf-8",
-                                                    dataType: "json",
-                                                    success: function () {
-                                                        alert("Alerta generada correctamente");
-                                                    },
-                                                    error: function (error) {
-                                                        alert("Ocurrió un error al generar la alerta");
-                                                        console.log("Fallo en enviar alerta " + error);
-                                                    }
-                                                });
-                                            }
-                                        </script>
-                                    </div>
                                 </div>
+
                             </div>
+                            <div ui-view=""></div>
+
                         </div>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </div>
@@ -1062,7 +1217,7 @@
                         <label class="labelTextIndicador">N° Solicitud:</label>
                     </td>
                     <td colspan="3">
-                        <input type="text" id="txtNumeroSolicitud" style="width:100%" class="text-box-read-only" />
+                        <input type="text" id="txtNumeroSolicitud" style="width:100%" readonly="readonly" class="text-box-read-only" />
                     </td>
                 </tr>
                 <tr>
@@ -1070,7 +1225,7 @@
                         <label class="labelTextIndicador">Nombre y Apellidos:</label>
                     </td>
                     <td colspan="3">
-                        <input type="text" id="txtNombreApellidos" style="width:100%" class="text-box-read-only" />
+                        <input type="text" id="txtNombreApellidos" style="width:100%" readonly="readonly" class="text-box-read-only" />
                     </td>
                 </tr>
                 <tr>
@@ -1078,13 +1233,13 @@
                         <label class="labelTextIndicador">Código Alumno:</label>
                     </td>
                     <td>
-                        <input type="text" id="txtCodigoAlumno" style="width:100%" class="text-box-read-only" />
+                        <input type="text" id="txtCodigoAlumno" style="width:100%" readonly="readonly" class="text-box-read-only" />
                     </td>
                     <td>
                         <label class="labelTextIndicador" style="padding-left:10px">Estado:</label>
                     </td>
                     <td>
-                        <input type="text" id="txtEstado" style="width:100%" class="text-box-read-only" />
+                        <input type="text" id="txtEstado" style="width:100%" readonly="readonly" class="text-box-read-only" />
                     </td>
                 </tr>
                 <tr>
@@ -1092,13 +1247,13 @@
                         <label class="labelTextIndicador">Intención Consulta:</label>
                     </td>
                     <td>
-                        <input type="text" id="txtTipoConsulta" style="width:100%" class="text-box-read-only" />
+                        <input type="text" id="txtTipoConsulta" style="width:100%" readonly="readonly" class="text-box-read-only" />
                     </td>
                     <td>
                         <label class="labelTextIndicador" style="padding-left:10px">Fecha Registro:</label>
                     </td>
                     <td>
-                        <input type="text" id="txtFechaAtencion" style="width:100%" class="text-box-read-only" />
+                        <input type="text" id="txtFechaAtencion" style="width:100%" readonly="readonly" class="text-box-read-only" />
                     </td>
                 </tr>
                 <tr>
@@ -1106,7 +1261,7 @@
                         <label class="labelTextIndicador">Consulta:</label>
                     </td>
                     <td colspan="3">
-                        <textarea id="txtConsulta" style="width:100%;height:80px" class="text-box-read-only"></textarea>
+                        <textarea id="txtConsulta" style="width:100%;height:80px" readonly="readonly" class="text-box-read-only"></textarea>
                     </td>
                 </tr>
                 <tr>
@@ -1114,7 +1269,7 @@
                         <label class="labelTextIndicador">Respuesta:</label>
                     </td>
                     <td colspan="3">
-                        <textarea id="txtRespuesta" style="width:100%;height:80px" class="text-box-read-only"></textarea>
+                        <textarea id="txtRespuesta" style="width:100%;height:80px" readonly="readonly" class="text-box-read-only"></textarea>
                     </td>
                 </tr>
             </table>
@@ -1124,3 +1279,5 @@
         </div>
     </div>
 
+</body>
+</html>

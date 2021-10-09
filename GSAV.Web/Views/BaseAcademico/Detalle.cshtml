@@ -5,298 +5,438 @@
 @{
     /**/
 
-    ViewBag.Title = "Detalle de Base de Conocimiento";
+    ViewBag.Title = Model.Id.Equals("NEW") ? "Base de Conocimiento Académico > Crear Entrada En La Base de Conocimiento" : "Base de Conocimiento Académico > Editar Entrada En La Base de Conocimiento";
 }
+DOCTYPE html>
+<!-- saved from url=(0053)https://aulavirtual.upc.edu.pe/ultra/institution-page -->
+<html lang="es-es"
+      class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths"
+      dir="ltr" has-applied-locale-text-direction="">
 
-<div class="contentPaneWide clearfix tabbedPane portal">
+<head>
+    <link class="initial-css-link" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/534-fa2dcc8d839b58312b15.css" rel="stylesheet">
+    <link class="initial-css-link" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/app-fa2dcc8d839b58312b15.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/0-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/18-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/28-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/567-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/4-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/16-fa2dcc8d839b58312b15.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/143-fa2dcc8d839b58312b15.css">
 
-    <div class="paneTabs clearfix">
-        <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
-        <ul id="paneTabs" class="clearfix nav">
-            <li class="active ">
-                <a href="#">Detalle de Base de Conocimiento<span class="hideoff"> (ficha activa)</span></a>
-            </li>
+    <link rel="stylesheet" href="https://cdn.botframework.com/botframework-webchat/latest/botchat.css" />
 
-            <li class="" style="display:none;"></li>
-            <li id="overflowLiId" class="sub" style="display: none;">
-                <a href="#" id="overflowIconId" class="hiddenTabsLink"></a>
-                <ul class="more" id="overflowULId"></ul>
-            </li>
-        </ul>
-    </div>
-
-    <div id="content" class="contentBox clearfix">
-        <div class="container clearfix">
-
-            <div class="row">
-                <div class="col-md-12">
+    <link href="~/Content/custom/jquery-ui-1.10.4.custom.css" rel="stylesheet">
 
 
+    <link href="~/Content/jquery-ui-timepicker-addon.css" rel="stylesheet">
+    <link href="~/Content/ui.jqgrid.css" rel="stylesheet">
+    <link href="~/Content/site.css" rel="stylesheet">
+    <link href="~/Content/jquery-confirm.css" rel="stylesheet">
+    <link href="~/Content/webchat-stable/botchat.css" rel="stylesheet">
+    <link href="~/Content/webchat-stable/botchat-fullwindow.css" rel="stylesheet">
 
-                    <div class="contentBox contentBox-edit clearfix">
-
-                        <div class="containerPortal clearfix">
-
-                            <div id="column0" class="column-2 clearfix" style="width: 20%;">
-
-                                <div class="portlet clearfix  " id="module:_48_1">
-                                    <!-- extid:portal/tools/my_institution: -->
-                                    <div class="edit_controls">
-                                    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 
 
-                                    <h2 class="  clearfix" id="anonymous_element_4">
-                                        <span class="moduleTitle">Herramientas</span>
-                                    </h2>
+    <script src="~/Scripts/jquery-ui-1.9.2.custom.js"></script>
 
+    <script src="~/Scripts/jquery-ui-timepicker-addon.js"></script>
+    <script src="~/Scripts/jquery-ui-timepicker-addon-i18n.min.js"></script>
+    <script src="~/Scripts/jqgrid/jquery.layout.js"></script>
+    <script src="~/Scripts/jqgrid/grid.locale-es.js"></script>
+    <script src="~/Scripts/jqgrid/jquery.jqGrid.js"></script>
+    <script src="~/Scripts/jquery-ui-sliderAccess.js"></script>
+    <script src="~/Scripts/date.js"></script>
+    <script src="~/Scripts/jquery-confirm.js"></script>
+    <script src="~/Scripts/jquery.blockUI.js"></script>
 
-                                    <div class="collapsible" style="overflow: auto;">
+    <style type="text/css">
+        .topGlobalLinks a.home {
+            background-image: url(/images/console/icons/home_0.gif)
+        }
 
-                                        <ul class="portletList">
-                                            <li>
-                                                <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
-                                            </li>
+        .bottom-buttons-home a {
+            background-image: url(/images/console/icons/home_0.gif);
+            background-repeat: no-repeat;
+            background-position: 50% 0
+        }
 
-                                            @if (@Session["Login-Info"] != null &&
-                                                ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
-                                            {
-                                                <li>
-                                                    <a href="@Url.Content("/Consulta/Index")" _self">Bandeja de Consultas</a>
-                                                </li>
+        .topGlobalLinks a.help {
+            background-image: url(/images/console/icons/help_0.gif)
+        }
 
-                                            }
+        .bottom-buttons-help a {
+            background-image: url(/images/console/icons/help_0.gif);
+            background-repeat: no-repeat;
+            background-position: 50% 0
+        }
 
-                                            @if (@Session["Login-Info"] != null &&
-                                                 ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
-                                            {
-                                                <li>
-                                                    <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>
-                                                </li>
+        .topGlobalLinks a.logout {
+            background-image: url(/images/console/icons/logout_0.gif)
+        }
 
-                                            }
+        .global-nav-bar .logout-link, .global-nav-bar .logout-link:hover, .global-nav-bar .logout-link:focus {
+            background-image: url(/images/console/icons/logout_0.gif);
+            background-repeat: no-repeat;
+            background-position: 50% 0
+        }
 
-                                            @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR")
-                                            {
-                                                <li>
-                                                    <a href="@Url.Content("/Dashboard/Index")" _self">Dashboard de Consultas</a>
-                                                </li>
-                                            }
+        #BotChatGoesHere {
+            border: 1px solid #333;
+            float: right;
+            height: 500px;
+            position: relative;
+            width: 400px;
+        }
 
-                                        </ul>
+        #btnUpecito {
+            /*float: right;
+            position: relative;*/
+        }
 
+        input[type="button"], input[type="submit"], button {
+            height: 22px;
+            font-size: 12px;
+            font-weight: bold;
+            background: #e3000f;
+            color: #ffffff;
+            border: 1px solid;
+            border-color: #e3000f;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/580-fa2dcc8d839b58312b15.css">
 
-                                    </div>
-                                </div>
+</head>
+<body class="default ms-Fabric hide-focus-outline help-page-visible" bb-keyboard-click="" bb-focus-helper=""
+      bb-foundation-dropdown-close="" bb-has-footer="" bb-prevent-drag="" bb-read-info="" bb-hover-menu-opacity=""
+      bb-live-region="" draggable="false">
+    <div data-base-state-name="base.tools.peek" class="first bb-offcanvas-panel bb-offcanvas-right full with-banner hide-in-background panel-has-focus active" tabindex="-1" aria-hidden="false" data-page-title="Inicio de LTI" style="display: block;top: 0px;left: 0px;max-width: 100% !important;">
+        <div class="bb-offcanvas-panel-wrap">
 
-                                <div class="portlet clearfix  " id="module:_522_1">
-                                    <!-- extid:522: -->
-                                    <div class="edit_controls">
-                                    </div>
+            <div class="side-panel-content" style="height: calc(100% - 0px);">
 
+                <div bb-dir="" dir="ltr">
 
-                                    <h2 class="  clearfix" id="anonymous_element_5">
-                                        <span class="moduleTitle">Videotutoriales y manuales de Aprendizaje Digital</span>
-                                    </h2>
+                    <div ui-view="base-tools-panel" bb-offcanvas-pausal-scope="">
+                        <div class="page-lti-launch-frame">
 
+                            <div class="panel-wrap">
 
-                                    <div class="collapsible" style="overflow: auto;">
+                                <header class="panel-header simple-header">
 
-                                        <div class="vtbegenerated"><p style="text-align: center;"><a href="https://www.youtube.com/playlist?list=PLontYaReEU1seUE3ACG3sEc3zR7Br7URU" target="_blank"><img src="~/Content/images/BMANUALES1.jpg" width="100%" height="100%" alt="videotutoriales" title="videotutoriales"></a></p></div>
+                                    <div class="panel-titles-container">
 
-                                    </div>
-                                </div>
-
-                                <div class="portlet clearfix  " id="module:_528_1">
-                                    <!-- extid:528: -->
-                                    <div class="edit_controls">
-                                    </div>
-
-
-                                    <h2 class="  clearfix" id="anonymous_element_7">
-                                        <span class="moduleTitle">Reglamentos y Políticas de UPC</span>
-                                    </h2>
-
-
-                                    <div class="collapsible" style="overflow: auto;">
-
-                                        <div class="vtbegenerated">
-                                            <div class="w3-content w3-section" style="max-width: 100%;">
-                                                <a href="http://sica.upc.edu.pe/publico/reglamentos-upc" target="_blank="><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_reg.png" style="width: 100%; display: block;"></a>
-                                                <a href="http://sica.upc.edu.pe/publico/politicas-upc" target="_blank"><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_pol.png" style="width: 100%; display: none;"></a>
-                                            </div>
-                                            <script type="text/javascript">
-                                                /*<![CDATA[*/
-                                                var myIndex1 = 0;
-                                                carousel1();
-
-                                                function carousel1() {
-                                                    var i;
-                                                    var x = document.getElementsByClassName("mySlides1");
-                                                    for (i = 0; i < x.length; i++) {
-                                                        x[i].style.display = "none";
-                                                    }
-                                                    myIndex1++;
-                                                    if (myIndex1 > x.length) { myIndex1 = 1 }
-                                                    x[myIndex1 - 1].style.display = "block";
-                                                    setTimeout(carousel1, 3000); // Change image every 2 seconds
-                                                }
-                                                /*]]>*/</script>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div id="column1" class="column-2 clearfix" style="width: 80%;">
-                                <div class="portlet clearfix  " id="module:_527_1">
-                                    <!-- extid:527: -->
-                                    <div class="edit_controls">
-                                    </div>
-
-
-                                    <h2 class="  clearfix" id="anonymous_element_9">
-                                        <span class="moduleTitle">
-
+                                        <span class="panel-sub-title"></span>
+                                        <div class="black-header-contents">
                                             @if (Model.Id.Equals("NEW"))
                                             {
-                                            <label>Crear Entrada En La Base de Conocimiento</label>
+                                            <h1 class="panel-title">Base de Conocimiento Académico > Crear Entrada En La Base de Conocimiento</h1>
                                             }
                                             else
                                             {
-                                            <label>Editar Entrada En La Base de Conocimiento</label> 
+                                            <h1 class="panel-title">Base de Conocimiento Académico > Editar Entrada En La Base de Conocimiento</h1>
                                             }
-                                        </span>
-                                    </h2>
+                                        </div>
+
+                                    </div>
+
+                                </header>
+                                <div class="panel-content iframe-wrapper">
+
+                                    <bb-lti-launch-frame style="height: 388px;">
 
 
-                                    <div class="collapsible" style="overflow: auto;">
+                                        <div class="contentPaneWide clearfix tabbedPane portal">
+
+                                            @*<div class="paneTabs clearfix">
+                                                    <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
+                                                    <ul id="paneTabs" class="clearfix nav">
+                                                        <li class="active ">
+                                                            <a href="#">Detalle de Base de Conocimiento<span class="hideoff"> (ficha activa)</span></a>
+                                                        </li>
+
+                                                        <li class="" style="display:none;"></li>
+                                                        <li id="overflowLiId" class="sub" style="display: none;">
+                                                            <a href="#" id="overflowIconId" class="hiddenTabsLink"></a>
+                                                            <ul class="more" id="overflowULId"></ul>
+                                                        </li>
+                                                    </ul>
+                                                </div>*@
+
+                                            <div id="content" class="contentBox clearfix">
+                                                <div class="container clearfix">
+
+                                                    <div class="row">
+                                                        <div class="col-md-12">
 
 
-                                        <table width="100%">
-                                            <tr>
-                                                <td style="height:15px"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="width: 100%">
 
-                                                    <fieldset class="fieldset">
-                                                        <legend>Datos</legend>
+                                                            <div class="contentBox contentBox-edit clearfix">
 
-                                                        <table width="100%" cellpadding="2">
-                                                            <colgroup>
-                                                                <col width="15%" />
-                                                                <col width="35%" />
-                                                                <col width="12%" />
-                                                                <col width="38%" />
-                                                            </colgroup>
-                                                            <tr>
-                                                                <td align="left" class="Texto">
-                                                                    Código de Intención:
-                                                                </td>
-                                                                <td style="text-align: left">
-                                                                    @Html.TextBoxFor(model => model.Id, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
-                                                                </td>
-                                                                <td align="left" class="Texto" style="padding-left:10px;"></td>
-                                                                <td style="text-align: left"></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="left" class="Texto">
-                                                                    Intención:
-                                                                </td>
-                                                                <td style="text-align: left">
+                                                                <div class="containerPortal clearfix">
 
-                                                                    @if (Model.Id.Equals("NEW"))
-                                                                    {
-                                                                        <select id="cbIntencion" style="width: 100%">                                                                            
-                                                                        </select>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        @Html.TextBoxFor(model => model.DescripcionIntencionPadre, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
-                                                                    }
+                                                                    @*<div id="column0" class="column-2 clearfix" style="width: 20%;">
 
-
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td align="left" class="Texto">
-                                                                    Sub-Intención:
-                                                                </td>
-                                                                <td style="text-align: left">
-
-                                                                    @if (Model.Id.Equals("NEW"))
-                                                                    {
-                                                                        @Html.TextBoxFor(model => model.Nombre, new { @style = "width:100%" })
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        @Html.TextBoxFor(model => model.Nombre, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
-                                                                    }
-
-                                                                </td>
-                                                                <td align="left" class="Texto" style="padding-left:10px;">
-                                                                    Fecha Creación:
-                                                                </td>
-                                                                <td style="text-align: left">
-                                                                    @Html.TextBoxFor(model => model.FechaCreacion, new { @style = "width:120px", @readonly = true, @class = "text-box-read-only" })
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    Frases Entrenamiento:
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="4">
-                                                                    <table width="100%">
-                                                                        <tr>
-                                                                            <td id="tdjQueryTablePF">
-                                                                                <div id="divContenedorPF" style="width:100%">
-                                                                                    <table id="jqGridPF"></table>
-                                                                                    <div id="jqGridPagerPF"></div>
+                                                                            <div class="portlet clearfix  " id="module:_48_1">
+                                                                                <!-- extid:portal/tools/my_institution: -->
+                                                                                <div class="edit_controls">
                                                                                 </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </table>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td valign="top">
-                                                                    Respuesta:
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td colspan="4">
-                                                                    @Html.TextArea("Respuesta", new { @style = "", @class = "textAreaCustom" })
-                                                                </td>
-                                                                <td></td>
-                                                                <td></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="hidden" id="jsonFrases" />
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </fieldset>
 
-                                                    <fieldset class="fieldset" style="margin-top: 5px!important;">
-                                                        <table>
-                                                            <tr>
-                                                                <td colspan="4">
-                                                                    <input type="button" value="Grabar" onclick="javascript: Grabar();" />
 
-                                                                    <input type="button" value="Regresar" onclick="javascript: Cancelar();" />
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </fieldset>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                                                                <h2 class="  clearfix" id="anonymous_element_4">
+                                                                                    <span class="moduleTitle">Herramientas</span>
+                                                                                </h2>
 
-                                        <script type="text/javascript">
+
+                                                                                <div class="collapsible" style="overflow: auto;">
+
+                                                                                    <ul class="portletList">
+                                                                                        <li>
+                                                                                            <a href="@Url.Content("/Home/Index")" _self">Mi institución</a>
+                                                                                        </li>
+
+                                                                                        @if (@Session["Login-Info"] != null &&
+                                                                                            ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
+                                                                                        {
+                                                                                            <li>
+                                                                                                <a href="@Url.Content("/Consulta/Index")" _self">Bandeja de Consultas</a>
+                                                                                            </li>
+
+                                                                                        }
+
+                                                                                        @if (@Session["Login-Info"] != null &&
+                                                                                             ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "DOCENTE")
+                                                                                        {
+                                                                                            <li>
+                                                                                                <a href="@Url.Content("/BaseAcademico/Index")" _self">Base de Conocimiento Académico</a>
+                                                                                            </li>
+
+                                                                                        }
+
+                                                                                        @if (@Session["Login-Info"] != null && ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol == "COORDINADOR")
+                                                                                        {
+                                                                                            <li>
+                                                                                                <a href="@Url.Content("/Dashboard/Index")" _self">Dashboard de Consultas</a>
+                                                                                            </li>
+                                                                                        }
+
+                                                                                    </ul>
+
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="portlet clearfix  " id="module:_522_1">
+                                                                                <!-- extid:522: -->
+                                                                                <div class="edit_controls">
+                                                                                </div>
+
+
+                                                                                <h2 class="  clearfix" id="anonymous_element_5">
+                                                                                    <span class="moduleTitle">Videotutoriales y manuales de Aprendizaje Digital</span>
+                                                                                </h2>
+
+
+                                                                                <div class="collapsible" style="overflow: auto;">
+
+                                                                                    <div class="vtbegenerated"><p style="text-align: center;"><a href="https://www.youtube.com/playlist?list=PLontYaReEU1seUE3ACG3sEc3zR7Br7URU" target="_blank"><img src="~/Content/images/BMANUALES1.jpg" width="100%" height="100%" alt="videotutoriales" title="videotutoriales"></a></p></div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="portlet clearfix  " id="module:_528_1">
+                                                                                <!-- extid:528: -->
+                                                                                <div class="edit_controls">
+                                                                                </div>
+
+
+                                                                                <h2 class="  clearfix" id="anonymous_element_7">
+                                                                                    <span class="moduleTitle">Reglamentos y Políticas de UPC</span>
+                                                                                </h2>
+
+
+                                                                                <div class="collapsible" style="overflow: auto;">
+
+                                                                                    <div class="vtbegenerated">
+                                                                                        <div class="w3-content w3-section" style="max-width: 100%;">
+                                                                                            <a href="http://sica.upc.edu.pe/publico/reglamentos-upc" target="_blank="><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_reg.png" style="width: 100%; display: block;"></a>
+                                                                                            <a href="http://sica.upc.edu.pe/publico/politicas-upc" target="_blank"><img class="mySlides1" src="http://info.upc.edu.pe/hemeroteca/BB/slides/img/b_pol.png" style="width: 100%; display: none;"></a>
+                                                                                        </div>
+                                                                                        <script type="text/javascript">
+                                                                                            /*<![CDATA[*/
+                                                                                            var myIndex1 = 0;
+                                                                                            carousel1();
+
+                                                                                            function carousel1() {
+                                                                                                var i;
+                                                                                                var x = document.getElementsByClassName("mySlides1");
+                                                                                                for (i = 0; i < x.length; i++) {
+                                                                                                    x[i].style.display = "none";
+                                                                                                }
+                                                                                                myIndex1++;
+                                                                                                if (myIndex1 > x.length) { myIndex1 = 1 }
+                                                                                                x[myIndex1 - 1].style.display = "block";
+                                                                                                setTimeout(carousel1, 3000); // Change image every 2 seconds
+                                                                                            }
+                                                                                            /*]]>*/</script>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>*@
+
+                                                                    <div id="column1" class="column-2 clearfix" style="width: 100%;">
+                                                                        <div class="portlet clearfix  " id="module:_527_1">
+                                                                            <!-- extid:527: -->
+                                                                            <div class="edit_controls">
+                                                                            </div>
+
+
+                                                                            @*<h2 class="  clearfix" id="anonymous_element_9">
+                                                                                <span class="moduleTitle">
+
+                                                                                    @if (Model.Id.Equals("NEW"))
+                                                                                    {
+                                                                                        <label>Crear Entrada En La Base de Conocimiento</label>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <label>Editar Entrada En La Base de Conocimiento</label>
+                                                                                    }
+                                                                                </span>
+                                                                            </h2>*@
+
+
+                                                                            <div class="collapsible" style="overflow: auto;">
+
+
+                                                                                <table width="100%">
+                                                                                    <tr>
+                                                                                        <td style="height:15px"></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td style="width: 100%">
+
+                                                                                            <fieldset class="fieldset">
+                                                                                                <legend>Datos</legend>
+
+                                                                                                <table width="100%" cellpadding="2">
+                                                                                                    <colgroup>
+                                                                                                        <col width="15%" />
+                                                                                                        <col width="35%" />
+                                                                                                        <col width="12%" />
+                                                                                                        <col width="38%" />
+                                                                                                    </colgroup>
+                                                                                                    <tr>
+                                                                                                        <td align="left" class="Texto">
+                                                                                                            Código de Intención:
+                                                                                                        </td>
+                                                                                                        <td style="text-align: left">
+                                                                                                            @Html.TextBoxFor(model => model.Id, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+                                                                                                        </td>
+                                                                                                        <td align="left" class="Texto" style="padding-left:10px;"></td>
+                                                                                                        <td style="text-align: left"></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td align="left" class="Texto">
+                                                                                                            Intención:
+                                                                                                        </td>
+                                                                                                        <td style="text-align: left">
+
+                                                                                                            @if (Model.Id.Equals("NEW"))
+                                                                                                            {
+                                                                                                                <select id="cbIntencion" style="width: 100%"></select>
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                @Html.TextBoxFor(model => model.DescripcionIntencionPadre, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+                                                                                                            }
+
+
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td align="left" class="Texto">
+                                                                                                            Sub-Intención:
+                                                                                                        </td>
+                                                                                                        <td style="text-align: left">
+
+                                                                                                            @if (Model.Id.Equals("NEW"))
+                                                                                                            {
+                                                                                                                @Html.TextBoxFor(model => model.Nombre, new { @style = "width:100%" })
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                @Html.TextBoxFor(model => model.Nombre, new { @style = "width:100%", @readonly = true, @class = "text-box-read-only" })
+                                                                                                            }
+
+                                                                                                        </td>
+                                                                                                        <td align="left" class="Texto" style="padding-left:10px;">
+                                                                                                            Fecha Creación:
+                                                                                                        </td>
+                                                                                                        <td style="text-align: left">
+                                                                                                            @Html.TextBoxFor(model => model.FechaCreacion, new { @style = "width:120px", @readonly = true, @class = "text-box-read-only" })
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            Frases Entrenamiento:
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="4">
+                                                                                                            <table width="100%">
+                                                                                                                <tr>
+                                                                                                                    <td id="tdjQueryTablePF">
+                                                                                                                        <div id="divContenedorPF" style="width:98%">
+                                                                                                                            <table id="jqGridPF"></table>
+                                                                                                                            <div id="jqGridPagerPF"></div>
+                                                                                                                        </div>
+                                                                                                                    </td>
+                                                                                                                </tr>
+                                                                                                            </table>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td valign="top">
+                                                                                                            Respuesta:
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td colspan="4">
+                                                                                                            @Html.TextArea("Respuesta", new { @style = "", @class = "textAreaCustom" })
+                                                                                                        </td>
+                                                                                                        <td></td>
+                                                                                                        <td></td>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <td>
+                                                                                                            <input type="hidden" id="jsonFrases" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </fieldset>
+
+                                                                                            <fieldset class="fieldset" style="margin-top: 5px!important;">
+                                                                                                <table>
+                                                                                                    <tr>
+                                                                                                        <td colspan="4">
+                                                                                                            <input type="button" value="Grabar" onclick="javascript: Grabar();" />
+
+                                                                                                            <input type="button" value="Regresar" onclick="javascript: Cancelar();" />
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                </table>
+                                                                                            </fieldset>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+
+                                                                                <script type="text/javascript">
 
                                             //-----------------------------------------------------------------------------------------
 
@@ -328,10 +468,10 @@
                                                                 console.log("Fallo carga de intenciones frecuentes... " + error);
                                                             }
                                                         });
-                                                    }             
+                                                    }
                                                 } catch{
 
-                                                }                                                                                  
+                                                }
                                             }
 
                                             //-----------------------------------------------------------------------------------------
@@ -352,7 +492,7 @@
 
                                                 $("#diagFraseEntrena").dialog({
                                                     autoOpen: false,
-                                                    height: 200,
+                                                    height: 230,
                                                     width: 500,
                                                     resizable: false,
                                                     modal: true,
@@ -602,14 +742,14 @@
                                             //-----------------------------------------------------------------------------------------
 
                                             function Grabar() {
-                                                
+
                                                 var intencionPadre = $("#cbIntencion").find("option:selected").val();
                                                 if (intencionPadre === '0') {
                                                     alert("Por favor, seleccione la Intención");
                                                     $("#cbIntencion").focus();
                                                     return;
                                                 }
-                                                
+
                                                 if ($('#Nombre').val() === '') {
                                                     alert("Por favor, ingrese Sub-Intención");
                                                     $("#Nombre").focus();
@@ -780,35 +920,54 @@
 
                                             //-----------------------------------------------------------------------------------------
 
-                                        </script>
-                                    </div>
+                                                                                </script>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="diagFraseEntrena" title="Frase Entrenamiento" style="display: none">
+                                            <div>
+                                                <table style="width: 100%; text-align: left" class="tablePopup">
+                                                    <tr>
+                                                        <td valign="top">
+                                                            Frase:
+                                                        </td>
+                                                        <td>
+                                                            <textarea id="txtFrase" name="txtFrase" style="height:100px;width:400px" class="textAreaCustom"></textarea>
+                                                            <input type="hidden" id="hdnIdFrase" />
+
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div id="divBotonesPopupFrases" style="text-align: center; padding-top: 5px; border-bottom-color: Navy; border-width: 5px;">
+                                                <input id="btnAceptarFrase" type="button" value="Guardar" onclick="AceptarFrase(); return false;" />
+                                                <input id="btnCancelarFrase" type="button" value="Cancelar" onclick="CancelarFrase(); return false;" />
+                                            </div>
+                                        </div>
+
+                                    </bb-lti-launch-frame>
+
                                 </div>
+
                             </div>
+                            <div ui-view=""></div>
+
                         </div>
                     </div>
+
                 </div>
+
             </div>
         </div>
     </div>
-</div>
 
-<div id="diagFraseEntrena" title="Frase Entrenamiento" style="display: none">
-    <div>
-        <table style="width: 100%; text-align: left" class="tablePopup">
-            <tr>
-                <td valign="top">
-                    Frase:
-                </td>
-                <td>                    
-                    <textarea id="txtFrase" name="txtFrase" style="height:100px;width:400px" class="textAreaCustom"></textarea>
-                    <input type="hidden" id="hdnIdFrase" />
-
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div id="divBotonesPopupFrases" style="text-align: center; padding-top: 5px; border-bottom-color: Navy; border-width: 5px;">
-        <input id="btnAceptarFrase" type="button" value="Guardar" onclick="AceptarFrase(); return false;" />
-        <input id="btnCancelarFrase" type="button" value="Cancelar" onclick="CancelarFrase(); return false;" />
-    </div>
-</div>
+</body>
+</html>

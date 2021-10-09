@@ -1,0 +1,247 @@
+﻿@using Microsoft.AspNet.Identity
+@using GSAV.Entity.Objects
+@using GSAV.Entity.Util
+@{
+    /**/
+
+    ViewBag.Title = "Herramientas";
+}
+<script charset="utf-8" src="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/580-fa2dcc8d839b58312b15.js"></script>
+<script charset="utf-8" src="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/vendors_app-fa2dcc8d839b58312b15.js"></script>
+<link rel="stylesheet" type="text/css" href="~/Content/upc/ultra/uiv3900.19.0-rel.9_e8cb3db/580-fa2dcc8d839b58312b15.css">
+
+<div bb-first-time-container="" bb-cache-compilation="base-tools" bb-offcanvas-pausal-scope="">
+    <header ng-class="::{'color-selection-preview-mode': previewMode, 'color-selection-live-mode': !previewMode}" class="base-header themed-background-primary-medium-down color-selection-live-mode" ng-multi-transclude-controller="" ng-attr-aria-hidden="{{ (previewMode ? 'true' : 'false') }}" page-title-key="base.tools.pageTitle" aria-hidden="false">
+        <section ng-class="::{'show-for-medium-down': !previewMode}" aria-labelledby="menuId" class="show-for-medium-down">
+            <button ng-class="::{'left-off-canvas-toggle': !previewMode, 'menu-toggle': !previewMode}" class="standard-button dark-background themed-background-primary-medium-down left-off-canvas-toggle menu-toggle" ng-attr-tabindex="{{ (previewMode ? '-1' : '') }}" analytics-id="base.menu.button" tabindex="">
+                <bb-svg-icon size="small" icon="main-menu">
+                    <svg class="svg-icon svg-icon-directive small-icon default directional-icon" focusable="false" aria-hidden="true" bb-cache-compilation="svg-icon">
+                        <use xlink:href="https://aulavirtual.upc.edu.pe/ultra/tools#icon-small-main-menu" ng-href="https://aulavirtual.upc.edu.pe/ultra/tools#icon-small-main-menu"></use>
+                    </svg>
+                </bb-svg-icon>
+                <span class="sr-only" id="menuId" bb-translate="">Menú</span>
+            </button>
+        </section>
+        <h1 class="page-title a themed-background-primary-medium-down js-base-page-skip-link-target" id="main-heading" bb-translate="" tabindex="-1" ng-class="{'has-filter': hasFilter(), 'js-base-page-skip-link-target': !headerNotSkipTarget()}">Herramientas</h1>
+        <div ng-multi-transclude="base-header-tools" class="base-header-tools-transclude"></div>
+    </header>
+    <div ui-view=""></div>
+
+    <div id="body-content" ng-controller="ultra.base.tools.controller">
+        <div class="no-tools row ng-hide" ng-show="!tool.areAnyTools() &amp;&amp; !tool.showKloudlessAccounts()">
+            <div class="small-12 small-centered columns">
+                <h3 bb-translate="">No cuenta con herramientas adicionales.</h3>
+                <bb-animated-gif src="./static/images/ftue/ftuMMicon_emptyStreamSearch.gif"><img role="presentation" alt="" src="./static/images/ftue/ftuMMicon_emptyStreamSearch.gif" class="animated-gif"></bb-animated-gif>
+            </div>
+        </div>
+
+        <div ng-show="tool.showKloudlessAccounts()" class="cloud-tools ng-hide">
+            <div class="section-header">
+                <span bb-translate="base.tools.cloudApplications">Aplicaciones de nube</span>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <ul class="small-block-grid-1 small-centered medium-block-grid-3 large-block-grid-4" ng-class="tool.getCardCssStyle()"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="base-tools" ng-show="tool.areAnyTools()">
+            <hr ng-show="tool.showKloudlessAccounts()" class="section-divider ng-hide">
+            <div class="section-header">
+                <span bb-translate="base.tools.blackboardTools">Herramientas de Blackboard</span>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <ul class="small-block-grid-1 small-centered medium-block-grid-3 large-block-grid-4" ng-class="tool.getCardCssStyle()">
+                        @{ string rol = ((ReturnObject<Usuario>)@Session["Login-Info"]).OneResult.Rol; }
+                        @if (@Session["Login-Info"] != null && (rol == "DOCENTE" || rol == "ADMINISTRADOR"))
+                        {
+                            <li ng-repeat="legacyToolKey in tool.legacyToolKeys track by $index" ng-if="tool.shouldBeShown(legacyToolKey)" class="grid-item">
+                                <a ui-sref="base.tools.legacy({toolName: tool.getToolNameByKey(legacyToolKey)})" href="javascript:toolspanel.panelopen('@Url.Content("/Consulta/Index")');" class="element-card tile course-color-3 js-course-details available student" ng-click="tool.handleToolLinkClick(legacyToolKey, $event)" analytics-id="base.tools.legacyTool.link">
+                                    <div class="element-details">
+                                        <div ng-switch="::tool.getToolIconByKey(legacyToolKey)" class="icon-holder">
+                                            <bb-ui-icon-large-content-collection ng-switch-when="content-collection">
+                                                <svg class="MuiSvgIconroot-0-2-36 makeStylesdirectionalIcon-0-2-34 makeStylesstrokeIcon-0-2-32 MuiSvgIconfontSizeLarge-0-2-44" focusable="false" viewBox="0 0 38 38" aria-hidden="true" role="presentation">
+                                                    <path fill="var(--icon-fill-color)" stroke="transparent" fill-rule="evenodd" d="M11 8.25c1.8646 0 3.4643 1.134 4.147 2.75H10v5h5.5v11.75h12.25c2.4853 0 4.5 2.0147 4.5 4.5s-2.0147 4.5-4.5 4.5H7.875c-2.4853 0-4.5-2.0147-4.5-4.5v-1.2c0-2.0057 1.3122-3.705 3.125-4.2861V12.75c0-2.4853 2.0147-4.5 4.5-4.5z" clip-rule="evenodd"></path>
+                                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M3 37V27h10v3h12v-3h10v10H3zM6 27V7h26v8m0 12V17"></path>
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M7 4h24M8 1h22"></path>
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h5v5h-5zM19 12h9M19 16h9M10 20h18M10 24h18"></path>
+                                                </svg>
+                                            </bb-ui-icon-large-content-collection>
+                                        </div>
+
+                                        <h2 class="name text-center text-hover">
+                                            <span class="base.tools.myContentsTitle" bb-translate="">Bandeja de Consultas</span>
+                                        </h2>
+                                    </div>
+                                </a>
+                            </li>
+                            <li ng-repeat="legacyToolKey in tool.legacyToolKeys track by $index" ng-if="tool.shouldBeShown(legacyToolKey)" class="grid-item">
+                                <a ui-sref="base.tools.legacy({toolName: tool.getToolNameByKey(legacyToolKey)})" href="javascript:toolspanel.panelopen('@Url.Content("/BaseAcademico/Index")');" class="element-card tile course-color-3 js-course-details available student" ng-click="tool.handleToolLinkClick(legacyToolKey, $event)" analytics-id="base.tools.legacyTool.link">
+                                    <div class="element-details">
+                                        <div ng-switch="::tool.getToolIconByKey(legacyToolKey)" class="icon-holder">
+
+                                            <bb-ui-icon-large-portfolios ng-switch-when="portfolios">
+                                                <svg class="MuiSvgIconroot-0-2-36 makeStylesdirectionalIcon-0-2-34 makeStylesstrokeIcon-0-2-32 MuiSvgIconfontSizeLarge-0-2-44" focusable="false" viewBox="0 0 38 38" aria-hidden="true" role="presentation">
+                                                    <path fill="var(--icon-fill-color)" stroke="transparent" fill-rule="evenodd" d="M6 5c2.4853 0 4.5 2.0147 4.5 4.5V18L6 19v5h6v-6h5v5h4v-5h6v5h4v-5h1c2.4853 0 4.5 2.0147 4.5 4.5S34.4853 27 32 27H6c-2.4853 0-4.5-2.0147-4.5-4.5v-13C1.5 7.0147 3.5147 5 6 5z" clip-rule="evenodd"></path>
+                                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M37 7V4H1v24h36V9"></path>
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M6 34h26"></path>
+                                                    <path stroke="currentColor" stroke-width="2" d="M14 28v6M24 28v6"></path>
+                                                    <circle cx="19" cy="9" r="2" stroke="currentColor" stroke-width="2"></circle>
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M8 15h22"></path>
+                                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M6 19h6v5H6zM16 19h6v5h-6zM26 19h6v5h-6z"></path>
+                                                </svg>
+                                            </bb-ui-icon-large-portfolios>
+                                        </div>
+
+                                        <h2 class="name text-center text-hover">
+                                            <span class="base.tools.myPortfoliosTitle" bb-translate="">Base de Conocimiento Académico</span>
+                                        </h2>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        @*<li ng-repeat="legacyToolKey in tool.legacyToolKeys track by $index" ng-if="tool.shouldBeShown(legacyToolKey)" class="grid-item">
+            <a ui-sref="base.tools.legacy({toolName: tool.getToolNameByKey(legacyToolKey)})" href="https://aulavirtual.upc.edu.pe/ultra/tools/goals" class="element-card tile course-color-3 js-course-details available student" ng-click="tool.handleToolLinkClick(legacyToolKey, $event)" analytics-id="base.tools.legacyTool.link">
+                <div class="element-details">
+                    <div ng-switch="::tool.getToolIconByKey(legacyToolKey)" class="icon-holder">
+
+
+                        <bb-ui-icon-large-goal ng-switch-when="goal"><svg class="MuiSvgIconroot-0-2-36 makeStylesdirectionalIcon-0-2-34 makeStylesstrokeIcon-0-2-32 MuiSvgIconfontSizeLarge-0-2-44" focusable="false" viewBox="0 0 38 38" aria-hidden="true" role="presentation"><path fill="var(--icon-fill-color)" stroke="transparent" fill-rule="evenodd" d="M10.3357.7111c2.4723.2545 4.2701 2.465 4.0157 4.9371-.1296 1.2586-.1282 3.3929.0279 5.4915.0765 1.0271.1838 1.9581.3084 2.6912.1169.688.2102.9596.2048.9615-.0006.0003-.0028-.0035-.0065-.011.3807.7889.6473 1.1837.9829 1.4842.2998.2685.9441.7168 2.4544.9978C20.4545 17.66 22 19.5197 22 21.6875v8c0 2.4853-2.0147 4.5-4.5 4.5s-4.5-2.0147-4.5-4.5v-4.697c-1.1973-.5389-2.2364-1.2156-3.1345-2.0197-1.6752-1.4999-2.562-3.1878-3.1102-4.3301-.5085-1.0599-.7764-2.3367-.9404-3.3019-.185-1.0887-.3201-2.3136-.4107-3.5312-.178-2.3906-.2093-5.101-.0056-7.0809.2545-2.4722 2.465-4.27 4.9371-4.0156z" clip-rule="evenodd"></path><path stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M28.8439 18.9268c1.1461-1.8272 1.8086-3.9954 1.805-6.3208V1H7.3409v11.5957c0 6.529 5.2248 11.8119 11.6591 11.8119 3.3593 0 6.3888-1.44 8.5158-3.744M19 31.1003c-6.4343 0-11.659 2.6261-11.659 5.87h23.3079c.0102-3.2439-5.2146-5.87-11.6489-5.87z"></path><path stroke="currentColor" stroke-miterlimit="10" stroke-width="2" d="M30 16c3.861 0 7-3.1368 7-7s-3.1286-7-7-7M8 2C4.1285 2 1 5.1345 1 9.0053 1 12.876 4.1285 16 8 16M17.6074 30.7605v-6.426M20.3926 24.3345v6.426M19.3435 8.1986l1.2493 2.3933c.052.1079.1665.1766.2811.1962l2.8003.3825c.3124.0392.4373.4022.2082.6081l-2.03 1.8637c-.0937.0784-.1353.1961-.1041.3138l.4789 2.6287c.0521.2943-.2707.5101-.5517.3728l-2.5089-1.2457c-.1145-.0589-.2395-.0589-.354 0l-2.4881 1.2457c-.281.1373-.6038-.0883-.5517-.3728l.4789-2.6287a.3488.3488 0 00-.1041-.3138l-2.03-1.8637c-.2291-.2059-.1042-.5689.2082-.6081l2.8003-.3825c.125-.0196.2291-.0883.2811-.1962l1.2493-2.3933c.1457-.2648.5517-.2648.687 0z"></path></svg></bb-ui-icon-large-goal>
+
+                    </div>
+
+                    <h2 class="name text-center text-hover">
+                        <span class="base.tools.goalsTitle" bb-translate="">Metas</span>
+                    </h2>
+                </div>
+            </a>
+        </li>
+        <li ng-repeat="legacyToolKey in tool.legacyToolKeys track by $index" ng-if="tool.shouldBeShown(legacyToolKey)" class="grid-item">
+            <a ui-sref="base.tools.legacy({toolName: tool.getToolNameByKey(legacyToolKey)})" href="https://aulavirtual.upc.edu.pe/ultra/tools/goalPerformance" class="element-card tile course-color-3 js-course-details available student" ng-click="tool.handleToolLinkClick(legacyToolKey, $event)" analytics-id="base.tools.legacyTool.link">
+                <div class="element-details">
+                    <div ng-switch="::tool.getToolIconByKey(legacyToolKey)" class="icon-holder">
+
+
+
+
+
+
+
+                        <bb-ui-icon-large-retention-center ng-switch-when="retention-center"><svg class="MuiSvgIconroot-0-2-36 makeStylesdirectionalIcon-0-2-34 makeStylesstrokeIcon-0-2-32 MuiSvgIconfontSizeLarge-0-2-44" focusable="false" viewBox="0 0 38 38" aria-hidden="true" role="presentation"><path fill="var(--icon-fill-color)" stroke="transparent" fill-rule="evenodd" d="M27.5131 8.5896c-.9176-1.0968-2.2971-1.683-3.7121-1.5774-1.4149.1056-2.6948.8902-3.444 2.1114l-4.6597 7.5949-3.1503-4.3841c-.9298-1.2941-2.468-1.9899-4.0393-1.8274-1.5712.1625-2.939 1.1589-3.592 2.6166L1 23v8.5c2.2327 1.0273 5.438-.0019 6.4514-2.2649l2.4017-5.3627 2.546 3.5432c.8694 1.2098 2.2753 1.9024 3.751 1.8477 1.4756-.0548 2.8279-.8496 3.6077-2.1206l4.9227-8.0235 7.1595 8.5575c1.0745 1.2843 2.7071 1.8057 4.2299 1.5084.7247-.1415.6873-.1851.6873-.1851v-9.3613L27.5131 8.5896zM8.64 19.5312c.9876 0 1.7882-.8114 1.7882-1.8124 0-1.0011-.8006-1.8126-1.7882-1.8126s-1.7882.8115-1.7882 1.8126c0 1.001.8006 1.8124 1.7882 1.8124zm8.6942 5.75c0 1.0011-.8006 1.8126-1.7882 1.8126-.9875 0-1.7881-.8115-1.7881-1.8126 0-1.001.8006-1.8124 1.7881-1.8124.9876 0 1.7882.8114 1.7882 1.8124zm7.1219-12.5937c.9876 0 1.7882-.8115 1.7882-1.8125s-.8006-1.8125-1.7882-1.8125-1.7882.8115-1.7882 1.8125.8006 1.8125 1.7882 1.8125z" clip-rule="evenodd"></path><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M37 32v5H1V1h36v29"></path><path stroke="currentColor" stroke-width="2" d="M1 27l6.769-7.5133M37 23.5468L25.765 12m-15.4796 7.5697l4.797 5.409m1.5468 0l7.7697-12.7765"></path><path fill="currentColor" stroke="transparent" fill-rule="evenodd" d="M9 17.1875a.8125.8125 0 100 1.625.8125.8125 0 000-1.625zM6.1875 18c0-1.5533 1.2592-2.8125 2.8125-2.8125S11.8125 16.4467 11.8125 18 10.5533 20.8125 9 20.8125 6.1875 19.5533 6.1875 18zM16 24.75a.8125.8125 0 100 1.625.8125.8125 0 000-1.625zm-2.8125.8125c0-1.5533 1.2592-2.8125 2.8125-2.8125s2.8125 1.2592 2.8125 2.8125S17.5533 28.375 16 28.375s-2.8125-1.2592-2.8125-2.8125zM25.0312 10.3438a.8124.8124 0 00-.8124.8124.8125.8125 0 101.625 0 .8125.8125 0 00-.8126-.8124zm-2.8124.8124c0-1.5533 1.2591-2.8125 2.8124-2.8125 1.5534 0 2.8126 1.2592 2.8126 2.8125 0 1.5534-1.2592 2.8126-2.8126 2.8126-1.5533 0-2.8124-1.2592-2.8124-2.8126z" clip-rule="evenodd"></path></svg></bb-ui-icon-large-retention-center>
+
+                    </div>
+
+                    <h2 class="name text-center text-hover">
+                        <span class="base.tools.goalPerformance" bb-translate="">Desempeño de metas</span>
+                    </h2>
+                </div>
+            </a>
+        </li>
+        <li ng-repeat="placement in ::tool.placements | orderBy:'name'" class="grid-item">
+            <a ng-click="tool.launchPlacement(placement)" href="javascript:void(0);" class="element-card tile course-color-3 js-course-details available student" analytics-id="base.tools.placementTool.link">
+                <div class="element-details">
+                    <div class="icon-holder">
+                        <bb-ui-icon-large-lti ng-if="!placement.iconUrl"><svg class="MuiSvgIconroot-0-2-36 makeStylesdirectionalIcon-0-2-34 makeStylesstrokeIcon-0-2-32 MuiSvgIconfontSizeLarge-0-2-44" focusable="false" viewBox="0 0 38 38" aria-hidden="true" role="presentation"><path fill="var(--icon-fill-color)" stroke="transparent" fill-rule="evenodd" d="M30.4307 10.4899c2.3564-.427 3.9798-2.6393 3.653-5.0354-.3358-2.4625-2.6042-4.1865-5.0667-3.8507-1.0364.1414-2.1671.6066-2.8734.912-.8833.3818-1.891.8727-2.9074 1.4078-1.993 1.0492-4.3016 2.417-5.9652 3.6859-3.9607 3.0208-7.4717 6.5709-9.0408 8.3742-1.6314 1.8748-1.434 4.7172.441 6.3486 1.8748 1.6314 4.7172 1.434 6.3486-.4409 1.2226-1.4051 4.2949-4.5216 7.7092-7.1258 1.0979-.8374 2.9144-1.9383 4.6997-2.8781.8728-.4595 1.6677-.8432 2.2864-1.1108.5056-.2185.7186-.2817.7173-.2865 0-.0002-.0006-.0003-.0017-.0003z" clip-rule="evenodd"></path><path stroke="currentColor" stroke-width="2" d="M21.0246 8.0331c5.3006-3.5072 10.9235-6.1728 12.6865-4.4623 2.962 2.8738-6.0936 17.012-11.0122 22.0816-4.9186 5.0696-5.5613.9275-8.5234-1.9463-2.962-2.8738-7.1216-3.3911-2.203-8.4607 1.7056-1.758 4.4862-4.0462 7.5147-6.1657M15.6399 11.5968l-.7676-.805c-1.334-1.399-3.5494-1.4517-4.9484-.1177l-6.251 5.9608.7675.805c1.334 1.3989 3.5494 1.4516 4.9484.1176l6.2511-5.9607zM26.3477 21.9856l.8278.743c1.4386 1.291 1.5583 3.5039.2672 4.9425l-5.7691 6.4284-.8278-.7429c-1.4387-1.291-1.5583-3.5039-.2672-4.9425l5.7691-6.4285z"></path><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M21.0889 16.5806l-9.0524 9.3302"></path><path stroke="currentColor" stroke-width="2" d="M30.801 12.767c-1.3104-.8197-2.5951-1.8212-3.8039-2.994-1.4215-1.3791-2.6093-2.8703-3.5441-4.3926M12.2515 14.2006c1.6156 2.074 3.4169 4.0875 5.3976 6.0091 1.6988 1.6483 3.4613 3.1627 5.2674 4.5397M15.9849 29.045c-.3692.8269-.9022 1.6247-1.5941 2.3378-2.6105 2.6906-10.0802 3.0554-10.0802 3.0554s-.4251-8.0245 2.1853-10.7151c.692-.7132 1.4733-1.27 2.2886-1.664"></path></svg></bb-ui-icon-large-lti>
+                    </div>
+
+                    <h2 class="name text-center text-hover">
+                        <span class="tool-title" title="Autorización de la aplicación">Autorización de la aplicación</span>
+                    </h2>
+                </div>
+            </a>
+        </li>*@
+                        @if (@Session["Login-Info"] != null && rol == "COORDINADOR" || rol == "ADMINISTRADOR")
+                        {
+                            <li ng-repeat="legacyToolKey in tool.legacyToolKeys track by $index" ng-if="tool.shouldBeShown(legacyToolKey)" class="grid-item">
+                                <a ui-sref="base.tools.legacy({toolName: tool.getToolNameByKey(legacyToolKey)})" href="javascript:toolspanel.panelopen('@Url.Content("/Dashboard/Index")');" class="element-card tile course-color-3 js-course-details available student" ng-click="tool.handleToolLinkClick(legacyToolKey, $event)" analytics-id="base.tools.legacyTool.link">
+                                    <div class="element-details">
+                                        <div ng-switch="::tool.getToolIconByKey(legacyToolKey)" class="icon-holder">
+                                            <bb-ui-icon-large-retention-center ng-switch-when="retention-center">
+                                                <svg class="MuiSvgIconroot-0-2-36 makeStylesdirectionalIcon-0-2-34 makeStylesstrokeIcon-0-2-32 MuiSvgIconfontSizeLarge-0-2-44" focusable="false" viewBox="0 0 38 38" aria-hidden="true" role="presentation">
+                                                    <path fill="var(--icon-fill-color)" stroke="transparent" fill-rule="evenodd" d="M27.5131 8.5896c-.9176-1.0968-2.2971-1.683-3.7121-1.5774-1.4149.1056-2.6948.8902-3.444 2.1114l-4.6597 7.5949-3.1503-4.3841c-.9298-1.2941-2.468-1.9899-4.0393-1.8274-1.5712.1625-2.939 1.1589-3.592 2.6166L1 23v8.5c2.2327 1.0273 5.438-.0019 6.4514-2.2649l2.4017-5.3627 2.546 3.5432c.8694 1.2098 2.2753 1.9024 3.751 1.8477 1.4756-.0548 2.8279-.8496 3.6077-2.1206l4.9227-8.0235 7.1595 8.5575c1.0745 1.2843 2.7071 1.8057 4.2299 1.5084.7247-.1415.6873-.1851.6873-.1851v-9.3613L27.5131 8.5896zM8.64 19.5312c.9876 0 1.7882-.8114 1.7882-1.8124 0-1.0011-.8006-1.8126-1.7882-1.8126s-1.7882.8115-1.7882 1.8126c0 1.001.8006 1.8124 1.7882 1.8124zm8.6942 5.75c0 1.0011-.8006 1.8126-1.7882 1.8126-.9875 0-1.7881-.8115-1.7881-1.8126 0-1.001.8006-1.8124 1.7881-1.8124.9876 0 1.7882.8114 1.7882 1.8124zm7.1219-12.5937c.9876 0 1.7882-.8115 1.7882-1.8125s-.8006-1.8125-1.7882-1.8125-1.7882.8115-1.7882 1.8125.8006 1.8125 1.7882 1.8125z" clip-rule="evenodd"></path>
+                                                    <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M37 32v5H1V1h36v29"></path>
+                                                    <path stroke="currentColor" stroke-width="2" d="M1 27l6.769-7.5133M37 23.5468L25.765 12m-15.4796 7.5697l4.797 5.409m1.5468 0l7.7697-12.7765"></path>
+                                                    <path fill="currentColor" stroke="transparent" fill-rule="evenodd" d="M9 17.1875a.8125.8125 0 100 1.625.8125.8125 0 000-1.625zM6.1875 18c0-1.5533 1.2592-2.8125 2.8125-2.8125S11.8125 16.4467 11.8125 18 10.5533 20.8125 9 20.8125 6.1875 19.5533 6.1875 18zM16 24.75a.8125.8125 0 100 1.625.8125.8125 0 000-1.625zm-2.8125.8125c0-1.5533 1.2592-2.8125 2.8125-2.8125s2.8125 1.2592 2.8125 2.8125S17.5533 28.375 16 28.375s-2.8125-1.2592-2.8125-2.8125zM25.0312 10.3438a.8124.8124 0 00-.8124.8124.8125.8125 0 101.625 0 .8125.8125 0 00-.8126-.8124zm-2.8124.8124c0-1.5533 1.2591-2.8125 2.8124-2.8125 1.5534 0 2.8126 1.2592 2.8126 2.8125 0 1.5534-1.2592 2.8126-2.8126 2.8126-1.5533 0-2.8124-1.2592-2.8124-2.8126z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </bb-ui-icon-large-retention-center>
+                                        </div>
+                                        <h2 class="name text-center text-hover">
+                                            <span class="base.tools.goalPerformance" bb-translate="">Dashboard de Consultas</span>
+                                        </h2>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var toolspanel = {
+        panelopen: function (e) {
+            var htmloverlay = '<div class="bb-offcanvas-overlay" style="top: 0px;"></div>';
+            var htmlpanel = '<div id="panel-wrap-iframe" data-base-state-name="base.tools.peek" class="first bb-offcanvas-panel bb-offcanvas-right full with-banner hide-in-background panel-has-focus " tabindex="-1" aria-hidden="false" data-page-title="Inicio de LTI" style="display: block; top: 0px;">'
+                + '<div class="bb-offcanvas-panel-wrap">'
+                + '<div class="bb-close-offset" style="top: 0px;"><button class="bb-close" data-close="bb-offcanvas" aria-label="Cerrar" analytics-id="bb-close.course.content.ltiLaunchFrameTitle">×</button></div>'
+                //+ '<div class="side-panel-content" style="height: calc(100% - 0px);">'
+                //+ '<div bb-dir="" dir="ltr">'
+                //+ '<div ui-view="base-tools-panel@@" bb-offcanvas-pausal-scope="">'
+                //+ '<div class="page-lti-launch-frame">'
+                //+ '<div class="panel-wrap">'
+                //+ '<header class="panel-header simple-header">'
+                //+ '<div class="panel-titles-container">'
+                //+ '<span class="panel-sub-title"></span>'
+                //+ '<div class="black-header-contents">'
+                //+ '<button class="left-off-canvas-toggle menu-toggle standard-button dark-background" type="button" analytics-id="course.content.menu.button">'
+                //+ '<bb-svg-icon size="small" icon="main-menu">'
+                //+ '<svg class="svg-icon svg-icon-directive small-icon default directional-icon" focusable="false" aria-hidden="true" bb-cache-compilation="svg-icon">'
+                //+ '<use xlink:href="https://aulavirtual.upc.edu.pe/ultra/tools/lti/launchFrame?toolHref=https:~2F~2Faulavirtual.upc.edu.pe~2Fwebapps~2Fblackboard~2Fexecute~2Fblti~2FlaunchPlacement%3Fblti_placement_id%3D_1929_1%26wrapped%3Dtrue%26from_ultra%3Dtrue#icon-small-main-menu" ng-href="https://aulavirtual.upc.edu.pe/ultra/tools/lti/launchFrame?toolHref=https:~2F~2Faulavirtual.upc.edu.pe~2Fwebapps~2Fblackboard~2Fexecute~2Fblti~2FlaunchPlacement%3Fblti_placement_id%3D_1929_1%26wrapped%3Dtrue%26from_ultra%3Dtrue#icon-small-main-menu"></use>'
+                //+ '</svg>'
+                //+ '</bb-svg-icon>'
+                //+ '<span class="sr-only" bb-translate="">Menú</span>'
+                //+ '</button>'
+                //+ '<h1 class="panel-title">Inicio de LTI</h1>'
+                //+ '</div>'
+                //+ '</div>'
+                //+ '</header>'
+                + '<div class="panel-content iframe-wrapper" style="position: absolute !important;">'
+                + '<bb-lti-launch-frame style="width: 100%">'
+                + '<iframe name="lti-launch-iframe" id="lti-launch-iframe" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *; fullscreen *" bb-iframe-max-height="" seamless="seamless" bb-translate-attrs="{\'title\':\'course.content.ltiLaunchFrameTitle\'}" src="'+e+'" style="width: 100%; height: 100%;" title="Inicio de LTI"></iframe>'
+                + '</bb-lti-launch-frame>'
+                + '</div>'
+
+                //+ '</div>'
+                //+ '<div ui-view=""></div>'
+                //+ '</div></div>'
+                //+ '</div>'
+                //+ '</div>'
+                + '</div>'
+                + '</div>';
+
+            $('#main-content').append(htmloverlay + htmlpanel);
+            setTimeout(function () {
+                $('#panel-wrap-iframe').addClass("active");
+            }, 200);
+
+            $('.bb-close').on('click', function () {
+                setTimeout(function () {
+                    $('#panel-wrap-iframe').removeClass("active");
+                }, 100);
+
+                setTimeout(function () {
+                    $('.bb-offcanvas-overlay').remove();
+                    $('#panel-wrap-iframe').remove();
+                }, 350);
+            })
+        }
+    }
+
+</script>

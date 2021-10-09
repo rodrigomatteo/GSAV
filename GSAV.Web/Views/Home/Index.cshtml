@@ -6,14 +6,184 @@
 
     ViewBag.Title = "Home";
 }
+<div class="institution-page-container">
+    <header ng-class="::{'color-selection-preview-mode': previewMode, 'color-selection-live-mode': !previewMode}"
+            class="base-header themed-background-primary-medium-down color-selection-live-mode"
+            ng-multi-transclude-controller="" ng-attr-aria-hidden="{{ (previewMode ? 'true' : 'false') }}"
+            page-title-key="base.nav.institutionPage" header-not-skip-target="true" aria-hidden="false">
+        <section ng-class="::{'show-for-medium-down': !previewMode}" aria-labelledby="menuId"
+                 class="show-for-medium-down">
+            <button ng-class="::{'left-off-canvas-toggle': !previewMode, 'menu-toggle': !previewMode}"
+                    class="standard-button dark-background themed-background-primary-medium-down left-off-canvas-toggle menu-toggle"
+                    ng-attr-tabindex="{{ (previewMode ? '-1' : '') }}" analytics-id="base.menu.button" tabindex="">
+                <bb-svg-icon size="small" icon="main-menu">
+                    <svg class="svg-icon svg-icon-directive small-icon default directional-icon" focusable="false"
+                         aria-hidden="true" bb-cache-compilation="svg-icon">
+                        <use xlink:href="https://aulavirtual.upc.edu.pe/ultra/institution-page#icon-small-main-menu"
+                             ng-href="https://aulavirtual.upc.edu.pe/ultra/institution-page#icon-small-main-menu"></use>
+                    </svg>
+                </bb-svg-icon>
+                <span class="sr-only" id="menuId" bb-translate="">Menú</span>
+            </button>
+        </section>
+        <h1 class="page-title a themed-background-primary-medium-down" id="main-heading" bb-translate=""
+            tabindex="-1"
+            ng-class="{'has-filter': hasFilter(), 'js-base-page-skip-link-target': !headerNotSkipTarget()}">
+            Página de la institución
+        </h1>
+        <div ng-multi-transclude="base-header-tools" class="base-header-tools-transclude"></div>
+    </header>
+    <institution-page-home variant-id="variantId">
+        <div>
+            <div class="ip-app">
+                <div class="index-container">
+                    <div class="flex-page-container">
+                        <div id="home-modules-section" class="flex-page-content">
+                            <div class="banner"
+                                 style="background-image: url(&quot;https://aulavirtual.upc.edu.pe/bbcswebdav/xid-274840790_1&quot;);">
+                                <div class="banner__logo-container">
+                                    <div class="banner__logo"
+                                         style="background-image: url(&quot;https://aulavirtual.upc.edu.pe/bbcswebdav/xid-274840792_1&quot;);">
+                                    </div>
+                                </div>
+                                <h2 class="banner__title"><span class="banner__title-text"></span></h2>
+                            </div>
+                            <div class="modules-container">
+                                <div>
+                                    <div class="dnd-drag-placeholder"></div>
+                                    <div>
+                                        <div class="module-section" tabindex="-1">
+                                            <div class="insert-placeholder first-insert-placeholder"></div>
+                                            <div tabindex="-1" class="key-insert-placeholder"></div>
+                                            <div class="item-container">
+                                                <div id="dnd-eb95b5fd-11f1-4ec8-a96e-ec1118587cfa">
+                                                    <div class="module-wrapper">
+                                                        <div class="module-wrapper__content drag-drop-item__highlight-area">
+                                                            <div class="module-wrapper__header">
+                                                                <div class="module-wrapper__header-left">
+                                                                    <h3 class="subheader module-wrapper__title">Aprendizaje Digital</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="image-links-component__container-left">
+                                                                <div class="image-carousel-component">
+                                                                    <div class="module-overview-component full-width"
+                                                                         style="background-image: url(&quot;https://aulavirtual.upc.edu.pe/bbcswebdav/xid-295177678_1&quot;);">
+                                                                    </div>
+                                                                    <div class="image-carousel-component__indicator-container"></div>
+                                                                </div>
+                                                                <div class="link-list-component link-list-image-left">
+                                                                    <div class="link-list-component__column">
+                                                                        <ul class="link-list-component__list">
+                                                                            <li class="link-list-component__list-item">
+                                                                                <a href="https://bit.ly/3CUKgGi" rel="noopener noreferrer"
+                                                                                   target="_blank" role="link"
+                                                                                   class="link-list-component__link -black"
+                                                                                   data-analytics-id="institutionPage.home.homeModuleSection.moduleItem.imageModule.imageOrientationLeft.linkList.link">
+                                                                                    Asiste
+                                                                                    a la única sesión introductoria de tu curso electivo
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="link-list-component__list-item">
+                                                                                <a href="https://cerbero.upc.edu.pe/apps/gmailingpregrado/Mailing.aspx?idMailing=33701&amp;idTele=1"
+                                                                                   rel="noopener noreferrer" target="_blank" role="link"
+                                                                                   class="link-list-component__link -black"
+                                                                                   data-analytics-id="institutionPage.home.homeModuleSection.moduleItem.imageModule.imageOrientationLeft.linkList.link">
+                                                                                    ¡Conoce
+                                                                                    a tu Asistente de Aprendizaje a Distancia!
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="insert-placeholder"></div>
+                                            <div class="drop-down-half" data-position="1"></div>
+                                            <div class="drop-up-half" data-position="0"></div>
+                                            <div class="drag-preview-item">
+                                                <div class="module-list-preview">Aprendizaje Digital</div>
+                                            </div>
+                                            <div tabindex="-1" class="key-insert-placeholder"></div>
+                                        </div>
+                                        <div class="module-section" tabindex="-1">
+                                            <div class="item-container">
+                                                <div id="dnd-a37e42df-c8bd-44a5-85e8-822a40f7aad4">
+                                                    <div class="module-wrapper">
+                                                        <div class="module-wrapper__content drag-drop-item__highlight-area">
+                                                            <div class="module-wrapper__header">
+                                                                <div class="module-wrapper__header-left">
+                                                                    <h3 class="subheader module-wrapper__title">
+                                                                        Servicios Universitarios
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="image-links-component__container-left">
+                                                                <div class="image-carousel-component">
+                                                                    <div class="module-overview-component full-width"
+                                                                         style="background-image: url(&quot;https://aulavirtual.upc.edu.pe/bbcswebdav/xid-295224037_1&quot;);">
+                                                                    </div>
+                                                                    <div class="image-carousel-component__indicator-container"></div>
+                                                                </div>
+                                                                <div class="link-list-component link-list-image-left">
+                                                                    <div class="link-list-component__column">
+                                                                        <ul class="link-list-component__list">
+                                                                            <li class="link-list-component__list-item">
+                                                                                <a href="https://bit.ly/BibliotecaUPC" rel="noopener noreferrer"
+                                                                                   target="_blank" role="link"
+                                                                                   class="link-list-component__link -black"
+                                                                                   data-analytics-id="institutionPage.home.homeModuleSection.moduleItem.imageModule.imageOrientationLeft.linkList.link">
+                                                                                    ¡Los
+                                                                                    servicios de la Biblioteca UPC más cerca de ti!
+                                                                                </a>
+                                                                            </li>
+                                                                            <li class="link-list-component__list-item">
+                                                                                <a href="https://cerbero.upc.edu.pe/apps/gmailingpregrado/Mailing.aspx?idMailing=33701&amp;idTele=1"
+                                                                                   rel="noopener noreferrer" target="_blank" role="link"
+                                                                                   class="link-list-component__link -black"
+                                                                                   data-analytics-id="institutionPage.home.homeModuleSection.moduleItem.imageModule.imageOrientationLeft.linkList.link">
+                                                                                    ¡Conoce
+                                                                                    a tu Asistente de Aprendizaje a Distancia!
+                                                                                </a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="insert-placeholder"></div>
+                                            <div class="drop-down-half" data-position="2"></div>
+                                            <div class="drop-up-half" data-position="1"></div>
+                                            <div class="drag-preview-item">
+                                                <div class="module-list-preview">Servicios Universitarios</div>
+                                            </div>
+                                            <div tabindex="-1" class="key-insert-placeholder"></div>
+                                        </div>
+                                        <div class="module-section" tabindex="-1"><div class="item-container"><div id="dnd-d79c560e-aa0b-475e-8686-048b3002bb65"><div class="module-wrapper"><div class="module-wrapper__content drag-drop-item__highlight-area"><div class="module-wrapper__header"><div class="module-wrapper__header-left"><h3 class="subheader module-wrapper__title">VIDA UPC - Lista de Reproducción</h3></div></div><div class="content-component__container bb-editor-fill"><div class="bb-editor-root" role="presentation"><div class="keyboard-tooltip-container no-toolbar"><div role="presentation" class="bb-editor-container ql-container ql-disabled is-read-only"><div class="ql-editor bb-editor" data-gramm="false" contenteditable="false" id="bb-editor-textbox" aria-readonly="true"><p><br></p><div data-bbtype="video" data-bbfile="{&quot;alt&quot;:&quot;https://www.youtube.com/embed/NL2Nfq_XHCo?list=PLGS399syPVbeBRaQsSiXttC48trd8X9HV&quot;,&quot;src&quot;:&quot;https://www.youtube.com/embed/NL2Nfq_XHCo?list=PLGS399syPVbeBRaQsSiXttC48trd8X9HV&quot;}" contenteditable="false" class="wants-props-update"><div class="bb-video-embed"><iframe frameborder="0" allowfullscreen="" tabindex="0" src="https://www.youtube.com/embed/NL2Nfq_XHCo?list=PLGS399syPVbeBRaQsSiXttC48trd8X9HV" class="no-select"></iframe></div></div><p><br></p></div><div class="ql-clipboard" contenteditable="true" tabindex="-1" aria-hidden="true"></div></div></div></div></div></div></div></div></div><div tabindex="-1" class="key-insert-placeholder"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </institution-page-home>
+    <div ui-view=""></div>
+</div>
 
-<div class="contentPaneWide clearfix tabbedPane portal">
+<div class="contentPaneWide clearfix tabbedPane portal" style="display:none;">
 
     <div class="paneTabs clearfix">
         <h2 class="hideoff" id="anonymous_element_2">Fichas</h2>
         <ul id="paneTabs" class="clearfix nav">
             <li class="active ">
-                <a href="@Url.Content("/Home/Index")">Mi institución<span class="hideoff"> (ficha activa)</span></a>
+                <a href="@Url.Content("/Home/Index")">Mi institución<span class="hideoff"> (ficha activa1)</span></a>
             </li>
             <li class=" ">
                 <a href="@Url.Content("/Home/Index")">Panel de notificaciones</a>
@@ -184,9 +354,9 @@
     }
 
     function ExecuteChat() {
-
+        
         var params = BotChat.queryParams(location.search);
-
+        console.log(location.search);
         var user = {
             id: "@Session["User-Id"]",
             name: '@User.Identity.GetUserName()'
@@ -203,7 +373,7 @@
 
         var botConnection = new BotChat.DirectLine(
             {
-                token: "DWjCh-AFKgI.cwA.AdA.gqr0jZJ1bQy-fxwxPYbRyEqav0u9x6rM0qT3UY9OuPU",
+                token: "8Dkr_8xlF-s.qTV_NS0DyGHSfAM7zGT8ngSf6j3XJ4oP_yS3gEtLlhM",
                 user: user,
                 webSocket: false
             });
@@ -221,7 +391,7 @@
             //    webSocket: false
             //},
             directLine: {
-                secret: "DWjCh-AFKgI.cwA.AdA.gqr0jZJ1bQy-fxwxPYbRyEqav0u9x6rM0qT3UY9OuPU",
+                secret: "8Dkr_8xlF-s.qTV_NS0DyGHSfAM7zGT8ngSf6j3XJ4oP_yS3gEtLlhM",
                 webSocket: false
             }
             //botConnection: {

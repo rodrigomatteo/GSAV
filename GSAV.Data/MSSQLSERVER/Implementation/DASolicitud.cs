@@ -443,7 +443,7 @@ namespace GSAV.Data.MSSQLSERVER.Implementation
                     cmd.CommandType = CommandType.StoredProcedure;
 
 
-                    SqlDataReader rd = cmd.ExecuteReader();
+                    SqlDataReader rd = cmd.ExecuteReader(CommandBehavior.CloseConnection);
                     if (rd.HasRows)
                     {
                         while (rd.Read())
